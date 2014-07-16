@@ -1,0 +1,32 @@
+#! /bin/csh 
+
+######################
+set release=$1
+set refFile=$2
+set newFile=$3
+#####################
+
+#ls /afs/cern.ch/cms/Physics/tracking/validation/DATA/
+
+#ls /afs/cern.ch/cms/Physics/tracking/validation/DATA/$release 
+
+if(! -d RunComparison) mkdir RunComparison
+
+#if(! -d /afs/cern.ch/cms/Physics/tracking/validation/DATA/$release) mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/$release 
+
+#if(! -d /afs/cern.ch/cms/Physics/tracking/validation/DATA/test_kmcdermo) mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/test_kmcdermo
+
+#echo "root.exe -b -q -l "RunValidationComparison.C("\"$refFile\",\"$newFile\"")"
+root.exe -b -q -l "RunValidationComparison.C("\"$refFile\",\"$newFile\"")"
+
+#cp RunComparison/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/test_kmcdermo
+
+#cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/test_kmcdermo
+cd RunComparison
+../diow.pl -t "$release validation" -c 3 -icon 200
+cd -
+
+
+#
+#
+#
