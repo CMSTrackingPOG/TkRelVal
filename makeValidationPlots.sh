@@ -26,10 +26,11 @@ fi
 #scaled and unscaled
 
 #Do this for all matching data sets
-for scale in 0 1 3
+#for scale in 0 1 3
+for scale in 3
 do 
   
-  for sample in Jet #MinimumBias #SingleMu #SingleElectron JetHT MinimumBias MET Tau SinglePhoton DoubleElectron
+  for sample in MinimumBias Jet #SingleMu #SingleElectron JetHT MinimumBias MET Tau SinglePhoton DoubleElectron
     do
 
     #Set the files to be used for this sample
