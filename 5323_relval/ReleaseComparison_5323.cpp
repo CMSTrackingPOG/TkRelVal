@@ -76,7 +76,7 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
   TString dirname = "BeamSpotParameters";
 
   // Histograms in GeneralProperties directory
-  dirname = "/Tracking/Run summary/TrackParameters/generalTracks/GeneralProperties";
+  dirname = "/Tracking/Run summary/TrackParameters/GeneralProperties";
   
   createPlot("algorithm", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("DistanceOfClosestApproachToBS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
@@ -88,45 +88,45 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
   createPlot("Chi2Prob", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("TrackPt_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
 
-  dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_1/GeneralProperties";
+  dirname = "/Tracking/Run summary/TrackParameters/GeneralProperties/GoodTracks";
   createPlot("FractionOfGoodTracks", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfTracks", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("algorithm", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfGoodTracks", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("Algorithm", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("Chi2oNDF", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("TrackEta_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("TrackPhi_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("TrackPt_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("Eta_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("Phi_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("Pt_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
 
   // Histograms in HitProperties directory
-  dirname = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties";
+  dirname = "/Tracking/Run summary/TrackParameters/HitProperties";
   createPlot("NumberOfRecHitsPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfValidRecHitsPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfLostRecHitsPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfRecHitsFoundPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfRecHitsLostPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("NumberOfLayersPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
 
-  dirname = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties/TIB";
-  createPlot("NumberOfRecHitsPerTrack_TIB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfLayersPerTrack_TIB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  dirname = "/Tracking/Run summary/TrackParameters/HitProperties/TIB";
+  createPlot("NumberOfTIBRecHitsPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfTIBLayersPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
 
-  dirname = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties/TOB";
-  createPlot("NumberOfRecHitsPerTrack_TOB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfLayersPerTrack_TOB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  dirname = "/Tracking/Run summary/TrackParameters/HitProperties/TOB";
+  createPlot("NumberOfTOBRecHitsPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfTOBLayersPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
 
-  dirname = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties/TID";
-  createPlot("NumberOfRecHitsPerTrack_TID", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfLayersPerTrack_TID", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  dirname = "/Tracking/Run summary/TrackParameters/HitProperties/TID";
+  createPlot("NumberOfTIDRecHitsPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfTIDLayersPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
 
-  dirname = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties/TEC";
-  createPlot("NumberOfRecHitsPerTrack_TEC", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfLayersPerTrack_TEC", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  dirname = "/Tracking/Run summary/TrackParameters/HitProperties/TEC";
+  createPlot("NumberOfTECRecHitsPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfTECLayersPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
 
-  dirname = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties/PixBarrel";
-  createPlot("NumberOfRecHitsPerTrack_PixBarrel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfLayersPerTrack_PixBarrel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  dirname = "/Tracking/Run summary/TrackParameters/HitProperties/PixBarrel";
+  createPlot("NumberOfPixBarrelRecHitsPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfPixBarrelLayersPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
 
-  dirname = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties/PixEndcap";
-  createPlot("NumberOfRecHitsPerTrack_PixEndcap", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfLayersPerTrack_PixEndcap", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  dirname = "/Tracking/Run summary/TrackParameters/HitProperties/PixEndcap";
+  createPlot("NumberOfPixEndcapRecHitsPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfPixEndcapLayersPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
 
   //Primary vertices
   dirname = "/OfflinePV/Run summary/offlinePrimaryVertices";
@@ -150,6 +150,12 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
   mainpad->cd();
 
   // ************ Get name of histos and get histos ************* //
+
+  if (dirname.Contains("GeneralProperties/GoodTracks",TString::kExact)){
+    if ((hname != "FractionOfGoodTracks") && (hname != "NumberOfGoodTracks")){
+      hname.Prepend("GoodTrack");
+    }
+  }
   
   TString basename1 = "DQMData/Run ";
   basename1.Append(runstring1);
@@ -184,7 +190,7 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
     cout << "histV2 failed on " << hnameV2  << endl << " for file " << V2file->GetName() << endl;
     exit(1);
   }
-  
+
   // Check that bins match for ratio plot
 
   TH1F * histV1 = 0;
@@ -264,11 +270,11 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
   else if ( (SetScale==2) || (SetScale==3) ){
     if (hname != "NumberOfTracks"){
       TString hTempNameV1 = basename1;
-      hTempNameV1.Append("/Tracking/Run summary/TrackParameters/generalTracks/GeneralProperties/NumberOfTracks_GenTk");
+      hTempNameV1.Append("/Tracking/Run summary/TrackParameters/GeneralProperties/NumberOfTracks_GenTk");
       hNormTempV1 = (TH1F*)V1file->Get(hTempNameV1);
       
       TString hTempNameV2 = basename2;
-      hTempNameV2.Append("/Tracking/Run summary/TrackParameters/generalTracks/GeneralProperties/NumberOfTracks_GenTk");
+      hTempNameV2.Append("/Tracking/Run summary/TrackParameters/GeneralProperties/NumberOfTracks_GenTk");
       hNormTempV2 = (TH1F*)V2file->Get(hTempNameV2);
     }
     else{
@@ -297,14 +303,10 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
   if(V1_integral>V2_integral) {
     histV1->Scale(V2_integral / V1_integral);
     histV2->Scale(1);
-
-    std::cout << "Set scale: " << V2_integral / V1_integral << std::endl;
   } 
   else if(V2_integral>V1_integral){
     histV1->Scale(1);
     histV2->Scale(V1_integral / V2_integral);
-
-    std::cout << "Set scale: " << V1_integral / V2_integral << std::endl;
   }
 
   //*****NORMALIZING V1-V2*end***************************************
@@ -315,43 +317,6 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
 
   histV1->SetName(V1_V1run);
   histV2->SetName(V2_V2run);
-
-  TString x_title = "";
-
-  if( hname.Contains("DistanceOfClosestApproach",TString::kExact) )   x_title = "d0" ;
-  if( hname.Contains("xPointOfClosestApproach",TString::kExact) )   x_title = "x PCA" ;
-  if( hname.Contains("yPointOfClosestApproach",TString::kExact) )   x_title = "y PCA" ;
-  if( hname.Contains("zPointOfClosestApproach",TString::kExact) )   x_title = "z PCA" ;
-  if( hname.Contains("Pt",TString::kExact) )                  x_title = "p_{T} (GeV)" ;
-  if( hname.Contains("Eta",TString::kExact) )                 x_title = "#eta" ;
-  if( hname.Contains("Phi",TString::kExact) )                 x_title = "#phi" ;
-  if( hname.Contains("pdg",TString::kExact) )                 x_title = "Particle Data ID #" ;
-  if( hname.Contains("NumberOfRecHitsPerTrack",TString::kExact) )        x_title = "#Hits/Track" ;
-  if( hname.Contains("nTECHitPerTrack",TString::kExact) )     x_title = "TEC #Hits" ;
-  if( hname.Contains("nTIBHitPerTrack",TString::kExact) )     x_title = "TIB #Hits" ;
-  if( hname.Contains("nTIDHitPerTrack",TString::kExact) )     x_title = "TID #Hits" ;
-  if( hname.Contains("nTOBHitPerTrack",TString::kExact) )     x_title = "TOB #Hits" ;
-  if( hname.Contains("nPXBHitPerTrack",TString::kExact) )     x_title = "Barrel Pixel #Hits" ;
-  if( hname.Contains("nPXFHitPerTrack",TString::kExact) )     x_title = "Foward Pixel #Hits" ;
-  if( hname.Contains("Chi2"))                                 x_title="#chi^{2}";
-  if( hname.Contains("Chi2ndof"))                             x_title="#chi^{2}/ndof";
-  if( hname.Contains("NumberOfTracks"))                             x_title="#Tracks";
-  if( hname.Contains("vtxNbr"))                               x_title="Number of Primary Vertices per Event";
-
-  TString hist_title;
-
-  if( hname.Contains("xPointOfClosestApproach",TString::kExact) )               hist_title = x_title ;
-  if( hname.Contains("zPointOfClosestApproach",TString::kExact) )               hist_title = x_title ;
-  if( hname.Contains("Pt",TString::kExact) )               hist_title = "p_{T}" ;
-  if( hname.Contains("Eta",TString::kExact) )              hist_title = x_title ;
-  if( hname.Contains("Phi",TString::kExact) )              hist_title = x_title ;
-  if( hname.Contains("NumberOfRecHitsPerTrack",TString::kExact) )     hist_title = x_title ;
-  if( hname.Contains("pdg",TString::kExact) )              hist_title = x_title ;
-  if( hname.Contains("nTECHitPerTrack",TString::kExact) )  hist_title = x_title ;
-  if( hname.Contains("nTIBHitPerTrack",TString::kExact) )  hist_title = x_title ;
-  if( hname.Contains("nTIDHitPerTrack",TString::kExact) )  hist_title = x_title ;
-  if( hname.Contains("nTOBHitPerTrack",TString::kExact) )  hist_title = x_title ;
-  if( hname.Contains("NumberOfTracks") )                        hist_title = x_title;
 
   double max = 0;
   double V1max = histV1->GetBinContent(histV1->GetMaximumBin());
@@ -369,14 +334,24 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
   histV2->SetLineStyle(1);
   histV2->SetLineColor(kBlue);
 
+
+
   if( hname.Contains("NumberOfTracks",TString::kExact)
       || hname.Contains("NumberOfGoodTracks",TString::kExact)
       || hname.Contains("TrackPt",TString::kExact)
       || hname.Contains("Chi2Prob",TString::kExact)
-      )
+      ){
     mainpad->SetLogy(1);
-  else
+  }
+  else{
     mainpad->SetLogy(0);
+  }
+
+  if (hname.Contains("NumberOfTracks",TString::kExact)){
+    histV1->GetXaxis()->SetRangeUser(0,500);
+    histV2->GetXaxis()->SetRangeUser(0,500);
+  }
+  
   if (hname.Contains("NumberOfGoodTracks",TString::kExact)) {
     histV1->GetXaxis()->SetRangeUser(0,200);
     histV2->GetXaxis()->SetRangeUser(0,200);
@@ -388,7 +363,7 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
   }
 
   if (hname.Contains("vtxNbr")){
-    histV1->GetXaxis()->SetTitle(x_title);
+    histV1->GetXaxis()->SetTitle("Number of Primary Vertices per Event");
     histV1->GetYaxis()->SetTitle("Number of Events");
   }
 
@@ -474,7 +449,7 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
     filename = "NumberOfPrimaryVertices";
   }
 
-  if (dirname.Contains("highPurityTracks/pt_1/GeneralProperties",TString::kExact))
+  if (dirname.Contains("GeneralProperties/GoodTracks",TString::kExact))
     filename.Prepend("RunComparison/GoodTracks_");
   else filename.Prepend("RunComparison/");
 

@@ -1,19 +1,19 @@
 #! /bin/bash
 
 #Parameters passed from command line
-#get_files=$1 #if true, get all files from web
-#web_dir=$2 #directory of DQM files on web
-run=$1 #specify what run you want to download 
-rel_old=$2 #old release to check against (e.g. pre1)
-rel_new=$3 #new release (e.q. pre2)
-rmroot=$4 #remove root files if true
+get_files=$1 #if true, get all files from web
+web_dir=$2 #directory of DQM files on web
+run=$3 #specify what run you want to download 
+rel_old=$4 #old release to check against (e.g. pre1)
+rel_new=$5 #new release (e.q. pre2)
+rmroot=$6 #remove root files if true
 
-#if [ "${get_files}" = true ] ; then
+if [ "${get_files}" = true ] ; then
 
 #Get all the necessary files
-#wget -e robots=off --wait 1 -r -l1 -nd -np "https://cmsweb.cern.ch/dqm/relval/data/browse/ROOT/RelValData/${web_dir}/" -A "*${run}*${rel_old}*root, *${run}*${rel_new}*root" --no-check-certificate --certificate ~/.globus/usercert.pem --private-key ~/.globus/userkey.pem
+wget -e robots=off --wait 1 -r -l1 -nd -np "https://cmsweb.cern.ch/dqm/relval/data/browse/ROOT/RelValData/${web_dir}/" -A "*${run}*${rel_old}*root, *${run}*${rel_new}*root" --no-check-certificate --certificate ~/.globus/usercert.pem --private-key ~/.globus/userkey.pem
 
-#fi 
+fi 
 
 #Make a local copy of the plots here
 if [ -d RunComparison ] ; then
@@ -33,13 +33,14 @@ do
   for sample in MinimumBias Jet #SingleMu #SingleElectron JetHT MinimumBias MET Tau SinglePhoton DoubleElectron
     do
 
+
     #Set the files to be used for this sample
     if [ -f *"${sample}"*"${rel_old}"* ] && [ -f *"${sample}"*"${rel_new}"* ] ; then
 	
 	refFile=$(ls *"${sample}"*"${rel_old}"*)
 	newFile=$(ls *"${sample}"*"${rel_new}"*)
 	release=CMSSW_"${rel_new}"_"${sample}"_Run_"${run}"_vs_"${rel_old}"
-	#release=CMSSW_"${rel_new}"_"${sample}"_Run_"${run}"
+#	release=CMSSW_"${rel_new}"_"${sample}"_Run_"${run}"
 	
 	if [[ "${newFile}" == *"frozenHLT"* ]] ; then
 	    release+="_frozenHLT"
@@ -64,7 +65,7 @@ do
 	echo "Analyzing ${refFile} and ${newFile} in ${release}"                                                                                   
 	    
       #Run the ROOT Macro. This is trivial, compiles a .cpp file that makes all the plots.  
-	root -b -q -l "RunValidationComparison.C("\"${refFile}\",\"${newFile}\",\"${scale}\"")"   
+	root -b -q -l "RunValidationComparison_5323.C("\"${refFile}\",\"${newFile}\",\"${scale}\"")"   
 	    
       #Copy all the plots to the directory to be published
 	cp RunComparison/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}
