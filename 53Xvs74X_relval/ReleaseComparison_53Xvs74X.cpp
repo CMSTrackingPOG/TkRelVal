@@ -22,7 +22,7 @@
 using namespace std;
 
 void V1_V2_trkComparison(string fileName1, string fileName2, int scale);
-bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring1, TString relstring1, TFile *V2file, TString runstring2, TString relstring2, TCanvas *canvas, int scale);
+bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file, TString runstring1, TString relstring1, TFile *V2file, TString runstring2, TString relstring2, TCanvas *canvas, int scale);
 void setTDRStyle();
 
 void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
@@ -73,68 +73,76 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
   relString2 += " - NEW";
 
   // Histograms in BeamSpotParameters directory
-  TString dirname = "BeamSpotParameters";
+  TString dirname1;
+  TString dirname2;
 
   // Histograms in GeneralProperties directory
-  dirname = "/Tracking/Run summary/TrackParameters/generalTracks/GeneralProperties";
-  dirname = "/Tracking/Run summary/TrackParameters/generalTracks/GeneralProperties";
-  
-  createPlot("algorithm", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("DistanceOfClosestApproachToBS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("TrackEta_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("TrackPhi_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfTracks", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("Chi2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("Chi2oNDF", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("Chi2Prob", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("TrackPt_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  dirname1 = "/Tracking/Run summary/TrackParameters/GeneralProperties";
+  dirname2 = "/Tracking/Run summary/TrackParameters/generalTracks/GeneralProperties";
+  createPlot("algorithm", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("DistanceOfClosestApproachToBS", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("TrackEta_ImpactPoint", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("TrackPhi_ImpactPoint", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfTracks", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("Chi2", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("Chi2oNDF", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("Chi2Prob", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("TrackPt_ImpactPoint", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
 
-  dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_1/GeneralProperties";
-  createPlot("FractionOfGoodTracks", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfTracks", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("algorithm", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("Chi2oNDF", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("TrackEta_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("TrackPhi_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("TrackPt_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  dirname1 = "/Tracking/Run summary/TrackParameters/GeneralProperties/GoodTracks";
+  dirname2 = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_1/GeneralProperties";
+  createPlot("FractionOfGoodTracks", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfTracks", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("algorithm", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("Chi2oNDF", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("TrackEta_ImpactPoint", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("TrackPhi_ImpactPoint", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("TrackPt_ImpactPoint", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
 
   // Histograms in HitProperties directory
-  dirname = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties";
-  createPlot("NumberOfRecHitsPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfValidRecHitsPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfLostRecHitsPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfLayersPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  dirname1 = "/Tracking/Run summary/TrackParameters/HitProperties";
+  dirname2 = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties";
+  createPlot("NumberOfRecHitsPerTrack", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfValidRecHitsPerTrack", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfLostRecHitsPerTrack", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfLayersPerTrack", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
 
-  dirname = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties/TIB";
-  createPlot("NumberOfRecHitsPerTrack_TIB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfLayersPerTrack_TIB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  dirname1 = "/Tracking/Run summary/TrackParameters/HitProperties/TIB";
+  dirname2 = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties/TIB";
+  createPlot("NumberOfRecHitsPerTrack_TIB", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfLayersPerTrack_TIB", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
 
-  dirname = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties/TOB";
-  createPlot("NumberOfRecHitsPerTrack_TOB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfLayersPerTrack_TOB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  dirname1 = "/Tracking/Run summary/TrackParameters/HitProperties/TOB";
+  dirname2 = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties/TOB";
+  createPlot("NumberOfRecHitsPerTrack_TOB", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfLayersPerTrack_TOB", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
 
-  dirname = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties/TID";
-  createPlot("NumberOfRecHitsPerTrack_TID", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfLayersPerTrack_TID", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  dirname1 = "/Tracking/Run summary/TrackParameters/HitProperties/TID";
+  dirname2 = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties/TID";
+  createPlot("NumberOfRecHitsPerTrack_TID", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfLayersPerTrack_TID", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
 
-  dirname = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties/TEC";
-  createPlot("NumberOfRecHitsPerTrack_TEC", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfLayersPerTrack_TEC", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  dirname1 = "/Tracking/Run summary/TrackParameters/HitProperties/TEC";
+  dirname2 = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties/TEC";
+  createPlot("NumberOfRecHitsPerTrack_TEC", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfLayersPerTrack_TEC", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
 
-  dirname = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties/PixBarrel";
-  createPlot("NumberOfRecHitsPerTrack_PixBarrel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfLayersPerTrack_PixBarrel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  dirname1 = "/Tracking/Run summary/TrackParameters/HitProperties/PixBarrel";
+  dirname2 = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties/PixBarrel";
+  createPlot("NumberOfRecHitsPerTrack_PixBarrel", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfLayersPerTrack_PixBarrel", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
 
-  dirname = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties/PixEndcap";
-  createPlot("NumberOfRecHitsPerTrack_PixEndcap", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfLayersPerTrack_PixEndcap", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  dirname1 = "/Tracking/Run summary/TrackParameters/HitProperties/PixEndcap";
+  dirname2 = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties/PixEndcap";
+  createPlot("NumberOfRecHitsPerTrack_PixEndcap", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfLayersPerTrack_PixEndcap", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
 
   //Primary vertices
   dirname = "/OfflinePV/Run summary/offlinePrimaryVertices";
-  createPlot("vtxNbr", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("vtxNbr", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
 }
 
-bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring1, TString relstring1, TFile *V2file, TString runstring2, TString relstring2, TCanvas *canvas, int scale) {
+bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file, TString runstring1, TString relstring1, TFile *V2file, TString runstring2, TString relstring2, TCanvas *canvas, int scale) {
   setTDRStyle();
 
   int SetScale = scale;
@@ -156,7 +164,7 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
   basename1.Append(runstring1);
 
   TString hnameV1 = basename1;
-  hnameV1.Append(dirname+"/");
+  hnameV1.Append(dirname1+"/");
   hnameV1.Append(hname);
 
   if (hname != "vtxNbr"){
@@ -173,7 +181,7 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
   basename2.Append(runstring2);
 
   TString hnameV2 = basename2;
-  hnameV2.Append(dirname+"/");
+  hnameV2.Append(dirname2+"/");
   hnameV2.Append(hname);
   
   if (hname != "vtxNbr"){
@@ -475,9 +483,8 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
     filename = "NumberOfPrimaryVertices";
   }
 
-  if (dirname.Contains("highPurityTracks/pt_1/GeneralProperties",TString::kExact))
-    filename.Prepend("RunComparison/GoodTracks_");
-  else filename.Prepend("RunComparison/");
+
+  filename.Prepend("RunComparison/");
 
   filename.Append(".png");
 
