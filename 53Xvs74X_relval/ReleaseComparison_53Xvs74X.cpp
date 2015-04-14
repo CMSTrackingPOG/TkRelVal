@@ -166,7 +166,43 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
 
   TString hnameV1 = basename1;
   hnameV1.Append(dirname1+"/");
-  hnameV1.Append(hname);
+
+  TString hname1 = hname;
+
+  if (dirname1.Contains("/Tracking/Run summary/TrackParameters/GeneralProperties/GoodTracks",TString::kExact)){
+    if (hname.Contains("algorithm",TString::kExact)){hname1 = "GoodTrackAlgorithm"};
+    else if (hname.Contains("NumberOfTracks",TString::kExact)){hname1 = "NumberOfGoodTracks"};
+    else if (hname.Contains("Chi2oNDOF",TString::kExact)){hname1 = "GoodTrackChi2oNDOF"};
+    else if (hname.Contains("TrackEta_ImpactPoint",TString::kExact)){hname1 = "GoodTrackEta_ImpactPoint"};
+    else if (hname.Contains("TrackPhi_ImpactPoint",TString::kExact)){hname1 = "GoodTrackPhi_ImpactPoint"};
+    else if (hname.Contains("TrackPt_ImpactPoint",TString::kExact)){hname1 = "GoodTrackPt_ImpactPoint"};
+  }
+  else if(dirname1.Contains("/Tracking/Run summary/TrackParameters/HitProperties/TIB",TString::kExact)){
+    if (hname.Contains("NumberOfRecHitsPerTrack_TIB",TString::kExact)){hname1 = "NumberOfTIBRecHitsPerTrack"};
+    else if (hname.Contains("NumberOfLayersPerTrack_TIB",TString::kExact)){hname1 = "NumberOfTIBLayersPerTrack"};
+  }
+  else if(dirname1.Contains("/Tracking/Run summary/TrackParameters/HitProperties/TOB",TString::kExact)){
+    if (hname.Contains("NumberOfRecHitsPerTrack_TOB",TString::kExact)){hname1 = "NumberOfTOBRecHitsPerTrack"};
+    else if (hname.Contains("NumberOfLayersPerTrack_TOB",TString::kExact)){hname1 = "NumberOfTOBLayersPerTrack"};
+  }
+  else if(dirname1.Contains("/Tracking/Run summary/TrackParameters/HitProperties/TEC",TString::kExact)){
+    if (hname.Contains("NumberOfRecHitsPerTrack_TEC",TString::kExact)){hname1 = "NumberOfTECRecHitsPerTrack"};
+    else if (hname.Contains("NumberOfLayersPerTrack_TEC",TString::kExact)){hname1 = "NumberOfTECLayersPerTrack"};
+  }
+  else if(dirname1.Contains("/Tracking/Run summary/TrackParameters/HitProperties/TID",TString::kExact)){
+    if (hname.Contains("NumberOfRecHitsPerTrack_TID",TString::kExact)){hname1 = "NumberOfTIDRecHitsPerTrack"};
+    else if (hname.Contains("NumberOfLayersPerTrack_TID",TString::kExact)){hname1 = "NumberOfTIDLayersPerTrack"};
+  }
+  else if(dirname1.Contains("/Tracking/Run summary/TrackParameters/HitProperties/PixBarrel",TString::kExact)){
+    if (hname.Contains("NumberOfRecHitsPerTrack_PixBarrel",TString::kExact)){hname1 = "NumberOfPixBarrelRecHitsPerTrack"};
+    else if (hname.Contains("NumberOfLayersPerTrack_PixBarrel",TString::kExact)){hname1 = "NumberOfPixBarrelLayersPerTrack"};
+  }
+  else if(dirname1.Contains("/Tracking/Run summary/TrackParameters/HitProperties/PixEndcap",TString::kExact)){
+    if (hname.Contains("NumberOfRecHitsPerTrack_PixEndcap",TString::kExact)){hname1 = "NumberOfPixEndcapRecHitsPerTrack"};
+    else if (hname.Contains("NumberOfLayersPerTrack_PixEndcap",TString::kExact)){hname1 = "NumberOfPixEndcapLayersPerTrack"};
+  }
+
+  hnameV1.Append(hname1);
 
   if (hname != "vtxNbr"){
     hnameV1.Append("_GenTk");
@@ -212,22 +248,6 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
   Double_t h1_binWidth = (h1_xup - h1_xlow) / (Double_t)h1_nbins;
   Double_t h2_binWidth = (h2_xup - h2_xlow) / (Double_t)h2_nbins;
 
-
-  std::cout << "h1" << std::endl;
-  for (int ibin = 0; ibin < h1_nbins; ibin++){
-    std::cout << hBinTempV1->GetBinWidth(ibin) << std::endl;
-  }
-
-  std::cout << "h2" << std::endl;
-  for (int ibin = 0; ibin < h2_nbins; ibin++){
-    std::cout << hBinTempV2->GetBinWidth(ibin) << std::endl;
-  }
-
-
-
-  std::cout << (h1_binWidth == h2_binWidth) << std::endl;
-
-
   if ((h1_xlow == h2_xlow) && (h1_xup == h2_xup) && (h1_binWidth == h2_binWidth)){
     histV1 = (TH1F*)V1file->Get(hnameV1);
     histV2 = (TH1F*)V2file->Get(hnameV2);
@@ -259,6 +279,18 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
       }
       else if (ibin > h2_nbins){
 	histV2->SetBinContent(ibin,0.0); 
+      }
+    }
+  }
+  else if(h1_binWidth != h2_binWidth){
+    if ((h1_xlow < h2_xlow) && (h1_xup == h2_xup)){
+      histV1 = (TH1F*)V1file->Get(hnameV1);
+
+      histV2 = new TH1F(hBinTempV2->GetName(),hBinTempV2->GetTitle(),h2_nbins,h1_xlow,h2_xup);
+      histV2->SetXTitle(hBinTempV2->GetXaxis()->GetTitle());
+      histV2->SetYTitle(hBinTempV2->GetYaxis()->GetTitle());
+      for (Int_t ibin = 1; ibin <= h1_nbins; ibin++){
+	histV2->SetBinContent(ibin,hBinTempV2->GetBinContent(ibin));
       }
     }
   }
@@ -342,43 +374,6 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
   histV1->SetName(V1_V1run);
   histV2->SetName(V2_V2run);
 
-  TString x_title = "";
-
-  if( hname.Contains("DistanceOfClosestApproach",TString::kExact) )   x_title = "d0" ;
-  if( hname.Contains("xPointOfClosestApproach",TString::kExact) )   x_title = "x PCA" ;
-  if( hname.Contains("yPointOfClosestApproach",TString::kExact) )   x_title = "y PCA" ;
-  if( hname.Contains("zPointOfClosestApproach",TString::kExact) )   x_title = "z PCA" ;
-  if( hname.Contains("Pt",TString::kExact) )                  x_title = "p_{T} (GeV)" ;
-  if( hname.Contains("Eta",TString::kExact) )                 x_title = "#eta" ;
-  if( hname.Contains("Phi",TString::kExact) )                 x_title = "#phi" ;
-  if( hname.Contains("pdg",TString::kExact) )                 x_title = "Particle Data ID #" ;
-  if( hname.Contains("NumberOfRecHitsPerTrack",TString::kExact) )        x_title = "#Hits/Track" ;
-  if( hname.Contains("nTECHitPerTrack",TString::kExact) )     x_title = "TEC #Hits" ;
-  if( hname.Contains("nTIBHitPerTrack",TString::kExact) )     x_title = "TIB #Hits" ;
-  if( hname.Contains("nTIDHitPerTrack",TString::kExact) )     x_title = "TID #Hits" ;
-  if( hname.Contains("nTOBHitPerTrack",TString::kExact) )     x_title = "TOB #Hits" ;
-  if( hname.Contains("nPXBHitPerTrack",TString::kExact) )     x_title = "Barrel Pixel #Hits" ;
-  if( hname.Contains("nPXFHitPerTrack",TString::kExact) )     x_title = "Foward Pixel #Hits" ;
-  if( hname.Contains("Chi2"))                                 x_title="#chi^{2}";
-  if( hname.Contains("Chi2ndof"))                             x_title="#chi^{2}/ndof";
-  if( hname.Contains("NumberOfTracks"))                             x_title="#Tracks";
-  if( hname.Contains("vtxNbr"))                               x_title="Number of Primary Vertices per Event";
-
-  TString hist_title;
-
-  if( hname.Contains("xPointOfClosestApproach",TString::kExact) )               hist_title = x_title ;
-  if( hname.Contains("zPointOfClosestApproach",TString::kExact) )               hist_title = x_title ;
-  if( hname.Contains("Pt",TString::kExact) )               hist_title = "p_{T}" ;
-  if( hname.Contains("Eta",TString::kExact) )              hist_title = x_title ;
-  if( hname.Contains("Phi",TString::kExact) )              hist_title = x_title ;
-  if( hname.Contains("NumberOfRecHitsPerTrack",TString::kExact) )     hist_title = x_title ;
-  if( hname.Contains("pdg",TString::kExact) )              hist_title = x_title ;
-  if( hname.Contains("nTECHitPerTrack",TString::kExact) )  hist_title = x_title ;
-  if( hname.Contains("nTIBHitPerTrack",TString::kExact) )  hist_title = x_title ;
-  if( hname.Contains("nTIDHitPerTrack",TString::kExact) )  hist_title = x_title ;
-  if( hname.Contains("nTOBHitPerTrack",TString::kExact) )  hist_title = x_title ;
-  if( hname.Contains("NumberOfTracks") )                        hist_title = x_title;
-
   double max = 0;
   double V1max = histV1->GetBinContent(histV1->GetMaximumBin());
   double V2max = histV2->GetBinContent(histV2->GetMaximumBin());
@@ -414,7 +409,7 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
   }
 
   if (hname.Contains("vtxNbr")){
-    histV1->GetXaxis()->SetTitle(x_title);
+    histV1->GetXaxis()->SetTitle("Number of Primary Vertices per Event");
     histV1->GetYaxis()->SetTitle("Number of Events");
   }
 
