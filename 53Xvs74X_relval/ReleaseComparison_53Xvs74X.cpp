@@ -215,12 +215,12 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
 
   std::cout << "h1" << std::endl;
   for (int ibin = 0; ibin < h1_nbins; ibin++){
-    std::cout << hBinTempV1->GetBinWidth(ibin);
+    std::cout << hBinTempV1->GetBinWidth(ibin) << std::endl;
   }
 
   std::cout << "h2" << std::endl;
   for (int ibin = 0; ibin < h2_nbins; ibin++){
-    std::cout << hBinTempV2->GetBinWidth(ibin);
+    std::cout << hBinTempV2->GetBinWidth(ibin) << std::endl;
   }
 
 
