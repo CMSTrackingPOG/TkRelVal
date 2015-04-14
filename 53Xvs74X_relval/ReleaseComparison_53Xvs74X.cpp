@@ -180,11 +180,10 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
   else if(dirname1.Contains("/Tracking/Run summary/TrackParameters/HitProperties",TString::kExact)){
     if (hname.Contains("NumberOfValidRecHitsPerTrack",TString::kExact)){hname1 = "NumberOfRecHitsFoundPerTrack";}
     else if (hname.Contains("NumberOfLostRecHitsPerTrack",TString::kExact)){hname1 = "NumberOfRecHitsLostPerTrack";}
+
+    std::cout << hname <<std::endl;
   }
   else if(dirname1.Contains("/Tracking/Run summary/TrackParameters/HitProperties/TIB",TString::kExact)){
-
-    std::cout << "hereeeee" << std::endl;
-
     if (hname.Contains("NumberOfRecHitsPerTrack_TIB",TString::kExact)){hname1 = "NumberOfTIBRecHitsPerTrack";}
     else if (hname.Contains("NumberOfLayersPerTrack_TIB",TString::kExact)){hname1 = "NumberOfTIBLayersPerTrack";}
   }
