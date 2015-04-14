@@ -170,36 +170,36 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
   TString hname1 = hname;
 
   if (dirname1.Contains("/Tracking/Run summary/TrackParameters/GeneralProperties/GoodTracks",TString::kExact)){
-    if (hname.Contains("algorithm",TString::kExact)){hname1 = "GoodTrackAlgorithm"};
-    else if (hname.Contains("NumberOfTracks",TString::kExact)){hname1 = "NumberOfGoodTracks"};
-    else if (hname.Contains("Chi2oNDOF",TString::kExact)){hname1 = "GoodTrackChi2oNDOF"};
-    else if (hname.Contains("TrackEta_ImpactPoint",TString::kExact)){hname1 = "GoodTrackEta_ImpactPoint"};
-    else if (hname.Contains("TrackPhi_ImpactPoint",TString::kExact)){hname1 = "GoodTrackPhi_ImpactPoint"};
-    else if (hname.Contains("TrackPt_ImpactPoint",TString::kExact)){hname1 = "GoodTrackPt_ImpactPoint"};
+    if (hname.Contains("algorithm",TString::kExact)){hname1 = "GoodTrackAlgorithm";}
+    else if (hname.Contains("NumberOfTracks",TString::kExact)){hname1 = "NumberOfGoodTracks";}
+    else if (hname.Contains("Chi2oNDOF",TString::kExact)){hname1 = "GoodTrackChi2oNDOF";}
+    else if (hname.Contains("TrackEta_ImpactPoint",TString::kExact)){hname1 = "GoodTrackEta_ImpactPoint";}
+    else if (hname.Contains("TrackPhi_ImpactPoint",TString::kExact)){hname1 = "GoodTrackPhi_ImpactPoint";}
+    else if (hname.Contains("TrackPt_ImpactPoint",TString::kExact)){hname1 = "GoodTrackPt_ImpactPoint";}
   }
   else if(dirname1.Contains("/Tracking/Run summary/TrackParameters/HitProperties/TIB",TString::kExact)){
-    if (hname.Contains("NumberOfRecHitsPerTrack_TIB",TString::kExact)){hname1 = "NumberOfTIBRecHitsPerTrack"};
-    else if (hname.Contains("NumberOfLayersPerTrack_TIB",TString::kExact)){hname1 = "NumberOfTIBLayersPerTrack"};
+    if (hname.Contains("NumberOfRecHitsPerTrack_TIB",TString::kExact)){hname1 = "NumberOfTIBRecHitsPerTrack";}
+    else if (hname.Contains("NumberOfLayersPerTrack_TIB",TString::kExact)){hname1 = "NumberOfTIBLayersPerTrack";}
   }
   else if(dirname1.Contains("/Tracking/Run summary/TrackParameters/HitProperties/TOB",TString::kExact)){
-    if (hname.Contains("NumberOfRecHitsPerTrack_TOB",TString::kExact)){hname1 = "NumberOfTOBRecHitsPerTrack"};
-    else if (hname.Contains("NumberOfLayersPerTrack_TOB",TString::kExact)){hname1 = "NumberOfTOBLayersPerTrack"};
+    if (hname.Contains("NumberOfRecHitsPerTrack_TOB",TString::kExact)){hname1 = "NumberOfTOBRecHitsPerTrack";}
+    else if (hname.Contains("NumberOfLayersPerTrack_TOB",TString::kExact)){hname1 = "NumberOfTOBLayersPerTrack";}
   }
   else if(dirname1.Contains("/Tracking/Run summary/TrackParameters/HitProperties/TEC",TString::kExact)){
-    if (hname.Contains("NumberOfRecHitsPerTrack_TEC",TString::kExact)){hname1 = "NumberOfTECRecHitsPerTrack"};
-    else if (hname.Contains("NumberOfLayersPerTrack_TEC",TString::kExact)){hname1 = "NumberOfTECLayersPerTrack"};
+    if (hname.Contains("NumberOfRecHitsPerTrack_TEC",TString::kExact)){hname1 = "NumberOfTECRecHitsPerTrack";}
+    else if (hname.Contains("NumberOfLayersPerTrack_TEC",TString::kExact)){hname1 = "NumberOfTECLayersPerTrack";}
   }
   else if(dirname1.Contains("/Tracking/Run summary/TrackParameters/HitProperties/TID",TString::kExact)){
-    if (hname.Contains("NumberOfRecHitsPerTrack_TID",TString::kExact)){hname1 = "NumberOfTIDRecHitsPerTrack"};
-    else if (hname.Contains("NumberOfLayersPerTrack_TID",TString::kExact)){hname1 = "NumberOfTIDLayersPerTrack"};
+    if (hname.Contains("NumberOfRecHitsPerTrack_TID",TString::kExact)){hname1 = "NumberOfTIDRecHitsPerTrack";}
+    else if (hname.Contains("NumberOfLayersPerTrack_TID",TString::kExact)){hname1 = "NumberOfTIDLayersPerTrack";}
   }
   else if(dirname1.Contains("/Tracking/Run summary/TrackParameters/HitProperties/PixBarrel",TString::kExact)){
-    if (hname.Contains("NumberOfRecHitsPerTrack_PixBarrel",TString::kExact)){hname1 = "NumberOfPixBarrelRecHitsPerTrack"};
-    else if (hname.Contains("NumberOfLayersPerTrack_PixBarrel",TString::kExact)){hname1 = "NumberOfPixBarrelLayersPerTrack"};
+    if (hname.Contains("NumberOfRecHitsPerTrack_PixBarrel",TString::kExact)){hname1 = "NumberOfPixBarrelRecHitsPerTrack";}
+    else if (hname.Contains("NumberOfLayersPerTrack_PixBarrel",TString::kExact)){hname1 = "NumberOfPixBarrelLayersPerTrack";}
   }
   else if(dirname1.Contains("/Tracking/Run summary/TrackParameters/HitProperties/PixEndcap",TString::kExact)){
-    if (hname.Contains("NumberOfRecHitsPerTrack_PixEndcap",TString::kExact)){hname1 = "NumberOfPixEndcapRecHitsPerTrack"};
-    else if (hname.Contains("NumberOfLayersPerTrack_PixEndcap",TString::kExact)){hname1 = "NumberOfPixEndcapLayersPerTrack"};
+    if (hname.Contains("NumberOfRecHitsPerTrack_PixEndcap",TString::kExact)){hname1 = "NumberOfPixEndcapRecHitsPerTrack";}
+    else if (hname.Contains("NumberOfLayersPerTrack_PixEndcap",TString::kExact)){hname1 = "NumberOfPixEndcapLayersPerTrack";}
   }
 
   hnameV1.Append(hname1);
