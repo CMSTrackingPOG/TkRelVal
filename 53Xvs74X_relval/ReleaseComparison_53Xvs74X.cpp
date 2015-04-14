@@ -212,6 +212,10 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
   Double_t h1_binWidth = (h1_xup - h1_xlow) / (Double_t)h1_nbins;
   Double_t h2_binWidth = (h2_xup - h2_xlow) / (Double_t)h2_nbins;
 
+
+  std::cout << h1_binWidth == h2_binWidth << std::endl;
+
+
   if ((h1_xlow == h2_xlow) && (h1_xup == h2_xup) && (h1_binWidth == h2_binWidth)){
     histV1 = (TH1F*)V1file->Get(hnameV1);
     histV2 = (TH1F*)V2file->Get(hnameV2);
