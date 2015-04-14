@@ -213,6 +213,18 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
   Double_t h2_binWidth = (h2_xup - h2_xlow) / (Double_t)h2_nbins;
 
 
+  std::cout << "h1" << std::endl;
+  for (int ibin = 0; ibin < h1_nbins; ibin++){
+    std::cout << hBinTempV1->GetBinWidth(ibin);
+  }
+
+  std::cout << "h2" << std::endl;
+  for (int ibin = 0; ibin < h2_nbins; ibin++){
+    std::cout << hBinTempV2->GetBinWidth(ibin);
+  }
+
+
+
   std::cout << (h1_binWidth == h2_binWidth) << std::endl;
 
 
