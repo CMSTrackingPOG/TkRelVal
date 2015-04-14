@@ -293,6 +293,16 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
 	histV2->SetBinContent(ibin,hBinTempV2->GetBinContent(ibin));
       }
     }
+    else if ((h1_xlow > h2_xlow) && (h1_xup == h2_xup)){
+      histV2 = (TH1F*)V2file->Get(hnameV2);
+
+      histV1 = new TH1F(hBinTempV1->GetName(),hBinTempV1->GetTitle(),h1_nbins,h2_xlow,h1_xup);
+      histV1->SetXTitle(hBinTempV1->GetXaxis()->GetTitle());
+      histV1->SetYTitle(hBinTempV1->GetYaxis()->GetTitle());
+      for (Int_t ibin = 1; ibin <= h2_nbins; ibin++){
+	histV1->SetBinContent(ibin,hBinTempV1->GetBinContent(ibin));
+      }
+    }
   }
   else{
     cout << "Bin Check Failed... here's what happened: " << endl;
