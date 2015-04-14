@@ -73,8 +73,8 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
   relString2 += " - NEW";
 
   // Histograms in BeamSpotParameters directory
-  TString dirname1;
-  TString dirname2;
+  TString dirname1 = "";
+  TString dirname2 = "";
 
   // Histograms in GeneralProperties directory
   dirname1 = "/Tracking/Run summary/TrackParameters/GeneralProperties";
@@ -138,7 +138,8 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
   createPlot("NumberOfLayersPerTrack_PixEndcap", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
 
   //Primary vertices
-  dirname = "/OfflinePV/Run summary/offlinePrimaryVertices";
+  dirname1 = "/OfflinePV/Run summary/offlinePrimaryVertices";
+  dirname2 = "/OfflinePV/Run summary/offlinePrimaryVertices";
   createPlot("vtxNbr", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
 }
 
@@ -273,7 +274,7 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
   else if ( (SetScale==2) || (SetScale==3) ){
     if (hname != "NumberOfTracks"){
       TString hTempNameV1 = basename1;
-      hTempNameV1.Append("/Tracking/Run summary/TrackParameters/generalTracks/GeneralProperties/NumberOfTracks_GenTk");
+      hTempNameV1.Append("/Tracking/Run summary/TrackParameters/GeneralProperties/NumberOfTracks_GenTk");
       hNormTempV1 = (TH1F*)V1file->Get(hTempNameV1);
       
       TString hTempNameV2 = basename2;

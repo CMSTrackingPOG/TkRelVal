@@ -28,6 +28,11 @@ do
 	refFile=$(ls *"${sample}"*"${rel_old}"*)
 	newFile=$(ls *"${sample}"*"${rel_new}"*)
 	release=CMSSW_"${rel_new}"_"${sample}"_Run_"${run}"_vs_"${rel_old}"
+
+	echo $refFile
+	echo $newFile
+	echo $release
+
     
       #Creat directory for webpage
 	if [ ! -d /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release} ] ; then    
