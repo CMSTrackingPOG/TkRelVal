@@ -323,6 +323,10 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
   }
   else if ( (SetScale==2) || (SetScale==3) ){
     if (hname != "NumberOfTracks"){
+
+      std::cout << "SOMTHING: " << hname1 << std::endl;
+
+
       TString hTempNameV1 = basename1;
       hTempNameV1.Append("/Tracking/Run summary/TrackParameters/GeneralProperties/NumberOfTracks_GenTk");
       hNormTempV1 = (TH1F*)V1file->Get(hTempNameV1);
