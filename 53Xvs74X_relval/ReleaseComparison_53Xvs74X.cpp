@@ -172,7 +172,7 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
   if (dirname1.Contains("/Tracking/Run summary/TrackParameters/GeneralProperties/GoodTracks",TString::kExact)){
     if (hname.Contains("algorithm",TString::kExact)){hname1 = "GoodTrackAlgorithm";}
     else if (hname.Contains("NumberOfTracks",TString::kExact)){hname1 = "NumberOfGoodTracks";}
-    else if (hname.Contains("Chi2oNDOF",TString::kExact)){hname1 = "GoodTrackChi2oNDOF";}
+    else if (hname.Contains("Chi2oNDF",TString::kExact)){hname1 = "GoodTrackChi2oNDF";}
     else if (hname.Contains("TrackEta_ImpactPoint",TString::kExact)){hname1 = "GoodTrackEta_ImpactPoint";}
     else if (hname.Contains("TrackPhi_ImpactPoint",TString::kExact)){hname1 = "GoodTrackPhi_ImpactPoint";}
     else if (hname.Contains("TrackPt_ImpactPoint",TString::kExact)){hname1 = "GoodTrackPt_ImpactPoint";}
@@ -355,8 +355,8 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
       V1_integral = hNormTempV1->GetEntries();
       V2_integral = hNormTempV2->GetEntries();
 
-      std::cout << "The number of events for V1 is " << V1_integral << std::endl;
-      std::cout << "The number of events for V2 is " << V2_integral << std::endl;
+      //      std::cout << "The number of events for V1 is " << V1_integral << std::endl;
+      //      std::cout << "The number of events for V2 is " << V2_integral << std::endl;
     }
   }
 
@@ -366,13 +366,13 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
     histV1->Scale(V2_integral / V1_integral);
     histV2->Scale(1);
 
-    std::cout << "Set scale: " << V2_integral / V1_integral << std::endl;
+    //    std::cout << "Set scale: " << V2_integral / V1_integral << std::endl;
   } 
   else if(V2_integral>V1_integral){
     histV1->Scale(1);
     histV2->Scale(V1_integral / V2_integral);
 
-    std::cout << "Set scale: " << V1_integral / V2_integral << std::endl;
+    //    std::cout << "Set scale: " << V1_integral / V2_integral << std::endl;
   }
 
   //*****NORMALIZING V1-V2*end***************************************
