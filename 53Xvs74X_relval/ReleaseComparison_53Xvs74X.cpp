@@ -498,7 +498,9 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
   }
 
 
-  filename.Prepend("RunComparison/");
+  if (dirname2.Contains("highPurityTracks/pt_1/GeneralProperties",TString::kExact))
+    filename.Prepend("RunComparison/GoodTracks_");
+  else filename.Prepend("RunComparison/");
 
   filename.Append(".png");
 
