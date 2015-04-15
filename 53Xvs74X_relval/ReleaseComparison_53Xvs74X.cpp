@@ -200,7 +200,8 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
     hnameV1.Append("_GenTk");
   }
 
-  TH1F * hBinTempV1 = (TH1F*)V1file->Get(hnameV1);
+  TH1F * hBinTempV1 = new TH1F();
+  hBinTempV1 = (TH1F*)V1file->Get(hnameV1);
   if ( hBinTempV1 == (TH1F*) NULL ) {
     cout << "histV1 failed on " << hnameV1  << endl << " for file " << V1file->GetName() << endl;
     exit(1);
@@ -217,7 +218,8 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
     hnameV2.Append("_GenTk");
   }
 
-  TH1F * hBinTempV2 = (TH1F*)V2file->Get(hnameV2);
+  TH1F * hBinTempV2 = new TH1F();
+  hBinTempV2 = (TH1F*)V2file->Get(hnameV2);
   if ( hBinTempV2 == (TH1F*) NULL ) {
     cout << "histV2 failed on " << hnameV2  << endl << " for file " << V2file->GetName() << endl;
     exit(1);
