@@ -384,14 +384,20 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
   double V1max = histV1->GetBinContent(histV1->GetMaximumBin());
   double V2max = histV2->GetBinContent(histV2->GetMaximumBin());
 
+  double min = 0;
+  double V1min = histV1->GetBinContent(histV1->GetMinimumBin());
+  double V2min = histV2->GetBinContent(histV2->GetMinimumBin());
+
   max = (V1max>V2max) ? V1max : V2max;
+  min = (V1min<V2min) ? V1min : V2min;
   histV1->Draw();
   histV1->SetLineStyle(1);
   histV1->GetYaxis()->SetLabelSize(0.038);
   histV1->SetLineWidth(5);
   histV1->SetLineColor(kRed);
   histV1->SetMaximum(max*(1.1));
-  histV2->Draw();
+  histV1->SetMinimum(min*(0.9));
+  histV2->Draw("sames");
   histV2->SetLineWidth(3);
   histV2->SetLineStyle(1);
   histV2->SetLineColor(kBlue);
@@ -418,9 +424,6 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
     histV1->GetXaxis()->SetTitle("Number of Primary Vertices per Event");
     histV1->GetYaxis()->SetTitle("Number of Events");
   }
-
-  histV1->Draw(); // Draw old histo first, ratio is new/old
-  histV2->Draw("sames");
 
   mainpad->Update();
 
@@ -458,7 +461,7 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
     TH1F* hratio = (TH1F*) histV2->Clone("hratio");
     hratio->Divide(histV1);
     hratio->SetMaximum(hratio->GetMaximum()*1.1);
-    hratio->SetMinimum(hratio->GetMinimum()/1.1);
+    hratio->SetMinimum(hratio->GetMinimum()*0.9);
     //if (hratio->GetMinimum()==0.0) hratio->SetMinimum(1.0/hratio->GetMaximum());
     //    hratio->SetMinimum(1.0/hratio->GetMaximum());
     hratio->GetYaxis()->SetLabelSize(0.1);
@@ -500,7 +503,6 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
   if (hname.Contains("vtxNbr")){
     filename = "NumberOfPrimaryVertices";
   }
-
 
   if (dirname2.Contains("highPurityTracks/pt_1/GeneralProperties",TString::kExact))
     filename.Prepend("RunComparison/GoodTracks_");
