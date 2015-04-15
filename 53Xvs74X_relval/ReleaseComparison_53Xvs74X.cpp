@@ -518,8 +518,8 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
   if ( hNormTempV1 ) {hNormTempV1->Delete();}
   if ( hNormTempV2 ) {hNormTempV2->Delete();}
 
-  //  if ( hBinTempV1 ) {hBinTempV1->Delete();} // why cant this work?! 
-  //  if ( hBinTempV2 ) {hBinTempV2->Delete();}
+  if ( hBinTempV1 ) {hBinTempV1->Delete();} // why cant this work?! 
+  if ( hBinTempV2 ) {hBinTempV2->Delete();}
 
   return true;
 }
