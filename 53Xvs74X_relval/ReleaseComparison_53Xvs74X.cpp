@@ -324,7 +324,7 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
   else if ( (SetScale==2) || (SetScale==3) ){
     if (hname != "NumberOfTracks"){
 
-      std::cout << "SOMTHING: " << hname1 << std::endl;
+      std::cout << "Using Scale for this histogram: " << hnameV1 << std::endl;
 
 
       TString hTempNameV1 = basename1;
@@ -477,26 +477,26 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
   }
 
   // Compare parameters of histograms
-  double Entries1 = histV1->GetEntries();
-  double Entries2 = histV2->GetEntries();
-  if (Entries1 != Entries2) {
+  Int_t Entries1 = histV1->GetEntries();
+  Int_t Entries2 = histV2->GetEntries();
+  /*if (Entries1 != Entries2) {
     std::cout<<" Difference in # of ENTRIES for " <<hname<< std::endl;
     std::cout<<"\t Entries1 = " << Entries1 << "\t Entries2 = " << Entries2 << std::endl;
-  }
+    }*/
 
   double Mean1 = histV1->GetMean();
   double Mean2 = histV2->GetMean();
-  if (Mean1 != Mean2) {
+  /*  if (Mean1 != Mean2) {
     std::cout<<" Difference in MEANS for " <<hname<< std::endl;
     std::cout<<"\t Mean1 = " << Mean1 << "\t Mean2 = " << Mean2 << std::endl;
-  }
+    }*/
 
   double RMS1 = histV1->GetRMS();
   double RMS2 = histV2->GetRMS();
-  if (RMS1 != RMS2) {
+  /*  if (RMS1 != RMS2) {
     std::cout<<" Difference in RMS for " <<hname<< std::endl;
     std::cout<<"\t RMS1 = " << RMS1 << "\t RMS2 = " << RMS2 << std::endl;
-  }
+    }*/
 
   TString filename = hname;
 
