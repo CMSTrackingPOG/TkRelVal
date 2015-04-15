@@ -80,20 +80,20 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
   dirname1 = "/Tracking/Run summary/TrackParameters/GeneralProperties";
   dirname2 = "/Tracking/Run summary/TrackParameters/generalTracks/GeneralProperties";
   createPlot("algorithm", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("DistanceOfClosestApproachToBS", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("TrackEta_ImpactPoint", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("TrackPhi_ImpactPoint", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("NumberOfTracks", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("Chi2", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("Chi2oNDF", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("Chi2Prob", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("DistanceOfClosestApproachToBS", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("TrackEta_ImpactPoint", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("TrackPhi_ImpactPoint", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("TrackPt_ImpactPoint", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
 
   dirname1 = "/Tracking/Run summary/TrackParameters/GeneralProperties/GoodTracks";
   dirname2 = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_1/GeneralProperties";
-  createPlot("FractionOfGoodTracks", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfTracks", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("algorithm", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfTracks", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("FractionOfGoodTracks", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("Chi2oNDF", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("TrackEta_ImpactPoint", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("TrackPhi_ImpactPoint", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
@@ -396,7 +396,7 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
   histV1->SetLineWidth(5);
   histV1->SetLineColor(kRed);
   histV1->SetMaximum(max*(1.1));
-  histV1->SetMinimum(min*(0.9));
+  //  histV1->SetMinimum(min*(0.9));
   histV2->Draw("sames");
   histV2->SetLineWidth(3);
   histV2->SetLineStyle(1);
