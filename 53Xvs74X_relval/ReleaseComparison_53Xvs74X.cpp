@@ -268,7 +268,7 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
   Double_t h1_binWidth = (h1_xup - h1_xlow) / (Double_t)h1_nbins;
   Double_t h2_binWidth = (h2_xup - h2_xlow) / (Double_t)h2_nbins;
 
-  if (hname.Contains("NumberOfGoodTracks",TString::kExact)) {
+  if (hname1.Contains("NumberOfGoodTracks",TString::kExact)) {
     histV1 = (TH1F*)V1file->Get(hnameV1);
     histV2 = (TH1F*)V2file->Get(hnameV2);
   }
@@ -438,11 +438,11 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
 
   //  mainpad->SetLogy(1);
 
-  if (hname.Contains("TrackPt_ImpactPoint",TString::kExact)){
-    mainpad->SetLogx(1);
-  }
+  //  if (hname.Contains("TrackPt_ImpactPoint",TString::kExact)){
+  // mainpad->SetLogx(1);
+  // }
 
-  if (hname.Contains("NumberOfGoodTracks",TString::kExact)) {
+  if (hname1.Contains("NumberOfGoodTracks",TString::kExact)) {
     histV1->GetXaxis()->SetRangeUser(0,200);
     histV2->GetXaxis()->SetRangeUser(0,200);
   }
@@ -546,7 +546,7 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
     TH1F* hratio = (TH1F*) histV2->Clone("hratio");
     hratio->Divide(histV1);
     if (hname.Contains("TrackPt_ImpactPoint",TString::kExact)){
-      hratio->SetMaximum(1.3);
+      hratio->SetMaximum(1.2);
       hratio->SetMinimum(0.9);
     }    
     else{
