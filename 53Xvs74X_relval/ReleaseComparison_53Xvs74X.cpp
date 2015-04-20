@@ -22,7 +22,7 @@
 using namespace std;
 
 void V1_V2_trkComparison(string fileName1, string fileName2, int scale);
-bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file, TString runstring1, TString relstring1, TFile *V2file, TString runstring2, TString relstring2, TCanvas *canvas, int scale);
+bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file, TString runstring1, TString relstring1, TFile *V2file, TString runstring2, TString relstring2, int scale);
 void setTDRStyle();
 
 void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
@@ -37,7 +37,6 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
 
   gStyle->SetOptFit(1);
 
-  TCanvas *canvas = new TCanvas;
   int pos = fileName1.find("_R0");
   std::string runString1 = fileName1.substr (pos+5,6);
   int pos1 = fileName1.find("CMSSW")+6;
@@ -48,12 +47,11 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.find("-FT");
 
   std::string relString1 = fileName1.substr (pos1,pos2-pos1); 
-  TFile *file1 = TFile::Open(fileName1.c_str());
+  TFile *file1 = TFile::Open(fileName1.c_str(),"READ");
   std::cout << "Getting histos for run number... " << runString1 
 	    <<" for release " << relString1 << std::endl;  
   if ( file1->IsZombie() )
     std::cout << "File: " << fileName1 << " cannot be opened!" << std::endl;
-  relString1 += " - REF";
   pos = fileName2.find("_R0");
 
   std::string runString2 = fileName2.substr (pos+5,6);
@@ -65,12 +63,15 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.find("-FT");
 
   std::string relString2 = fileName2.substr (pos1,pos2-pos1);
-  TFile *file2 = TFile::Open(fileName2.c_str());
+  TFile *file2 = TFile::Open(fileName2.c_str(),"READ");
   std::cout << "Getting histos for run number... " << runString2 
     	    <<" for release " << relString2 << std::endl;  
   if ( file2->IsZombie() )
     std::cout << "File: " << fileName2 << " cannot be opened!" << std::endl;
-  relString2 += " - NEW";
+
+  // save comparisons in root file
+
+  TFile * outputRoot = TFile::Open("53xvs74X.root","RECREATE");
 
   // Histograms in BeamSpotParameters directory
   TString dirname1 = "";
@@ -79,73 +80,84 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
   // Histograms in GeneralProperties directory
   dirname1 = "/Tracking/Run summary/TrackParameters/GeneralProperties";
   dirname2 = "/Tracking/Run summary/TrackParameters/generalTracks/GeneralProperties";
-  createPlot("algorithm", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfTracks", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("Chi2", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("Chi2oNDF", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("Chi2Prob", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("DistanceOfClosestApproachToBS", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("TrackEta_ImpactPoint", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("TrackPhi_ImpactPoint", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("TrackPt_ImpactPoint", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-
+  createPlot("algorithm", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
+  createPlot("NumberOfTracks", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
+  createPlot("Chi2", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
+  createPlot("Chi2oNDF", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
+  createPlot("Chi2Prob", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
+  createPlot("DistanceOfClosestApproachToBS", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
+  createPlot("TrackEta_ImpactPoint", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
+  createPlot("TrackPhi_ImpactPoint", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
+  createPlot("TrackPt_ImpactPoint", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
+  
   dirname1 = "/Tracking/Run summary/TrackParameters/GeneralProperties/GoodTracks";
   dirname2 = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_1/GeneralProperties";
-  createPlot("algorithm", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfTracks", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("FractionOfGoodTracks", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("Chi2oNDF", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("TrackEta_ImpactPoint", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("TrackPhi_ImpactPoint", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("TrackPt_ImpactPoint", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("algorithm", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
+  createPlot("NumberOfTracks", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
+  createPlot("FractionOfGoodTracks", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
+  createPlot("Chi2oNDF", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
+  createPlot("TrackEta_ImpactPoint", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
+  createPlot("TrackPhi_ImpactPoint", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
+  createPlot("TrackPt_ImpactPoint", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
 
   // Histograms in HitProperties directory
   dirname1 = "/Tracking/Run summary/TrackParameters/HitProperties";
   dirname2 = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties";
-  createPlot("NumberOfRecHitsPerTrack", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfValidRecHitsPerTrack", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfLostRecHitsPerTrack", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfLayersPerTrack", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfRecHitsPerTrack", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
+  createPlot("NumberOfValidRecHitsPerTrack", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
+  createPlot("NumberOfLostRecHitsPerTrack", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
+  createPlot("NumberOfLayersPerTrack", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
 
   dirname1 = "/Tracking/Run summary/TrackParameters/HitProperties/TIB";
   dirname2 = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties/TIB";
-  createPlot("NumberOfRecHitsPerTrack_TIB", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfLayersPerTrack_TIB", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfRecHitsPerTrack_TIB", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
+  createPlot("NumberOfLayersPerTrack_TIB", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
 
   dirname1 = "/Tracking/Run summary/TrackParameters/HitProperties/TOB";
   dirname2 = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties/TOB";
-  createPlot("NumberOfRecHitsPerTrack_TOB", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfLayersPerTrack_TOB", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfRecHitsPerTrack_TOB", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
+  createPlot("NumberOfLayersPerTrack_TOB", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
 
   dirname1 = "/Tracking/Run summary/TrackParameters/HitProperties/TID";
   dirname2 = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties/TID";
-  createPlot("NumberOfRecHitsPerTrack_TID", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfLayersPerTrack_TID", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfRecHitsPerTrack_TID", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
+  createPlot("NumberOfLayersPerTrack_TID", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
 
   dirname1 = "/Tracking/Run summary/TrackParameters/HitProperties/TEC";
   dirname2 = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties/TEC";
-  createPlot("NumberOfRecHitsPerTrack_TEC", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfLayersPerTrack_TEC", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfRecHitsPerTrack_TEC", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
+  createPlot("NumberOfLayersPerTrack_TEC", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
 
   dirname1 = "/Tracking/Run summary/TrackParameters/HitProperties/PixBarrel";
   dirname2 = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties/PixBarrel";
-  createPlot("NumberOfRecHitsPerTrack_PixBarrel", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfLayersPerTrack_PixBarrel", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfRecHitsPerTrack_PixBarrel", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
+  createPlot("NumberOfLayersPerTrack_PixBarrel", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
 
   dirname1 = "/Tracking/Run summary/TrackParameters/HitProperties/PixEndcap";
   dirname2 = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties/PixEndcap";
-  createPlot("NumberOfRecHitsPerTrack_PixEndcap", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfLayersPerTrack_PixEndcap", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfRecHitsPerTrack_PixEndcap", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
+  createPlot("NumberOfLayersPerTrack_PixEndcap", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
 
   //Primary vertices
   dirname1 = "/OfflinePV/Run summary/offlinePrimaryVertices";
   dirname2 = "/OfflinePV/Run summary/offlinePrimaryVertices";
-  createPlot("vtxNbr", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("vtxNbr", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
 }
 
-bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file, TString runstring1, TString relstring1, TFile *V2file, TString runstring2, TString relstring2, TCanvas *canvas, int scale) {
+bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file, TString runstring1, TString relstring1, TFile *V2file, TString runstring2, TString relstring2, int scale) {
+
+
+  TCanvas *canvas = new TCanvas(hname.Data(),hname.Data(),1);
+
   setTDRStyle();
 
+  if (dirname1.Contains("/Tracking/Run summary/TrackParameters/GeneralProperties/GoodTracks",TString::kExact)){
+    TString canvname = hname;
+    canvname.Prepend("GoodTracks");
+    canvas->SetName(canvname.Data());
+    canvas->SetTitle(canvname.Data());
+  }
+ 
   int SetScale = scale;
 
   //IF =0 --> No scale applied ('direct' comparison)
@@ -306,7 +318,7 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
     cout << "       bin info: " << h2_xlow << " " << h2_xup << " " << h2_nbins << endl;
     exit(1);
   }
-
+ 
   // Don't look at zero bin -- > Also could use this for truncation and bin setting -->Range is binlower to upper
   //  Int_t range_upper = histV1->GetXaxis()->GetLast();
   //  histV1->GetXaxis()->SetRangeUser(1,range_upper);
@@ -374,10 +386,10 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
   }
 
   //*****NORMALIZING V1-V2*end***************************************
-
+  
   //***Name the files under comparison***
-  TString V1_V1run = "Run "+runstring1+" ("+relstring1+")";
-  TString V2_V2run = "Run "+runstring2+" ("+relstring2+")";
+  TString V1_V1run = "5_3_X (Run 208307)";
+  TString V2_V2run = "7_4_X (Run 208307)";
 
   histV1->SetName(V1_V1run);
   histV2->SetName(V2_V2run);
@@ -392,31 +404,30 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
 
   max = (V1max>V2max) ? V1max : V2max;
   min = (V1min<V2min) ? V1min : V2min;
-  histV1->Draw();
+
+  histV1->SetTitle("");
   histV1->SetLineStyle(1);
   histV1->GetYaxis()->SetLabelSize(0.038);
   histV1->SetLineWidth(5);
   histV1->SetLineColor(kRed);
   histV1->SetMaximum(max*(1.1));
+  histV1->Draw();
   //  histV1->SetMinimum(min*(0.9));
-  histV2->Draw("sames");
+  histV2->SetTitle("");
   histV2->SetLineWidth(3);
   histV2->SetLineStyle(1);
   histV2->SetLineColor(kBlue);
+  histV2->Draw("sames");
 
-  if( hname.Contains("NumberOfTracks",TString::kExact)
-      || hname.Contains("NumberOfGoodTracks",TString::kExact)
-      || hname.Contains("TrackPt",TString::kExact)
-      || hname.Contains("Chi2Prob",TString::kExact)
-      )
-    mainpad->SetLogy(1);
-  else
-    mainpad->SetLogy(0);
+  mainpad->SetLogy(1);
+
   if (hname.Contains("NumberOfGoodTracks",TString::kExact)) {
     histV1->GetXaxis()->SetRangeUser(0,200);
     histV2->GetXaxis()->SetRangeUser(0,200);
   }
-
+  else if (hname.Contains("TrackPhi_ImpactPoint",TString::kExact)){
+    histV1->SetMinimum(min*(0.9));
+  }
   if (hname.Contains("Chi2oNDF",TString::kExact)) {
     histV1->GetXaxis()->SetRangeUser(0,10);
     histV2->GetXaxis()->SetRangeUser(0,10);
@@ -430,33 +441,84 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
   mainpad->Update();
 
   TPaveStats *st1 = (TPaveStats*)(histV1->GetListOfFunctions()->FindObject("stats"));
-
-  st1->SetX1NDC(0.77);
+  if (hname.Contains("FractionOfGoodTracks",TString::kExact)){
+    st1->SetX1NDC(0.57);
+  }
+  else if ( (hname.Contains("TrackPhi_ImpactPoint",TString::kExact)) || (hname.Contains("TrackEta_ImpactPoint",TString::kExact)) ){
+    st1->SetX1NDC(0.54);
+  }
+  else{
+    st1->SetX1NDC(0.77);
+  }
   st1->SetY1NDC(0.80);
 
-  st1->SetX2NDC(0.98);
+  if (hname.Contains("FractionOfGoodTracks",TString::kExact)){
+    st1->SetX2NDC(0.78);
+  }
+  else if ( (hname.Contains("TrackPhi_ImpactPoint",TString::kExact)) || (hname.Contains("TrackEta_ImpactPoint",TString::kExact)) ){
+    st1->SetX2NDC(0.75);
+  }
+  else{
+    st1->SetX2NDC(0.98);
+  }
   st1->SetY2NDC(0.97);
+
   Double_t defaulth = st1->GetY2NDC() - st1->GetY1NDC();
   Double_t gaph = 0.02;
   TPaveStats *st2 = (TPaveStats*)(histV2->GetListOfFunctions()->FindObject("stats"));
-  st2->SetX1NDC(0.77);  
-  st2->SetY1NDC(st1->GetY1NDC() - 1.0*defaulth - gaph);
-  st2->SetX2NDC(0.98);    
-  st2->SetY2NDC(st1->GetY1NDC() - gaph);
+  if (hname.Contains("FractionOfGoodTracks",TString::kExact)){ 
+    st2->SetX1NDC(0.57);  
+  }
+  else{
+    st2->SetX1NDC(0.77);
+  }
 
-  TLegend *leg = new TLegend(0.32,0.86,0.76,0.97);
-  leg->SetTextSize(0.042);
-  leg->SetTextFont(42);
-  leg->SetFillColor(10); 
-  leg->SetBorderSize(1); // no frame, no shadow
-  leg->AddEntry(histV1, V1_V1run, "L" );
-  leg->AddEntry(histV2, V2_V2run, "L" );
-  leg->Draw("SAME");
+  if ( (hname.Contains("TrackPhi_ImpactPoint",TString::kExact)) || (hname.Contains("TrackEta_ImpactPoint",TString::kExact)) ){
+    st2->SetY1NDC(0.80);
+  }
+  else{
+    st2->SetY1NDC(st1->GetY1NDC() - 1.0*defaulth - gaph);
+  }
+
+  if (hname.Contains("FractionOfGoodTracks",TString::kExact)){ 
+    st2->SetX2NDC(0.78);    
+  }
+  else{
+    st2->SetX2NDC(0.98);
+  }
+
+  if ( (hname.Contains("TrackPhi_ImpactPoint",TString::kExact)) || (hname.Contains("TrackEta_ImpactPoint",TString::kExact)) ){
+    st2->SetY2NDC(0.97);
+  }
+  else{
+    st2->SetY2NDC(st1->GetY1NDC() - gaph);
+  }
+
+  if ( (hname.Contains("NumberOfTracks",TString::kExact)) || (hname.Contains("vtxNbr",TString::kExact)) ){
+    TLegend *leg = new TLegend(0.5,0.86,0.6,0.97);
+    leg->SetTextSize(0.042);
+    leg->SetTextFont(42);
+    leg->SetFillColor(10); 
+    leg->SetBorderSize(1); // no frame, no shadow
+    leg->AddEntry(histV1, "5_3_X", "L" );
+    leg->AddEntry(histV2, "7_4_X", "L" );
+    leg->Draw("SAME");
+  }
+  else {
+    TLegend *leg = new TLegend(0.32,0.86,0.42,0.97);
+    leg->SetTextSize(0.042);
+    leg->SetTextFont(42);
+    leg->SetFillColor(10); 
+    leg->SetBorderSize(1); // no frame, no shadow
+    leg->AddEntry(histV1, "5_3_X", "L" );
+    leg->AddEntry(histV2, "7_4_X", "L" );
+    leg->Draw("SAME");
+  }
 
   // Draw ratio histogram
   if (DrawRatio){
     canvas->cd();
-    TPad* respad = new TPad("respad","respad",0.0,0.78,1.0,0.95);
+    TPad* respad = new TPad("respad","respad",0.0,0.81,1.0,0.98);
     respad->SetTopMargin(1.05);
     respad->Draw();
     respad->cd();
@@ -474,31 +536,11 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
     hratio->GetYaxis()->SetTitleOffset(0.26);
     hratio->GetYaxis()->SetLabelSize(0.2);
     hratio->GetYaxis()->SetNdivisions(5);
-    hratio->GetYaxis()->SetTitle("NEW/REF");
+    hratio->GetYaxis()->SetTitle("74X/53X");
+    hratio->SetTitle("");
+    hratio->SetStats(0);
     hratio->Draw();
   }
-
-  // Compare parameters of histograms
-  Int_t Entries1 = histV1->GetEntries();
-  Int_t Entries2 = histV2->GetEntries();
-  /*if (Entries1 != Entries2) {
-    std::cout<<" Difference in # of ENTRIES for " <<hname<< std::endl;
-    std::cout<<"\t Entries1 = " << Entries1 << "\t Entries2 = " << Entries2 << std::endl;
-    }*/
-
-  double Mean1 = histV1->GetMean();
-  double Mean2 = histV2->GetMean();
-  /*  if (Mean1 != Mean2) {
-    std::cout<<" Difference in MEANS for " <<hname<< std::endl;
-    std::cout<<"\t Mean1 = " << Mean1 << "\t Mean2 = " << Mean2 << std::endl;
-    }*/
-
-  double RMS1 = histV1->GetRMS();
-  double RMS2 = histV2->GetRMS();
-  /*  if (RMS1 != RMS2) {
-    std::cout<<" Difference in RMS for " <<hname<< std::endl;
-    std::cout<<"\t RMS1 = " << RMS1 << "\t RMS2 = " << RMS2 << std::endl;
-    }*/
 
   TString filename = hname;
 
@@ -513,6 +555,8 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
   filename.Append(".png");
 
   canvas->Print(filename);
+  canvas->Delete();
+  //  canvas->Write();
 
   if ( histV1 ) {histV1->Delete();}
   if ( histV2 ) {histV2->Delete();}
@@ -533,8 +577,8 @@ void setTDRStyle() {
   // For the canvas:
   tdrStyle->SetCanvasBorderMode(0);
   tdrStyle->SetCanvasColor(kWhite);
-  tdrStyle->SetCanvasDefH(600); //Height of canvas
-  tdrStyle->SetCanvasDefW(600); //Width of canvas
+  //  tdrStyle->SetCanvasDefH(600); //Height of canvas
+  //  tdrStyle->SetCanvasDefW(600); //Width of canvas
   tdrStyle->SetCanvasDefX(0);   //POsition on screen
   tdrStyle->SetCanvasDefY(0);
 
