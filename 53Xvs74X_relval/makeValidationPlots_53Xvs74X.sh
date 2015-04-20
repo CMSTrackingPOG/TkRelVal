@@ -19,7 +19,7 @@ fi
 for scale in 3 # it should be noted that the preferred scaled from RelVal from 720 onward is 3 --> scale all histos to nTracks ratio  
 do 
   
-  for sample in JetHT #MinimumBias 
+  for sample in DoubleMu JetHT #MinimumBias 
     do
 
     #Set the files to be used for this sample
@@ -27,13 +27,13 @@ do
 	
 	refFile=$(ls *"${sample}"*"${rel_old}"*)
 	newFile=$(ls *"${sample}"*"${rel_new}"*)
-	release=CMSSW_"${rel_new}"_"${sample}"_Run_"${run}"_vs_"${rel_old}"
 
-	echo $refFile
-	echo $newFile
-	echo $release
+	if [ "${sample}" == "DoubleMu" ] ; then
+	    release=CMSSW_"${rel_new}"_vs_"${rel_old}"_"Zmumu"_Run_"${run}"_nGT
+	else
+	    release=CMSSW_"${rel_new}"_vs_"${rel_old}"_"${sample}"_Run_"${run}"_nGT
+	fi
 
-    
       #Creat directory for webpage
 	if [ ! -d /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release} ] ; then    
 	    mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release} 
