@@ -29,9 +29,9 @@ do
 	newFile=$(ls *"${sample}"*"${rel_new}"*)
 
 	if [ "${sample}" == "DoubleMu" ] ; then
-	    release=CMSSW_"${rel_new}"_vs_"${rel_old}"_"Zmumu"_Run_"${run}"_nGT
+	    release=CMSSW_"${rel_new}"_vs_"${rel_old}"_"Zmumu"_Run_"${run}"_nology
 	else
-	    release=CMSSW_"${rel_new}"_vs_"${rel_old}"_"${sample}"_Run_"${run}"_nGT
+	    release=CMSSW_"${rel_new}"_vs_"${rel_old}"_"${sample}"_Run_"${run}"_nology
 	fi
 
       #Creat directory for webpage

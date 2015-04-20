@@ -90,12 +90,14 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
   createPlot("TrackPhi_ImpactPoint", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
   createPlot("TrackPt_ImpactPoint", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
   
+  // goodTracks props
   dirname1 = "/Tracking/Run summary/TrackParameters/GeneralProperties/GoodTracks";
   dirname2 = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_1/GeneralProperties";
   createPlot("algorithm", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
   createPlot("NumberOfTracks", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
   createPlot("FractionOfGoodTracks", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
   createPlot("Chi2oNDF", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
+  createPlot("Chi2Prob", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
   createPlot("TrackEta_ImpactPoint", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
   createPlot("TrackPhi_ImpactPoint", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
   createPlot("TrackPt_ImpactPoint", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
@@ -154,7 +156,6 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
 
 bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file, TString runstring1, TString relstring1, TFile *V2file, TString runstring2, TString relstring2, int scale) {
 
-
   TCanvas *canvas = new TCanvas(hname.Data(),hname.Data(),1);
 
   setTDRStyle();
@@ -193,6 +194,7 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
     if (hname.Contains("algorithm",TString::kExact)){hname1 = "GoodTrackAlgorithm";}
     else if (hname.Contains("NumberOfTracks",TString::kExact)){hname1 = "NumberOfGoodTracks";}
     else if (hname.Contains("Chi2oNDF",TString::kExact)){hname1 = "GoodTrackChi2oNDF";}
+    else if (hname.Contains("Chi2Prob",TString::kExact)){hname1 = "GoodTrackChi2Prob";}
     else if (hname.Contains("TrackEta_ImpactPoint",TString::kExact)){hname1 = "GoodTrackEta_ImpactPoint";}
     else if (hname.Contains("TrackPhi_ImpactPoint",TString::kExact)){hname1 = "GoodTrackPhi_ImpactPoint";}
     else if (hname.Contains("TrackPt_ImpactPoint",TString::kExact)){hname1 = "GoodTrackPt_ImpactPoint";}
@@ -266,7 +268,11 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
   Double_t h1_binWidth = (h1_xup - h1_xlow) / (Double_t)h1_nbins;
   Double_t h2_binWidth = (h2_xup - h2_xlow) / (Double_t)h2_nbins;
 
-  if ((h1_xlow == h2_xlow) && (h1_xup == h2_xup) && (h1_binWidth == h2_binWidth)){
+  if (hname.Contains("NumberOfGoodTracks",TString::kExact)) {
+    histV1 = (TH1F*)V1file->Get(hnameV1);
+    histV2 = (TH1F*)V2file->Get(hnameV2);
+  }
+  else if ((h1_xlow == h2_xlow) && (h1_xup == h2_xup) && (h1_binWidth == h2_binWidth)){
     histV1 = (TH1F*)V1file->Get(hnameV1);
     histV2 = (TH1F*)V2file->Get(hnameV2);
   }
@@ -352,7 +358,6 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
 
       std::cout << "Using Scale for this histogram: " << hnameV1 << std::endl;
 
-
       TString hTempNameV1 = basename1;
       hTempNameV1.Append("/Tracking/Run summary/TrackParameters/GeneralProperties/NumberOfTracks_GenTk");
       hNormTempV1 = (TH1F*)V1file->Get(hTempNameV1);
@@ -431,7 +436,11 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
   histV2->SetLineColor(kBlue);
   histV2->Draw("sames");
 
-  mainpad->SetLogy(1);
+  //  mainpad->SetLogy(1);
+
+  if (hname.Contains("TrackPt_ImpactPoint",TString::kExact)){
+    mainpad->SetLogx(1);
+  }
 
   if (hname.Contains("NumberOfGoodTracks",TString::kExact)) {
     histV1->GetXaxis()->SetRangeUser(0,200);
@@ -453,7 +462,7 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
   mainpad->Update();
 
   TPaveStats *st1 = (TPaveStats*)(histV1->GetListOfFunctions()->FindObject("stats"));
-  if (hname.Contains("FractionOfGoodTracks",TString::kExact)){
+  if ( (hname.Contains("FractionOfGoodTracks",TString::kExact)) || (hname1.Contains("GoodTrackChi2Prob",TString::kExact)) ){
     st1->SetX1NDC(0.57);
   }
   else if ( (hname.Contains("TrackPhi_ImpactPoint",TString::kExact)) || (hname.Contains("TrackEta_ImpactPoint",TString::kExact)) ){
@@ -464,7 +473,7 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
   }
   st1->SetY1NDC(0.80);
 
-  if (hname.Contains("FractionOfGoodTracks",TString::kExact)){
+  if ( (hname.Contains("FractionOfGoodTracks",TString::kExact)) || (hname1.Contains("GoodTrackChi2Prob",TString::kExact)) ){
     st1->SetX2NDC(0.78);
   }
   else if ( (hname.Contains("TrackPhi_ImpactPoint",TString::kExact)) || (hname.Contains("TrackEta_ImpactPoint",TString::kExact)) ){
@@ -478,7 +487,7 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
   Double_t defaulth = st1->GetY2NDC() - st1->GetY1NDC();
   Double_t gaph = 0.02;
   TPaveStats *st2 = (TPaveStats*)(histV2->GetListOfFunctions()->FindObject("stats"));
-  if (hname.Contains("FractionOfGoodTracks",TString::kExact)){ 
+  if ( (hname.Contains("FractionOfGoodTracks",TString::kExact)) || (hname1.Contains("GoodTrackChi2Prob",TString::kExact)) ){ 
     st2->SetX1NDC(0.57);  
   }
   else{
@@ -492,7 +501,7 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
     st2->SetY1NDC(st1->GetY1NDC() - 1.0*defaulth - gaph);
   }
 
-  if (hname.Contains("FractionOfGoodTracks",TString::kExact)){ 
+  if ( (hname.Contains("FractionOfGoodTracks",TString::kExact)) || (hname1.Contains("GoodTrackChi2Prob",TString::kExact)) ){ 
     st2->SetX2NDC(0.78);    
   }
   else{
@@ -536,8 +545,14 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
     respad->cd();
     TH1F* hratio = (TH1F*) histV2->Clone("hratio");
     hratio->Divide(histV1);
-    hratio->SetMaximum(hratio->GetMaximum()*1.1);
-    hratio->SetMinimum(hratio->GetMinimum()*0.9);
+    if (hname.Contains("TrackPt_ImpactPoint",TString::kExact)){
+      hratio->SetMaximum(1.3);
+      hratio->SetMinimum(0.9);
+    }    
+    else{
+      hratio->SetMaximum(hratio->GetMaximum()*1.1);
+      hratio->SetMinimum(hratio->GetMinimum()*0.9);
+    }
     //if (hratio->GetMinimum()==0.0) hratio->SetMinimum(1.0/hratio->GetMaximum());
     //    hratio->SetMinimum(1.0/hratio->GetMaximum());
     hratio->GetYaxis()->SetLabelSize(0.1);
