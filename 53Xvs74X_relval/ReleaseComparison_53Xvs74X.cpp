@@ -99,7 +99,15 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
   createPlot("TrackPhi_ImpactPoint", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("TrackPt_ImpactPoint", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
 
-  // Histograms in HitProperties directory
+  //Histograms for high purity HitProperties
+  dirname1 = "/Tracking/Run summary/TrackParameters/GeneralProperties/HitProperties/GoodTracks";
+  dirname2 = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_1/HitProperties";
+  createPlot("NumberOfRecHitsPerTrack", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfValidRecHitsPerTrack", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfLostRecHitsPerTrack", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfLayersPerTrack", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  
+  // Histograms in HitProperties directory -- genTracks
   dirname1 = "/Tracking/Run summary/TrackParameters/HitProperties";
   dirname2 = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties";
   createPlot("NumberOfRecHitsPerTrack", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
@@ -176,6 +184,10 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
     else if (hname.Contains("TrackEta_ImpactPoint",TString::kExact)){hname1 = "GoodTrackEta_ImpactPoint";}
     else if (hname.Contains("TrackPhi_ImpactPoint",TString::kExact)){hname1 = "GoodTrackPhi_ImpactPoint";}
     else if (hname.Contains("TrackPt_ImpactPoint",TString::kExact)){hname1 = "GoodTrackPt_ImpactPoint";}
+  }
+  else if(dirname1.Contains("/Tracking/Run summary/TrackParameters/HitProperties/GoodTracks",TString::kExact)){
+    if (hname.Contains("NumberOfRecHitsPerTrack",TString::kExact)){hname1 = "GoodTrackNumberOfRecHitsPerTrack";}
+    else if (hname.Contains("NumberOfValidRecHitsPerTrack",TString::kExact)){hname1 = "GoodTrackNumberOfRecHitsFoundPerTrack";}
   }
   else if(dirname1.Contains("/Tracking/Run summary/TrackParameters/HitProperties",TString::kExact)){
     if (hname.Contains("NumberOfValidRecHitsPerTrack",TString::kExact)){hname1 = "NumberOfRecHitsFoundPerTrack";}
