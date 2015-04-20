@@ -71,7 +71,7 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
 
   // save comparisons in root file
 
-  TFile * outputRoot = TFile::Open("53xvs74X.root","RECREATE");
+  //  TFile * outputRoot = TFile::Open("53xvs74X.root","RECREATE");
 
   // Histograms in BeamSpotParameters directory
   TString dirname1 = "";
@@ -103,12 +103,10 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
   createPlot("TrackPt_ImpactPoint", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
 
   //Histograms for high purity HitProperties
-  dirname1 = "/Tracking/Run summary/TrackParameters/GeneralProperties/HitProperties/GoodTracks";
+  dirname1 = "/Tracking/Run summary/TrackParameters/HitProperties/GoodTracks";
   dirname2 = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_1/HitProperties";
-  createPlot("NumberOfRecHitsPerTrack", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfValidRecHitsPerTrack", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfLostRecHitsPerTrack", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfLayersPerTrack", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfRecHitsPerTrack", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
+  createPlot("NumberOfValidRecHitsPerTrack", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
   
   // Histograms in HitProperties directory -- genTracks
   dirname1 = "/Tracking/Run summary/TrackParameters/HitProperties";
