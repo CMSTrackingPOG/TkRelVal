@@ -202,7 +202,8 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
   Double_t h1_binWidth = (h1_xup - h1_xlow) / (Double_t)h1_nbins;
   Double_t h2_binWidth = (h2_xup - h2_xlow) / (Double_t)h2_nbins;
 
-  std::cout << h1_binWidth == h2_binWidth << std::endl;
+  Double_t h1_nEntries = hBinTempV1->GetEntries();
+  Double_t h2_nEntries = hBinTempV2->GetEntries();
 
   if ((h1_xlow == h2_xlow) && (h1_xup == h2_xup) && (h1_binWidth == h2_binWidth)){
     histV1 = (TH1F*)V1file->Get(hnameV1);
@@ -238,6 +239,28 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
       }
     }
   }
+  else if(h1_binWidth != h2_binWidth){
+    if ((h1_xlow < h2_xlow) && (h1_xup == h2_xup)){
+      histV1 = (TH1F*)V1file->Get(hnameV1);
+
+      histV2 = new TH1F(hBinTempV2->GetName(),hBinTempV2->GetTitle(),h2_nbins,h1_xlow,h2_xup);
+      histV2->SetXTitle(hBinTempV2->GetXaxis()->GetTitle());
+      histV2->SetYTitle(hBinTempV2->GetYaxis()->GetTitle());
+      for (Int_t ibin = 1; ibin <= h1_nbins; ibin++){
+	histV2->SetBinContent(ibin,hBinTempV2->GetBinContent(ibin));
+      }
+    }
+    else if ((h2_xlow < h1_xlow) && (h1_xup == h2_xup)){
+      histV2 = (TH1F*)V2file->Get(hnameV2);
+
+      histV1 = new TH1F(hBinTempV1->GetName(),hBinTempV1->GetTitle(),h1_nbins,h2_xlow,h1_xup);
+      histV1->SetXTitle(hBinTempV1->GetXaxis()->GetTitle());
+      histV1->SetYTitle(hBinTempV1->GetYaxis()->GetTitle());
+      for (Int_t ibin = 1; ibin <= h2_nbins; ibin++){
+	histV1->SetBinContent(ibin,hBinTempV1->GetBinContent(ibin));
+      }
+    }
+  }
   else{
     cout << "Bin Check Failed... here's what happened: " << endl;
     cout << "histV1 failed on " << hnameV1  << endl << " for file " << V1file->GetName() << endl;
@@ -246,6 +269,11 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
     cout << "       bin info: " << h2_xlow << " " << h2_xup << " " << h2_nbins << endl;
     exit(1);
   }
+
+
+  histV1->SetEntries(h1_nEntries);
+  histV2->SetEntries(h2_nEntries);
+
 
   // Don't look at zero bin -- > Also could use this for truncation and bin setting -->Range is binlower to upper
   //  Int_t range_upper = histV1->GetXaxis()->GetLast();
@@ -318,79 +346,43 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
   histV1->SetName(V1_V1run);
   histV2->SetName(V2_V2run);
 
-  TString x_title = "";
-
-  if( hname.Contains("DistanceOfClosestApproach",TString::kExact) )   x_title = "d0" ;
-  if( hname.Contains("xPointOfClosestApproach",TString::kExact) )   x_title = "x PCA" ;
-  if( hname.Contains("yPointOfClosestApproach",TString::kExact) )   x_title = "y PCA" ;
-  if( hname.Contains("zPointOfClosestApproach",TString::kExact) )   x_title = "z PCA" ;
-  if( hname.Contains("Pt",TString::kExact) )                  x_title = "p_{T} (GeV)" ;
-  if( hname.Contains("Eta",TString::kExact) )                 x_title = "#eta" ;
-  if( hname.Contains("Phi",TString::kExact) )                 x_title = "#phi" ;
-  if( hname.Contains("pdg",TString::kExact) )                 x_title = "Particle Data ID #" ;
-  if( hname.Contains("NumberOfRecHitsPerTrack",TString::kExact) )        x_title = "#Hits/Track" ;
-  if( hname.Contains("nTECHitPerTrack",TString::kExact) )     x_title = "TEC #Hits" ;
-  if( hname.Contains("nTIBHitPerTrack",TString::kExact) )     x_title = "TIB #Hits" ;
-  if( hname.Contains("nTIDHitPerTrack",TString::kExact) )     x_title = "TID #Hits" ;
-  if( hname.Contains("nTOBHitPerTrack",TString::kExact) )     x_title = "TOB #Hits" ;
-  if( hname.Contains("nPXBHitPerTrack",TString::kExact) )     x_title = "Barrel Pixel #Hits" ;
-  if( hname.Contains("nPXFHitPerTrack",TString::kExact) )     x_title = "Foward Pixel #Hits" ;
-  if( hname.Contains("Chi2"))                                 x_title="#chi^{2}";
-  if( hname.Contains("Chi2ndof"))                             x_title="#chi^{2}/ndof";
-  if( hname.Contains("NumberOfTracks"))                             x_title="#Tracks";
-  if( hname.Contains("vtxNbr"))                               x_title="Number of Primary Vertices per Event";
-
-  TString hist_title;
-
-  if( hname.Contains("xPointOfClosestApproach",TString::kExact) )               hist_title = x_title ;
-  if( hname.Contains("zPointOfClosestApproach",TString::kExact) )               hist_title = x_title ;
-  if( hname.Contains("Pt",TString::kExact) )               hist_title = "p_{T}" ;
-  if( hname.Contains("Eta",TString::kExact) )              hist_title = x_title ;
-  if( hname.Contains("Phi",TString::kExact) )              hist_title = x_title ;
-  if( hname.Contains("NumberOfRecHitsPerTrack",TString::kExact) )     hist_title = x_title ;
-  if( hname.Contains("pdg",TString::kExact) )              hist_title = x_title ;
-  if( hname.Contains("nTECHitPerTrack",TString::kExact) )  hist_title = x_title ;
-  if( hname.Contains("nTIBHitPerTrack",TString::kExact) )  hist_title = x_title ;
-  if( hname.Contains("nTIDHitPerTrack",TString::kExact) )  hist_title = x_title ;
-  if( hname.Contains("nTOBHitPerTrack",TString::kExact) )  hist_title = x_title ;
-  if( hname.Contains("NumberOfTracks") )                        hist_title = x_title;
+  if (hname.Contains("algorithm",TString::kExact)){
+    histV1->GetXaxis()->SetRangeUser(4,17);
+    histV2->GetXaxis()->SetRangeUser(4,17);
+  }
 
   double max = 0;
   double V1max = histV1->GetBinContent(histV1->GetMaximumBin());
   double V2max = histV2->GetBinContent(histV2->GetMaximumBin());
 
   max = (V1max>V2max) ? V1max : V2max;
-  histV1->Draw();
   histV1->SetLineStyle(1);
   histV1->GetYaxis()->SetLabelSize(0.038);
   histV1->SetLineWidth(5);
   histV1->SetLineColor(kRed);
   histV1->SetMaximum(max*(1.1));
-  histV2->Draw();
   histV2->SetLineWidth(3);
   histV2->SetLineStyle(1);
   histV2->SetLineColor(kBlue);
 
-  if( hname.Contains("NumberOfTracks",TString::kExact)
-      || hname.Contains("NumberOfGoodTracks",TString::kExact)
-      || hname.Contains("TrackPt",TString::kExact)
-      || hname.Contains("Chi2Prob",TString::kExact)
-      )
+  if ( hname.Contains("NumberOfTracks",TString::kExact) || hname.Contains("TrackPt",TString::kExact) || hname.Contains("Chi2Prob",TString::kExact) || hname.Contains("algorithm",TString::kExact) ){
     mainpad->SetLogy(1);
-  else
+  }
+  else{
     mainpad->SetLogy(0);
-  if (hname.Contains("NumberOfGoodTracks",TString::kExact)) {
-    histV1->GetXaxis()->SetRangeUser(0,200);
-    histV2->GetXaxis()->SetRangeUser(0,200);
   }
 
-  if (hname.Contains("Chi2oNDF",TString::kExact)) {
+  if ( (hname.Contains("NumberOfTracks",TString::kExact)) && (dirname.Contains("highPurityTracks/pt_1/GeneralProperties",TString::kExact)) ){
+    histV1->GetXaxis()->SetRangeUser(0,500);
+    histV2->GetXaxis()->SetRangeUser(0,500);
+  }
+  else if (hname.Contains("Chi2oNDF",TString::kExact)) {
     histV1->GetXaxis()->SetRangeUser(0,10);
     histV2->GetXaxis()->SetRangeUser(0,10);
   }
 
   if (hname.Contains("vtxNbr")){
-    histV1->GetXaxis()->SetTitle(x_title);
+    histV1->GetXaxis()->SetTitle("Number of Primary Vertices");
     histV1->GetYaxis()->SetTitle("Number of Events");
   }
 
@@ -431,6 +423,11 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
     respad->Draw();
     respad->cd();
     TH1F* hratio = (TH1F*) histV2->Clone("hratio");
+
+    if (hname.Contains("algorithm",TString::kExact)){
+      hratio->GetXaxis()->SetRangeUser(4,17); // algo
+    }
+
     hratio->Divide(histV1);
     hratio->SetMaximum(hratio->GetMaximum()*1.1);
     hratio->SetMinimum(hratio->GetMinimum()/1.1);
@@ -445,6 +442,8 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
     hratio->GetYaxis()->SetLabelSize(0.2);
     hratio->GetYaxis()->SetNdivisions(5);
     hratio->GetYaxis()->SetTitle("NEW/REF");
+    hratio->SetStats(0);
+    hratio->SetTitle("");
     hratio->Draw();
   }
 
