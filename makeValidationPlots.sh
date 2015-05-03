@@ -33,52 +33,45 @@ do
   for sample in MinimumBias Jet #SingleMu #SingleElectron JetHT MinimumBias MET Tau SinglePhoton DoubleElectron
     do
 
-    #Set the files to be used for this sample
-    if [ -f *"${sample}"*"${rel_old}"* ] && [ -f *"${sample}"*"${rel_new}"* ] ; then
-	
-	refFile=$(ls *"${sample}"*"${rel_old}"*)
-	newFile=$(ls *"${sample}"*"${rel_new}"*)
-	release=CMSSW_"${rel_new}"_"${sample}"_Run_"${run}"_vs_"${rel_old}"
+      refFile=$(ls *"${sample}"*"${rel_old}"*)
+      newFile=$(ls *"${sample}"*"${rel_new}"*)
+      release=CMSSW_"${rel_new}"_vs_"${rel_old}"_Run_"${run}"_"${sample}"
 	#release=CMSSW_"${rel_new}"_"${sample}"_Run_"${run}"
-	
-	if [[ "${newFile}" == *"frozenHLT"* ]] ; then
-	    release+="_frozenHLT"
-	fi
-	
-	if [ "${scale}" == "0" ] ; then
-	    release+="_unscaled"
-	elif [ "${scale}" == "1" ] ; then
-	    release+="_scaledPerHisto"
-	fi
-    
+      
+      if [ "${scale}" == "0" ] ; then
+	  release+="_unscaled"
+      elif [ "${scale}" == "1" ] ; then
+	  release+="_scaledPerHisto"
+      fi
+      
       #Creat directory for webpage
-	if [ ! -d /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release} ] ; then    
-	    mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release} 
-	fi                            
-	    
+      if [ ! -d /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release} ] ; then    
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release} 
+      fi                            
+      
       #test locally
       #if [ ! -d $release ] ; then
       #	  mkdir $release
       #fi
-	    
-	echo "Analyzing ${refFile} and ${newFile} in ${release}"                                                                                   
-	    
+      
+      echo "Analyzing ${refFile} and ${newFile} in ${release}"                                                                                   
+      
       #Run the ROOT Macro. This is trivial, compiles a .cpp file that makes all the plots.  
-	root -b -q -l "RunValidationComparison.C("\"${refFile}\",\"${newFile}\",\"${scale}\"")"   
-	    
+      root -b -q -l "RunValidationComparison.C("\"${refFile}\",\"${newFile}\",\"${scale}\"")"   
+      
       #Copy all the plots to the directory to be published
-	cp RunComparison/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}
+      cp RunComparison/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}
       #cp RunComparison/*.png $release #test locally
-	    
+      
       #Run the perl script to generate html to publish plots nicely to web
-	cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}
+      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}
       #cd $release #test locally
-	../diow.pl -t "${release} validation" -c 3 -icon 200                 
-	cd -                                                    
-	
+      ../diow.pl -t "${release} validation" -c 3 -icon 200                 
+      cd -                                                    
+      
       #remove plots for next iteration
-	rm RunComparison/*.png
-    fi
+      rm RunComparison/*.png
+      
   done
 done
 #Delete the cumbersome root files if not needed
