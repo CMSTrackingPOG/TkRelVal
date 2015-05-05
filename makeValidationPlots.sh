@@ -19,8 +19,12 @@ rmroot=$4 #remove root files if true
 if [ -d RunComparison ] ; then
     rm -r RunComparison
     mkdir RunComparison
+    mkdir RunComparison/generalTracks
+    mkdir RunComparison/highPurityTracks
 elif [ ! -d RunComparison ] ; then
     mkdir RunComparison
+    mkdir RunComparison/generalTracks
+    mkdir RunComparison/highPurityTracks
 fi
 
 #scaled and unscaled
@@ -35,7 +39,7 @@ do
 
       refFile=$(ls *"${sample}"*"${rel_old}"*)
       newFile=$(ls *"${sample}"*"${rel_new}"*)
-      release=CMSSW_"${rel_new}"_vs_"${rel_old}"_Run_"${run}"_"${sample}"
+      release=CMSSW_"${rel_new}"_vs_"${rel_old}"_Run_"${run}"_"${sample}"_allLogy
 	#release=CMSSW_"${rel_new}"_"${sample}"_Run_"${run}"
       
       if [ "${scale}" == "0" ] ; then
@@ -48,7 +52,23 @@ do
       if [ ! -d /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release} ] ; then    
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release} 
       fi                            
-      
+
+      #subdirectory for generalTracks
+      if [ ! -d /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/generalTracks ] ; then    
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/generalTracks 
+      else 
+	  rm -r /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/generalTracks 
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/generalTracks 
+      fi                            
+
+      #subdirectory for highPurityTracks
+      if [ ! -d /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/highPurityTracks ] ; then    
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/highPurityTracks 
+      else
+	  rm -r /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/highPurityTracks 
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/highPurityTracks 
+      fi                                  
+
       #test locally
       #if [ ! -d $release ] ; then
       #	  mkdir $release
@@ -60,20 +80,32 @@ do
       root -b -q -l "RunValidationComparison.C("\"${refFile}\",\"${newFile}\",\"${scale}\"")"   
       
       #Copy all the plots to the directory to be published
-      cp RunComparison/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}
+      cp RunComparison/generalTracks/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/generalTracks
+      cp RunComparison/highPurityTracks/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/highPurityTracks
       #cp RunComparison/*.png $release #test locally
-      
-      #Run the perl script to generate html to publish plots nicely to web
-      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}
-      #cd $release #test locally
-      ../diow.pl -t "${release} validation" -c 3 -icon 200                 
-      cd -                                                    
-      
+
       #remove plots for next iteration
-      rm RunComparison/*.png
+      rm RunComparison/generalTracks/*.png
+      rm RunComparison/highPurityTracks/*.png
       
+      #generate index.html files on the fly for release directory
+      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}
+      ../genSubDir.sh "${release}"
+      cd -
+
+      #Run the perl script to generate html to publish plots nicely to web --> run for both genTracks and highPurity
+      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/generalTracks
+      #cd $release #test locally
+      ../../diow.pl -t "${release} generalTracks validation" -c 3 -icon 200                 
+      cd -                                                    
+
+      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/highPurityTracks
+      ../../diow.pl -t "${release} highPurityTracks validation" -c 3 -icon 200                 
+      cd -                                                    
+
   done
 done
+
 #Delete the cumbersome root files if not needed
 if [ "${rmroot}" = true ] ; then
     rm -rf *.root
