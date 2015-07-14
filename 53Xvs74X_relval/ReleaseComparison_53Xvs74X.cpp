@@ -18,6 +18,7 @@
 #include "TString.h"
 #include "TF1.h"
 #include "TPaveStats.h"
+#include "TPaveText.h"
 
 using namespace std;
 
@@ -81,29 +82,30 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
 
   dirname1 = "/Tracking/Run summary/TrackParameters/GeneralProperties";
   dirname2 = "/Tracking/Run summary/TrackParameters/generalTracks/GeneralProperties";
-  createPlot("algorithm", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
-  /*createPlot("NumberOfTracks", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
-    createPlot("Chi2", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
-  createPlot("Chi2oNDF", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
-  createPlot("Chi2Prob", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
-  createPlot("DistanceOfClosestApproachToBS", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
-  createPlot("TrackEta_ImpactPoint", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
+  //  createPlot("algorithm", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
+  // createPlot("NumberOfTracks", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
+  // createPlot("Chi2", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
+  // createPlot("Chi2oNDF", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
+  // createPlot("Chi2Prob", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
+  // createPlot("DistanceOfClosestApproachToBS", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
   createPlot("TrackPhi_ImpactPoint", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
-  createPlot("TrackPt_ImpactPoint", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);*/
+   createPlot("TrackEta_ImpactPoint", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
+
+  //  createPlot("TrackPt_ImpactPoint", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
   // goodTracks props
   dirname1 = "/Tracking/Run summary/TrackParameters/GeneralProperties/GoodTracks";
   dirname2 = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_1/GeneralProperties";
-  createPlot("algorithm", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
-  /*createPlot("NumberOfTracks", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
-    createPlot("FractionOfGoodTracks", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
-  createPlot("Chi2oNDF", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
-  createPlot("Chi2Prob", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
+  // createPlot("algorithm", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
+  // createPlot("NumberOfTracks", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
+  // createPlot("FractionOfGoodTracks", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
+  // createPlot("Chi2oNDF", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
+  // createPlot("Chi2Prob", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
   createPlot("TrackEta_ImpactPoint", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
-  createPlot("TrackPhi_ImpactPoint", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
-  createPlot("TrackPt_ImpactPoint", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
+  // createPlot("TrackPhi_ImpactPoint", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
+  // createPlot("TrackPt_ImpactPoint", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
    
   //Histograms for high purity HitProperties
-  dirname1 = "/Tracking/Run summary/TrackParameters/HitProperties/GoodTracks";
+  /*dirname1 = "/Tracking/Run summary/TrackParameters/HitProperties/GoodTracks";
   dirname2 = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_1/HitProperties";
   createPlot("NumberOfRecHitsPerTrack", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
   createPlot("NumberOfValidRecHitsPerTrack", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
@@ -149,8 +151,7 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
   //Primary vertices
   dirname1 = "/OfflinePV/Run summary/offlinePrimaryVertices";
   dirname2 = "/OfflinePV/Run summary/offlinePrimaryVertices";
-  createPlot("vtxNbr", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);
-  */
+  createPlot("vtxNbr", dirname1, dirname2, file1, runString1, relString1, file2, runString2, relString2, scale);*/
 }
 
 bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file, TString runstring1, TString relstring1, TFile *V2file, TString runstring2, TString relstring2, int scale) {
@@ -175,10 +176,10 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
 
   bool DrawRatio = true;
   canvas->cd();
-  TPad* mainpad = new TPad("mainpad","mainpad",0.0,0.0,1.0,0.8);
+  TPad* mainpad = new TPad("mainpad","mainpad",0.0,0.0,0.9,1.0);
   mainpad->Draw();
   mainpad->cd();
-
+  setTDRStyle();
   // ************ Get name of histos and get histos ************* //
   
   TString basename1 = "DQMData/Run ";
@@ -506,14 +507,18 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
 
   //  histV1->SetMaximum(max*(1.1));
   //  histV1->SetMinimum(10000);
+  histV1->SetStats(false);
+  histV1->SetMinimum(0.);
   histV1->Draw();
   histV2->SetTitle("");
   histV2->SetLineWidth(3);
   histV2->SetLineStyle(1);
   histV2->SetLineColor(kBlue);
+  histV2->SetStats(false);
+  histV2->SetMinimum(0.);
   histV2->Draw("sames");
 
-  mainpad->SetLogy(1);
+  //  mainpad->SetLogy(1);
 
   //  if (hname.Contains("TrackPt_ImpactPoint",TString::kExact)){
   // mainpad->SetLogx(1);
@@ -545,7 +550,7 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
 
   mainpad->Update();
 
-  TPaveStats *st1 = (TPaveStats*)(histV1->GetListOfFunctions()->FindObject("stats"));
+  /*  TPaveStats *st1 = (TPaveStats*)(histV1->GetListOfFunctions()->FindObject("stats"));
   if ( (hname.Contains("FractionOfGoodTracks",TString::kExact)) || (hname1.Contains("GoodTrackChi2Prob",TString::kExact)) ){
     st1->SetX1NDC(0.57);
   }
@@ -598,7 +603,7 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
   else{
     st2->SetY2NDC(st1->GetY1NDC() - gaph);
   }
-
+  */
   if ( (hname.Contains("NumberOfTracks",TString::kExact)) || (hname.Contains("vtxNbr",TString::kExact)) || (hname.Contains("algorithm",TString::kExact))){
     TLegend *leg = new TLegend(0.5,0.86,0.6,0.97);
     leg->SetTextSize(0.042);
@@ -610,102 +615,118 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
     leg->Draw("SAME");
   }
   else {
-    TLegend *leg = new TLegend(0.32,0.86,0.42,0.97);
+    //    TLegend *leg = new TLegend(0.8,0.8,0.91,0.91);
+    TLegend *leg = new TLegend(0.45,0.25,0.55,0.35);
     leg->SetTextSize(0.042);
     leg->SetTextFont(42);
     leg->SetFillColor(10); 
-    leg->SetBorderSize(1); // no frame, no shadow
-    leg->AddEntry(histV1, "5_3_X", "L" );
-    leg->AddEntry(histV2, "7_4_X", "L" );
+    leg->SetBorderSize(0); // no frame, no shadow
+    leg->AddEntry(histV1, "Run I RECO", "L" );
+    leg->AddEntry(histV2, "Run II RECO", "L" );
     leg->Draw("SAME");
   }
 
+  TPaveText * tpt = new TPaveText();
+  tpt->SetBorderSize(0);
+  tpt->SetTextFont(42);
+  tpt->SetTextSize(0.042);
+  tpt->SetFillColor(10);
+  tpt->SetX1NDC(0.42);
+  tpt->SetY1NDC(0.15);
+  tpt->SetX2NDC(0.9);
+  tpt->SetY2NDC(0.2);
+  tpt->AddText("CMS Preliminary #sqrt{s} = 8 TeV");
+  tpt->Draw("SAME");
+
+
+
+
   // Draw ratio histogram
-  if (DrawRatio){
-    canvas->cd();
-    TPad* respad = new TPad("respad","respad",0.0,0.81,1.0,0.98);
-    respad->SetTopMargin(1.05);
-    respad->Draw();
-    respad->cd();
-    TH1F* hratio = (TH1F*) histV2->Clone("hratio");
+  //   if (DrawRatio){
+  //   canvas->cd();
+  //   TPad* respad = new TPad("respad","respad",0.0,0.81,1.0,0.98);
+  //   respad->SetTopMargin(1.05);
+  //   respad->Draw();
+  //   respad->cd();
+  //   TH1F* hratio = (TH1F*) histV2->Clone("hratio");
 
 
 
-  if (hname1.Contains("NumberOfTracks",TString::kExact)){
+  // if (hname1.Contains("NumberOfTracks",TString::kExact)){
     
-    std::cout << "here1" << std::endl;
-    //hratio->SetMaximum(1.5);
-    // hratio->SetMinimum(0.5);
-    hratio->GetXaxis()->SetRangeUser(10,2000);
+  //   std::cout << "here1" << std::endl;
+  //   //hratio->SetMaximum(1.5);
+  //   // hratio->SetMinimum(0.5);
+  //   hratio->GetXaxis()->SetRangeUser(10,2000);
 
     
-  }
-  else if (hname1.Contains("NumberOfGoodTracks",TString::kExact)){
+  // }
+  // else if (hname1.Contains("NumberOfGoodTracks",TString::kExact)){
 
-    std::cout << "here2" << std::endl;
-    //    hratio->SetMaximum(2.0);
-    //hratio->SetMinimum(0.5);
-    hratio->GetXaxis()->SetRangeUser(5,250);
+  //   std::cout << "here2" << std::endl;
+  //   //    hratio->SetMaximum(2.0);
+  //   //hratio->SetMinimum(0.5);
+  //   hratio->GetXaxis()->SetRangeUser(5,250);
 
 
-  }
-  else {
+  // }
+  // else {
 
-    //    std::cout << "here3" << std::endl;
-    //hratio->SetMaximum(2.0);
-    // hratio->SetMinimum(0);
-    //    hratio->GetXaxis()->SetRangeUser(.1,1.0); //fraction of good
-    hratio->GetXaxis()->SetRangeUser(4,17); // algo
-    // hratio->GetYaxis()->SetRangeUser(0,2.0); // algo zoom
-  }
+  //   //    std::cout << "here3" << std::endl;
+  //   //hratio->SetMaximum(2.0);
+  //   // hratio->SetMinimum(0);
+  //   //    hratio->GetXaxis()->SetRangeUser(.1,1.0); //fraction of good
+  //   hratio->GetXaxis()->SetRangeUser(4,17); // algo
+  //   // hratio->GetYaxis()->SetRangeUser(0,2.0); // algo zoom
+  // }
 
   
-    if (hname.Contains("Chi2oNDF",TString::kExact)) {
-      hratio->GetXaxis()->SetRangeUser(0,10);
-    }/*
-    else if (hname1.Contains("NumberOfGoodTracks",TString::kExact)) {
-      hratio->GetXaxis()->SetRangeUser(0,500);
+  //   if (hname.Contains("Chi2oNDF",TString::kExact)) {
+  //     hratio->GetXaxis()->SetRangeUser(0,10);
+  //   }/*
+  //   else if (hname1.Contains("NumberOfGoodTracks",TString::kExact)) {
+  //     hratio->GetXaxis()->SetRangeUser(0,500);
     
-      for (int jk =0; jk<= 500; jk++){
-	std::cout << hratio->GetBinContent(jk) << " " << histV1->GetBinContent(jk) << " " << (hratio->GetBinContent(jk) / histV1->GetBinContent(jk)) << std::endl;
+  //     for (int jk =0; jk<= 500; jk++){
+  // 	std::cout << hratio->GetBinContent(jk) << " " << histV1->GetBinContent(jk) << " " << (hratio->GetBinContent(jk) / histV1->GetBinContent(jk)) << std::endl;
 
-      }
+  //     }
     
-    }  */
-    hratio->Divide(histV1);
-    if (hname.Contains("TrackPt_ImpactPoint",TString::kExact)){
-      hratio->SetMaximum(hratio->GetMaximum()*1.1); // used this for min bias 
-      hratio->SetMinimum(hratio->GetMinimum()*0.9); // used this for min bias 
-      //      hratio->SetMaximum(1.2);
-      //      hratio->SetMinimum(0.6); // used for zmumu + jetht 
-    }    
-    else if (hname1.Contains("GoodTrackChi2oNDF",TString::kExact)) {
-      hratio->SetMaximum(1.4);
-      hratio->SetMinimum(0.8); // used for all samples nology for chi2ndof
-    }
-    else if (hname1.Contains("Chi2oNDF",TString::kExact)) {
-      hratio->SetMaximum(1.2);
-      hratio->SetMinimum(0.6); // used for all samples nology for chi2ndof
-    }
-    /*    else{
-      hratio->SetMaximum(hratio->GetMaximum()*1.1);
-      hratio->SetMinimum(hratio->GetMinimum()*0.9);
-    }
-    */
-    //if (hratio->GetMinimum()==0.0) hratio->SetMinimum(1.0/hratio->GetMaximum());
-    //    hratio->SetMinimum(1.0/hratio->GetMaximum());
-    hratio->GetYaxis()->SetLabelSize(0.1);
-    hratio->GetXaxis()->SetLabelSize(0);
-    hratio->GetXaxis()->SetTitleSize(0);
-    hratio->GetYaxis()->SetTitleSize(0.22);
-    hratio->GetYaxis()->SetTitleOffset(0.26);
-    hratio->GetYaxis()->SetLabelSize(0.2);
-    hratio->GetYaxis()->SetNdivisions(5);
-    hratio->GetYaxis()->SetTitle("74X/53X");
-    hratio->SetTitle("");
-    hratio->SetStats(0);
-    hratio->Draw();
-  }
+  //   }  */
+  //   hratio->Divide(histV1);
+  //   if (hname.Contains("TrackPt_ImpactPoint",TString::kExact)){
+  //     hratio->SetMaximum(hratio->GetMaximum()*1.1); // used this for min bias 
+  //     hratio->SetMinimum(hratio->GetMinimum()*0.9); // used this for min bias 
+  //     //      hratio->SetMaximum(1.2);
+  //     //      hratio->SetMinimum(0.6); // used for zmumu + jetht 
+  //   }    
+  //   else if (hname1.Contains("GoodTrackChi2oNDF",TString::kExact)) {
+  //     hratio->SetMaximum(1.4);
+  //     hratio->SetMinimum(0.8); // used for all samples nology for chi2ndof
+  //   }
+  //   else if (hname1.Contains("Chi2oNDF",TString::kExact)) {
+  //     hratio->SetMaximum(1.2);
+  //     hratio->SetMinimum(0.6); // used for all samples nology for chi2ndof
+  //   }
+  //   /*    else{
+  //     hratio->SetMaximum(hratio->GetMaximum()*1.1);
+  //     hratio->SetMinimum(hratio->GetMinimum()*0.9);
+  //   }
+  //   */
+  //   //if (hratio->GetMinimum()==0.0) hratio->SetMinimum(1.0/hratio->GetMaximum());
+  //   //    hratio->SetMinimum(1.0/hratio->GetMaximum());
+  //   hratio->GetYaxis()->SetLabelSize(0.1);
+  //   hratio->GetXaxis()->SetLabelSize(0);
+  //   hratio->GetXaxis()->SetTitleSize(0);
+  //   hratio->GetYaxis()->SetTitleSize(0.22);
+  //   hratio->GetYaxis()->SetTitleOffset(0.26);
+  //   hratio->GetYaxis()->SetLabelSize(0.2);
+  //   hratio->GetYaxis()->SetNdivisions(5);
+  //   hratio->GetYaxis()->SetTitle("74X/53X");
+  //   hratio->SetTitle("");
+  //   hratio->SetStats(0);
+  //   hratio->Draw();
+  // }
 
   TString filename = hname;
 
@@ -726,7 +747,7 @@ bool createPlot(TString hname, TString dirname1, TString dirname2, TFile *V1file
   filename.Append(".png");
 
   canvas->Print(filename);
-  canvas->Delete();
+  canvas->Close();
   //  canvas->Write();
 
   if ( histV1 ) {histV1->Delete();}
@@ -748,8 +769,8 @@ void setTDRStyle() {
   // For the canvas:
   tdrStyle->SetCanvasBorderMode(0);
   tdrStyle->SetCanvasColor(kWhite);
-  //  tdrStyle->SetCanvasDefH(600); //Height of canvas
-  //  tdrStyle->SetCanvasDefW(600); //Width of canvas
+  tdrStyle->SetCanvasDefH(600); //Height of canvas
+  tdrStyle->SetCanvasDefW(600); //Width of canvas
   tdrStyle->SetCanvasDefX(0);   //POsition on screen
   tdrStyle->SetCanvasDefY(0);
 

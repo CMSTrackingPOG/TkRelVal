@@ -36,6 +36,8 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
   gStyle->SetOptFit(1);
 
   TCanvas *canvas = new TCanvas;
+
+  // fileName1 --> REFERENCE
   int pos = fileName1.find("_R0");
   std::string runString1 = fileName1.substr (pos+5,6);
   int pos1 = fileName1.find("CMSSW")+6;
@@ -44,7 +46,6 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.find("-GR");
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.find("-PRE");
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.find("-FT");
-
   std::string relString1 = fileName1.substr (pos1,pos2-pos1); 
   TFile *file1 = TFile::Open(fileName1.c_str());
   std::cout << "Getting histos for run number... " << runString1 
@@ -52,8 +53,9 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
   if ( file1->IsZombie() )
     std::cout << "File: " << fileName1 << " cannot be opened!" << std::endl;
   //  relString1 += " - REF";
-  pos = fileName2.find("_R0");
 
+  // fileName2 --> NEW
+  pos = fileName2.find("_R0");
   std::string runString2 = fileName2.substr (pos+5,6);
   pos1 = fileName2.find("CMSSW")+6;
   pos2 = fileName2.find("/MinimumBias");
@@ -61,7 +63,7 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.find("-GR");
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.find("-PRE");
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.find("-FT");
-
+  if (pos2 == -1 || pos2<pos1) pos2 = fileName2.find("-75X");
   std::string relString2 = fileName2.substr (pos1,pos2-pos1);
   TFile *file2 = TFile::Open(fileName2.c_str());
   std::cout << "Getting histos for run number... " << runString2 
@@ -115,12 +117,12 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
   createPlot("DistanceOfClosestApproachToPV", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);  // additional distributions for goodTracks
   createPlot("DistanceOfClosestApproach", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("FractionOfGoodTracks", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("SIP2DToPV", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  /*  createPlot("SIP2DToPV", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("SIP3DToPV", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("SIPDxyToBS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("SIPDxyToPV", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("SIPDzToBS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("SIPDzToPV", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("SIPDzToPV", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);*/
   createPlot("xPointOfClosestApproach", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("yPointOfClosestApproach", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("zPointOfClosestApproach", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
@@ -213,7 +215,7 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
   TString basename1 = "DQMData/Run ";
   basename1.Append(runstring1);
 
-  TString hnameV1 = basename1;
+  TString hnameV1 = basename1; // reference
   hnameV1.Append(dirname+"/");
   hnameV1.Append(hname);
 
@@ -243,11 +245,11 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
     std::cout << "histV2 failed on " << hnameV2  << std::endl << " for file " << V2file->GetName() << std::endl;
     exit(1);
   }
-  
+
   // Check that bins match for ratio plot
 
-  TH1F * histV1 = 0;
-  TH1F * histV2 = 0;
+  TH1F * histV1 = 0; // reference
+  TH1F * histV2 = 0; // target
 
   Double_t h1_xlow = hBinTempV1->GetXaxis()->GetBinLowEdge(hBinTempV1->GetXaxis()->GetFirst());
   Double_t h2_xlow = hBinTempV2->GetXaxis()->GetBinLowEdge(hBinTempV2->GetXaxis()->GetFirst());
@@ -329,10 +331,8 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
     exit(1);
   }
 
-
   histV1->SetEntries(h1_nEntries);
   histV2->SetEntries(h2_nEntries);
-
 
   // Don't look at zero bin -- > Also could use this for truncation and bin setting -->Range is binlower to upper
   //  Int_t range_upper = histV1->GetXaxis()->GetLast();
@@ -380,18 +380,24 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
       std::cout << "The number of events for V2 is " << V2_integral << std::endl;
     }
   }
+  else if (SetScale==0) {
+    std::cout << "No scaling applied" << std::endl;
+  }
+  else {
+    std::cout << "Oh boy, you messed up, scaling not an option: " << SetScale << std::endl;
+  }
 
   //*****NORMALIZING V1-V2****************************************
 
-  if(V1_integral>V2_integral) {
-    histV1->Scale(V2_integral / V1_integral);
+  if (V1_integral>V2_integral) {
+    histV1->Scale(V2_integral / V1_integral); // scale down h1
     histV2->Scale(1);
 
     std::cout << "Set scale: " << V2_integral / V1_integral << std::endl;
   } 
-  else if(V2_integral>V1_integral){
+  else if (V2_integral>V1_integral) {
     histV1->Scale(1);
-    histV2->Scale(V1_integral / V2_integral);
+    histV2->Scale(V1_integral / V2_integral); // scale down h2
 
     std::cout << "Set scale: " << V1_integral / V2_integral << std::endl;
   }
@@ -418,13 +424,22 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
   histV1->SetLineStyle(1);
   histV1->GetYaxis()->SetLabelSize(0.038);
   histV1->SetLineWidth(5);
-  histV1->SetLineColor(kRed);
+  histV1->SetLineColor(kBlue); // h1 is ref ...originally was red... switched to match MC comparisons
   histV1->SetMaximum(max*(1.1));
   histV2->SetLineWidth(3);
   histV2->SetLineStyle(1);
-  histV2->SetLineColor(kBlue);
+  histV2->SetLineColor(kRed); // h2 is new ... ogirinally was blue --> switched to match MC 
 
-  if ( hname.Contains("NumberOfTracks",TString::kExact) || hname.Contains("TrackPt",TString::kExact) || hname.Contains("Chi2Prob",TString::kExact) || hname.Contains("algorithm",TString::kExact) || hname.Contains("TrackPz",TString::kExact) || hname.Contains("TrackP_ImpactPoint",TString::kExact) || hname.Contains("TrackPErrOverP",TString::kExact) || hname.Contains("TrackPzErrOverPz",TString::kExact) ){
+  if ( hname.Contains("NumberOfTracks",TString::kExact) || hname.Contains("TrackPt",TString::kExact) || hname.Contains("Chi2",TString::kExact) || hname.Contains("DistanceOfClosestApproach",TString::kExact) || hname.Contains("algorithm",TString::kExact) || hname.Contains("TrackPz",TString::kExact) || hname.Contains("TrackP_ImpactPoint",TString::kExact) || hname.Contains("TrackPErrOverP",TString::kExact) || hname.Contains("TrackPzErrOverPz",TString::kExact) || hname.Contains("SIP",TString::kExact) || hname.Contains("NumberOfMeanLayersPerTrack",TString::kExact) || hname.Contains("NumberOfMeanRecHitsPerTrack",TString::kExact) ) {
+    mainpad->SetLogy(1);
+  }
+  else if ( hname.Contains("NumberOfLayersPerTrack",TString::kExact) && !hname.Contains("NumberOfLayersPerTrack_",TString::kExact) ){
+    mainpad->SetLogy(1);
+  }
+  else if ( hname.Contains("NumberOfRecHitsPerTrack",TString::kExact) && !hname.Contains("NumberOfRecHitsPerTrack_",TString::kExact) ){
+    mainpad->SetLogy(1);
+  }
+  else if ( hname.Contains("NumberOfLostRecHitsPerTrack",TString::kExact) ){
     mainpad->SetLogy(1);
   }
   else{
@@ -432,8 +447,8 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
   }
 
   if ( (hname.Contains("NumberOfTracks",TString::kExact)) && (dirname.Contains("highPurityTracks/pt_1/GeneralProperties",TString::kExact)) ){
-    histV1->GetXaxis()->SetRangeUser(0,500);
-    histV2->GetXaxis()->SetRangeUser(0,500);
+    histV1->GetXaxis()->SetRangeUser(0,1000);
+    histV2->GetXaxis()->SetRangeUser(0,1000);
   }
   else if (hname.Contains("Chi2oNDF",TString::kExact)) {
     histV1->GetXaxis()->SetRangeUser(0,10);

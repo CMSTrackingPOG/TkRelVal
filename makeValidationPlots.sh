@@ -6,7 +6,7 @@
 run=$1 #specify what run you want to download 
 rel_old=$2 #old release to check against (e.g. pre1)
 rel_new=$3 #new release (e.q. pre2)
-rmroot=$4 #remove root files if true
+#rmroot=$4 #remove root files if true
 
 #if [ "${get_files}" = true ] ; then
 
@@ -37,9 +37,9 @@ do
   for sample in MinimumBias Jet #SingleMu #SingleElectron JetHT MinimumBias MET Tau SinglePhoton DoubleElectron
     do
 
-      refFile=$(ls *"${sample}"*"${rel_old}"*)
-      newFile=$(ls *"${sample}"*"${rel_new}"*)
-      release=CMSSW_"${rel_new}"_vs_"${rel_old}"_Run_"${run}"_"${sample}"_allLogy
+      refFile=$(ls *"${run}"*"${sample}"*"${rel_old}"*)
+      newFile=$(ls *"${run}"*"${sample}"*"${rel_new}"*)
+      release=CMSSW_"${rel_new}"_vs_"${rel_old}"_Run_"${run}"_"${sample}"
 	#release=CMSSW_"${rel_new}"_"${sample}"_Run_"${run}"
       
       if [ "${scale}" == "0" ] ; then
@@ -107,6 +107,6 @@ do
 done
 
 #Delete the cumbersome root files if not needed
-if [ "${rmroot}" = true ] ; then
-    rm -rf *.root
-fi
+#if [ "${rmroot}" = true ] ; then
+#    rm -rf *.root
+#fi

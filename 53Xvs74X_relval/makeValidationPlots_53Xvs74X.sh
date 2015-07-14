@@ -19,7 +19,7 @@ fi
 for scale in 3 # it should be noted that the preferred scaled from RelVal from 720 onward is 3 --> scale all histos to nTracks ratio  
 do 
   
-  for sample in DoubleMu JetHT #MinimumBias
+  for sample in JetHT #MinimumBias
     do
 
     #Set the files to be used for this sample
@@ -31,7 +31,7 @@ do
 	if [ "${sample}" == "DoubleMu" ] ; then
 	    release=CMSSW_"${rel_new}"_vs_"${rel_old}"_"Zmumu"_Run_"${run}"_correctalgo
 	else
-	    release=CMSSW_"${rel_new}"_vs_"${rel_old}"_"${sample}"_Run_"${run}"_correctalgo
+	    release=CMSSW_"${rel_new}"_vs_"${rel_old}"_"${sample}"_Run_"${run}"_etaonly_zero
 	fi
 
       #Creat directory for webpage
