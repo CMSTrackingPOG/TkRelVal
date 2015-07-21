@@ -1,40 +1,41 @@
 #! /bin/bash
 
 #Parameters passed from command line
-#get_files=$1 #if true, get all files from web
-#web_dir=$2 #directory of DQM files on web
 run=$1 #specify what run you want to download 
 rel_old=$2 #old release to check against (e.g. pre1)
 rel_new=$3 #new release (e.q. pre2)
 #rmroot=$4 #remove root files if true
 
-#if [ "${get_files}" = true ] ; then
-
-#Get all the necessary files
-#wget -e robots=off --wait 1 -r -l1 -nd -np "https://cmsweb.cern.ch/dqm/relval/data/browse/ROOT/RelValData/${web_dir}/" -A "*${run}*${rel_old}*root, *${run}*${rel_new}*root" --no-check-certificate --certificate ~/.globus/usercert.pem --private-key ~/.globus/userkey.pem
-
-#fi 
-
 #Make a local copy of the plots here
 if [ -d RunComparison ] ; then
     rm -r RunComparison
     mkdir RunComparison
+    mkdir RunComparison/SiStrip
     mkdir RunComparison/generalTracks
+    mkdir RunComparison/generalTracks/GeneralProperties
+    mkdir RunComparison/generalTracks/HitProperties
     mkdir RunComparison/highPurityTracks
+    mkdir RunComparison/highPurityTracks/GeneralProperties
+    mkdir RunComparison/highPurityTracks/HitProperties
 elif [ ! -d RunComparison ] ; then
     mkdir RunComparison
+    mkdir RunComparison/SiStrip
     mkdir RunComparison/generalTracks
+    mkdir RunComparison/generalTracks/GeneralProperties
+    mkdir RunComparison/generalTracks/HitProperties
     mkdir RunComparison/highPurityTracks
+    mkdir RunComparison/highPurityTracks/GeneralProperties
+    mkdir RunComparison/highPurityTracks/HitProperties
 fi
 
-#scaled and unscaled
+#scaled and unscaled --> see ReleaseComparison.cpp for explaination of scales
 
 #Do this for all matching data sets
 #for scale in 0 1 3
 for scale in 3 # it should be noted that the preferred scaled from RelVal from 720 onward is 3 --> scale all histos to nTracks ratio  
 do 
   
-  for sample in MinimumBias Jet #SingleMu #SingleElectron JetHT MinimumBias MET Tau SinglePhoton DoubleElectron
+  for sample in MinimumBias Jet #SingleMu #SingleElectron MET Tau SinglePhoton DoubleElectron
     do
 
       refFile=$(ls *"${run}"*"${sample}"*"${rel_old}"*)
@@ -48,59 +49,73 @@ do
 	  release+="_scaledPerHisto"
       fi
       
-      #Creat directory for webpage
+      #Creat directories for webpage
       if [ ! -d /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release} ] ; then    
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release} 
-      fi                            
-
-      #subdirectory for generalTracks
-      if [ ! -d /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/generalTracks ] ; then    
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/generalTracks 
-      else 
-	  rm -r /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/generalTracks 
-	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/generalTracks 
-      fi                            
-
-      #subdirectory for highPurityTracks
-      if [ ! -d /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/highPurityTracks ] ; then    
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/generalTracks/GeneralProperties 
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/generalTracks/HitProperties
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/highPurityTracks 
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/highPurityTracks/GeneralProperties 
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/highPurityTracks/HitProperties
       else
-	  rm -r /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/highPurityTracks 
+	  rm -r /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release} 
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release} 
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/generalTracks 
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/generalTracks/GeneralProperties 
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/generalTracks/HitProperties
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/highPurityTracks 
-      fi                                  
-
-      #test locally
-      #if [ ! -d $release ] ; then
-      #	  mkdir $release
-      #fi
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/highPurityTracks/GeneralProperties 
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/highPurityTracks/HitProperties
+      fi                            
       
       echo "Analyzing ${refFile} and ${newFile} in ${release}"                                                                                   
       
       #Run the ROOT Macro. This is trivial, compiles a .cpp file that makes all the plots.  
-      root -b -q -l "RunValidationComparison.C("\"${refFile}\",\"${newFile}\",\"${scale}\"")"   
+      root -b -q -l "runValidationComparison.C("\"${refFile}\",\"${newFile}\",\"${scale}\"")"   
       
       #Copy all the plots to the directory to be published
-      cp RunComparison/generalTracks/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/generalTracks
-      cp RunComparison/highPurityTracks/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/highPurityTracks
-      #cp RunComparison/*.png $release #test locally
+      cp RunComparison/SiStrip/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip
+      cp RunComparison/generalTracks/GeneralProperties/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/generalTracks/GeneralProperties
+      cp RunComparison/generalTracks/HitProperties/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/generalTracks/HitProperties
+      cp RunComparison/highPurityTracks/GeneralProperties/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/highPurityTracks/GeneralProperties
+      cp RunComparison/highPurityTracks/HitProperties/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/highPurityTracks/HitProperties
 
       #remove plots for next iteration
-      rm RunComparison/generalTracks/*.png
-      rm RunComparison/highPurityTracks/*.png
+      rm RunComparison/SiStrip/*.png
+      rm RunComparison/generalTracks/GeneralProperties/*.png
+      rm RunComparison/generalTracks/HitProperties/*.png
+      rm RunComparison/highPurityTracks/GeneralProperties/*.png
+      rm RunComparison/highPurityTracks/HitProperties/*.png
       
       #generate index.html files on the fly for release directory
       cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}
-      ../genSubDir.sh "${release}"
+      ../genSubDir.sh "${release}" 
+      ../genSubSubDir.sh "${release}" "generalTracks"
+      ../genSubSubDir.sh "${release}" "highPurityTracks"
       cd -
 
-      #Run the perl script to generate html to publish plots nicely to web --> run for both genTracks and highPurity
-      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/generalTracks
-      #cd $release #test locally
-      ../../diow.pl -t "${release} generalTracks validation" -c 3 -icon 200                 
+      #Run the perl script to generate html to publish plots nicely to web --> run for both genTracks and highPurity, and SiStrip
+      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip
+      ../../diow.pl -t "${release} SiStrip Validation" -c 3 -icon 200                 
       cd -                                                    
 
-      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/highPurityTracks
-      ../../diow.pl -t "${release} highPurityTracks validation" -c 3 -icon 200                 
+      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/generalTracks/GeneralProperties
+      ../../../diow.pl -t "${release} generalTracks General Properties Validation" -c 3 -icon 200                 
+      cd -                                                    
+
+      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/generalTracks/HitProperties
+      ../../../diow.pl -t "${release} generalTracks Hit Properties Validation" -c 3 -icon 200                 
+      cd -                                                    
+
+      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/highPurityTracks/GeneralProperties
+      ../../../diow.pl -t "${release} highPurityTracks General Properties Validation" -c 3 -icon 200                 
+      cd -                                                    
+
+      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/highPurityTracks/HitProperties
+      ../../../diow.pl -t "${release} highPurityTracks Hit Properties Validation" -c 3 -icon 200                 
       cd -                                                    
 
   done

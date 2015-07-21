@@ -1,27 +1,4 @@
-//INDIVIDUAL/MULTI-FILE COMPARISON
-
-//***This macro produces overlaying histograms from either individual or sets of input files
-
-#include <vector>
-#include <string>
-#include <iostream>
-#include <sstream>
-#include <fstream>
-#include "TROOT.h"
-#include "TStyle.h"
-#include "TFile.h"
-#include "TPad.h"
-#include "TGraph.h"
-#include "TCanvas.h"
-#include "TLegend.h"
-#include "TH1F.h"
-#include "TString.h"
-#include "TF1.h"
-#include "TPaveStats.h"
-
-void V1_V2_trkComparison(string fileName1, string fileName2, int scale);
-bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring1, TString relstring1, TFile *V2file, TString runstring2, TString relstring2, TCanvas *canvas, int scale);
-void setTDRStyle();
+#include "ReleaseComparison.hh"
 
 void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
 
@@ -74,6 +51,22 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
 
   // Histograms in BeamSpotParameters directory
   TString dirname = "BeamSpotParameters";
+  
+  // Histograms in SiStrip --> Used for validation of noCCC
+  dirname = "/SiStrip/Run summary/MechanicalView";
+  TString histname = "Summary_ClusterChargePerCMfromOrigin";
+  createPlot(histname+"_OffTrack__TEC__MINUS", dirname+"/TEC/MINUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot(histname+"_OnTrack__TEC__MINUS", dirname+"/TEC/MINUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot(histname+"_OffTrack__TEC__PLUS", dirname+"/TEC/PLUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot(histname+"_OnTrack__TEC__PLUS", dirname+"/TEC/PLUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot(histname+"_OffTrack__TIB", dirname+"/TIB", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot(histname+"_OnTrack__TIB", dirname+"/TIB", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot(histname+"_OffTrack__TID__MINUS", dirname+"/TID/MINUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot(histname+"_OnTrack__TID__MINUS", dirname+"/TID/MINUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot(histname+"_OffTrack__TID__PLUS", dirname+"/TID/PLUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot(histname+"_OnTrack__TID__PLUS", dirname+"/TID/PLUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot(histname+"_OffTrack__TOB", dirname+"/TOB", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot(histname+"_OnTrack__TOB", dirname+"/TOB", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
 
   // Histograms in GeneralProperties directory
   dirname = "/Tracking/Run summary/TrackParameters/generalTracks/GeneralProperties";
@@ -95,6 +88,7 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
   createPlot("TrackPzErrOverPz_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("TrackQ_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
 
+  // High purity histos
   dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_1/GeneralProperties";
   createPlot("algorithm", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);  // first set is copy of genTrack distributions
   createPlot("Chi2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
@@ -114,6 +108,7 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
   createPlot("TrackPzErrOverPz_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("TrackQ_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
 
+  // Additional Plots for HP --> SIP, DOCA
   createPlot("DistanceOfClosestApproachToPV", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);  // additional distributions for goodTracks
   createPlot("DistanceOfClosestApproach", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("FractionOfGoodTracks", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
@@ -219,7 +214,7 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
   hnameV1.Append(dirname+"/");
   hnameV1.Append(hname);
 
-  if (hname != "vtxNbr"){
+  if ( (hname != "vtxNbr") && (!dirname.Contains("SiStrip",TString::kExact)) ){
     hnameV1.Append("_GenTk");
   }
 
@@ -236,7 +231,7 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
   hnameV2.Append(dirname+"/");
   hnameV2.Append(hname);
   
-  if (hname != "vtxNbr"){
+  if ( (hname != "vtxNbr") && (!dirname.Contains("SiStrip",TString::kExact)) ){
     hnameV2.Append("_GenTk");
   }
 
@@ -558,16 +553,30 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
   }
 
   TString filename = hname;
-
-  if (hname.Contains("vtxNbr")){
-    filename = "NumberOfPrimaryVertices";
+ 
+  if (hname.Contains("vtxNbr")){ // put this somewhere
+    filename = "RunComparison/generalTracks/GeneralProperties/NumberOfPrimaryVertices";
   }
 
-  if (dirname.Contains("highPurityTracks/pt_1",TString::kExact)){
-    filename.Prepend("RunComparison/highPurityTracks/");
+  // place output plots in right place
+  if (dirname.Contains("SiStrip",TString::kExact)){
+    filename.Prepend("RunComparison/SiStrip/");
+  } 
+  else if (dirname.Contains("highPurityTracks/pt_1",TString::kExact)){
+    if (dirname.Contains("GeneralProperties",TString::kExact)){
+      filename.Prepend("RunComparison/highPurityTracks/GeneralProperties/");
+    }
+    else if (dirname.Contains("HitProperties",TString::kExact)){
+      filename.Prepend("RunComparison/highPurityTracks/HitProperties/");
+    }
   }
-  else{
-    filename.Prepend("RunComparison/generalTracks/");
+  else if (dirname.Contains("generalTracks",TString::kExact)){ 
+    if (dirname.Contains("GeneralProperties",TString::kExact)){
+      filename.Prepend("RunComparison/generalTracks/GeneralProperties/");
+    }
+    else if (dirname.Contains("HitProperties",TString::kExact)){
+      filename.Prepend("RunComparison/generalTracks/HitProperties/");
+    }
   }
 
   filename.Append(".png");
