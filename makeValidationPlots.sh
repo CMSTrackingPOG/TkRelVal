@@ -93,8 +93,14 @@ do
       #generate index.html files on the fly for release directory
       cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}
       ../genSubDir.sh "${release}" 
-      ../genSubSubDir.sh "${release}" "generalTracks"
-      ../genSubSubDir.sh "${release}" "highPurityTracks"
+      cd -
+      
+      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/generalTracks
+      ../../genSubSubDir.sh "${release}" "generalTracks"
+      cd -
+      
+      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/highPurityTracks
+      ../../genSubSubDir.sh "${release}" "highPurityTracks"
       cd -
 
       #Run the perl script to generate html to publish plots nicely to web --> run for both genTracks and highPurity, and SiStrip

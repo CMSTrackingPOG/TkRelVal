@@ -67,7 +67,7 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
   createPlot(histname+"_OnTrack__TID__PLUS", dirname+"/TID/PLUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot(histname+"_OffTrack__TOB", dirname+"/TOB", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot(histname+"_OnTrack__TOB", dirname+"/TOB", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-
+  
   // Histograms in GeneralProperties directory
   dirname = "/Tracking/Run summary/TrackParameters/generalTracks/GeneralProperties";
   createPlot("algorithm", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
@@ -437,6 +437,9 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
   else if ( hname.Contains("NumberOfLostRecHitsPerTrack",TString::kExact) ){
     mainpad->SetLogy(1);
   }
+  else if ( hname.Contains("Summary_ClusterChargePerCMfromOrigin",TString::kExact) ){
+    mainpad->SetLogy(1);
+  }
   else{
     mainpad->SetLogy(0);
   }
@@ -453,6 +456,25 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
   if (hname.Contains("vtxNbr")){
     histV1->GetXaxis()->SetTitle("Number of Primary Vertices");
     histV1->GetYaxis()->SetTitle("Number of Events");
+  }
+
+  if (hname.Contains("Summary_ClusterChargePerCMfromOrigin",TString::kExact) ){
+    TString detname  = hname;
+    
+    TString identstr = "Track__";
+    Ssiz_t  trackpos = detname.Index(identstr.Data());
+    Ssiz_t  tklength = identstr.Length();
+    Ssiz_t  detpos   = trackpos+tklength;
+
+    detname.Remove(0,detpos);
+
+    TString dblws = "__";
+    Ssiz_t  wspos = detname.Index(dblws.Data());   
+    Ssiz_t  wslen = dblws.Length();
+    detname.Replace(wspos,wslen," ");
+
+    histV1->GetXaxis()->SetTitle(Form("%s dQ / dx from origin [C/cm]",detname.Data()));
+    histV1->GetYaxis()->SetTitle("Numer of Charge Clusters");
   }
 
   histV1->Draw(); // Draw old histo first, ratio is new/old
@@ -554,8 +576,19 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
 
   TString filename = hname;
  
-  if (hname.Contains("vtxNbr")){ // put this somewhere
+  // put this somewhere 
+  if (hname.Contains("vtxNbr")){ 
     filename = "RunComparison/generalTracks/GeneralProperties/NumberOfPrimaryVertices";
+  }
+
+  // shorten name for output .png
+  if (filename.Contains("Summary_ClusterChargePerCMfromOrigin",TString::kExact) ){
+    TString replacestr  = "Summary_ClusterChargePerCMfromOrigin";
+    Ssiz_t  length      = replacestr.Length();
+    Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+
+    TString toreplace = "Sum_CCPerCMOrigin";
+    filename.Replace(filenamepos,length,toreplace);
   }
 
   // place output plots in right place
