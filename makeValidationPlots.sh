@@ -28,6 +28,9 @@ elif [ ! -d RunComparison ] ; then
     mkdir RunComparison/HPTks/HitProps
 fi
 
+# to keep the same format, need to change all root files with "MinimumBias" to "MinBias"
+rename MinimumBias MinBias *MinimumBias*.root
+
 #scaled and unscaled --> see ReleaseComparison.cpp for explaination of scales
 
 #Do this for all matching data sets
@@ -74,7 +77,7 @@ do
       echo "Analyzing ${refFile} and ${newFile} in ${release}"                                                                                   
       
       #Run the ROOT Macro. This is trivial, compiles a .cpp file that makes all the plots.  
-      root -b -q -l "runValidationComparison_comp.C("\"${refFile}\",\"${newFile}\",\"${scale}\"")"   
+      root -b -q -l "runValidationComparison.C("\"${refFile}\",\"${newFile}\",\"${scale}\"")"   
       
       #Copy all the plots to the directory to be published
       cp RunComparison/SiStrip/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip
