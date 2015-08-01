@@ -11,21 +11,21 @@ if [ -d RunComparison ] ; then
     rm -r RunComparison
     mkdir RunComparison
     mkdir RunComparison/SiStrip
-    mkdir RunComparison/generalTracks
-    mkdir RunComparison/generalTracks/GeneralProperties
-    mkdir RunComparison/generalTracks/HitProperties
-    mkdir RunComparison/highPurityTracks
-    mkdir RunComparison/highPurityTracks/GeneralProperties
-    mkdir RunComparison/highPurityTracks/HitProperties
+    mkdir RunComparison/genTks
+    mkdir RunComparison/genTks/GenProps
+    mkdir RunComparison/genTks/HitProps
+    mkdir RunComparison/HPTks
+    mkdir RunComparison/HPTks/GenProps
+    mkdir RunComparison/HPTks/HitProps
 elif [ ! -d RunComparison ] ; then
     mkdir RunComparison
     mkdir RunComparison/SiStrip
-    mkdir RunComparison/generalTracks
-    mkdir RunComparison/generalTracks/GeneralProperties
-    mkdir RunComparison/generalTracks/HitProperties
-    mkdir RunComparison/highPurityTracks
-    mkdir RunComparison/highPurityTracks/GeneralProperties
-    mkdir RunComparison/highPurityTracks/HitProperties
+    mkdir RunComparison/genTks
+    mkdir RunComparison/genTks/GenProps
+    mkdir RunComparison/genTks/HitProps
+    mkdir RunComparison/HPTks
+    mkdir RunComparison/HPTks/GenProps
+    mkdir RunComparison/HPTks/HitProps
 fi
 
 #scaled and unscaled --> see ReleaseComparison.cpp for explaination of scales
@@ -35,12 +35,12 @@ fi
 for scale in 3 # it should be noted that the preferred scaled from RelVal from 720 onward is 3 --> scale all histos to nTracks ratio  
 do 
   
-  for sample in MinimumBias Jet #SingleMu #SingleElectron MET Tau SinglePhoton DoubleElectron
+  for sample in MinBias Jet #SingleMu #SingleElectron MET Tau SinglePhoton DoubleElectron
     do
 
       refFile=$(ls *"${run}"*"${sample}"*"${rel_old}"*)
       newFile=$(ls *"${run}"*"${sample}"*"${rel_new}"*)
-      release=CMSSW_"${rel_new}"_vs_"${rel_old}"_Run_"${run}"_"${sample}"
+      release=CMSSW_750_vs_750pre6_"${run}"_"${sample}"
 	#release=CMSSW_"${rel_new}"_"${sample}"_Run_"${run}"
       
       if [ "${scale}" == "0" ] ; then
@@ -49,58 +49,58 @@ do
 	  release+="_scaledPerHisto"
       fi
       
-      #Creat directories for webpage
+      #Create directories for webpage
       if [ ! -d /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release} ] ; then    
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release} 
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip
-	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/generalTracks 
-	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/generalTracks/GeneralProperties 
-	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/generalTracks/HitProperties
-	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/highPurityTracks 
-	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/highPurityTracks/GeneralProperties 
-	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/highPurityTracks/HitProperties
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks 
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks/GenProps 
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks/HitProps
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/HPTks 
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/HPTks/GenProps 
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/HPTks/HitProps
       else
 	  rm -r /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release} 
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release} 
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip
-	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/generalTracks 
-	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/generalTracks/GeneralProperties 
-	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/generalTracks/HitProperties
-	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/highPurityTracks 
-	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/highPurityTracks/GeneralProperties 
-	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/highPurityTracks/HitProperties
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks 
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks/GenProps 
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks/HitProps
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/HPTks 
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/HPTks/GenProps 
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/HPTks/HitProps
       fi                            
       
       echo "Analyzing ${refFile} and ${newFile} in ${release}"                                                                                   
       
       #Run the ROOT Macro. This is trivial, compiles a .cpp file that makes all the plots.  
-      root -b -q -l "runValidationComparison.C("\"${refFile}\",\"${newFile}\",\"${scale}\"")"   
+      root -b -q -l "runValidationComparison_comp.C("\"${refFile}\",\"${newFile}\",\"${scale}\"")"   
       
       #Copy all the plots to the directory to be published
       cp RunComparison/SiStrip/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip
-      cp RunComparison/generalTracks/GeneralProperties/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/generalTracks/GeneralProperties
-      cp RunComparison/generalTracks/HitProperties/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/generalTracks/HitProperties
-      cp RunComparison/highPurityTracks/GeneralProperties/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/highPurityTracks/GeneralProperties
-      cp RunComparison/highPurityTracks/HitProperties/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/highPurityTracks/HitProperties
+      cp RunComparison/genTks/GenProps/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks/GenProps
+      cp RunComparison/genTks/HitProps/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks/HitProps
+      cp RunComparison/HPTks/GenProps/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/HPTks/GenProps
+      cp RunComparison/HPTks/HitProps/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/HPTks/HitProps
 
       #remove plots for next iteration
       rm RunComparison/SiStrip/*.png
-      rm RunComparison/generalTracks/GeneralProperties/*.png
-      rm RunComparison/generalTracks/HitProperties/*.png
-      rm RunComparison/highPurityTracks/GeneralProperties/*.png
-      rm RunComparison/highPurityTracks/HitProperties/*.png
+      rm RunComparison/genTks/GenProps/*.png
+      rm RunComparison/genTks/HitProps/*.png
+      rm RunComparison/HPTks/GenProps/*.png
+      rm RunComparison/HPTks/HitProps/*.png
       
       #generate index.html files on the fly for release directory
       cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}
       ../genSubDir.sh "${release}" 
       cd -
       
-      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/generalTracks
-      ../../genSubSubDir.sh "${release}" "generalTracks"
+      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks
+      ../../genSubSubDir.sh "${release}" "genTks"
       cd -
       
-      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/highPurityTracks
-      ../../genSubSubDir.sh "${release}" "highPurityTracks"
+      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/HPTks
+      ../../genSubSubDir.sh "${release}" "HPTks"
       cd -
 
       #Run the perl script to generate html to publish plots nicely to web --> run for both genTracks and highPurity, and SiStrip
@@ -108,20 +108,20 @@ do
       ../../diow.pl -t "${release} SiStrip Validation" -c 3 -icon 200                 
       cd -                                                    
 
-      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/generalTracks/GeneralProperties
-      ../../../diow.pl -t "${release} generalTracks General Properties Validation" -c 3 -icon 200                 
+      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks/GenProps
+      ../../../diow.pl -t "${release} genTks General Properties Validation" -c 3 -icon 200                 
       cd -                                                    
 
-      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/generalTracks/HitProperties
-      ../../../diow.pl -t "${release} generalTracks Hit Properties Validation" -c 3 -icon 200                 
+      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks/HitProps
+      ../../../diow.pl -t "${release} genTks Hit Properties Validation" -c 3 -icon 200                 
       cd -                                                    
 
-      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/highPurityTracks/GeneralProperties
-      ../../../diow.pl -t "${release} highPurityTracks General Properties Validation" -c 3 -icon 200                 
+      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/HPTks/GenProps
+      ../../../diow.pl -t "${release} HPTks General Properties Validation" -c 3 -icon 200                 
       cd -                                                    
 
-      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/highPurityTracks/HitProperties
-      ../../../diow.pl -t "${release} highPurityTracks Hit Properties Validation" -c 3 -icon 200                 
+      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/HPTks/HitProps
+      ../../../diow.pl -t "${release} HPTks Hit Properties Validation" -c 3 -icon 200                 
       cd -                                                    
 
   done

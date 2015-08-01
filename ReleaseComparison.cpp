@@ -23,6 +23,7 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.find("-GR");
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.find("-PRE");
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.find("-FT");
+  if (pos2 == -1 || pos2<pos1) pos2 = fileName1.find("-75X");
   std::string relString1 = fileName1.substr (pos1,pos2-pos1); 
   TFile *file1 = TFile::Open(fileName1.c_str());
   std::cout << "Getting histos for run number... " << runString1 
@@ -112,12 +113,12 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
   createPlot("DistanceOfClosestApproachToPV", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);  // additional distributions for goodTracks
   createPlot("DistanceOfClosestApproach", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("FractionOfGoodTracks", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  /*  createPlot("SIP2DToPV", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("SIP2DToPV", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("SIP3DToPV", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("SIPDxyToBS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("SIPDxyToPV", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("SIPDzToBS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("SIPDzToPV", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);*/
+  createPlot("SIPDzToPV", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("xPointOfClosestApproach", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("yPointOfClosestApproach", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("zPointOfClosestApproach", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
@@ -578,7 +579,7 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
  
   // put this somewhere 
   if (hname.Contains("vtxNbr")){ 
-    filename = "RunComparison/generalTracks/GeneralProperties/NumberOfPrimaryVertices";
+    filename = "RunComparison/genTks/GenProps/NumberOfPrimaryVertices";
   }
 
   // shorten name for output .png
@@ -597,18 +598,18 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
   } 
   else if (dirname.Contains("highPurityTracks/pt_1",TString::kExact)){
     if (dirname.Contains("GeneralProperties",TString::kExact)){
-      filename.Prepend("RunComparison/highPurityTracks/GeneralProperties/");
+      filename.Prepend("RunComparison/HPTks/GenProps/");
     }
     else if (dirname.Contains("HitProperties",TString::kExact)){
-      filename.Prepend("RunComparison/highPurityTracks/HitProperties/");
+      filename.Prepend("RunComparison/HPTks/HitProps/");
     }
   }
   else if (dirname.Contains("generalTracks",TString::kExact)){ 
     if (dirname.Contains("GeneralProperties",TString::kExact)){
-      filename.Prepend("RunComparison/generalTracks/GeneralProperties/");
+      filename.Prepend("RunComparison/genTks/GenProps/");
     }
     else if (dirname.Contains("HitProperties",TString::kExact)){
-      filename.Prepend("RunComparison/generalTracks/HitProperties/");
+      filename.Prepend("RunComparison/genTks/HitProps/");
     }
   }
 
