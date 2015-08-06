@@ -154,7 +154,7 @@ do
       cd -                                                    
 
       cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks/TkBuilding
-      ../../diow.pl -t "${release} genTks Track Building Validation" -c 3 -icon 200                 
+      ../../../diow.pl -t "${release} genTks Track Building Validation" -c 3 -icon 200                 
       cd -                                                    
 
       cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/HPTks/GenProps

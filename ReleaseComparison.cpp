@@ -536,7 +536,7 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
   else if ( hname.Contains("Summary_ClusterChargePerCMfromOrigin",TString::kExact) ){
     mainpad->SetLogy(1);
   }
-  else if ( dirname.Contains("dEdx",TString::kExact) || dirname.Contains("TrackBuilding",TString;;kExact) ){
+  else if ( dirname.Contains("dEdx",TString::kExact) || dirname.Contains("TrackBuilding",TString::kExact) ){
     mainpad->SetLogy(1);
   }
   else{
