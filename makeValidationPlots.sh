@@ -40,9 +40,6 @@ elif [ ! -d RunComparison ] ; then
     mkdir RunComparison/dEdx/HitInfo
 fi
 
-# to keep the same format, need to change all root files with "MinimumBias" to "MinBias"
-rename MinimumBias MinBias *MinimumBias*.root
-
 #scaled and unscaled --> see ReleaseComparison.cpp for explaination of scales
 
 #Do this for all matching data sets
@@ -132,11 +129,15 @@ do
       cd -
       
       cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks
-      ../../genSubSubDir.sh "${release}" "genTks"
+      ../../genSubSubDirTk.sh "${release}" "genTks"
       cd -
       
       cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/HPTks
-      ../../genSubSubDir.sh "${release}" "HPTks"
+      ../../genSubSubDirTk.sh "${release}" "HPTks"
+      cd -
+
+      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx
+      ../../genSubSubDirdEdx.sh "${release}" 
       cd -
 
       #Run the perl script to generate html to publish plots nicely to web --> run for both genTracks and highPurity, and SiStrip
@@ -152,12 +153,32 @@ do
       ../../../diow.pl -t "${release} genTks Hit Properties Validation" -c 3 -icon 200                 
       cd -                                                    
 
+      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks/TkBuilding
+      ../../diow.pl -t "${release} genTks Track Building Validation" -c 3 -icon 200                 
+      cd -                                                    
+
       cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/HPTks/GenProps
       ../../../diow.pl -t "${release} HPTks General Properties Validation" -c 3 -icon 200                 
       cd -                                                    
 
       cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/HPTks/HitProps
       ../../../diow.pl -t "${release} HPTks Hit Properties Validation" -c 3 -icon 200                 
+      cd -                                                    
+
+      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/PO
+      ../../../diow.pl -t "${release} dEdx DQMHarm2PO Validation" -c 3 -icon 200                 
+      cd -                                                    
+
+      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/SO
+      ../../../diow.pl -t "${release} dEdx DQMHarm2SO Validation" -c 3 -icon 200                 
+      cd -                                                    
+
+      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/SP
+      ../../../diow.pl -t "${release} dEdx DQMHarm2SP Validation" -c 3 -icon 200                 
+      cd -                                                    
+
+      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/HitInfo
+      ../../../diow.pl -t "${release} dEdx HitInfo Validation" -c 3 -icon 200                 
       cd -                                                    
 
   done
