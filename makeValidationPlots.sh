@@ -11,6 +11,10 @@ if [ -d RunComparison ] ; then
     rm -r RunComparison
     mkdir RunComparison
     mkdir RunComparison/SiStrip
+    mkdir RunComparison/SiStrip/TEC
+    mkdir RunComparison/SiStrip/TIB
+    mkdir RunComparison/SiStrip/TID
+    mkdir RunComparison/SiStrip/TOB
     mkdir RunComparison/genTks
     mkdir RunComparison/genTks/GenProps
     mkdir RunComparison/genTks/HitProps
@@ -26,6 +30,10 @@ if [ -d RunComparison ] ; then
 elif [ ! -d RunComparison ] ; then
     mkdir RunComparison
     mkdir RunComparison/SiStrip
+    mkdir RunComparison/SiStrip/TEC
+    mkdir RunComparison/SiStrip/TIB
+    mkdir RunComparison/SiStrip/TID
+    mkdir RunComparison/SiStrip/TOB
     mkdir RunComparison/genTks
     mkdir RunComparison/genTks/GenProps
     mkdir RunComparison/genTks/HitProps
@@ -47,12 +55,13 @@ fi
 for scale in 3 # it should be noted that the preferred scaled from RelVal from 720 onward is 3 --> scale all histos to nTracks ratio  
 do 
   
-  for sample in MinBias Jet #SingleMu #SingleElectron MET Tau SinglePhoton DoubleElectron
+  for sample in JetHT #MinBias Jet #SingleMu #SingleElectron MET Tau SinglePhoton DoubleElectron
     do
 
       refFile=$(ls *"${run}"*"${sample}"*"${rel_old}"*)
       newFile=$(ls *"${run}"*"${sample}"*"${rel_new}"*)
-      release=CMSSW_"${rel_new}"_vs_"${rel_old}"_"${run}"_"${sample}"
+      release=CMSSW_747patch2_newcond_vs_ref_"${run}"_"${sample}"
+#      release=CMSSW_"${rel_new}"_vs_"${rel_old}"_"${run}"_"${sample}"
 	#release=CMSSW_"${rel_new}"_"${sample}"_Run_"${run}"
       
       if [ "${scale}" == "0" ] ; then
@@ -65,6 +74,10 @@ do
       if [ ! -d /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release} ] ; then    
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release} 
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip/TEC
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip/TIB
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip/TID
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip/TOB
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks 
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks/GenProps 
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks/HitProps
@@ -81,6 +94,10 @@ do
 	  rm -r /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release} 
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release} 
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip/TEC
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip/TIB
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip/TID
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip/TOB
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks 
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks/GenProps 
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks/HitProps
@@ -100,7 +117,10 @@ do
       root -b -q -l "runValidationComparison.C("\"${refFile}\",\"${newFile}\",\"${scale}\"")"   
       
       #Copy all the plots to the directory to be published
-      cp RunComparison/SiStrip/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip
+      cp RunComparison/SiStrip/TEC/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip/TEC
+      cp RunComparison/SiStrip/TIB/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip/TIB
+      cp RunComparison/SiStrip/TID/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip/TID
+      cp RunComparison/SiStrip/TOB/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip/TOB
       cp RunComparison/genTks/GenProps/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks/GenProps
       cp RunComparison/genTks/HitProps/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks/HitProps
       cp RunComparison/genTks/TkBuilding/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks/TkBuilding
@@ -112,7 +132,10 @@ do
       cp RunComparison/dEdx/HitInfo/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/HitInfo
 
       #remove plots for next iteration
-      rm RunComparison/SiStrip/*.png
+      rm RunComparison/SiStrip/TEC/*.png
+      rm RunComparison/SiStrip/TIB/*.png
+      rm RunComparison/SiStrip/TID/*.png
+      rm RunComparison/SiStrip/TOB/*.png
       rm RunComparison/genTks/GenProps/*.png
       rm RunComparison/genTks/HitProps/*.png
       rm RunComparison/genTks/TkBuilding/*.png
@@ -128,6 +151,10 @@ do
       ../genSubDir.sh "${release}" 
       cd -
       
+      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip
+      ../../genSubSubDirSiStrip.sh "${release}" 
+      cd -                                                    
+
       cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks
       ../../genSubSubDirTk.sh "${release}" "genTks"
       cd -
@@ -140,9 +167,20 @@ do
       ../../genSubSubDirdEdx.sh "${release}" 
       cd -
 
-      #Run the perl script to generate html to publish plots nicely to web --> run for both genTracks and highPurity, and SiStrip
-      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip
-      ../../diow.pl -t "${release} SiStrip Validation" -c 3 -icon 200                 
+      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip/TEC
+      ../../../diow.pl -t "${release} SiStrip TEC Validation" -c 3 -icon 200                 
+      cd -                                                    
+
+      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip/TIB
+      ../../../diow.pl -t "${release} SiStrip TIB Validation" -c 3 -icon 200                 
+      cd -                                                    
+
+      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip/TID
+      ../../../diow.pl -t "${release} SiStrip TID Validation" -c 3 -icon 200                 
+      cd -                                                    
+
+      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip/TOB
+      ../../../diow.pl -t "${release} SiStrip TOB Validation" -c 3 -icon 200                 
       cd -                                                    
 
       cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks/GenProps

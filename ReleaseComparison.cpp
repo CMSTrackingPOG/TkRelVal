@@ -23,6 +23,7 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.find("-GR");
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.find("-PRE");
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.find("-FT");
+  if (pos2 == -1 || pos2<pos1) pos2 = fileName1.find("-74X");
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.find("-75X");
   std::string relString1 = fileName1.substr (pos1,pos2-pos1); 
   TFile *file1 = TFile::Open(fileName1.c_str());
@@ -106,7 +107,29 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
   createPlot(histname+"_OnTrack__TID__PLUS", dirname+"/TID/PLUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot(histname+"_OffTrack__TOB", dirname+"/TOB", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot(histname+"_OnTrack__TOB", dirname+"/TOB", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  
+
+  TString histname = "Summary_ClusterChargePerCMfromTrack";  
+  createPlot(histname+"__TEC__MINUS", dirname+"/TEC/MINUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot(histname+"__TEC__PLUS", dirname+"/TEC/PLUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot(histname+"__TIB", dirname+"/TIB", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot(histname+"__TID__MINUS", dirname+"/TID/MINUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot(histname+"__TID__PLUS", dirname+"/TID/PLUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot(histname+"__TOB", dirname+"/TOB", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+
+  TString histname = "Summary_ClusterCharge";  
+  createPlot(histname+"_OffTrack__TEC__MINUS", dirname+"/TEC/MINUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot(histname+"_OnTrack__TEC__MINUS", dirname+"/TEC/MINUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot(histname+"_OffTrack__TEC__PLUS", dirname+"/TEC/PLUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot(histname+"_OnTrack__TEC__PLUS", dirname+"/TEC/PLUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot(histname+"_OffTrack__TIB", dirname+"/TIB", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot(histname+"_OnTrack__TIB", dirname+"/TIB", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot(histname+"_OffTrack__TID__MINUS", dirname+"/TID/MINUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot(histname+"_OnTrack__TID__MINUS", dirname+"/TID/MINUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot(histname+"_OffTrack__TID__PLUS", dirname+"/TID/PLUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot(histname+"_OnTrack__TID__PLUS", dirname+"/TID/PLUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot(histname+"_OffTrack__TOB", dirname+"/TOB", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot(histname+"_OnTrack__TOB", dirname+"/TOB", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+
   // Histograms in GeneralProperties directory
   dirname = "/Tracking/Run summary/TrackParameters/generalTracks/GeneralProperties";
   createPlot("algorithm", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
@@ -151,12 +174,12 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
   createPlot("DistanceOfClosestApproachToPV", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);  // additional distributions for goodTracks
   createPlot("DistanceOfClosestApproach", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("FractionOfGoodTracks", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("SIP2DToPV", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  /*  createPlot("SIP2DToPV", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("SIP3DToPV", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("SIPDxyToBS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("SIPDxyToPV", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("SIPDzToBS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("SIPDzToPV", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("SIPDzToPV", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);*/
   createPlot("xPointOfClosestApproach", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("yPointOfClosestApproach", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("zPointOfClosestApproach", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
@@ -496,8 +519,8 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
   //*****NORMALIZING V1-V2*end***************************************
 
   //***Name the files under comparison***
-  TString V1_V1run = relstring1;
-  TString V2_V2run = relstring2;
+  TString V1_V1run = "747p2_std"; //relstring1;
+  TString V2_V2run = "747p2_new";//relstring2;
 
   histV1->SetName(V1_V1run);
   histV2->SetName(V2_V2run);
@@ -533,10 +556,7 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
   else if ( hname.Contains("NumberOfLostRecHitsPerTrack",TString::kExact) ){
     mainpad->SetLogy(1);
   }
-  else if ( hname.Contains("Summary_ClusterChargePerCMfromOrigin",TString::kExact) ){
-    mainpad->SetLogy(1);
-  }
-  else if ( dirname.Contains("dEdx",TString::kExact) || dirname.Contains("TrackBuilding",TString::kExact) ){
+  else if ( dirname.Contains("SiStrip",TString::kExact) || dirname.Contains("dEdx",TString::kExact) || dirname.Contains("TrackBuilding",TString::kExact) ){
     mainpad->SetLogy(1);
   }
   else{
@@ -557,23 +577,47 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
     histV1->GetYaxis()->SetTitle("Number of Events");
   }
 
-  if (hname.Contains("Summary_ClusterChargePerCMfromOrigin",TString::kExact) ){
-    TString detname  = hname;
-    
-    TString identstr = "Track__";
-    Ssiz_t  trackpos = detname.Index(identstr.Data());
-    Ssiz_t  tklength = identstr.Length();
-    Ssiz_t  detpos   = trackpos+tklength;
-
-    detname.Remove(0,detpos);
-
-    TString dblws = "__";
-    Ssiz_t  wspos = detname.Index(dblws.Data());   
-    Ssiz_t  wslen = dblws.Length();
-    detname.Replace(wspos,wslen," ");
-
-    histV1->GetXaxis()->SetTitle(Form("%s dQ / dx from origin [C/cm]",detname.Data()));
+  if (hname.Contains("Summary_ClusterCharge",TString::kExact) ){
     histV1->GetYaxis()->SetTitle("Numer of Charge Clusters");
+    if (hname.Contains("PerCMfromOrigin",TString::kExact) ){
+      TString detname  = hname;
+      
+      TString identstr = "Track__";
+      Ssiz_t  trackpos = detname.Index(identstr.Data());
+      Ssiz_t  tklength = identstr.Length();
+      Ssiz_t  detpos   = trackpos+tklength;
+      
+      detname.Remove(0,detpos);
+      
+      TString dblws = "__";
+      Ssiz_t  wspos = detname.Index(dblws.Data());   
+      Ssiz_t  wslen = dblws.Length();
+      detname.Replace(wspos,wslen," ");
+      
+      if (hname.Contains("On",TString::kExact) ){
+	histV1->GetXaxis()->SetTitle(Form("%s dQ / dx from Origin ON Track [C/cm]",detname.Data()));
+      }
+      else if (hname.Contains("Off",TString::kExact) ){
+	histV1->GetXaxis()->SetTitle(Form("%s dQ / dx from Origin OFF Track [C/cm]",detname.Data()));
+      }
+    } //fromOrigin x axis title
+    else if (hname.Contains("PerCMfromTrack",TString::kExact) ){
+      TString detname  = hname;
+      
+      TString identstr = "Track__";
+      Ssiz_t  trackpos = detname.Index(identstr.Data());
+      Ssiz_t  tklength = identstr.Length();
+      Ssiz_t  detpos   = trackpos+tklength;
+      
+      detname.Remove(0,detpos);
+      
+      TString dblws = "__";
+      Ssiz_t  wspos = detname.Index(dblws.Data());   
+      Ssiz_t  wslen = dblws.Length();
+      detname.Replace(wspos,wslen," ");
+      
+      histV1->GetXaxis()->SetTitle(Form("%s dQ / dx from Track [C/cm]",detname.Data()));
+    } //fromTrack x axis title
   }
 
   histV1->Draw(); // Draw old histo first, ratio is new/old
@@ -680,14 +724,32 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
     filename = "RunComparison/genTks/GenProps/NumberOfPrimaryVertices";
   }
 
-  // shorten name for output .png
-  if (filename.Contains("Summary_ClusterChargePerCMfromOrigin",TString::kExact) ){
-    TString replacestr  = "Summary_ClusterChargePerCMfromOrigin";
-    Ssiz_t  length      = replacestr.Length();
-    Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-
-    TString toreplace = "Sum_CCPerCMOrigin";
-    filename.Replace(filenamepos,length,toreplace);
+  // shorten name of SiStrip plots for output .png
+  if (dirname.Contains("SiStrip",TString::kExact) ){
+    if (filename.Contains("PerCMfromOrigin",TString::kExact) ){
+      TString replacestr  = "Summary_ClusterChargePerCMfromOrigin";
+      Ssiz_t  length      = replacestr.Length();
+      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+      
+      TString toreplace = "Sum_CCPerCMOrigin";
+      filename.Replace(filenamepos,length,toreplace);
+    }
+    else if (filename.Contains("PerCMfromTrack",TString::kExact) ){
+      TString replacestr  = "Summary_ClusterChargePerCMfromTrack";
+      Ssiz_t  length      = replacestr.Length();
+      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+      
+      TString toreplace = "Sum_CCPerCMTrack";
+      filename.Replace(filenamepos,length,toreplace);
+    }
+    else if (filename.Contains("Summary_ClusterCharge_",TString::kExact) ){
+      TString replacestr  = "Summary_ClusterCharge_";
+      Ssiz_t  length      = replacestr.Length();
+      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+      
+      TString toreplace = "Sum_CC_";
+      filename.Replace(filenamepos,length,toreplace);
+    }
   }
 
   // drop _ at end of dEdx plots
@@ -788,8 +850,19 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
 
   // place output plots in right place
   if (dirname.Contains("SiStrip",TString::kExact)){
-    filename.Prepend("RunComparison/SiStrip/");
-  } 
+    if (filename.Contains("TEC",TString::kExact)){
+      filename.Prepend("RunComparison/SiStrip/TEC/");
+    } 
+    else if (filename.Contains("TIB",TString::kExact)){
+      filename.Prepend("RunComparison/SiStrip/TIB/");
+    } 
+    else if (filename.Contains("TID",TString::kExact)){
+      filename.Prepend("RunComparison/SiStrip/TID/");
+    } 
+    else if (filename.Contains("TOB",TString::kExact)){
+      filename.Prepend("RunComparison/SiStrip/TOB/");
+    } 
+  }
   else if (dirname.Contains("highPurityTracks/pt_1",TString::kExact)){
     if (dirname.Contains("GeneralProperties",TString::kExact)){
       filename.Prepend("RunComparison/HPTks/GenProps/");

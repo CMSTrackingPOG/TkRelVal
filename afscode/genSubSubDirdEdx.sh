@@ -13,6 +13,6 @@ printf "          <a href=\"%s/%s/dEdx/SO\">dEdx DQMHarm2SO</a>\n" ${web} ${rele
 printf "          <br />\n" >> index.html    
 printf "          <a href=\"%s/%s/dEdx/SP\">dEdx DQMHarm2SP</a>\n" ${web} ${release} >> index.html
 printf "          <br />\n" >> index.html    
-printf "          <a href=\"/%s/%s/dEdx/HitInfo\">dEdxHitInfo</a>\n" ${web} ${release} >> index.html
+printf "          <a href=\"%s/%s/dEdx/HitInfo\">dEdxHitInfo</a>\n" ${web} ${release} >> index.html
 printf "     </body>\n" >> index.html
 printf "</html>\n" >> index.html
