@@ -14,18 +14,30 @@ if [ -d RunComparison ] ; then
     mkdir RunComparison/genTks
     mkdir RunComparison/genTks/GenProps
     mkdir RunComparison/genTks/HitProps
+    mkdir RunComparison/genTks/TkBuilding
     mkdir RunComparison/HPTks
     mkdir RunComparison/HPTks/GenProps
     mkdir RunComparison/HPTks/HitProps
+    mkdir RunComparison/dEdx
+    mkdir RunComparison/dEdx/PO
+    mkdir RunComparison/dEdx/SO
+    mkdir RunComparison/dEdx/SP
+    mkdir RunComparison/dEdx/HitInfo
 elif [ ! -d RunComparison ] ; then
     mkdir RunComparison
     mkdir RunComparison/SiStrip
     mkdir RunComparison/genTks
     mkdir RunComparison/genTks/GenProps
     mkdir RunComparison/genTks/HitProps
+    mkdir RunComparison/genTks/TkBuilding
     mkdir RunComparison/HPTks
     mkdir RunComparison/HPTks/GenProps
     mkdir RunComparison/HPTks/HitProps
+    mkdir RunComparison/dEdx
+    mkdir RunComparison/dEdx/PO
+    mkdir RunComparison/dEdx/SO
+    mkdir RunComparison/dEdx/SP
+    mkdir RunComparison/dEdx/HitInfo
 fi
 
 # to keep the same format, need to change all root files with "MinimumBias" to "MinBias"
@@ -43,7 +55,7 @@ do
 
       refFile=$(ls *"${run}"*"${sample}"*"${rel_old}"*)
       newFile=$(ls *"${run}"*"${sample}"*"${rel_new}"*)
-      release=CMSSW_750_vs_750pre6_"${run}"_"${sample}"
+      release=CMSSW_"${rel_new}"_vs_"${rel_old}"_"${run}"_"${sample}"
 	#release=CMSSW_"${rel_new}"_"${sample}"_Run_"${run}"
       
       if [ "${scale}" == "0" ] ; then
@@ -59,9 +71,15 @@ do
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks 
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks/GenProps 
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks/HitProps
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks/TkBuilding
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/HPTks 
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/HPTks/GenProps 
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/HPTks/HitProps
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/PO
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/SO
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/SP
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/HitInfo
       else
 	  rm -r /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release} 
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release} 
@@ -69,13 +87,18 @@ do
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks 
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks/GenProps 
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks/HitProps
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks/TkBuilding
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/HPTks 
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/HPTks/GenProps 
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/HPTks/HitProps
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/PO
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/SO
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/SP
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/HitInfo
       fi                            
       
       echo "Analyzing ${refFile} and ${newFile} in ${release}"                                                                                   
-      
       #Run the ROOT Macro. This is trivial, compiles a .cpp file that makes all the plots.  
       root -b -q -l "runValidationComparison.C("\"${refFile}\",\"${newFile}\",\"${scale}\"")"   
       
@@ -83,15 +106,25 @@ do
       cp RunComparison/SiStrip/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip
       cp RunComparison/genTks/GenProps/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks/GenProps
       cp RunComparison/genTks/HitProps/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks/HitProps
+      cp RunComparison/genTks/TkBuilding/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks/TkBuilding
       cp RunComparison/HPTks/GenProps/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/HPTks/GenProps
       cp RunComparison/HPTks/HitProps/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/HPTks/HitProps
+      cp RunComparison/dEdx/PO/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/PO
+      cp RunComparison/dEdx/SO/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/SO
+      cp RunComparison/dEdx/SP/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/SP
+      cp RunComparison/dEdx/HitInfo/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/HitInfo
 
       #remove plots for next iteration
       rm RunComparison/SiStrip/*.png
       rm RunComparison/genTks/GenProps/*.png
       rm RunComparison/genTks/HitProps/*.png
+      rm RunComparison/genTks/TkBuilding/*.png
       rm RunComparison/HPTks/GenProps/*.png
       rm RunComparison/HPTks/HitProps/*.png
+      rm RunComparison/dEdx/PO/*.png
+      rm RunComparison/dEdx/SO/*.png
+      rm RunComparison/dEdx/SP/*.png
+      rm RunComparison/dEdx/HitInfo/*.png
       
       #generate index.html files on the fly for release directory
       cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}

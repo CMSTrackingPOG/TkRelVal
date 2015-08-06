@@ -52,7 +52,45 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
 
   // Histograms in BeamSpotParameters directory
   TString dirname = "BeamSpotParameters";
-  
+
+  // Histograms in dEdx directory 
+  // 2PO
+  dirname = "/Tracking/Run summary/dEdx/dedxDQMHarm2PO";
+  createPlot("HIP_MassPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("MIPOfHighPt_NumberOfdEdxHitsPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("MIPOfHighPt_dEdxPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("MIP_FractionOfSaturateddEdxHitsPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("MIP_MassPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("MIP_NumberOfdEdxHitsPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("MIP_dEdxPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+
+  // 2SO
+  dirname = "/Tracking/Run summary/dEdx/dedxDQMHarm2SO";
+  createPlot("HIP_MassPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("MIPOfHighPt_NumberOfdEdxHitsPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("MIPOfHighPt_dEdxPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("MIP_FractionOfSaturateddEdxHitsPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("MIP_MassPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("MIP_NumberOfdEdxHitsPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("MIP_dEdxPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+
+  // 2SP
+  dirname = "/Tracking/Run summary/dEdx/dedxDQMHarm2SP";
+  createPlot("HIP_MassPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("MIPOfHighPt_NumberOfdEdxHitsPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("MIPOfHighPt_dEdxPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("MIP_FractionOfSaturateddEdxHitsPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("MIP_MassPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("MIP_NumberOfdEdxHitsPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("MIP_dEdxPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+
+  // Hists in dEdx Hits Info
+  dirname = "/Tracking/Run summary/dEdxHits/dedxHitInfo";
+  createPlot("Harm2_dEdxPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfdEdxHitsPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("Pixel_dEdxPerCluster_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("Strip_dEdxPerCluster_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+
   // Histograms in SiStrip --> Used for validation of noCCC
   dirname = "/SiStrip/Run summary/MechanicalView";
   TString histname = "Summary_ClusterChargePerCMfromOrigin";
@@ -125,7 +163,7 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
 
   // Histograms in HitProperties directory --> generalTracks
   dirname = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties";
-  createPlot("NumberOfRecHitsPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+ createPlot("NumberOfRecHitsPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("NumberOfValidRecHitsPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("NumberOfLostRecHitsPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("NumberOfLayersPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
@@ -185,6 +223,63 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
   createPlot("NumberOfRecHitsPerTrack_PixEndcap", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("NumberOfLayersPerTrack_PixEndcap", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
 
+  // Track building info --> count seeds in gen tracks
+  dirname = "/Tracking/Run summary/TrackParameters/generalTracks/TrackBuilding";
+
+  // detached triplets
+  createPlot("NumberOfSeeds_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("SeedEta_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("SeedPhi_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("SeedPt_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+
+  // initialStep
+  createPlot("NumberOfSeeds_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("SeedEta_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("SeedPhi_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("SeedPt_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+
+  // low pt triplet
+  createPlot("NumberOfSeeds_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("SeedEta_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("SeedPhi_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("SeedPt_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+
+  // mixed triplet
+  createPlot("NumberOfSeeds_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("SeedEta_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("SeedPhi_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("SeedPt_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+
+  // muon in out
+  createPlot("NumberOfSeeds_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("SeedEta_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("SeedPhi_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("SeedPt_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+
+  // muon out in
+  createPlot("NumberOfSeeds_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("SeedEta_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("SeedPhi_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("SeedPt_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+
+  // pixelLess
+  createPlot("NumberOfSeeds_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("SeedEta_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("SeedPhi_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("SeedPt_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+
+  // pixel pair
+  createPlot("NumberOfSeeds_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("SeedEta_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("SeedPhi_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("SeedPt_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+
+  // tobtec
+  createPlot("NumberOfSeeds_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("SeedEta_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("SeedPhi_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("SeedPt_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+
   //Primary vertices
   dirname = "/OfflinePV/Run summary/offlinePrimaryVertices";
   createPlot("vtxNbr", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
@@ -215,7 +310,7 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
   hnameV1.Append(dirname+"/");
   hnameV1.Append(hname);
 
-  if ( (hname != "vtxNbr") && (!dirname.Contains("SiStrip",TString::kExact)) ){
+  if ( (hname != "vtxNbr") && (!dirname.Contains("SiStrip",TString::kExact)) && (!dirname.Contains("TrackBuilding",TString::kExact)) && (!dirname.Contains("dEdx",TString::kExact)) ) {
     hnameV1.Append("_GenTk");
   }
 
@@ -232,7 +327,7 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
   hnameV2.Append(dirname+"/");
   hnameV2.Append(hname);
   
-  if ( (hname != "vtxNbr") && (!dirname.Contains("SiStrip",TString::kExact)) ){
+  if ( (hname != "vtxNbr") && (!dirname.Contains("SiStrip",TString::kExact)) && (!dirname.Contains("TrackBuilding",TString::kExact)) && (!dirname.Contains("dEdx",TString::kExact)) ) {
     hnameV2.Append("_GenTk");
   }
 
@@ -441,6 +536,9 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
   else if ( hname.Contains("Summary_ClusterChargePerCMfromOrigin",TString::kExact) ){
     mainpad->SetLogy(1);
   }
+  else if ( dirname.Contains("dEdx",TString::kExact) || dirname.Contains("TrackBuilding",TString;;kExact) ){
+    mainpad->SetLogy(1);
+  }
   else{
     mainpad->SetLogy(0);
   }
@@ -592,6 +690,102 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
     filename.Replace(filenamepos,length,toreplace);
   }
 
+  // drop _ at end of dEdx plots
+  if (dirname.Contains("dEdx",TString::kExact) ){
+    if (filename.Contains("PerTrack_",TString::kExact)) {  
+      TString replacestr  = "PerTrack_";
+      Ssiz_t  length      = replacestr.Length();
+      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+      
+      TString toreplace = "PerTrack";
+      filename.Replace(filenamepos,length,toreplace);
+    }
+    else if (filename.Contains("PerCluster_",TString::kExact)) {  
+      TString replacestr  = "PerCluster_";
+      Ssiz_t  length      = replacestr.Length();
+      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+      
+      TString toreplace = "PerCluster";
+      filename.Replace(filenamepos,length,toreplace);
+    }
+  }
+
+  // drop extra duplicate modifier from track building plots
+  if (dirname.Contains("TrackBuilding",TString::kExact) ){
+    if (filename.Contains("detachedTripletStepSeeds",TString::kExact)) {  
+      TString replacestr  = "detachedTripletStepSeeds_detachedTripletStep";
+      Ssiz_t  length      = replacestr.Length();
+      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+      
+      TString toreplace = "detachedTripletStep";
+      filename.Replace(filenamepos,length,toreplace);
+    }
+    else if (filename.Contains("initialStepSeeds",TString::kExact)) {  
+      TString replacestr  = "initialStepSeeds_initialStep";
+      Ssiz_t  length      = replacestr.Length();
+      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+      
+      TString toreplace = "initialStep";
+      filename.Replace(filenamepos,length,toreplace);
+    }
+    else if (filename.Contains("lowPtTripletStepSeeds",TString::kExact)) {  
+      TString replacestr  = "lowPtTripletStepSeeds_lowPtTripletStep";
+      Ssiz_t  length      = replacestr.Length();
+      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+      
+      TString toreplace = "lowPtTripletStep";
+      filename.Replace(filenamepos,length,toreplace);
+    }
+    else if (filename.Contains("mixedTripletStepSeeds",TString::kExact)) {  
+      TString replacestr  = "mixedTripletStepSeeds_mixedTripletStep";
+      Ssiz_t  length      = replacestr.Length();
+      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+      
+      TString toreplace = "mixedTripletStep";
+      filename.Replace(filenamepos,length,toreplace);
+    }
+    else if (filename.Contains("muonSeededSeedsInOut",TString::kExact)) {  
+      TString replacestr  = "muonSeededSeedsInOut_muonSeededStepInOut";
+      Ssiz_t  length      = replacestr.Length();
+      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+      
+      TString toreplace = "muonSeededStepInOut";
+      filename.Replace(filenamepos,length,toreplace);
+    }
+    else if (filename.Contains("muonSeededSeedsOutIn",TString::kExact)) {  
+      TString replacestr  = "muonSeededSeedsOutIn_muonSeededStepOutIn";
+      Ssiz_t  length      = replacestr.Length();
+      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+      
+      TString toreplace = "muonSeededStepOutIn";
+      filename.Replace(filenamepos,length,toreplace);
+    }
+    else if (filename.Contains("pixelLessStepSeeds",TString::kExact)) {  
+      TString replacestr  = "pixelLessStepSeeds_pixelLessStep";
+      Ssiz_t  length      = replacestr.Length();
+      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+      
+      TString toreplace = "pixelLessStep";
+      filename.Replace(filenamepos,length,toreplace);
+    }
+    else if (filename.Contains("pixelPairStepSeeds",TString::kExact)) {  
+      TString replacestr  = "pixelPairStepSeeds_pixelPairStep";
+      Ssiz_t  length      = replacestr.Length();
+      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+      
+      TString toreplace = "pixelPairStep";
+      filename.Replace(filenamepos,length,toreplace);
+    }
+    else if (filename.Contains("tobTecStepSeeds",TString::kExact)) {  
+      TString replacestr  = "tobTecStepSeeds_tobTecStep";
+      Ssiz_t  length      = replacestr.Length();
+      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+      
+      TString toreplace = "tobTecStep";
+      filename.Replace(filenamepos,length,toreplace);
+    }
+  } // end concatinating track building strings
+
   // place output plots in right place
   if (dirname.Contains("SiStrip",TString::kExact)){
     filename.Prepend("RunComparison/SiStrip/");
@@ -610,6 +804,23 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
     }
     else if (dirname.Contains("HitProperties",TString::kExact)){
       filename.Prepend("RunComparison/genTks/HitProps/");
+    }
+    else if (dirname.Contains("TrackBuilding",TString::kExact)){
+      filename.Prepend("RunComparison/genTks/TkBuilding/");
+    }
+  }
+  else if (dirname.Contains("dEdx",TString::kExact)){ 
+    if (dirname.Contains("dedxDQMHarm2PO",TString::kExact)){
+      filename.Prepend("RunComparison/dEdx/PO/");
+    }
+    else if (dirname.Contains("dedxDQMHarm2SO",TString::kExact)){
+      filename.Prepend("RunComparison/dEdx/SO/");
+    }
+    else if (dirname.Contains("dedxDQMHarm2SP",TString::kExact)){
+      filename.Prepend("RunComparison/dEdx/SP/");
+    }
+    else if (dirname.Contains("dEdxHits/dedxHitInfo",TString::kExact)){
+      filename.Prepend("RunComparison/dEdx/HitInfo/");
     }
   }
 
