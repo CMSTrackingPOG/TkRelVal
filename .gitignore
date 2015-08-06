@@ -21,3 +21,6 @@
 *.app
 *.root
 *.d
+
+#user defined
+RunComparison/
