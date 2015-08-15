@@ -27,6 +27,9 @@ if [ -d RunComparison ] ; then
     mkdir RunComparison/dEdx/SO
     mkdir RunComparison/dEdx/SP
     mkdir RunComparison/dEdx/HitInfo
+    mkdir RunComparison/PV
+    mkdir RunComparison/PV/Alignment
+    mkdir RunComparison/PV/offlinePVs
 elif [ ! -d RunComparison ] ; then
     mkdir RunComparison
     mkdir RunComparison/SiStrip
@@ -46,6 +49,9 @@ elif [ ! -d RunComparison ] ; then
     mkdir RunComparison/dEdx/SO
     mkdir RunComparison/dEdx/SP
     mkdir RunComparison/dEdx/HitInfo
+    mkdir RunComparison/PV
+    mkdir RunComparison/PV/Alignment
+    mkdir RunComparison/PV/offlinePVs
 fi
 
 #scaled and unscaled --> see ReleaseComparison.cpp for explaination of scales
@@ -54,14 +60,13 @@ fi
 #for scale in 0 1 3
 for scale in 3 # it should be noted that the preferred scaled from RelVal from 720 onward is 3 --> scale all histos to nTracks ratio  
 do 
-  
-  for sample in JetHT #MinBias Jet #SingleMu #SingleElectron MET Tau SinglePhoton DoubleElectron
+    for sample in MinBias Jet #MET Tau SinglePhoton DoubleElectron
+#    for sample in ZeroBias SingleMu SingleEl #MET Tau SinglePhoton DoubleElectron
     do
 
       refFile=$(ls *"${run}"*"${sample}"*"${rel_old}"*)
       newFile=$(ls *"${run}"*"${sample}"*"${rel_new}"*)
-      release=CMSSW_747patch2_newcond_vs_ref_"${run}"_"${sample}"
-#      release=CMSSW_"${rel_new}"_vs_"${rel_old}"_"${run}"_"${sample}"
+      release=CMSSW_"${rel_new}"_vs_"${rel_old}"_"${run}"_"${sample}"
 	#release=CMSSW_"${rel_new}"_"${sample}"_Run_"${run}"
       
       if [ "${scale}" == "0" ] ; then
@@ -90,6 +95,9 @@ do
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/SO
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/SP
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/HitInfo
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PV
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PV/Alignment
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PV/offlinePVs
       else
 	  rm -r /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release} 
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release} 
@@ -110,6 +118,9 @@ do
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/SO
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/SP
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/HitInfo
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PV
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PV/Alignment
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PV/offlinePVs
       fi                            
       
       echo "Analyzing ${refFile} and ${newFile} in ${release}"                                                                                   
@@ -130,6 +141,8 @@ do
       cp RunComparison/dEdx/SO/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/SO
       cp RunComparison/dEdx/SP/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/SP
       cp RunComparison/dEdx/HitInfo/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/HitInfo
+      cp RunComparison/PV/Alignment/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PV/Alignment
+      cp RunComparison/PV/offlinePVs/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PV/offlinePVs
 
       #remove plots for next iteration
       rm RunComparison/SiStrip/TEC/*.png
@@ -145,6 +158,8 @@ do
       rm RunComparison/dEdx/SO/*.png
       rm RunComparison/dEdx/SP/*.png
       rm RunComparison/dEdx/HitInfo/*.png
+      rm RunComparison/PV/Alignment/*.png
+      rm RunComparison/PV/offlinePVs/*.png
       
       #generate index.html files on the fly for release directory
       cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}
@@ -165,6 +180,10 @@ do
 
       cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx
       ../../genSubSubDirdEdx.sh "${release}" 
+      cd -
+
+      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PV
+      ../../genSubSubDirPV.sh "${release}" 
       cd -
 
       cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip/TEC
@@ -217,6 +236,14 @@ do
 
       cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/HitInfo
       ../../../diow.pl -t "${release} dEdx HitInfo Validation" -c 3 -icon 200                 
+      cd -                                                    
+
+      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PV/Alignment
+      ../../../diow.pl -t "${release} OfflinePV Alignment Validation" -c 3 -icon 200                 
+      cd -                                                    
+
+      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PV/offlinePVs
+      ../../../diow.pl -t "${release} OfflinePV Primary Vertices Validation" -c 3 -icon 200                 
       cd -                                                    
 
   done

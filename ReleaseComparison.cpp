@@ -42,6 +42,7 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.find("-GR");
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.find("-PRE");
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.find("-FT");
+  if (pos2 == -1 || pos2<pos1) pos2 = fileName2.find("-74X");
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.find("-75X");
   std::string relString2 = fileName2.substr (pos1,pos2-pos1);
   TFile *file2 = TFile::Open(fileName2.c_str());
@@ -52,7 +53,7 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
   //  relString2 += " - NEW";
 
   // Histograms in BeamSpotParameters directory
-  TString dirname = "BeamSpotParameters";
+  TString dirname = "";
 
   // Histograms in dEdx directory 
   // 2PO
@@ -108,7 +109,7 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
   createPlot(histname+"_OffTrack__TOB", dirname+"/TOB", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot(histname+"_OnTrack__TOB", dirname+"/TOB", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
 
-  TString histname = "Summary_ClusterChargePerCMfromTrack";  
+  histname = "Summary_ClusterChargePerCMfromTrack";  
   createPlot(histname+"__TEC__MINUS", dirname+"/TEC/MINUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot(histname+"__TEC__PLUS", dirname+"/TEC/PLUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot(histname+"__TIB", dirname+"/TIB", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
@@ -116,7 +117,7 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
   createPlot(histname+"__TID__PLUS", dirname+"/TID/PLUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot(histname+"__TOB", dirname+"/TOB", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
 
-  TString histname = "Summary_ClusterCharge";  
+  histname = "Summary_ClusterCharge";  
   createPlot(histname+"_OffTrack__TEC__MINUS", dirname+"/TEC/MINUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot(histname+"_OnTrack__TEC__MINUS", dirname+"/TEC/MINUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot(histname+"_OffTrack__TEC__PLUS", dirname+"/TEC/PLUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
@@ -174,12 +175,12 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
   createPlot("DistanceOfClosestApproachToPV", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);  // additional distributions for goodTracks
   createPlot("DistanceOfClosestApproach", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("FractionOfGoodTracks", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  /*  createPlot("SIP2DToPV", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("SIP2DToPV", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("SIP3DToPV", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("SIPDxyToBS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("SIPDxyToPV", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("SIPDzToBS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("SIPDzToPV", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);*/
+  createPlot("SIPDzToPV", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("xPointOfClosestApproach", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("yPointOfClosestApproach", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("zPointOfClosestApproach", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
@@ -303,8 +304,36 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
   createPlot("SeedPhi_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
   createPlot("SeedPt_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
 
-  //Primary vertices
+  // Offline Primary vertices
+  dirname = "/OfflinePV/Run summary/Alignment";
+  createPlot("chi2ndf", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("chi2prob", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("dxy", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("dz", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("ntracks", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("sumpt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+
   dirname = "/OfflinePV/Run summary/offlinePrimaryVertices";
+  createPlot("otherDiffX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("otherDiffY", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("otherPosX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("otherPosY", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("otherPosZ", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("otherVtxChi2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("otherVtxNdf", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("otherVtxProb", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("otherVtxTrksNbr", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+
+  createPlot("tagDiffX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("tagDiffY", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("tagPosX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("tagPosY", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("tagPosZ", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("tagVtxChi2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("tagVtxNdf", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("tagVtxProb", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("tagVtxTrksNbr", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+
   createPlot("vtxNbr", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
 }
 
@@ -333,7 +362,7 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
   hnameV1.Append(dirname+"/");
   hnameV1.Append(hname);
 
-  if ( (hname != "vtxNbr") && (!dirname.Contains("SiStrip",TString::kExact)) && (!dirname.Contains("TrackBuilding",TString::kExact)) && (!dirname.Contains("dEdx",TString::kExact)) ) {
+  if ( (!dirname.Contains("SiStrip",TString::kExact)) && (!dirname.Contains("TrackBuilding",TString::kExact)) && (!dirname.Contains("dEdx",TString::kExact)) && (!dirname.Contains("OfflinePV",TString::kExact)) ) {
     hnameV1.Append("_GenTk");
   }
 
@@ -350,7 +379,7 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
   hnameV2.Append(dirname+"/");
   hnameV2.Append(hname);
   
-  if ( (hname != "vtxNbr") && (!dirname.Contains("SiStrip",TString::kExact)) && (!dirname.Contains("TrackBuilding",TString::kExact)) && (!dirname.Contains("dEdx",TString::kExact)) ) {
+  if ( (!dirname.Contains("SiStrip",TString::kExact)) && (!dirname.Contains("TrackBuilding",TString::kExact)) && (!dirname.Contains("dEdx",TString::kExact)) && (!dirname.Contains("OfflinePV",TString::kExact)) ) {
     hnameV2.Append("_GenTk");
   }
 
@@ -519,8 +548,8 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
   //*****NORMALIZING V1-V2*end***************************************
 
   //***Name the files under comparison***
-  TString V1_V1run = "747p2_std"; //relstring1;
-  TString V2_V2run = "747p2_new";//relstring2;
+  TString V1_V1run = relstring1;
+  TString V2_V2run = relstring2;
 
   histV1->SetName(V1_V1run);
   histV2->SetName(V2_V2run);
@@ -559,6 +588,9 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
   else if ( dirname.Contains("SiStrip",TString::kExact) || dirname.Contains("dEdx",TString::kExact) || dirname.Contains("TrackBuilding",TString::kExact) ){
     mainpad->SetLogy(1);
   }
+  else if ( dirname.Contains("OfflinePV",TString::kExact) ){
+    mainpad->SetLogy(1);
+  }
   else{
     mainpad->SetLogy(0);
   }
@@ -572,11 +604,82 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
     histV2->GetXaxis()->SetRangeUser(0,10);
   }
 
-  if (hname.Contains("vtxNbr")){
-    histV1->GetXaxis()->SetTitle("Number of Primary Vertices");
-    histV1->GetYaxis()->SetTitle("Number of Events");
-  }
+  if (dirname.Contains("OfflinePV",TString::kExact)) {
+    if (dirname.Contains("Alignment",TString::kExact)) {
+      if ( (hname.Contains("ntracks",TString::kExact)) || (hname.Contains("sumpt",TString::kExact)) ) {
+	if (hname.Contains("ntracks",TString::kExact)) {
+	  histV1->GetXaxis()->SetTitle("Number of PV Tracks (p_{T} > 1 GeV)");
+	}
+	else {
+	  histV1->GetXaxis()->SetTitle("Sum p_{T} of PV Tracks (p_{T} > 1 GeV)");
+	}
+	histV1->GetYaxis()->SetTitle("Number of Events");
+      }
+      else {
+	histV1->GetYaxis()->SetTitle("Number of PV Tracks");
+	if (hname.Contains("chi2ndf",TString::kExact)) {
+	  histV1->GetXaxis()->SetTitle("PV Tracks (p_{T} > 1 GeV) #chi^{2}/ndof");
+	}
+	else if (hname.Contains("chi2prob",TString::kExact)) {
+	  histV1->GetXaxis()->SetTitle("PV Tracks (p_{T} > 1 GeV) #chi^{2} probability");
+	}
+	else if (hname.Contains("chi2prob",TString::kExact)) {
+	  histV1->GetXaxis()->SetTitle("PV Tracks (p_{T} > 1 GeV) #chi^{2} probability");
+	}
+	else if (hname.Contains("dxy",TString::kExact)) {
+	  histV1->GetXaxis()->SetTitle("PV Tracks (p_{T} > 1 GeV) d_{xy} (cm)");
+	}
+	else if (hname.Contains("dz",TString::kExact)) {
+	  histV1->GetXaxis()->SetTitle("PV Tracks (p_{T} > 1 GeV) d_{z} (cm)");
+	}
+      }
+    }  // end check over alignment names
+    
+    else { // now in offline whatever
+      TString nametag = "";
+      if (hname.Contains("other",TString::kExact)){
+	nametag = "other";
+	histV1->GetYaxis()->SetTitle("Number of Vertices");
+      }
+      else if (hname.Contains("tag",TString::kExact)){
+	nametag = "tag";
+	histV1->GetYaxis()->SetTitle("Number of Vertices");
+      }
+      else {
+	histV1->GetXaxis()->SetTitle("Number of Primary Vertices");
+	histV1->GetYaxis()->SetTitle("Number of Events");
+      }
 
+      if (hname.Contains("DiffX",TString::kExact)) {
+	histV1->GetXaxis()->SetTitle(Form("X distance from BeamSpot (%s Vtx)",nametag.Data()));
+      }
+      else if (hname.Contains("DiffY",TString::kExact)) {
+	histV1->GetXaxis()->SetTitle(Form("Y distance from BeamSpot (%s Vtx)",nametag.Data()));
+      }
+      else if (hname.Contains("PosX",TString::kExact)) {
+	histV1->GetXaxis()->SetTitle(Form("Position X Coordinate (%s Vtx)",nametag.Data()));
+      }
+      else if (hname.Contains("PosY",TString::kExact)) {
+	histV1->GetXaxis()->SetTitle(Form("Position Y Coordinate (%s Vtx)",nametag.Data()));
+      }
+      else if (hname.Contains("PosZ",TString::kExact)) {
+	histV1->GetXaxis()->SetTitle(Form("Position Z Coordinate (%s Vtx)",nametag.Data()));
+      }
+      else if (hname.Contains("Chi2",TString::kExact)) {
+	histV1->GetXaxis()->SetTitle(Form("#chi^{2} (%s Vtx)",nametag.Data()));
+      }
+      else if (hname.Contains("ndf",TString::kExact)) {
+	histV1->GetXaxis()->SetTitle(Form("#chi^{2} / ndf (%s Vtx)",nametag.Data()));
+      }
+      else if (hname.Contains("prob",TString::kExact)) {
+	histV1->GetXaxis()->SetTitle(Form("#chi^{2} probability (%s Vtx)",nametag.Data()));
+      }
+      else if (hname.Contains("prob",TString::kExact)) {
+	histV1->GetXaxis()->SetTitle(Form("Reconstructed Tracks in Vertex (%s Vtx)",nametag.Data()));
+      }
+    }
+  } // end check over OfflinePV to set titles
+  
   if (hname.Contains("Summary_ClusterCharge",TString::kExact) ){
     histV1->GetYaxis()->SetTitle("Numer of Charge Clusters");
     if (hname.Contains("PerCMfromOrigin",TString::kExact) ){
@@ -628,6 +731,9 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
   TLegend *leg;
   if ( (hname.Contains("NumberOfTracks",TString::kExact)) || (hname.Contains("vtxNbr",TString::kExact)) || (hname.Contains("algorithm",TString::kExact)) || (hname.Contains("NumberOfMeanRecHitsPerTrack",TString::kExact)) || (hname.Contains("NumberOfMeanLayersPerTrack",TString::kExact)) ){
     leg = new TLegend(0.60,0.88,0.76,0.97);
+  }
+  else if ( hname.Contains("Summary_ClusterChargePerCMfromOrigin",TString::kExact) || hname.Contains("Summary_ClusterChargePerCMfromTrack",TString::kExact) ){
+    leg = new TLegend(0.18,0.88,0.34,0.97);
   }
   else{
     leg = new TLegend(0.32,0.88,0.48,0.97);
@@ -719,11 +825,6 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
 
   TString filename = hname;
  
-  // put this somewhere 
-  if (hname.Contains("vtxNbr")){ 
-    filename = "RunComparison/genTks/GenProps/NumberOfPrimaryVertices";
-  }
-
   // shorten name of SiStrip plots for output .png
   if (dirname.Contains("SiStrip",TString::kExact) ){
     if (filename.Contains("PerCMfromOrigin",TString::kExact) ){
@@ -894,6 +995,14 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
     }
     else if (dirname.Contains("dEdxHits/dedxHitInfo",TString::kExact)){
       filename.Prepend("RunComparison/dEdx/HitInfo/");
+    }
+  }
+  else if (dirname.Contains("OfflinePV",TString::kExact)) {
+    if (dirname.Contains("Alignment",TString::kExact)) {
+      filename.Prepend("RunComparison/PV/Alignment");
+    }
+    else if (dirname.Contains("Alignment",TString::kExact)) {
+      filename.Prepend("RunComparison/PV/offlinePVs");
     }
   }
 
