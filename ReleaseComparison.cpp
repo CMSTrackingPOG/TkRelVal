@@ -512,15 +512,15 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
       V1_integral = hNormTempV1->GetBinContent(2);
       V2_integral = hNormTempV2->GetBinContent(2);
 
-      std::cout << "The number of single tracks for V1 is " << V1_integral << std::endl;
-      std::cout << "The number of single tracks for V2 is " << V2_integral << std::endl;
+      //      std::cout << "The number of single tracks for V1 is " << V1_integral << std::endl;
+      //      std::cout << "The number of single tracks for V2 is " << V2_integral << std::endl;
     }
     else if (SetScale==3){
       V1_integral = hNormTempV1->GetEntries();
       V2_integral = hNormTempV2->GetEntries();
 
-      std::cout << "The number of events for V1 is " << V1_integral << std::endl;
-      std::cout << "The number of events for V2 is " << V2_integral << std::endl;
+      //      std::cout << "The number of events for V1 is " << V1_integral << std::endl;
+      //      std::cout << "The number of events for V2 is " << V2_integral << std::endl;
     }
   }
   else if (SetScale==0) {
@@ -536,13 +536,13 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
     histV1->Scale(V2_integral / V1_integral); // scale down h1
     histV2->Scale(1);
 
-    std::cout << "Set scale: " << V2_integral / V1_integral << std::endl;
+    //    std::cout << "Set scale: " << V2_integral / V1_integral << std::endl;
   } 
   else if (V2_integral>V1_integral) {
     histV1->Scale(1);
     histV2->Scale(V1_integral / V2_integral); // scale down h2
 
-    std::cout << "Set scale: " << V1_integral / V2_integral << std::endl;
+    //    std::cout << "Set scale: " << V1_integral / V2_integral << std::endl;
   }
 
   //*****NORMALIZING V1-V2*end***************************************
@@ -668,13 +668,13 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
       else if (hname.Contains("Chi2",TString::kExact)) {
 	histV1->GetXaxis()->SetTitle(Form("#chi^{2} (%s Vtx)",nametag.Data()));
       }
-      else if (hname.Contains("ndf",TString::kExact)) {
+      else if (hname.Contains("Ndf",TString::kExact)) {
 	histV1->GetXaxis()->SetTitle(Form("#chi^{2} / ndf (%s Vtx)",nametag.Data()));
       }
-      else if (hname.Contains("prob",TString::kExact)) {
+      else if (hname.Contains("Prob",TString::kExact)) {
 	histV1->GetXaxis()->SetTitle(Form("#chi^{2} probability (%s Vtx)",nametag.Data()));
       }
-      else if (hname.Contains("prob",TString::kExact)) {
+      else if (hname.Contains("TrksNbr",TString::kExact)) {
 	histV1->GetXaxis()->SetTitle(Form("Reconstructed Tracks in Vertex (%s Vtx)",nametag.Data()));
       }
     }
@@ -802,9 +802,9 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
   }
 
   // Compare parameters of histograms
-  double Entries1 = histV1->GetEntries();
+  /*  double Entries1 = histV1->GetEntries();
   double Entries2 = histV2->GetEntries();
-  if (Entries1 != Entries2) {
+    if (Entries1 != Entries2) {
     std::cout<<" Difference in # of ENTRIES for " <<hname<< std::endl;
     std::cout<<"\t Entries1 = " << Entries1 << "\t Entries2 = " << Entries2 << std::endl;
   }
@@ -822,6 +822,7 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
     std::cout<<" Difference in RMS for " <<hname<< std::endl;
     std::cout<<"\t RMS1 = " << RMS1 << "\t RMS2 = " << RMS2 << std::endl;
   }
+  */
 
   TString filename = hname;
  
@@ -999,10 +1000,10 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
   }
   else if (dirname.Contains("OfflinePV",TString::kExact)) {
     if (dirname.Contains("Alignment",TString::kExact)) {
-      filename.Prepend("RunComparison/PV/Alignment");
+      filename.Prepend("RunComparison/PV/Alignment/");
     }
-    else if (dirname.Contains("Alignment",TString::kExact)) {
-      filename.Prepend("RunComparison/PV/offlinePVs");
+    else if (dirname.Contains("offlinePrimaryVertices",TString::kExact)) {
+      filename.Prepend("RunComparison/PV/offlinePVs/");
     }
   }
 
