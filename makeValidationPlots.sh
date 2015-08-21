@@ -4,6 +4,7 @@
 run=$1 #specify what run you want to download 
 rel_old=$2 #old release to check against (e.g. pre1)
 rel_new=$3 #new release (e.q. pre2)
+miniaod=$4 #bool to do miniaod
 #rmroot=$4 #remove root files if true
 
 #Make a local copy of the plots here
@@ -30,6 +31,9 @@ if [ -d RunComparison ] ; then
     mkdir RunComparison/PV
     mkdir RunComparison/PV/Alignment
     mkdir RunComparison/PV/offlinePVs
+    mkdir RunComparison/PackCand
+    mkdir RunComparison/PackCand/MatchedTks
+    mkdir RunComparison/PackCand/lostTks
 elif [ ! -d RunComparison ] ; then
     mkdir RunComparison
     mkdir RunComparison/SiStrip
@@ -52,6 +56,9 @@ elif [ ! -d RunComparison ] ; then
     mkdir RunComparison/PV
     mkdir RunComparison/PV/Alignment
     mkdir RunComparison/PV/offlinePVs
+    mkdir RunComparison/PackCand
+    mkdir RunComparison/PackCand/MatchedTks
+    mkdir RunComparison/PackCand/lostTks
 fi
 
 #scaled and unscaled --> see ReleaseComparison.cpp for explaination of scales
@@ -98,6 +105,9 @@ do
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PV
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PV/Alignment
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PV/offlinePVs
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PackCand
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PackCand/MatchedTks
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PackCand/lostTks
       else
 	  rm -r /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release} 
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release} 
@@ -121,11 +131,14 @@ do
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PV
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PV/Alignment
 	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PV/offlinePVs
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PackCand
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PackCand/MatchedTks
+	  mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PackCand/lostTks
       fi                            
       
       echo "Analyzing ${refFile} and ${newFile} in ${release}"                                                                                   
       #Run the ROOT Macro. This is trivial, compiles a .cpp file that makes all the plots.  
-      root -b -q -l "runValidationComparison.C("\"${refFile}\",\"${newFile}\",\"${scale}\"")"   
+      root -b -q -l "runValidationComparison.C("\"${refFile}\",\"${newFile}\",\"${scale}\",\"${miniaod}\"")"   
       
       #Copy all the plots to the directory to be published
       cp RunComparison/SiStrip/TEC/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip/TEC
@@ -143,6 +156,8 @@ do
       cp RunComparison/dEdx/HitInfo/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/HitInfo
       cp RunComparison/PV/Alignment/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PV/Alignment
       cp RunComparison/PV/offlinePVs/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PV/offlinePVs
+      cp RunComparison/PackCand/MatchedTks/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PackCand/MatchedTks
+      cp RunComparison/PackCand/lostTks/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PackCand/lostTks
 
       #remove plots for next iteration
       rm RunComparison/SiStrip/TEC/*.png
@@ -160,6 +175,8 @@ do
       rm RunComparison/dEdx/HitInfo/*.png
       rm RunComparison/PV/Alignment/*.png
       rm RunComparison/PV/offlinePVs/*.png
+      rm RunComparison/PackCand/MatchedTks/*.png
+      rm RunComparison/PackCand/lostTks/*.png
       
       #generate index.html files on the fly for release directory
       cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}
@@ -186,6 +203,11 @@ do
       ../../genSubSubDirPV.sh "${release}" 
       cd -
 
+      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PackCand
+      ../../genSubSubDirPackCand.sh "${release}" 
+      cd -
+
+      # now make pretty plots on webpage with perl script
       cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip/TEC
       ../../../diow.pl -t "${release} SiStrip TEC Validation" -c 3 -icon 200                 
       cd -                                                    
@@ -244,6 +266,14 @@ do
 
       cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PV/offlinePVs
       ../../../diow.pl -t "${release} OfflinePV Primary Vertices Validation" -c 3 -icon 200                 
+      cd -                                                    
+
+      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PackCand/MatchedTks
+      ../../../diow.pl -t "${release} Packed Candidate Matched Tracks Validation" -c 3 -icon 200                 
+      cd -                                                    
+
+      cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PackCand/lostTks
+      ../../../diow.pl -t "${release} Packed Candidate Lost Tracks Validation" -c 3 -icon 200                 
       cd -                                                    
 
   done

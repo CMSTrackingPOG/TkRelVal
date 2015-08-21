@@ -17,6 +17,8 @@ printf "          <a href=\"%s/%s/HPTks\">highPurityTracks Plots</a>\n" ${web} $
 printf "          <br />\n" >> index.html    
 printf "          <a href=\"%s/%s/dEdx\">dEdx Plots</a>\n" ${web} ${release} >> index.html
 printf "          <br />\n" >> index.html    
-printf "          <a href=\"%s/%s/PV\">PV Plots</a>\n" ${web} ${release} >> index.html
+printf "          <a href=\"%s/%s/PV\">Primary Vertices Plots</a>\n" ${web} ${release} >> index.html
+printf "          <br />\n" >> index.html    
+printf "          <a href=\"%s/%s/PackCand\">Packed Candidate Plots</a>\n" ${web} ${release} >> index.html
 printf "     </body>\n" >> index.html
 printf "</html>\n" >> index.html

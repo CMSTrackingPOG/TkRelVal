@@ -1,6 +1,6 @@
 #include "ReleaseComparison.hh"
 
-void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
+void V1_V2_trkComparison(string fileName1, string fileName2, int scale, bool doMiniAODval = false) {
 
   gROOT->SetBatch(kTRUE);
 
@@ -335,6 +335,75 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale) {
   createPlot("tagVtxTrksNbr", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
 
   createPlot("vtxNbr", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+
+  // Packed Candidate - miniAOD validation
+  if (doMiniAODval) {
+    dirname = "/Tracking/Run summary/PackedCandidate";
+    createPlot("diffCharge", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffDxy", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffDxyError", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffDz", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffDzError", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffEta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffEtaError", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffTheta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffThetaError", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffPhi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffPhiError", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffPt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffPtError", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffQoverp", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffQoverpError", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffPx", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffPy", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffPz", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffVx", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffVy", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffVz", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffHitPatternHasValidHitInFirstPixelBarrel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffHitPatternNumberOfLostPixelHits", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffHitPatternNumberOfValidHits", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffHitPatternNumberOfValidPixelHits", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffIsHighPurity", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffLostInnerHits", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffNdof", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffNormalizedChi2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffNumberOfHits", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffNumberOfPixelHits", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+
+    dirname = "/Tracking/Run summary/PackedCandidate/lostTracks";
+    createPlot("diffCharge", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffDxy", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffDxyError", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffDz", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffDzError", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffEta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffEtaError", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffTheta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffThetaError", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffPhi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffPhiError", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffPt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffPtError", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffQoverp", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffQoverpError", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffPx", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffPy", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffPz", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffVx", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffVy", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffVz", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffHitPatternHasValidHitInFirstPixelBarrel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffHitPatternNumberOfLostPixelHits", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffHitPatternNumberOfValidHits", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffHitPatternNumberOfValidPixelHits", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffIsHighPurity", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffLostInnerHits", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffNdof", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffNormalizedChi2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffNumberOfHits", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+    createPlot("diffNumberOfPixelHits", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  }
 }
 
 bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring1, TString relstring1, TFile *V2file, TString runstring2, TString relstring2, TCanvas *canvas, int scale) {
@@ -362,7 +431,7 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
   hnameV1.Append(dirname+"/");
   hnameV1.Append(hname);
 
-  if ( (!dirname.Contains("SiStrip",TString::kExact)) && (!dirname.Contains("TrackBuilding",TString::kExact)) && (!dirname.Contains("dEdx",TString::kExact)) && (!dirname.Contains("OfflinePV",TString::kExact)) ) {
+  if ( (!dirname.Contains("SiStrip",TString::kExact)) && (!dirname.Contains("TrackBuilding",TString::kExact)) && (!dirname.Contains("dEdx",TString::kExact)) && (!dirname.Contains("OfflinePV",TString::kExact)) && (!dirname.Contains("PackedCandidate",TString::kExact)) ) {
     hnameV1.Append("_GenTk");
   }
 
@@ -379,7 +448,7 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
   hnameV2.Append(dirname+"/");
   hnameV2.Append(hname);
   
-  if ( (!dirname.Contains("SiStrip",TString::kExact)) && (!dirname.Contains("TrackBuilding",TString::kExact)) && (!dirname.Contains("dEdx",TString::kExact)) && (!dirname.Contains("OfflinePV",TString::kExact)) ) {
+  if ( (!dirname.Contains("SiStrip",TString::kExact)) && (!dirname.Contains("TrackBuilding",TString::kExact)) && (!dirname.Contains("dEdx",TString::kExact)) && (!dirname.Contains("OfflinePV",TString::kExact)) && (!dirname.Contains("PackedCandidate",TString::kExact)) ) {
     hnameV2.Append("_GenTk");
   }
 
@@ -602,6 +671,11 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
   else if (hname.Contains("Chi2oNDF",TString::kExact)) {
     histV1->GetXaxis()->SetRangeUser(0,10);
     histV2->GetXaxis()->SetRangeUser(0,10);
+  }
+
+  if (dirname.Contains("PackedCandidate",TString::kExact)) {
+    histV1->GetXaxis()->SetTitle(histV1->GetTitle());
+    histV1->GetYaxis()->SetTitle("Number of Tracks");
   }
 
   if (dirname.Contains("OfflinePV",TString::kExact)) {
@@ -1004,6 +1078,14 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
     }
     else if (dirname.Contains("offlinePrimaryVertices",TString::kExact)) {
       filename.Prepend("RunComparison/PV/offlinePVs/");
+    }
+  }
+  else if (dirname.Contains("PackedCandidate",TString::kExact)) {
+    if (dirname.Contains("lostTracks",TString::kExact)) {
+      filename.Prepend("RunComparison/PackCand/lostTks/");
+    }
+    else {
+      filename.Prepend("RunComparison/PackCand/MatchedTks/");
     }
   }
 
