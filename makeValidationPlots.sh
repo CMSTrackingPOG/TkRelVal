@@ -7,6 +7,14 @@ rel_new=$3 #new release (e.q. pre2)
 miniaod=$4 #bool to do miniaod
 #rmroot=$4 #remove root files if true
 
+#UUUUUUBBBBBBEEERRR hacky way to do this...
+
+if [ "${miniaod}" == "true" ] ; then
+    miniaod=1
+else 
+    minioad=0
+fi
+ 
 #Make a local copy of the plots here
 if [ -d RunComparison ] ; then
     rm -r RunComparison

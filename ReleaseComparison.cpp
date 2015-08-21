@@ -1,6 +1,6 @@
 #include "ReleaseComparison.hh"
 
-void V1_V2_trkComparison(string fileName1, string fileName2, int scale, bool doMiniAODval = false) {
+void V1_V2_trkComparison(string fileName1, string fileName2, int scale, bool doMiniAODval) {
 
   gROOT->SetBatch(kTRUE);
 
