@@ -1,6 +1,6 @@
 #include "ReleaseComparison.hh"
 
-void V1_V2_trkComparison(string fileName1, string fileName2, int scale, bool doMiniAODval) {
+void V1_V2_trkComparison(const string fileName1, const string fileName2, const TString directory) {
 
   gROOT->SetBatch(kTRUE);
 
@@ -18,9 +18,7 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale, bool doM
   int pos = fileName1.find("_R0");
   std::string runString1 = fileName1.substr (pos+5,6);
   int pos1 = fileName1.find("CMSSW")+6;
-  int pos2 = fileName1.find("/MinimumBias");
-  if (pos2 == -1 ) pos2 = fileName1.find("/Jet");
-  if (pos2 == -1 || pos2<pos1) pos2 = fileName1.find("-GR");
+  int pos2 = fileName1.find("-GR");
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.find("-PRE");
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.find("-FT");
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.find("-74X");
@@ -37,9 +35,7 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale, bool doM
   pos = fileName2.find("_R0");
   std::string runString2 = fileName2.substr (pos+5,6);
   pos1 = fileName2.find("CMSSW")+6;
-  pos2 = fileName2.find("/MinimumBias");
-  if (pos2 == -1 ) pos2 = fileName2.find("/Jet");
-  if (pos2 == -1 || pos2<pos1) pos2 = fileName2.find("-GR");
+  pos2 = fileName2.find("-GR");
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.find("-PRE");
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.find("-FT");
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.find("-74X");
@@ -52,371 +48,385 @@ void V1_V2_trkComparison(string fileName1, string fileName2, int scale, bool doM
     std::cout << "File: " << fileName2 << " cannot be opened!" << std::endl;
   //  relString2 += " - NEW";
 
+  //******************* Get histo integrals ***********************//
+  TString tempname1 = "DQMData/Run ";
+  tempname1.Append(runString1);
+  tempname1.Append("/Tracking/Run summary/TrackParameters/generalTracks/GeneralProperties/NumberOfTracks_GenTk");
+
+  TH1F * hNormTempV1   = (TH1F*)file1->Get(tempname1.Data());
+  Double_t V1_integral = hNormTempV1->GetEntries();
+  delete hNormTempV1;
+
+  TString tempname2 = "DQMData/Run ";
+  tempname2.Append(runString2);
+  tempname2.Append("/Tracking/Run summary/TrackParameters/generalTracks/GeneralProperties/NumberOfTracks_GenTk");
+
+  TH1F * hNormTempV2 = (TH1F*)file2->Get(tempname2.Data());
+  Double_t V2_integral = hNormTempV2->GetEntries();
+
+  delete hNormTempV2;
+  
+  //******************* done with scaling ***********************//
+
   // Histograms in BeamSpotParameters directory
   TString dirname = "";
 
   // Histograms in dEdx directory 
   // 2PO
   dirname = "/Tracking/Run summary/dEdx/dedxDQMHarm2PO";
-  createPlot("HIP_MassPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("MIPOfHighPt_NumberOfdEdxHitsPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("MIPOfHighPt_dEdxPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("MIP_FractionOfSaturateddEdxHitsPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("MIP_MassPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("MIP_NumberOfdEdxHitsPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("MIP_dEdxPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("HIP_MassPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("MIPOfHighPt_NumberOfdEdxHitsPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("MIPOfHighPt_dEdxPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("MIP_FractionOfSaturateddEdxHitsPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("MIP_MassPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("MIP_NumberOfdEdxHitsPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("MIP_dEdxPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
 
   // 2SO
   dirname = "/Tracking/Run summary/dEdx/dedxDQMHarm2SO";
-  createPlot("HIP_MassPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("MIPOfHighPt_NumberOfdEdxHitsPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("MIPOfHighPt_dEdxPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("MIP_FractionOfSaturateddEdxHitsPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("MIP_MassPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("MIP_NumberOfdEdxHitsPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("MIP_dEdxPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("HIP_MassPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("MIPOfHighPt_NumberOfdEdxHitsPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("MIPOfHighPt_dEdxPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("MIP_FractionOfSaturateddEdxHitsPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("MIP_MassPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("MIP_NumberOfdEdxHitsPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("MIP_dEdxPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
 
   // 2SP
   dirname = "/Tracking/Run summary/dEdx/dedxDQMHarm2SP";
-  createPlot("HIP_MassPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("MIPOfHighPt_NumberOfdEdxHitsPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("MIPOfHighPt_dEdxPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("MIP_FractionOfSaturateddEdxHitsPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("MIP_MassPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("MIP_NumberOfdEdxHitsPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("MIP_dEdxPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("HIP_MassPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("MIPOfHighPt_NumberOfdEdxHitsPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("MIPOfHighPt_dEdxPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("MIP_FractionOfSaturateddEdxHitsPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("MIP_MassPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("MIP_NumberOfdEdxHitsPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("MIP_dEdxPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
 
   // Hists in dEdx Hits Info
   dirname = "/Tracking/Run summary/dEdxHits/dedxHitInfo";
-  createPlot("Harm2_dEdxPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfdEdxHitsPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("Pixel_dEdxPerCluster_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("Strip_dEdxPerCluster_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("Harm2_dEdxPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("NumberOfdEdxHitsPerTrack_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("Pixel_dEdxPerCluster_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("Strip_dEdxPerCluster_", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
 
   // Histograms in SiStrip --> Used for validation of noCCC
   dirname = "/SiStrip/Run summary/MechanicalView";
   TString histname = "Summary_ClusterChargePerCMfromOrigin";
-  createPlot(histname+"_OffTrack__TEC__MINUS", dirname+"/TEC/MINUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot(histname+"_OnTrack__TEC__MINUS", dirname+"/TEC/MINUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot(histname+"_OffTrack__TEC__PLUS", dirname+"/TEC/PLUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot(histname+"_OnTrack__TEC__PLUS", dirname+"/TEC/PLUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot(histname+"_OffTrack__TIB", dirname+"/TIB", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot(histname+"_OnTrack__TIB", dirname+"/TIB", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot(histname+"_OffTrack__TID__MINUS", dirname+"/TID/MINUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot(histname+"_OnTrack__TID__MINUS", dirname+"/TID/MINUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot(histname+"_OffTrack__TID__PLUS", dirname+"/TID/PLUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot(histname+"_OnTrack__TID__PLUS", dirname+"/TID/PLUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot(histname+"_OffTrack__TOB", dirname+"/TOB", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot(histname+"_OnTrack__TOB", dirname+"/TOB", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot(histname+"_OffTrack__TEC__MINUS", dirname+"/TEC/MINUS", file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot(histname+"_OnTrack__TEC__MINUS", dirname+"/TEC/MINUS", file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot(histname+"_OffTrack__TEC__PLUS", dirname+"/TEC/PLUS", file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot(histname+"_OnTrack__TEC__PLUS", dirname+"/TEC/PLUS", file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot(histname+"_OffTrack__TIB", dirname+"/TIB", file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot(histname+"_OnTrack__TIB", dirname+"/TIB", file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot(histname+"_OffTrack__TID__MINUS", dirname+"/TID/MINUS", file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot(histname+"_OnTrack__TID__MINUS", dirname+"/TID/MINUS", file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot(histname+"_OffTrack__TID__PLUS", dirname+"/TID/PLUS", file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot(histname+"_OnTrack__TID__PLUS", dirname+"/TID/PLUS", file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot(histname+"_OffTrack__TOB", dirname+"/TOB", file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot(histname+"_OnTrack__TOB", dirname+"/TOB", file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
 
   histname = "Summary_ClusterChargePerCMfromTrack";  
-  createPlot(histname+"__TEC__MINUS", dirname+"/TEC/MINUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot(histname+"__TEC__PLUS", dirname+"/TEC/PLUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot(histname+"__TIB", dirname+"/TIB", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot(histname+"__TID__MINUS", dirname+"/TID/MINUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot(histname+"__TID__PLUS", dirname+"/TID/PLUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot(histname+"__TOB", dirname+"/TOB", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot(histname+"__TEC__MINUS", dirname+"/TEC/MINUS", file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot(histname+"__TEC__PLUS", dirname+"/TEC/PLUS", file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot(histname+"__TIB", dirname+"/TIB", file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot(histname+"__TID__MINUS", dirname+"/TID/MINUS", file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot(histname+"__TID__PLUS", dirname+"/TID/PLUS", file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot(histname+"__TOB", dirname+"/TOB", file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
 
   histname = "Summary_ClusterCharge";  
-  createPlot(histname+"_OffTrack__TEC__MINUS", dirname+"/TEC/MINUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot(histname+"_OnTrack__TEC__MINUS", dirname+"/TEC/MINUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot(histname+"_OffTrack__TEC__PLUS", dirname+"/TEC/PLUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot(histname+"_OnTrack__TEC__PLUS", dirname+"/TEC/PLUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot(histname+"_OffTrack__TIB", dirname+"/TIB", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot(histname+"_OnTrack__TIB", dirname+"/TIB", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot(histname+"_OffTrack__TID__MINUS", dirname+"/TID/MINUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot(histname+"_OnTrack__TID__MINUS", dirname+"/TID/MINUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot(histname+"_OffTrack__TID__PLUS", dirname+"/TID/PLUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot(histname+"_OnTrack__TID__PLUS", dirname+"/TID/PLUS", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot(histname+"_OffTrack__TOB", dirname+"/TOB", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot(histname+"_OnTrack__TOB", dirname+"/TOB", file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot(histname+"_OffTrack__TEC__MINUS", dirname+"/TEC/MINUS", file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot(histname+"_OnTrack__TEC__MINUS", dirname+"/TEC/MINUS", file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot(histname+"_OffTrack__TEC__PLUS", dirname+"/TEC/PLUS", file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot(histname+"_OnTrack__TEC__PLUS", dirname+"/TEC/PLUS", file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot(histname+"_OffTrack__TIB", dirname+"/TIB", file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot(histname+"_OnTrack__TIB", dirname+"/TIB", file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot(histname+"_OffTrack__TID__MINUS", dirname+"/TID/MINUS", file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot(histname+"_OnTrack__TID__MINUS", dirname+"/TID/MINUS", file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot(histname+"_OffTrack__TID__PLUS", dirname+"/TID/PLUS", file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot(histname+"_OnTrack__TID__PLUS", dirname+"/TID/PLUS", file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot(histname+"_OffTrack__TOB", dirname+"/TOB", file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot(histname+"_OnTrack__TOB", dirname+"/TOB", file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
 
   // Histograms in GeneralProperties directory
   dirname = "/Tracking/Run summary/TrackParameters/generalTracks/GeneralProperties";
-  createPlot("algorithm", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("Chi2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("Chi2oNDF", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("Chi2Prob", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("DistanceOfClosestApproachToBS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfMeanLayersPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfMeanRecHitsPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfTracks", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("TrackEta_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("TrackPhi_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("TrackP_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("TrackPErrOverP_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("TrackPt_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("TrackPtErrOverPt_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("TrackPz_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("TrackPzErrOverPz_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("TrackQ_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("algorithm", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("Chi2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("Chi2oNDF", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("Chi2Prob", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("DistanceOfClosestApproachToBS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("NumberOfMeanLayersPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("NumberOfMeanRecHitsPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("NumberOfTracks", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("TrackEta_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("TrackPhi_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("TrackP_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("TrackPErrOverP_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("TrackPt_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("TrackPtErrOverPt_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("TrackPz_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("TrackPzErrOverPz_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("TrackQ_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
 
   // High purity histos
   dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_1/GeneralProperties";
-  createPlot("algorithm", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);  // first set is copy of genTrack distributions
-  createPlot("Chi2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("Chi2oNDF", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("Chi2Prob", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("DistanceOfClosestApproachToBS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfMeanLayersPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfMeanRecHitsPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfTracks", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("TrackEta_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("TrackPhi_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("TrackP_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("TrackPErrOverP_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("TrackPt_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("TrackPtErrOverPt_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("TrackPz_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("TrackPzErrOverPz_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("TrackQ_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("algorithm", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);  // first set is copy of genTrack distributions
+  createPlot("Chi2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("Chi2oNDF", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("Chi2Prob", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("DistanceOfClosestApproachToBS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("NumberOfMeanLayersPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("NumberOfMeanRecHitsPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("NumberOfTracks", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("TrackEta_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("TrackPhi_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("TrackP_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("TrackPErrOverP_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("TrackPt_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("TrackPtErrOverPt_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("TrackPz_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("TrackPzErrOverPz_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("TrackQ_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
 
   // Additional Plots for HP --> SIP, DOCA
-  createPlot("DistanceOfClosestApproachToPV", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);  // additional distributions for goodTracks
-  createPlot("DistanceOfClosestApproach", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("FractionOfGoodTracks", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("SIP2DToPV", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("SIP3DToPV", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("SIPDxyToBS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("SIPDxyToPV", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("SIPDzToBS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("SIPDzToPV", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("xPointOfClosestApproach", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("yPointOfClosestApproach", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("zPointOfClosestApproach", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("DistanceOfClosestApproachToPV", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);  // additional distributions for goodTracks
+  createPlot("DistanceOfClosestApproach", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("FractionOfGoodTracks", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("SIP2DToPV", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("SIP3DToPV", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("SIPDxyToBS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("SIPDxyToPV", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("SIPDzToBS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("SIPDzToPV", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("xPointOfClosestApproach", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("yPointOfClosestApproach", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("zPointOfClosestApproach", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
 
   // Histograms in HitProperties directory --> generalTracks
   dirname = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties";
- createPlot("NumberOfRecHitsPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfValidRecHitsPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfLostRecHitsPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfLayersPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfRecHitsPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("NumberOfValidRecHitsPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("NumberOfLostRecHitsPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("NumberOfLayersPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
 
   dirname = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties/TIB";
-  createPlot("NumberOfRecHitsPerTrack_TIB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfLayersPerTrack_TIB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfRecHitsPerTrack_TIB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("NumberOfLayersPerTrack_TIB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
 
   dirname = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties/TOB";
-  createPlot("NumberOfRecHitsPerTrack_TOB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfLayersPerTrack_TOB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfRecHitsPerTrack_TOB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("NumberOfLayersPerTrack_TOB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
 
   dirname = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties/TID";
-  createPlot("NumberOfRecHitsPerTrack_TID", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfLayersPerTrack_TID", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfRecHitsPerTrack_TID", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("NumberOfLayersPerTrack_TID", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
 
   dirname = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties/TEC";
-  createPlot("NumberOfRecHitsPerTrack_TEC", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfLayersPerTrack_TEC", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfRecHitsPerTrack_TEC", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("NumberOfLayersPerTrack_TEC", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
 
   dirname = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties/PixBarrel";
-  createPlot("NumberOfRecHitsPerTrack_PixBarrel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfLayersPerTrack_PixBarrel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfRecHitsPerTrack_PixBarrel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("NumberOfLayersPerTrack_PixBarrel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
 
   dirname = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties/PixEndcap";
-  createPlot("NumberOfRecHitsPerTrack_PixEndcap", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfLayersPerTrack_PixEndcap", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfRecHitsPerTrack_PixEndcap", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("NumberOfLayersPerTrack_PixEndcap", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
 
   // Histograms in HitProperies directory --> HighPurity
   dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_1/HitProperties";
-  createPlot("NumberOfRecHitsPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfValidRecHitsPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfLostRecHitsPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfLayersPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfRecHitsPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("NumberOfValidRecHitsPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("NumberOfLostRecHitsPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("NumberOfLayersPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
 
   dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_1/HitProperties/TIB";
-  createPlot("NumberOfRecHitsPerTrack_TIB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfLayersPerTrack_TIB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfRecHitsPerTrack_TIB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("NumberOfLayersPerTrack_TIB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
 
   dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_1/HitProperties/TOB";
-  createPlot("NumberOfRecHitsPerTrack_TOB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfLayersPerTrack_TOB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfRecHitsPerTrack_TOB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("NumberOfLayersPerTrack_TOB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
 
   dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_1/HitProperties/TID";
-  createPlot("NumberOfRecHitsPerTrack_TID", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfLayersPerTrack_TID", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfRecHitsPerTrack_TID", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("NumberOfLayersPerTrack_TID", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
 
   dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_1/HitProperties/TEC";
-  createPlot("NumberOfRecHitsPerTrack_TEC", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfLayersPerTrack_TEC", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfRecHitsPerTrack_TEC", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("NumberOfLayersPerTrack_TEC", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
 
   dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_1/HitProperties/PixBarrel";
-  createPlot("NumberOfRecHitsPerTrack_PixBarrel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfLayersPerTrack_PixBarrel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfRecHitsPerTrack_PixBarrel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("NumberOfLayersPerTrack_PixBarrel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
 
   dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_1/HitProperties/PixEndcap";
-  createPlot("NumberOfRecHitsPerTrack_PixEndcap", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("NumberOfLayersPerTrack_PixEndcap", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfRecHitsPerTrack_PixEndcap", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("NumberOfLayersPerTrack_PixEndcap", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
 
   // Track building info --> count seeds in gen tracks
   dirname = "/Tracking/Run summary/TrackParameters/generalTracks/TrackBuilding";
 
   // detached triplets
-  createPlot("NumberOfSeeds_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("SeedEta_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("SeedPhi_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("SeedPt_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfSeeds_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("SeedEta_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("SeedPhi_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("SeedPt_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
 
   // initialStep
-  createPlot("NumberOfSeeds_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("SeedEta_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("SeedPhi_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("SeedPt_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfSeeds_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("SeedEta_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("SeedPhi_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("SeedPt_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
 
   // low pt triplet
-  createPlot("NumberOfSeeds_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("SeedEta_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("SeedPhi_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("SeedPt_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfSeeds_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("SeedEta_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("SeedPhi_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("SeedPt_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
 
   // mixed triplet
-  createPlot("NumberOfSeeds_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("SeedEta_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("SeedPhi_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("SeedPt_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfSeeds_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("SeedEta_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("SeedPhi_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("SeedPt_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
 
   // muon in out
-  createPlot("NumberOfSeeds_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("SeedEta_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("SeedPhi_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("SeedPt_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfSeeds_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("SeedEta_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("SeedPhi_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("SeedPt_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
 
   // muon out in
-  createPlot("NumberOfSeeds_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("SeedEta_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("SeedPhi_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("SeedPt_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfSeeds_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("SeedEta_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("SeedPhi_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("SeedPt_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
 
   // pixelLess
-  createPlot("NumberOfSeeds_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("SeedEta_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("SeedPhi_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("SeedPt_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfSeeds_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("SeedEta_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("SeedPhi_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("SeedPt_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
 
   // pixel pair
-  createPlot("NumberOfSeeds_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("SeedEta_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("SeedPhi_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("SeedPt_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfSeeds_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("SeedEta_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("SeedPhi_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("SeedPt_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
 
   // tobtec
-  createPlot("NumberOfSeeds_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("SeedEta_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("SeedPhi_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("SeedPt_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("NumberOfSeeds_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("SeedEta_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("SeedPhi_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("SeedPt_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
 
   // Offline Primary vertices
   dirname = "/OfflinePV/Run summary/Alignment";
-  createPlot("chi2ndf", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("chi2prob", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("dxy", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("dz", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("ntracks", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("sumpt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("chi2ndf", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("chi2prob", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("dxy", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("dz", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("ntracks", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("sumpt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
 
   dirname = "/OfflinePV/Run summary/offlinePrimaryVertices";
-  createPlot("otherDiffX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("otherDiffY", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("otherPosX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("otherPosY", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("otherPosZ", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("otherVtxChi2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("otherVtxNdf", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("otherVtxProb", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("otherVtxTrksNbr", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("otherDiffX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("otherDiffY", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("otherPosX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("otherPosY", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("otherPosZ", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("otherVtxChi2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("otherVtxNdf", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("otherVtxProb", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("otherVtxTrksNbr", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
 
-  createPlot("tagDiffX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("tagDiffY", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("tagPosX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("tagPosY", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("tagPosZ", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("tagVtxChi2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("tagVtxNdf", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("tagVtxProb", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  createPlot("tagVtxTrksNbr", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("tagDiffX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("tagDiffY", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("tagPosX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("tagPosY", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("tagPosZ", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("tagVtxChi2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("tagVtxNdf", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("tagVtxProb", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("tagVtxTrksNbr", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
 
-  createPlot("vtxNbr", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  createPlot("vtxNbr", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
 
   // Packed Candidate - miniAOD validation
-  if (doMiniAODval) {
-    dirname = "/Tracking/Run summary/PackedCandidate";
-    createPlot("diffCharge", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffDxy", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffDxyError", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffDz", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffDzError", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffEta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffEtaError", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffTheta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffThetaError", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffPhi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffPhiError", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffPt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffPtError", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffQoverp", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffQoverpError", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffPx", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffPy", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffPz", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffVx", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffVy", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffVz", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffHitPatternHasValidHitInFirstPixelBarrel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffHitPatternNumberOfLostPixelHits", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffHitPatternNumberOfValidHits", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffHitPatternNumberOfValidPixelHits", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffIsHighPurity", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffLostInnerHits", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffNdof", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffNormalizedChi2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffNumberOfHits", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffNumberOfPixelHits", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
+  dirname = "/Tracking/Run summary/PackedCandidate";
+  createPlot("diffCharge", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffDxy", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffDxyError", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffDz", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffDzError", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffEta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffEtaError", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffTheta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffThetaError", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffPhi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffPhiError", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffPt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffPtError", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffQoverp", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffQoverpError", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffPx", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffPy", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffPz", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffVx", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffVy", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffVz", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffHitPatternHasValidHitInFirstPixelBarrel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffHitPatternNumberOfLostPixelHits", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffHitPatternNumberOfValidHits", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffHitPatternNumberOfValidPixelHits", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffIsHighPurity", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffLostInnerHits", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffNdof", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffNormalizedChi2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffNumberOfHits", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffNumberOfPixelHits", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
 
-    dirname = "/Tracking/Run summary/PackedCandidate/lostTracks";
-    createPlot("diffCharge", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffDxy", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffDxyError", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffDz", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffDzError", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffEta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffEtaError", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffTheta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffThetaError", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffPhi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffPhiError", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffPt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffPtError", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffQoverp", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffQoverpError", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffPx", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffPy", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffPz", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffVx", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffVy", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffVz", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffHitPatternHasValidHitInFirstPixelBarrel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffHitPatternNumberOfLostPixelHits", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffHitPatternNumberOfValidHits", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffHitPatternNumberOfValidPixelHits", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffIsHighPurity", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffLostInnerHits", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffNdof", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffNormalizedChi2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffNumberOfHits", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-    createPlot("diffNumberOfPixelHits", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, scale);
-  }
+  dirname = "/Tracking/Run summary/PackedCandidate/lostTracks";
+  createPlot("diffCharge", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffDxy", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffDxyError", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffDz", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffDzError", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffEta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffEtaError", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffTheta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffThetaError", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffPhi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffPhiError", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffPt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffPtError", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffQoverp", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffQoverpError", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffPx", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffPy", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffPz", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffVx", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffVy", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffVz", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffHitPatternHasValidHitInFirstPixelBarrel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffHitPatternNumberOfLostPixelHits", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffHitPatternNumberOfValidHits", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffHitPatternNumberOfValidPixelHits", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffIsHighPurity", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffLostInnerHits", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffNdof", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffNormalizedChi2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffNumberOfHits", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  createPlot("diffNumberOfPixelHits", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, directory);
+  
+  delete file1;
+  delete file2;
+  delete canvas;
 }
 
-bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring1, TString relstring1, TFile *V2file, TString runstring2, TString relstring2, TCanvas *canvas, int scale) {
+bool createPlot(const TString hname, const TString dirname, TFile *& V1file, const TString runstring1, const TString relstring1, TFile *& V2file, const TString runstring2, const TString relstring2, TCanvas *& canvas, const Double_t V1_integral, const Double_t V2_integral, const TString directory) {
   setTDRStyle();
 
-  int SetScale = scale;
-
-  //IF =0 --> No scale applied ('direct' comparison)
-  //IF =1 --> Scale INDIVIDUALLY (scale histograms individually) 
-  //IF =2 --> Scale all GLOBALLY (scale all histograms to #tracks=1)
-  //IF =3 --> Scale all GLOBALLY nEVENTS (scale all histos to nEntries in nTracks per Event)
-
-  bool DrawRatio = true;
   canvas->cd();
   TPad* mainpad = new TPad("mainpad","mainpad",0.0,0.0,1.0,0.8);
   mainpad->Draw();
@@ -435,27 +445,46 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
     hnameV1.Append("_GenTk");
   }
 
-  TH1F * hBinTempV1 = (TH1F*)V1file->Get(hnameV1);
-  if ( hBinTempV1 == (TH1F*) NULL ) {
-    std::cout << "histV1 failed on " << hnameV1  << std::endl << " for file " << V1file->GetName() << std::endl;
-    exit(1);
-  }
-
   TString basename2 = "DQMData/Run ";
   basename2.Append(runstring2);
 
   TString hnameV2 = basename2;
   hnameV2.Append(dirname+"/");
   hnameV2.Append(hname);
-  
+
   if ( (!dirname.Contains("SiStrip",TString::kExact)) && (!dirname.Contains("TrackBuilding",TString::kExact)) && (!dirname.Contains("dEdx",TString::kExact)) && (!dirname.Contains("OfflinePV",TString::kExact)) && (!dirname.Contains("PackedCandidate",TString::kExact)) ) {
     hnameV2.Append("_GenTk");
   }
 
-  TH1F * hBinTempV2 = (TH1F*)V2file->Get(hnameV2);
+  // use booleans to plot hists even if some are missing
+  Bool_t isHist1 = false;
+  Bool_t isHist2 = false;
+
+  TH1F * hBinTempV1 = (TH1F*)V1file->Get(hnameV1.Data());
+  if ( hBinTempV1 == (TH1F*) NULL ) {
+    std::cout << "Could not grab hist: " << hnameV1  << std::endl << " for REF file " << V1file->GetName() << std::endl;
+  }
+  else {
+    isHist1 = true;
+  }
+  
+  TH1F * hBinTempV2 = (TH1F*)V2file->Get(hnameV2.Data());
   if ( hBinTempV2 == (TH1F*) NULL ) {
-    std::cout << "histV2 failed on " << hnameV2  << std::endl << " for file " << V2file->GetName() << std::endl;
-    exit(1);
+    std::cout << "Could not grab hist: " << hnameV2  << std::endl << " for NEW file " << V2file->GetName() << std::endl;
+  }
+  else {
+    isHist2 = true;
+  }
+
+  if (!isHist1 && !isHist2){ // skip plot if neither there
+    std::cout << "Well, couldn't grab this hist from either file, just go to the next one." << std::endl;
+      return false;
+  }
+  else if (!isHist1 && isHist2) { // just draw one hist 
+    hBinTempV1 = (TH1F*)hBinTempV2->Clone();
+  }
+  else if (!isHist2 && isHist1) { // just draw one hist
+    hBinTempV2 = (TH1F*)hBinTempV1->Clone();
   }
 
   // Check that bins match for ratio plot
@@ -479,11 +508,11 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
   Double_t h2_nEntries = hBinTempV2->GetEntries();
 
   if ((h1_xlow == h2_xlow) && (h1_xup == h2_xup) && (h1_binWidth == h2_binWidth)){
-    histV1 = (TH1F*)V1file->Get(hnameV1);
-    histV2 = (TH1F*)V2file->Get(hnameV2);
+    histV1 = (TH1F*)hBinTempV1->Clone();//V1file->Get(hnameV1);
+    histV2 = (TH1F*)hBinTempV2->Clone();//V2file->Get(hnameV2);
   }
   else if((h1_xlow == h2_xlow) && (h1_xup < h2_xup) && (h1_binWidth == h2_binWidth)){ // Fill h1 from h1xlow to h1high with h1 info, and up to h2high, fill zero 
-    histV2 = (TH1F*)V2file->Get(hnameV2); // copy histV2 
+    histV2 = (TH1F*)hBinTempV2->Clone();//V2file->Get(hnameV2); // copy histV2 
 
     histV1 = new TH1F(hBinTempV1->GetName(),hBinTempV1->GetTitle(),h2_nbins,h2_xlow,h2_xup);
     histV1->SetXTitle(hBinTempV1->GetXaxis()->GetTitle());
@@ -498,7 +527,7 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
     }
   }
   else if((h1_xlow == h2_xlow) && (h1_xup > h2_xup) && (h1_binWidth == h2_binWidth)){ // Fill h1 from h1xlow to h1high with h1 info, and up to h2high, fill zero 
-    histV1 = (TH1F*)V1file->Get(hnameV1); // copy histV1 
+    histV1 = (TH1F*)hBinTempV1->Clone();//V1file->Get(hnameV1); // copy histV1 
 
     histV2 = new TH1F(hBinTempV2->GetName(),hBinTempV2->GetTitle(),h1_nbins,h1_xlow,h1_xup);
     histV2->SetXTitle(hBinTempV2->GetXaxis()->GetTitle());
@@ -514,7 +543,7 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
   }
   else if(h1_binWidth != h2_binWidth){
     if ((h1_xlow < h2_xlow) && (h1_xup == h2_xup)){
-      histV1 = (TH1F*)V1file->Get(hnameV1);
+      histV1 = (TH1F*)hBinTempV1->Clone();//V1file->Get(hnameV1);
 
       histV2 = new TH1F(hBinTempV2->GetName(),hBinTempV2->GetTitle(),h2_nbins,h1_xlow,h2_xup);
       histV2->SetXTitle(hBinTempV2->GetXaxis()->GetTitle());
@@ -524,7 +553,7 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
       }
     }
     else if ((h2_xlow < h1_xlow) && (h1_xup == h2_xup)){
-      histV2 = (TH1F*)V2file->Get(hnameV2);
+      histV2 = (TH1F*)hBinTempV2->Clone();//V2file->Get(hnameV2);
 
       histV1 = new TH1F(hBinTempV1->GetName(),hBinTempV1->GetTitle(),h1_nbins,h2_xlow,h1_xup);
       histV1->SetXTitle(hBinTempV1->GetXaxis()->GetTitle());
@@ -551,83 +580,41 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
   //  histV1->GetXaxis()->SetRangeUser(1,range_upper);
   //  histV2->GetXaxis()->SetRangeUser(1,range_upper);
 
-  //******************* Get histo integrals ***********************//
-  double V1_integral = 1.0;
-  double V2_integral = 1.0;
-
-  TH1F * hNormTempV1 = 0;
-  TH1F * hNormTempV2 = 0;
-
-  if (SetScale==1){    
-    V1_integral = histV1->Integral();
-    V2_integral = histV2->Integral();
-  }
-  else if ( (SetScale==2) || (SetScale==3) ){
-    if (hname != "NumberOfTracks"){
-      TString hTempNameV1 = basename1;
-      hTempNameV1.Append("/Tracking/Run summary/TrackParameters/generalTracks/GeneralProperties/NumberOfTracks_GenTk");
-      hNormTempV1 = (TH1F*)V1file->Get(hTempNameV1);
-      
-      TString hTempNameV2 = basename2;
-      hTempNameV2.Append("/Tracking/Run summary/TrackParameters/generalTracks/GeneralProperties/NumberOfTracks_GenTk");
-      hNormTempV2 = (TH1F*)V2file->Get(hTempNameV2);
-    }
-    else{
-      hNormTempV1 = (TH1F*)histV1->Clone("hNormTempV1");
-      hNormTempV2 = (TH1F*)histV2->Clone("hNormTempV2");
-    }
-
-    if (SetScale==2){
-      V1_integral = hNormTempV1->GetBinContent(2);
-      V2_integral = hNormTempV2->GetBinContent(2);
-
-      //      std::cout << "The number of single tracks for V1 is " << V1_integral << std::endl;
-      //      std::cout << "The number of single tracks for V2 is " << V2_integral << std::endl;
-    }
-    else if (SetScale==3){
-      V1_integral = hNormTempV1->GetEntries();
-      V2_integral = hNormTempV2->GetEntries();
-
-      //      std::cout << "The number of events for V1 is " << V1_integral << std::endl;
-      //      std::cout << "The number of events for V2 is " << V2_integral << std::endl;
-    }
-  }
-  else if (SetScale==0) {
-    std::cout << "No scaling applied" << std::endl;
-  }
-  else {
-    std::cout << "Oh boy, you messed up, scaling not an option: " << SetScale << std::endl;
-  }
-
   //*****NORMALIZING V1-V2****************************************
 
-  if (V1_integral>V2_integral) {
-    histV1->Scale(V2_integral / V1_integral); // scale down h1
-    histV2->Scale(1);
-
-    //    std::cout << "Set scale: " << V2_integral / V1_integral << std::endl;
-  } 
-  else if (V2_integral>V1_integral) {
-    histV1->Scale(1);
-    histV2->Scale(V1_integral / V2_integral); // scale down h2
-
-    //    std::cout << "Set scale: " << V1_integral / V2_integral << std::endl;
+  if (isHist1 && isHist2) {
+    if (V1_integral>V2_integral) {
+      histV1->Scale(V2_integral / V1_integral); // scale down h1
+      histV2->Scale(1);
+    } 
+    else if (V2_integral>V1_integral) {
+      histV1->Scale(1);
+      histV2->Scale(V1_integral / V2_integral); // scale down h2
+    }
   }
-
   //*****NORMALIZING V1-V2*end***************************************
 
   //***Name the files under comparison***
   TString V1_V1run = relstring1;
   TString V2_V2run = relstring2;
 
-  histV1->SetName(V1_V1run);
-  histV2->SetName(V2_V2run);
+  if (isHist1 && isHist2) {
+    histV1->SetName(V1_V1run);
+    histV2->SetName(V2_V2run);
+  }
+  else if (!isHist1 && isHist2) { // only plot histV1 in the case of missing hists
+    histV1->SetName(V2_V2run);
+  }
+  else if (isHist1 && !isHist2) { // only plot histV1 in the case of missing hists
+    histV1->SetName(V1_V1run);
+  }
 
   if (hname.Contains("algorithm",TString::kExact)){
     histV1->GetXaxis()->SetRangeUser(4,17);
     histV2->GetXaxis()->SetRangeUser(4,17);
   }
 
+  // options for drawing
   double max = 0;
   double V1max = histV1->GetBinContent(histV1->GetMaximumBin());
   double V2max = histV2->GetBinContent(histV2->GetMaximumBin());
@@ -641,6 +628,11 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
   histV2->SetLineWidth(3);
   histV2->SetLineStyle(1);
   histV2->SetLineColor(kRed); // h2 is new ... ogirinally was blue --> switched to match MC 
+
+  if (!isHist1) { // only plot hist1 in case of missing hists
+    histV1->SetLineColor(kRed);
+    histV1->SetLineWidth(3);
+  }
 
   if ( hname.Contains("NumberOfTracks",TString::kExact) || hname.Contains("TrackPt",TString::kExact) || hname.Contains("Chi2",TString::kExact) || hname.Contains("DistanceOfClosestApproach",TString::kExact) || hname.Contains("algorithm",TString::kExact) || hname.Contains("TrackPz",TString::kExact) || hname.Contains("TrackP_ImpactPoint",TString::kExact) || hname.Contains("TrackPErrOverP",TString::kExact) || hname.Contains("TrackPzErrOverPz",TString::kExact) || hname.Contains("SIP",TString::kExact) || hname.Contains("NumberOfMeanLayersPerTrack",TString::kExact) || hname.Contains("NumberOfMeanRecHitsPerTrack",TString::kExact) ) {
     mainpad->SetLogy(1);
@@ -798,7 +790,9 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
   }
 
   histV1->Draw(); // Draw old histo first, ratio is new/old
-  histV2->Draw("sames");
+  if (isHist1 && isHist2) {
+    histV2->Draw("sames");
+  }
 
   mainpad->Update();
 
@@ -816,64 +810,79 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
   leg->SetTextFont(42);
   leg->SetFillColor(10); 
   leg->SetBorderSize(1); // no frame, no shadow
-  leg->AddEntry(histV1, V1_V1run, "L" );
-  leg->AddEntry(histV2, V2_V2run, "L" );
+  leg->AddEntry(histV1, histV1->GetName(), "L" );
+  if (isHist1 && isHist2) {
+    leg->AddEntry(histV2, histV2->GetName(), "L" );
+  }
   leg->Draw("SAME");
 
   TPaveStats *st1 = (TPaveStats*)(histV1->GetListOfFunctions()->FindObject("stats"));
-  TPaveStats *st2 = (TPaveStats*)(histV2->GetListOfFunctions()->FindObject("stats"));
-
+  TPaveStats *st2;
+  if (isHist1 && isHist2){
+    st2 = (TPaveStats*)(histV2->GetListOfFunctions()->FindObject("stats"));
+  }
   if ( (hname.Contains("Chi2Prob",TString::kExact)) || hname.Contains("FractionOfGoodTracks",TString::kExact) ) {
     st1->SetX1NDC(0.50);
     st1->SetX2NDC(0.71);
-    st2->SetX1NDC(0.50);  
-    st2->SetX2NDC(0.71);    
+    if (isHist1 && isHist2){
+      st2->SetX1NDC(0.50);  
+      st2->SetX2NDC(0.71);    
+    }
   }
   else{
     st1->SetX1NDC(0.77);
     st1->SetX2NDC(0.98);
-    st2->SetX1NDC(0.77);  
-    st2->SetX2NDC(0.98);    
+    if (isHist1 && isHist2){
+      st2->SetX1NDC(0.77);  
+      st2->SetX2NDC(0.98);    
+    }
   }
 
   st1->SetY1NDC(0.80);
   st1->SetY2NDC(0.97);
   Double_t defaulth = st1->GetY2NDC() - st1->GetY1NDC();
   Double_t gaph = 0.02;
-  st2->SetY1NDC(st1->GetY1NDC() - 1.0*defaulth - gaph);
-  st2->SetY2NDC(st1->GetY1NDC() - gaph);
+  if (isHist1 && isHist2){
+    st2->SetY1NDC(st1->GetY1NDC() - 1.0*defaulth - gaph);
+    st2->SetY2NDC(st1->GetY1NDC() - gaph);
+  }
 
   // Draw ratio histogram
-  if (DrawRatio){
-    canvas->cd();
-    TPad* respad = new TPad("respad","respad",0.0,0.81,1.0,0.98);
-    respad->SetTopMargin(1.05);
-    respad->Draw();
-    respad->cd();
-    TH1F* hratio = (TH1F*) histV2->Clone("hratio");
 
-    if (hname.Contains("algorithm",TString::kExact)){
-      hratio->GetXaxis()->SetRangeUser(4,17); // algo
-    }
-
-    hratio->Divide(histV1);
-    hratio->SetMaximum(hratio->GetMaximum()*1.1);
-    hratio->SetMinimum(hratio->GetMinimum()/1.1);
-    //if (hratio->GetMinimum()==0.0) hratio->SetMinimum(1.0/hratio->GetMaximum());
-    //    hratio->SetMinimum(1.0/hratio->GetMaximum());
-    hratio->GetYaxis()->SetLabelSize(0.1);
-    //    hratio->GetYaxis()->SetRangeUser(0,2);
-    hratio->GetXaxis()->SetLabelSize(0);
-    hratio->GetXaxis()->SetTitleSize(0);
-    hratio->GetYaxis()->SetTitleSize(0.22);
-    hratio->GetYaxis()->SetTitleOffset(0.26);
-    hratio->GetYaxis()->SetLabelSize(0.2);
-    hratio->GetYaxis()->SetNdivisions(5);
-    hratio->GetYaxis()->SetTitle("NEW/REF");
-    hratio->SetStats(0);
-    hratio->SetTitle("");
-    hratio->Draw();
+  canvas->cd();
+  TPad* respad = new TPad("respad","respad",0.0,0.81,1.0,0.98);
+  respad->SetTopMargin(1.05);
+  respad->Draw();
+  respad->cd();
+  TH1F* hratio = (TH1F*) histV2->Clone("hratio");
+  if (hname.Contains("algorithm",TString::kExact)){
+    hratio->GetXaxis()->SetRangeUser(4,17); // algo
   }
+  hratio->Divide(histV1);
+  hratio->SetMaximum(hratio->GetMaximum()*1.1);
+  hratio->SetMinimum(hratio->GetMinimum()/1.1);
+  //if (hratio->GetMinimum()==0.0) hratio->SetMinimum(1.0/hratio->GetMaximum());
+  //    hratio->SetMinimum(1.0/hratio->GetMaximum());
+  hratio->GetYaxis()->SetLabelSize(0.1);
+  //    hratio->GetYaxis()->SetRangeUser(0,2);
+  hratio->GetXaxis()->SetLabelSize(0);
+  hratio->GetXaxis()->SetTitleSize(0);
+  hratio->GetYaxis()->SetTitleSize(0.22);
+  hratio->GetYaxis()->SetTitleOffset(0.26);
+  hratio->GetYaxis()->SetLabelSize(0.2);
+  hratio->GetYaxis()->SetNdivisions(5);
+  if (isHist1 && isHist2){
+    hratio->GetYaxis()->SetTitle("NEW/REF");
+  }
+  else if (!isHist1 && isHist2){
+    hratio->GetYaxis()->SetTitle("NEW/NEW");
+  }
+  else if (isHist1 && !isHist2){
+    hratio->GetYaxis()->SetTitle("REF/REF");
+  }
+  hratio->SetStats(0);
+  hratio->SetTitle("");
+  hratio->Draw();
 
   // Compare parameters of histograms
   /*  double Entries1 = histV1->GetEntries();
@@ -1027,80 +1036,90 @@ bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring
   // place output plots in right place
   if (dirname.Contains("SiStrip",TString::kExact)){
     if (filename.Contains("TEC",TString::kExact)){
-      filename.Prepend("RunComparison/SiStrip/TEC/");
+      filename.Prepend("SiStrip/TEC/");
     } 
     else if (filename.Contains("TIB",TString::kExact)){
-      filename.Prepend("RunComparison/SiStrip/TIB/");
+      filename.Prepend("SiStrip/TIB/");
     } 
     else if (filename.Contains("TID",TString::kExact)){
-      filename.Prepend("RunComparison/SiStrip/TID/");
+      filename.Prepend("SiStrip/TID/");
     } 
     else if (filename.Contains("TOB",TString::kExact)){
-      filename.Prepend("RunComparison/SiStrip/TOB/");
+      filename.Prepend("SiStrip/TOB/");
     } 
   }
   else if (dirname.Contains("highPurityTracks/pt_1",TString::kExact)){
     if (dirname.Contains("GeneralProperties",TString::kExact)){
-      filename.Prepend("RunComparison/HPTks/GenProps/");
+      filename.Prepend("HPTks/GenProps/");
     }
     else if (dirname.Contains("HitProperties",TString::kExact)){
-      filename.Prepend("RunComparison/HPTks/HitProps/");
+      filename.Prepend("HPTks/HitProps/");
     }
   }
   else if (dirname.Contains("generalTracks",TString::kExact)){ 
     if (dirname.Contains("GeneralProperties",TString::kExact)){
-      filename.Prepend("RunComparison/genTks/GenProps/");
+      filename.Prepend("genTks/GenProps/");
     }
     else if (dirname.Contains("HitProperties",TString::kExact)){
-      filename.Prepend("RunComparison/genTks/HitProps/");
+      filename.Prepend("genTks/HitProps/");
     }
     else if (dirname.Contains("TrackBuilding",TString::kExact)){
-      filename.Prepend("RunComparison/genTks/TkBuilding/");
+      filename.Prepend("genTks/TkBuilding/");
     }
   }
   else if (dirname.Contains("dEdx",TString::kExact)){ 
     if (dirname.Contains("dedxDQMHarm2PO",TString::kExact)){
-      filename.Prepend("RunComparison/dEdx/PO/");
+      filename.Prepend("dEdx/PO/");
     }
     else if (dirname.Contains("dedxDQMHarm2SO",TString::kExact)){
-      filename.Prepend("RunComparison/dEdx/SO/");
+      filename.Prepend("dEdx/SO/");
     }
     else if (dirname.Contains("dedxDQMHarm2SP",TString::kExact)){
-      filename.Prepend("RunComparison/dEdx/SP/");
+      filename.Prepend("dEdx/SP/");
     }
     else if (dirname.Contains("dEdxHits/dedxHitInfo",TString::kExact)){
-      filename.Prepend("RunComparison/dEdx/HitInfo/");
+      filename.Prepend("dEdx/HitInfo/");
     }
   }
   else if (dirname.Contains("OfflinePV",TString::kExact)) {
     if (dirname.Contains("Alignment",TString::kExact)) {
-      filename.Prepend("RunComparison/PV/Alignment/");
+      filename.Prepend("PV/Alignment/");
     }
     else if (dirname.Contains("offlinePrimaryVertices",TString::kExact)) {
-      filename.Prepend("RunComparison/PV/offlinePVs/");
+      filename.Prepend("PV/offlinePVs/");
     }
   }
   else if (dirname.Contains("PackedCandidate",TString::kExact)) {
     if (dirname.Contains("lostTracks",TString::kExact)) {
-      filename.Prepend("RunComparison/PackCand/lostTks/");
+      filename.Prepend("PackCand/lostTks/");
     }
     else {
-      filename.Prepend("RunComparison/PackCand/MatchedTks/");
+      filename.Prepend("PackCand/MatchedTks/");
     }
   }
 
+  filename.Prepend(directory.Data());
   filename.Append(".png");
 
   canvas->Print(filename);
 
-  if ( histV1 ) {histV1->Delete();}
-  if ( histV2 ) {histV2->Delete();}
+  if ( st1 ) {delete st1;}
+  if ( isHist1 && isHist2 ) {
+    if ( st2 ) {delete st2;}
+  }
 
-  if ( hNormTempV1 ) {hNormTempV1->Delete();}
-  if ( hNormTempV2 ) {hNormTempV2->Delete();}
+  if ( leg ) {delete leg;}
 
-  //  if ( hBinTempV1 ) {hBinTempV1->Delete();} // why cant this work?! 
-  //  if ( hBinTempV2 ) {hBinTempV2->Delete();}
+  if ( hratio ) {delete hratio;}
+
+  if ( histV1 ) {delete histV1;}
+  if ( histV2 ) {delete histV2;}
+
+  if ( hBinTempV1 ) {delete hBinTempV1;} 
+  if ( hBinTempV2 ) {delete hBinTempV2;}
+
+  if ( mainpad ) {delete mainpad;}
+  if ( respad )  {delete respad;}
 
   return true;
 }

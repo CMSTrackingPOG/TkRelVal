@@ -15,6 +15,6 @@
 #include "TF1.h"
 #include "TPaveStats.h"
 
-void V1_V2_trkComparison(string fileName1, string fileName2, int scale, bool doMiniAODval);
-bool createPlot(TString hname, TString dirname, TFile *V1file, TString runstring1, TString relstring1, TFile *V2file, TString runstring2, TString relstring2, TCanvas *canvas, int scale);
+void V1_V2_trkComparison(const string fileName1, const string fileName2, const TString directory);
+bool createPlot(const TString hname, const TString dirname, TFile *& V1file, const TString runstring1, const TString relstring1, TFile *& V2file, const TString runstring2, const TString relstring2, TCanvas *& canvas, const Double_t V1_integral, const Double_t V2_integral, const TString directory);
 void setTDRStyle();
