@@ -5,11 +5,11 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2, const T
   setTDRStyle(tdrStyle);
 
   gROOT->SetBatch(kTRUE);
-  gROOT->ForceStyle();
   gStyle->SetPalette(1);
-  gStyle->SetOptStat(111101);
-
+  gStyle->SetOptStat(110111);
   gStyle->SetOptFit(1);
+  gROOT->ForceStyle();
+
 
   TCanvas *canvas = new TCanvas;
 
