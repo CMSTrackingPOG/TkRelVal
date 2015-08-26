@@ -14,9 +14,9 @@ do
     
     refFile=$(ls *"${run}"*"${sample}"*"${rel_old}"*)
     newFile=$(ls *"${run}"*"${sample}"*"${rel_new}"*)
-    release=CMSSW_"${rel_new}"_vs_"${rel_old}"_"${run}"_"${sample}"_test
+    release=CMSSW_"${rel_new}"_vs_"${rel_old}"_"${run}"_"${sample}"
 
-    directory=/afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/ 
+    directory=/afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}
     
     #Create directories for webpage
     if [ ! -d ${directory} ] ; then    
@@ -55,7 +55,7 @@ do
 	mkdir ${directory}/PackCand
 	for subdir in MatchedTks lostTks
 	do
-	    mkdir ${directory}/PV/${subdir}
+	    mkdir ${directory}/PackCand/${subdir}
 	done
     else
 	rm -r ${directory} 
@@ -94,7 +94,7 @@ do
 	mkdir ${directory}/PackCand
 	for subdir in MatchedTks lostTks
 	do
-	    mkdir ${directory}/PV/${subdir}
+	    mkdir ${directory}/PackCand/${subdir}
 	done
     fi                            
     

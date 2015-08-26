@@ -1098,6 +1098,7 @@ bool createPlot(const TString hname, const TString dirname, TFile *& V1file, con
     }
   }
 
+  filename.Prepend("/");
   filename.Prepend(directory.Data());
   filename.Append(".png");
 
