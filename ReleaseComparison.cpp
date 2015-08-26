@@ -1,11 +1,10 @@
 #include "ReleaseComparison.hh"
 
 void V1_V2_trkComparison(const string fileName1, const string fileName2, const TString directory) {
+  TStyle *tdrStyle = new TStyle("tdrStyle","Style for P-TDR");
+  setTDRStyle(tdrStyle);
 
   gROOT->SetBatch(kTRUE);
-
-  gROOT->SetStyle("Default");
-  gROOT->SetStyle("Plain");
   gROOT->ForceStyle();
   gStyle->SetPalette(1);
   gStyle->SetOptStat(111101);
@@ -422,12 +421,13 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2, const T
   delete file1;
   delete file2;
   delete canvas;
+  delete tdrStyle;
 }
 
 bool createPlot(const TString hname, const TString dirname, TFile *& V1file, const TString runstring1, const TString relstring1, TFile *& V2file, const TString runstring2, const TString relstring2, TCanvas *& canvas, const Double_t V1_integral, const Double_t V2_integral, const TString directory) {
-  setTDRStyle();
 
   canvas->cd();
+
   TPad* mainpad = new TPad("mainpad","mainpad",0.0,0.0,1.0,0.8);
   mainpad->Draw();
   mainpad->cd();
@@ -798,13 +798,13 @@ bool createPlot(const TString hname, const TString dirname, TFile *& V1file, con
 
   TLegend *leg;
   if ( (hname.Contains("NumberOfTracks",TString::kExact)) || (hname.Contains("vtxNbr",TString::kExact)) || (hname.Contains("algorithm",TString::kExact)) || (hname.Contains("NumberOfMeanRecHitsPerTrack",TString::kExact)) || (hname.Contains("NumberOfMeanLayersPerTrack",TString::kExact)) ){
-    leg = new TLegend(0.60,0.88,0.76,0.97);
+    leg = new TLegend(0.60,0.88,0.85,0.97);
   }
   else if ( hname.Contains("Summary_ClusterChargePerCMfromOrigin",TString::kExact) || hname.Contains("Summary_ClusterChargePerCMfromTrack",TString::kExact) ){
-    leg = new TLegend(0.18,0.88,0.34,0.97);
+    leg = new TLegend(0.18,0.88,0.43,0.97);
   }
   else{
-    leg = new TLegend(0.32,0.88,0.48,0.97);
+    leg = new TLegend(0.32,0.88,0.57,0.97);
   }
   leg->SetTextSize(0.042);
   leg->SetTextFont(42);
@@ -1124,10 +1124,7 @@ bool createPlot(const TString hname, const TString dirname, TFile *& V1file, con
   return true;
 }
 
-void setTDRStyle() {
-
-  TStyle *tdrStyle = new TStyle("tdrStyle","Style for P-TDR");
-
+void setTDRStyle(TStyle *& tdrStyle) {
   // For the canvas:
   tdrStyle->SetCanvasBorderMode(0);
   tdrStyle->SetCanvasColor(kWhite);

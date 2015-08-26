@@ -6,60 +6,6 @@ rel_old=$2 #old release to check against (e.g. pre1)
 rel_new=$3 #new release (e.q. pre2)
 #rmroot=$4 #remove root files if true
 
-#Make a local copy of the plots here
-if [ -d RunComparison ] ; then
-    rm -r RunComparison
-    mkdir RunComparison
-    mkdir RunComparison/SiStrip
-    mkdir RunComparison/SiStrip/TEC
-    mkdir RunComparison/SiStrip/TIB
-    mkdir RunComparison/SiStrip/TID
-    mkdir RunComparison/SiStrip/TOB
-    mkdir RunComparison/genTks
-    mkdir RunComparison/genTks/GenProps
-    mkdir RunComparison/genTks/HitProps
-    mkdir RunComparison/genTks/TkBuilding
-    mkdir RunComparison/HPTks
-    mkdir RunComparison/HPTks/GenProps
-    mkdir RunComparison/HPTks/HitProps
-    mkdir RunComparison/dEdx
-    mkdir RunComparison/dEdx/PO
-    mkdir RunComparison/dEdx/SO
-    mkdir RunComparison/dEdx/SP
-    mkdir RunComparison/dEdx/HitInfo
-    mkdir RunComparison/PV
-    mkdir RunComparison/PV/Alignment
-    mkdir RunComparison/PV/offlinePVs
-    mkdir RunComparison/PackCand
-    mkdir RunComparison/PackCand/MatchedTks
-    mkdir RunComparison/PackCand/lostTks
-elif [ ! -d RunComparison ] ; then
-    mkdir RunComparison
-    mkdir RunComparison/SiStrip
-    mkdir RunComparison/SiStrip/TEC
-    mkdir RunComparison/SiStrip/TIB
-    mkdir RunComparison/SiStrip/TID
-    mkdir RunComparison/SiStrip/TOB
-    mkdir RunComparison/genTks
-    mkdir RunComparison/genTks/GenProps
-    mkdir RunComparison/genTks/HitProps
-    mkdir RunComparison/genTks/TkBuilding
-    mkdir RunComparison/HPTks
-    mkdir RunComparison/HPTks/GenProps
-    mkdir RunComparison/HPTks/HitProps
-    mkdir RunComparison/dEdx
-    mkdir RunComparison/dEdx/PO
-    mkdir RunComparison/dEdx/SO
-    mkdir RunComparison/dEdx/SP
-    mkdir RunComparison/dEdx/HitInfo
-    mkdir RunComparison/PV
-    mkdir RunComparison/PV/Alignment
-    mkdir RunComparison/PV/offlinePVs
-    mkdir RunComparison/PackCand
-    mkdir RunComparison/PackCand/MatchedTks
-    mkdir RunComparison/PackCand/lostTks
-fi
-
 #scaled and unscaled --> see ReleaseComparison.cpp for explaination of scales
 
 #Do this for all matching data sets
@@ -69,201 +15,188 @@ do
     refFile=$(ls *"${run}"*"${sample}"*"${rel_old}"*)
     newFile=$(ls *"${run}"*"${sample}"*"${rel_new}"*)
     release=CMSSW_"${rel_new}"_vs_"${rel_old}"_"${run}"_"${sample}"_test
-    #release=CMSSW_"${rel_new}"_"${sample}"_Run_"${run}"
 
     directory=/afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/ 
     
     #Create directories for webpage
-    if [ ! -d /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release} ] ; then    
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release} 
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip/TEC
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip/TIB
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip/TID
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip/TOB
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks 
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks/GenProps 
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks/HitProps
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks/TkBuilding
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/HPTks 
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/HPTks/GenProps 
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/HPTks/HitProps
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/PO
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/SO
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/SP
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/HitInfo
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PV
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PV/Alignment
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PV/offlinePVs
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PackCand
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PackCand/MatchedTks
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PackCand/lostTks
+    if [ ! -d ${directory} ] ; then    
+	mkdir ${directory} 
+
+	mkdir ${directory}/SiStrip
+	for subdir in TEC TIB TID TOB 
+	do
+	    mkdir ${directory}/SiStrip/${subdir}
+	done
+
+	mkdir ${directory}/genTks 
+	for subdir in GenProps HitProps TkBuilding
+	do
+	    mkdir ${directory}/genTks/${subdir}
+	done
+	
+	mkdir ${directory}/HPTks 
+	for subdir in GenProps HitProps
+	do
+	    mkdir ${directory}/HPTks/${subdir}
+	done
+	
+	mkdir ${directory}/dEdx
+	for subdir in PO SO SP HitInfo
+	do
+	    mkdir ${directory}/dEdx/${subdir}
+	done
+
+	mkdir ${directory}/PV
+	for subdir in Alignment offlinePVs
+	do
+	    mkdir ${directory}/PV/${subdir}
+	done
+
+	mkdir ${directory}/PackCand
+	for subdir in MatchedTks lostTks
+	do
+	    mkdir ${directory}/PV/${subdir}
+	done
     else
-	rm -r /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release} 
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release} 
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip/TEC
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip/TIB
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip/TID
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip/TOB
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks 
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks/GenProps 
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks/HitProps
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks/TkBuilding
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/HPTks 
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/HPTks/GenProps 
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/HPTks/HitProps
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/PO
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/SO
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/SP
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/HitInfo
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PV
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PV/Alignment
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PV/offlinePVs
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PackCand
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PackCand/MatchedTks
-	mkdir /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PackCand/lostTks
+	rm -r ${directory} 
+	mkdir ${directory} 
+
+	mkdir ${directory}/SiStrip
+	for subdir in TEC TIB TID TOB 
+	do
+	    mkdir ${directory}/SiStrip/${subdir}
+	done
+
+	mkdir ${directory}/genTks 
+	for subdir in GenProps HitProps TkBuilding
+	do
+	    mkdir ${directory}/genTks/${subdir}
+	done
+	
+	mkdir ${directory}/HPTks 
+	for subdir in GenProps HitProps
+	do
+	    mkdir ${directory}/HPTks/${subdir}
+	done
+	
+	mkdir ${directory}/dEdx
+	for subdir in PO SO SP HitInfo
+	do
+	    mkdir ${directory}/dEdx/${subdir}
+	done
+
+	mkdir ${directory}/PV
+	for subdir in Alignment offlinePVs
+	do
+	    mkdir ${directory}/PV/${subdir}
+	done
+
+	mkdir ${directory}/PackCand
+	for subdir in MatchedTks lostTks
+	do
+	    mkdir ${directory}/PV/${subdir}
+	done
     fi                            
     
     echo "Analyzing ${refFile} and ${newFile} in ${release}"                                                                                   
     #Run the ROOT Macro. This is trivial, compiles a .cpp file that makes all the plots.  
     root -b -q -l "runValidationComparison.C("\"${refFile}\",\"${newFile}\",\"${directory}\"")"   
     
-    #Copy all the plots to the directory to be published
-    cp RunComparison/SiStrip/TEC/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip/TEC
-    cp RunComparison/SiStrip/TIB/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip/TIB
-    cp RunComparison/SiStrip/TID/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip/TID
-    cp RunComparison/SiStrip/TOB/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip/TOB
-    cp RunComparison/genTks/GenProps/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks/GenProps
-    cp RunComparison/genTks/HitProps/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks/HitProps
-    cp RunComparison/genTks/TkBuilding/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks/TkBuilding
-    cp RunComparison/HPTks/GenProps/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/HPTks/GenProps
-    cp RunComparison/HPTks/HitProps/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/HPTks/HitProps
-    cp RunComparison/dEdx/PO/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/PO
-    cp RunComparison/dEdx/SO/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/SO
-    cp RunComparison/dEdx/SP/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/SP
-    cp RunComparison/dEdx/HitInfo/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/HitInfo
-    cp RunComparison/PV/Alignment/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PV/Alignment
-    cp RunComparison/PV/offlinePVs/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PV/offlinePVs
-    cp RunComparison/PackCand/MatchedTks/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PackCand/MatchedTks
-    cp RunComparison/PackCand/lostTks/*.png /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PackCand/lostTks
-
-    #remove plots for next iteration
-    rm RunComparison/SiStrip/TEC/*.png
-    rm RunComparison/SiStrip/TIB/*.png
-    rm RunComparison/SiStrip/TID/*.png
-    rm RunComparison/SiStrip/TOB/*.png
-    rm RunComparison/genTks/GenProps/*.png
-    rm RunComparison/genTks/HitProps/*.png
-    rm RunComparison/genTks/TkBuilding/*.png
-    rm RunComparison/HPTks/GenProps/*.png
-    rm RunComparison/HPTks/HitProps/*.png
-    rm RunComparison/dEdx/PO/*.png
-    rm RunComparison/dEdx/SO/*.png
-    rm RunComparison/dEdx/SP/*.png
-    rm RunComparison/dEdx/HitInfo/*.png
-    rm RunComparison/PV/Alignment/*.png
-    rm RunComparison/PV/offlinePVs/*.png
-    rm RunComparison/PackCand/MatchedTks/*.png
-    rm RunComparison/PackCand/lostTks/*.png
-    
     #generate index.html files on the fly for release directory
-    cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}
+    cd ${directory}
     ../genSubDir.sh "${release}" 
     cd -
     
-    cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip
+    cd ${directory}/SiStrip
     ../../genSubSubDirSiStrip.sh "${release}" 
     cd -                                                    
 
-    cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks
+    cd ${directory}/genTks
     ../../genSubSubDirTk.sh "${release}" "genTks"
     cd -
     
-    cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/HPTks
+    cd ${directory}/HPTks
     ../../genSubSubDirTk.sh "${release}" "HPTks"
     cd -
 
-    cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx
+    cd ${directory}/dEdx
     ../../genSubSubDirdEdx.sh "${release}" 
     cd -
 
-    cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PV
+    cd ${directory}/PV
     ../../genSubSubDirPV.sh "${release}" 
     cd -
 
-    cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PackCand
+    cd ${directory}/PackCand
     ../../genSubSubDirPackCand.sh "${release}" 
     cd -
 
     # now make pretty plots on webpage with perl script
-    cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip/TEC
+    cd ${directory}/SiStrip/TEC
     ../../../diow.pl -t "${release} SiStrip TEC Validation" -c 3 -icon 200                 
     cd -                                                    
 
-    cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip/TIB
+    cd ${directory}/SiStrip/TIB
     ../../../diow.pl -t "${release} SiStrip TIB Validation" -c 3 -icon 200                 
     cd -                                                    
 
-    cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip/TID
+    cd ${directory}/SiStrip/TID
     ../../../diow.pl -t "${release} SiStrip TID Validation" -c 3 -icon 200                 
     cd -                                                    
 
-    cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/SiStrip/TOB
+    cd ${directory}/SiStrip/TOB
     ../../../diow.pl -t "${release} SiStrip TOB Validation" -c 3 -icon 200                 
     cd -                                                    
 
-    cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks/GenProps
+    cd ${directory}/genTks/GenProps
     ../../../diow.pl -t "${release} genTks General Properties Validation" -c 3 -icon 200                 
     cd -                                                    
 
-    cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks/HitProps
+    cd ${directory}/genTks/HitProps
     ../../../diow.pl -t "${release} genTks Hit Properties Validation" -c 3 -icon 200                 
     cd -                                                    
 
-    cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/genTks/TkBuilding
+    cd ${directory}/genTks/TkBuilding
     ../../../diow.pl -t "${release} genTks Track Building Validation" -c 3 -icon 200                 
     cd -                                                    
 
-    cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/HPTks/GenProps
+    cd ${directory}/HPTks/GenProps
     ../../../diow.pl -t "${release} HPTks General Properties Validation" -c 3 -icon 200                 
     cd -                                                    
 
-    cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/HPTks/HitProps
+    cd ${directory}/HPTks/HitProps
     ../../../diow.pl -t "${release} HPTks Hit Properties Validation" -c 3 -icon 200                 
     cd -                                                    
 
-    cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/PO
+    cd ${directory}/dEdx/PO
     ../../../diow.pl -t "${release} dEdx DQMHarm2PO Validation" -c 3 -icon 200                 
     cd -                                                    
 
-    cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/SO
+    cd ${directory}/dEdx/SO
     ../../../diow.pl -t "${release} dEdx DQMHarm2SO Validation" -c 3 -icon 200                 
     cd -                                                    
 
-    cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/SP
+    cd ${directory}/dEdx/SP
     ../../../diow.pl -t "${release} dEdx DQMHarm2SP Validation" -c 3 -icon 200                 
     cd -                                                    
 
-    cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/dEdx/HitInfo
+    cd ${directory}/dEdx/HitInfo
     ../../../diow.pl -t "${release} dEdx HitInfo Validation" -c 3 -icon 200                 
     cd -                                                    
 
-    cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PV/Alignment
+    cd ${directory}/PV/Alignment
     ../../../diow.pl -t "${release} OfflinePV Alignment Validation" -c 3 -icon 200                 
     cd -                                                    
 
-    cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PV/offlinePVs
+    cd ${directory}/PV/offlinePVs
     ../../../diow.pl -t "${release} OfflinePV Primary Vertices Validation" -c 3 -icon 200                 
     cd -                                                    
 
-    cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PackCand/MatchedTks
+    cd ${directory}/PackCand/MatchedTks
     ../../../diow.pl -t "${release} Packed Candidate Matched Tracks Validation" -c 3 -icon 200                 
     cd -                                                    
 
-    cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}/PackCand/lostTks
+    cd ${directory}/PackCand/lostTks
     ../../../diow.pl -t "${release} Packed Candidate Lost Tracks Validation" -c 3 -icon 200                 
     cd -                                                    
 
