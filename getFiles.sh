@@ -12,7 +12,9 @@ for sample in MinimumBias Jet #DoubleMu DoubleEl #SingleMu SingleEl
 do
 #Get all the necessary files
 
-wget -e robots=off --wait 1 -r -l1 -nd -np "https://cmsweb.cern.ch/dqm/relval/data/browse/ROOT/RelValData/${web_dir}/" -A "*${run}*${sample}*${rel_old}*root, *${run}*${sample}*${rel_new}*root" --no-check-certificate --certificate ~/.globus/usercert.pem --private-key ~/.globus/userkey.pem
+    echo "Get sample: " ${sample}
+
+    wget -e robots=off --wait 1 -r -l1 -nd -np "https://cmsweb.cern.ch/dqm/relval/data/browse/ROOT/RelValData/${web_dir}/" -A "*${run}*${sample}*${rel_old}*root, *${run}*${sample}*${rel_new}*root" --no-check-certificate --certificate ~/.globus/usercert.pem --private-key ~/.globus/userkey.pem
 
 #  wget -e robots=off --wait 1 -r -l1 -nd -np "https://cmsweb.cern.ch/dqm/relval/data/browse/ROOT/RelValData/$web_dir1/" -A "*$run*$sample*$rel_old*root" --no-check-certificate --certificate ~/.globus/usercert.pem --private-key ~/.globus/userkey.pem
 

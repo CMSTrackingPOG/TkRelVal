@@ -9,7 +9,7 @@ rel_new=$3 #new release (e.q. pre2)
 #scaled and unscaled --> see ReleaseComparison.cpp for explaination of scales
 
 #Do this for all matching data sets
-for sample in MinBias #Jet #SingleMu SingleEl #MET Tau SinglePhoton DoubleElectron
+for sample in MinBias Jet #SingleMu SingleEl #MET Tau SinglePhoton DoubleElectron
 do
     
     refFile=$(ls *"${run}"*"${sample}"*"${rel_old}"*)
