@@ -9,7 +9,7 @@ rel_new=$3 #new release (e.q. pre2)
 #scaled and unscaled --> see ReleaseComparison.cpp for explaination of scales
 
 #Do this for all matching data sets
-for sample in MinBias Jet #SingleMu SingleEl #MET Tau SinglePhoton DoubleElectron
+for sample in JetHT #ZeroBias JetHT #SingleMu SingleEl #MET Tau SinglePhoton DoubleElectron
 do
     
     refFile=$(ls *"${run}"*"${sample}"*"${rel_old}"*)
@@ -22,79 +22,79 @@ do
     if [ ! -d ${directory} ] ; then    
 	mkdir ${directory} 
 
-	mkdir ${directory}/SiStrip
 	for subdir in TEC TIB TID TOB 
 	do
-	    mkdir ${directory}/SiStrip/${subdir}
+	    mkdir -p ${directory}/SiStrip/${subdir}_lin
+	    mkdir -p ${directory}/SiStrip/${subdir}_log
 	done
 
-	mkdir ${directory}/genTks 
 	for subdir in GenProps HitProps TkBuilding
 	do
-	    mkdir ${directory}/genTks/${subdir}
+	    mkdir -p ${directory}/genTks/${subdir}_lin
+	    mkdir -p ${directory}/genTks/${subdir}_log
 	done
 	
-	mkdir ${directory}/HPTks 
 	for subdir in GenProps HitProps
 	do
-	    mkdir ${directory}/HPTks/${subdir}
+	    mkdir -p ${directory}/HPTks/${subdir}_lin
+	    mkdir -p ${directory}/HPTks/${subdir}_log
 	done
 	
-	mkdir ${directory}/dEdx
 	for subdir in PO SO SP HitInfo
 	do
-	    mkdir ${directory}/dEdx/${subdir}
+	    mkdir -p ${directory}/dEdx/${subdir}_lin
+	    mkdir -p ${directory}/dEdx/${subdir}_log
 	done
 
-	mkdir ${directory}/PV
 	for subdir in Alignment offlinePVs
 	do
-	    mkdir ${directory}/PV/${subdir}
+	    mkdir -p ${directory}/PV/${subdir}_lin
+	    mkdir -p ${directory}/PV/${subdir}_log
 	done
 
-	mkdir ${directory}/PackCand
 	for subdir in MatchedTks lostTks
 	do
-	    mkdir ${directory}/PackCand/${subdir}
+	    mkdir -p ${directory}/PackCand/${subdir}_lin
+	    mkdir -p ${directory}/PackCand/${subdir}_log
 	done
     else
 	rm -r ${directory} 
 	mkdir ${directory} 
 
-	mkdir ${directory}/SiStrip
 	for subdir in TEC TIB TID TOB 
 	do
-	    mkdir ${directory}/SiStrip/${subdir}
+	    mkdir -p ${directory}/SiStrip/${subdir}_lin
+	    mkdir -p ${directory}/SiStrip/${subdir}_log
 	done
 
-	mkdir ${directory}/genTks 
 	for subdir in GenProps HitProps TkBuilding
 	do
-	    mkdir ${directory}/genTks/${subdir}
+	    mkdir -p ${directory}/genTks/${subdir}_lin
+	    mkdir -p ${directory}/genTks/${subdir}_log
 	done
 	
-	mkdir ${directory}/HPTks 
 	for subdir in GenProps HitProps
 	do
-	    mkdir ${directory}/HPTks/${subdir}
+	    mkdir -p ${directory}/HPTks/${subdir}_lin
+	    mkdir -p ${directory}/HPTks/${subdir}_log
 	done
 	
-	mkdir ${directory}/dEdx
 	for subdir in PO SO SP HitInfo
 	do
-	    mkdir ${directory}/dEdx/${subdir}
+	    mkdir -p ${directory}/dEdx/${subdir}_lin
+	    mkdir -p ${directory}/dEdx/${subdir}_log
 	done
 
-	mkdir ${directory}/PV
 	for subdir in Alignment offlinePVs
 	do
-	    mkdir ${directory}/PV/${subdir}
+	    mkdir -p ${directory}/PV/${subdir}_lin
+	    mkdir -p ${directory}/PV/${subdir}_log
 	done
 
-	mkdir ${directory}/PackCand
-	for subdir in MatchedTks lostTks
+	for subdir in MatchedTks LostTks
 	do
-	    mkdir ${directory}/PackCand/${subdir}
+	    mkdir -p ${directory}/PackCand/${subdir}_lin
+	    mkdir -p ${directory}/PackCand/${subdir}_log
 	done
     fi                            
     
@@ -132,74 +132,66 @@ do
     cd -
 
     # now make pretty plots on webpage with perl script
-    cd ${directory}/SiStrip/TEC
-    ../../../diow.pl -t "${release} SiStrip TEC Validation" -c 3 -icon 200                 
-    cd -                                                    
 
-    cd ${directory}/SiStrip/TIB
-    ../../../diow.pl -t "${release} SiStrip TIB Validation" -c 3 -icon 200                 
-    cd -                                                    
+    for subdir in TEC TIB TID TOB 
+    do
+	for scale in lin log
+	do 
+	    cd ${directory}/SiStrip/${subdir}_${scale}
+	    ../../../diow.pl -t "${release} SiStrip ${subdir} Validation (${scale})" -c 3 -icon 200                 
+	    cd --
+	done
+    done
 
-    cd ${directory}/SiStrip/TID
-    ../../../diow.pl -t "${release} SiStrip TID Validation" -c 3 -icon 200                 
-    cd -                                                    
+    for subdir in GenProps HitProps TkBuilding
+    do
+	for scale in lin log
+	do 
+	    cd ${directory}/genTks/${subdir}_${scale}
+	    ../../../diow.pl -t "${release} genTks ${subdir} Validation (${scale})" -c 3 -icon 200                 
+	    cd --
+	done
+    done
 
-    cd ${directory}/SiStrip/TOB
-    ../../../diow.pl -t "${release} SiStrip TOB Validation" -c 3 -icon 200                 
-    cd -                                                    
+    for subdir in GenProps HitProps
+    do
+	for scale in lin log
+	do 
+	    cd ${directory}/HPTks/${subdir}_${scale}
+	    ../../../diow.pl -t "${release} HPTks ${subdir} Validation (${scale})" -c 3 -icon 200                 
+	    cd --
+	done
+    done
 
-    cd ${directory}/genTks/GenProps
-    ../../../diow.pl -t "${release} genTks General Properties Validation" -c 3 -icon 200                 
-    cd -                                                    
+    for subdir in PO SO SP HitInfo
+    do
+	for scale in lin log
+	do 
+	    cd ${directory}/dEdx/${subdir}_${scale}
+	    ../../../diow.pl -t "${release} dEdx ${subdir} Validation (${scale})" -c 3 -icon 200                 
+	    cd --
+	done
+    done
 
-    cd ${directory}/genTks/HitProps
-    ../../../diow.pl -t "${release} genTks Hit Properties Validation" -c 3 -icon 200                 
-    cd -                                                    
+    for subdir in offlinePVs Alignment
+    do
+	for scale in lin log
+	do 
+	    cd ${directory}/PV/${subdir}_${scale}
+	    ../../../diow.pl -t "${release} OfflinePV ${subdir} Validation (${scale})" -c 3 -icon 200                 
+	    cd --
+	done
+    done
 
-    cd ${directory}/genTks/TkBuilding
-    ../../../diow.pl -t "${release} genTks Track Building Validation" -c 3 -icon 200                 
-    cd -                                                    
-
-    cd ${directory}/HPTks/GenProps
-    ../../../diow.pl -t "${release} HPTks General Properties Validation" -c 3 -icon 200                 
-    cd -                                                    
-
-    cd ${directory}/HPTks/HitProps
-    ../../../diow.pl -t "${release} HPTks Hit Properties Validation" -c 3 -icon 200                 
-    cd -                                                    
-
-    cd ${directory}/dEdx/PO
-    ../../../diow.pl -t "${release} dEdx DQMHarm2PO Validation" -c 3 -icon 200                 
-    cd -                                                    
-
-    cd ${directory}/dEdx/SO
-    ../../../diow.pl -t "${release} dEdx DQMHarm2SO Validation" -c 3 -icon 200                 
-    cd -                                                    
-
-    cd ${directory}/dEdx/SP
-    ../../../diow.pl -t "${release} dEdx DQMHarm2SP Validation" -c 3 -icon 200                 
-    cd -                                                    
-
-    cd ${directory}/dEdx/HitInfo
-    ../../../diow.pl -t "${release} dEdx HitInfo Validation" -c 3 -icon 200                 
-    cd -                                                    
-
-    cd ${directory}/PV/Alignment
-    ../../../diow.pl -t "${release} OfflinePV Alignment Validation" -c 3 -icon 200                 
-    cd -                                                    
-
-    cd ${directory}/PV/offlinePVs
-    ../../../diow.pl -t "${release} OfflinePV Primary Vertices Validation" -c 3 -icon 200                 
-    cd -                                                    
-
-    cd ${directory}/PackCand/MatchedTks
-    ../../../diow.pl -t "${release} Packed Candidate Matched Tracks Validation" -c 3 -icon 200                 
-    cd -                                                    
-
-    cd ${directory}/PackCand/lostTks
-    ../../../diow.pl -t "${release} Packed Candidate Lost Tracks Validation" -c 3 -icon 200                 
-    cd -                                                    
-
+    for subdir in MatchedTks LostTks
+    do
+	for scale in lin log
+	do 
+	    cd ${directory}/PackCand/${subdir}_${scale}
+	    ../../../diow.pl -t "${release} Packed Candidate ${subdir} Validation (${scale})" -c 3 -icon 200                 
+	    cd --
+	done
+    done
 done
 
 #Delete the cumbersome root files if not needed
