@@ -901,6 +901,22 @@ bool createPlot(const TString hname, const TString dirname, TFile *& V1file, con
   hratio->SetMarkerColor(1);
   hratio->Draw("EP");
 
+  // make a ratio line!
+  
+  TLine * ratioline = new TLine();
+  ratioline->SetX1(hratio->GetXaxis()->GetXmin());
+  ratioline->SetY1(1.0);
+  ratioline->SetX2(hratio->GetXaxis()->GetXmax());
+  ratioline->SetY2(1.0);
+
+  // customize appearance
+  ratioline->SetLineColor(kRed);
+  ratioline->SetLineWidth(2);
+
+  // draw line then redraw hratio on top
+  ratioline->Draw("SAME");
+  hratio->Draw("EP SAME");
+
   TString filename = hname;
  
   // shorten name of SiStrip plots for output .png
@@ -1064,6 +1080,7 @@ bool createPlot(const TString hname, const TString dirname, TFile *& V1file, con
 
   if ( leg ) {delete leg;}
 
+  if ( ratioline ) {delete ratioline;}
   if ( hratio ) {delete hratio;}
 
   if ( histV1 ) {delete histV1;}

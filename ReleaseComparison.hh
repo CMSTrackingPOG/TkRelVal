@@ -15,6 +15,7 @@
 #include "TF1.h"
 #include "TLatex.h"
 #include "TPaveStats.h"
+#include "TLine.h"
 
 void V1_V2_trkComparison(const string fileName1, const string fileName2, const TString directory);
 void CMSLumi(TCanvas *& canv, const Int_t iPosX, const Int_t tev, const Double_t lumi);
