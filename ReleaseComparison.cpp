@@ -10,8 +10,6 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2, const T
   gStyle->SetOptFit(1);
   gROOT->ForceStyle();
 
-  TCanvas *canvas = new TCanvas;
-
   // fileName1 --> REFERENCE
   int pos = fileName1.find("_R0");
   std::string runString1 = fileName1.substr (pos+5,6);
@@ -45,6 +43,9 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2, const T
   if ( file2->IsZombie() )
     std::cout << "File: " << fileName2 << " cannot be opened!" << std::endl;
   //  relString2 += " - NEW";
+
+  //******************* Make master canvas  ***********************//
+  TCanvas *canvas = new TCanvas("master canv","");
 
   //******************* Get histo integrals ***********************//
   TString tempname1 = "DQMData/Run ";
@@ -667,13 +668,16 @@ bool createPlot(const TString hname, const TString dirname, TFile *& V1file, con
     histV1->GetXaxis()->SetRangeUser(0,10);
     histV2->GetXaxis()->SetRangeUser(0,10);
   }
-
-  if (dirname.Contains("PackedCandidate",TString::kExact)) {
+  
+  if (hname.Contains("algorithm",TString::kExact)){
+    histV1->GetXaxis()->SetTitle("");
+    histV2->GetXaxis()->SetTitle("");
+  }
+  else if (dirname.Contains("PackedCandidate",TString::kExact)) {
     histV1->GetXaxis()->SetTitle(histV1->GetTitle());
     histV1->GetYaxis()->SetTitle("Number of Tracks");
   }
-
-  if (dirname.Contains("OfflinePV",TString::kExact)) {
+  else if (dirname.Contains("OfflinePV",TString::kExact)) {
     if (dirname.Contains("Alignment",TString::kExact)) {
       if ( (hname.Contains("ntracks",TString::kExact)) || (hname.Contains("sumpt",TString::kExact)) ) {
 	if (hname.Contains("ntracks",TString::kExact)) {
@@ -806,13 +810,13 @@ bool createPlot(const TString hname, const TString dirname, TFile *& V1file, con
 
   TLegend *leg;
   if ( (hname.Contains("NumberOfTracks",TString::kExact)) || (hname.Contains("vtxNbr",TString::kExact)) || (hname.Contains("algorithm",TString::kExact)) || (hname.Contains("NumberOfMeanRecHitsPerTrack",TString::kExact)) || (hname.Contains("NumberOfMeanLayersPerTrack",TString::kExact)) ){
-    leg = new TLegend(0.60,0.88,0.75,0.97);
+    leg = new TLegend(0.60,0.85,0.75,0.94);
   }
   else if ( hname.Contains("Summary_ClusterChargePerCMfromOrigin",TString::kExact) || hname.Contains("Summary_ClusterChargePerCMfromTrack",TString::kExact) ){
-    leg = new TLegend(0.18,0.88,0.33,0.97);
+    leg = new TLegend(0.18,0.85,0.33,0.94);
   }
   else{
-    leg = new TLegend(0.32,0.88,0.47,0.97);
+    leg = new TLegend(0.32,0.85,0.47,0.94);
   }
   leg->SetTextSize(0.042);
   leg->SetTextFont(42);
@@ -846,8 +850,8 @@ bool createPlot(const TString hname, const TString dirname, TFile *& V1file, con
     }
   }
 
-  st1->SetY1NDC(0.80);
-  st1->SetY2NDC(0.97);
+  st1->SetY1NDC(0.77);
+  st1->SetY2NDC(0.94);
   Double_t defaulth = st1->GetY2NDC() - st1->GetY1NDC();
   Double_t gaph = 0.02;
   if (isHist1 && isHist2){
@@ -871,7 +875,6 @@ bool createPlot(const TString hname, const TString dirname, TFile *& V1file, con
   hratio->Divide(histV1);
   hratio->SetMaximum(1.25);
   hratio->SetMinimum(0.75);
-  hratio->GetXaxis()->SetTitle(histV1->GetXaxis()->GetTitle());
 
   hratio->GetXaxis()->SetTitleSize(0.13);
   hratio->GetXaxis()->SetTitleOffset(0.9);
@@ -1027,6 +1030,16 @@ bool createPlot(const TString hname, const TString dirname, TFile *& V1file, con
   filename.Append(".png");
   // copy filename for log .. stupid but whatever
   TString filenamecopy = filename;
+
+  // *************** Print CMS Lumi on these guys ************ //
+
+  Double_t lumi = 0;
+  Int_t tev = 0;
+  if      (atoi(runstring1.Data()) == 191226){lumi = 93.58; tev = 8;}
+  else if (atoi(runstring1.Data()) == 208307){lumi = 122.79; tev = 8;} 
+  else if (atoi(runstring1.Data()) == 251643){lumi = 14.24; tev = 13;}
+  else if (atoi(runstring1.Data()) == 251721){lumi = 0.21; tev = 13;}
+  CMSLumi(canvas, 0, tev, lumi);
   
   // linear first
   histV1->SetMaximum(max*(1.05));
@@ -1162,5 +1175,111 @@ void setTDRStyle(TStyle *& tdrStyle) {
   tdrStyle->SetPaperSize(20.,20.);
 
   tdrStyle->cd();
+}
 
+void CMSLumi(TCanvas *& canv, const Int_t iPosX, const Int_t tev, const Double_t lumi) { // borrowed from margaret
+  canv->cd();
+
+  TString cmsText      = "CMS";
+  Double_t cmsTextFont = 61;  // default is helvetic-bold
+  
+  Bool_t writeExtraText  = true;
+  TString extraText      = "Preliminary";
+  Double_t extraTextFont = 52;  // default is helvetica-italics
+
+  TString lumiText = Form("#sqrt{s} = %2i TeV, L = %3.2f pb^{-1}",tev,lumi); 
+  
+  // text sizes and text offsets with respect to the top frame
+  // in unit of the top margin size
+  Double_t lumiTextSize     = 0.6;
+  Double_t lumiTextOffset   = 0.2;
+  Double_t cmsTextSize      = 0.75;
+  Double_t cmsTextOffset    = 0.1;  // only used in outOfFrame version
+  Double_t extraTextOffset  = 0.05;  // only used in outOfFrame version
+
+  Double_t relPosX    = 0.045;
+  Double_t relPosY    = 0.035;
+  Double_t relExtraDY = 1.2;
+ 
+  // ratio of "CMS" and extra text size
+  Double_t extraOverCmsTextSize  = 0.76;
+ 
+  Bool_t outOfFrame    = false;
+  if ( iPosX/10 == 0 ) {
+    outOfFrame = true;
+  }
+
+  Int_t alignY_=3;
+  Int_t alignX_=2;
+  if (iPosX/10 == 0) {alignX_ = 1;}
+  if (iPosX == 0)    {alignY_ = 1;}
+  if (iPosX/10 == 1) {alignX_ = 1;}
+  if (iPosX/10 == 2) {alignX_ = 2;}
+  if (iPosX/10 == 3) {alignX_ = 3;}
+  Int_t align_ = 10*alignX_ + alignY_;
+
+  Double_t H = canv->GetWh();
+  Double_t W = canv->GetWw();
+  Double_t l = canv->GetLeftMargin();
+  Double_t t = canv->GetTopMargin();
+  Double_t r = canv->GetRightMargin();
+  Double_t b = canv->GetBottomMargin();
+  Double_t e = 0.025;
+
+  TLatex latex;
+  latex.SetNDC();
+  latex.SetTextAngle(0);
+  latex.SetTextColor(kBlack);    
+
+  Double_t extraTextSize = extraOverCmsTextSize*cmsTextSize;
+
+  latex.SetTextFont(42);
+  latex.SetTextAlign(31); 
+  latex.SetTextSize(lumiTextSize*t);    
+  latex.DrawLatex(1-r,1-t+lumiTextOffset*t,lumiText);
+
+  if (outOfFrame) {
+    latex.SetTextFont(cmsTextFont);
+    latex.SetTextAlign(11); 
+    latex.SetTextSize(cmsTextSize*t);    
+    latex.DrawLatex(l+extraTextOffset,1-t+lumiTextOffset*t,cmsText);
+  }
+  
+  Double_t posX_;
+  if (iPosX%10 <= 1) {
+    posX_ =   l + relPosX*(1-l-r);
+  }
+  else if (iPosX%10 == 2) {
+    posX_ =  l + 0.5*(1-l-r);
+  }
+  else if (iPosX%10 == 3) {
+    posX_ =  1-r - relPosX*(1-l-r);
+  }
+
+  Double_t posY_ = 1-t - relPosY*(1-t-b);
+
+  if (!outOfFrame) {
+    latex.SetTextFont(cmsTextFont);
+    latex.SetTextSize(cmsTextSize*t);
+    latex.SetTextAlign(align_);
+    latex.DrawLatex(posX_, posY_, cmsText);
+    
+    if (writeExtraText) {
+      latex.SetTextFont(extraTextFont);
+      latex.SetTextAlign(align_);
+      latex.SetTextSize(extraTextSize*t);
+      latex.DrawLatex(posX_, posY_- relExtraDY*cmsTextSize*t, extraText);
+    }
+  }
+  
+  else if (outOfFrame && writeExtraText){
+    if (iPosX == 0) {
+	posX_ = l +  relPosX*(1-l-r)+0.05 + extraTextOffset;
+	posY_ = 1-t+lumiTextOffset*t;
+    }
+    latex.SetTextFont(extraTextFont);
+    latex.SetTextSize(extraTextSize*t);
+    latex.SetTextAlign(align_);
+    latex.DrawLatex(posX_, posY_, extraText);      
+  }
 }
