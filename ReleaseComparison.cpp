@@ -627,11 +627,6 @@ bool createPlot(const TString hname, const TString dirname, TFile *& V1file, con
     histV1->SetName(V1_V1run);
   }
 
-  if (hname.Contains("algorithm",TString::kExact)){
-    histV1->GetXaxis()->SetRangeUser(4,17);
-    histV2->GetXaxis()->SetRangeUser(4,17);
-  }
-
   // options for drawing
   double max = 0;
   double V1max = histV1->GetBinContent(histV1->GetMaximumBin());
@@ -664,10 +659,12 @@ bool createPlot(const TString hname, const TString dirname, TFile *& V1file, con
     histV1->GetXaxis()->SetRangeUser(0,1000);
     histV2->GetXaxis()->SetRangeUser(0,1000);
   }
-  else if (hname.Contains("Chi2oNDF",TString::kExact)) {
-    histV1->GetXaxis()->SetRangeUser(0,10);
-    histV2->GetXaxis()->SetRangeUser(0,10);
+  else if (hname.Contains("algorithm",TString::kExact)){
+    histV1->GetXaxis()->SetRangeUser(4,17);
+    histV2->GetXaxis()->SetRangeUser(4,17);
   }
+
+  //******************** Change axis title names *******************//
   
   if (hname.Contains("algorithm",TString::kExact)){
     histV1->GetXaxis()->SetTitle("");
@@ -707,7 +704,6 @@ bool createPlot(const TString hname, const TString dirname, TFile *& V1file, con
 	}
       }
     }  // end check over alignment names
-    
     else { // now in offline whatever
       TString nametag = "";
       if (hname.Contains("other",TString::kExact)){
@@ -753,6 +749,8 @@ bool createPlot(const TString hname, const TString dirname, TFile *& V1file, con
     }
   } // end check over OfflinePV to set titles
   
+  //******************** Change histogram names *******************//
+
   if (hname.Contains("Summary_ClusterCharge",TString::kExact) ){
     histV1->GetYaxis()->SetTitle("Numer of Charge Clusters");
     if (hname.Contains("PerCMfromOrigin",TString::kExact) ){
@@ -801,12 +799,16 @@ bool createPlot(const TString hname, const TString dirname, TFile *& V1file, con
   histV2->GetXaxis()->SetTitleSize(0);
   histV2->GetXaxis()->SetLabelSize(0);
 
+  //******************** Draw Histograms *******************//
+
   histV1->Draw("EP"); // Draw old histo first, ratio is new/old
   if (isHist1 && isHist2) {
     histV2->Draw("EP sames");
   }
 
   mainpad->Update();
+
+  //******************** Draw Legends *******************//
 
   TLegend *leg;
   if ( (hname.Contains("NumberOfTracks",TString::kExact)) || (hname.Contains("vtxNbr",TString::kExact)) || (hname.Contains("algorithm",TString::kExact)) || (hname.Contains("NumberOfMeanRecHitsPerTrack",TString::kExact)) || (hname.Contains("NumberOfMeanLayersPerTrack",TString::kExact)) ){
@@ -827,6 +829,8 @@ bool createPlot(const TString hname, const TString dirname, TFile *& V1file, con
     leg->AddEntry(histV2, histV2->GetName(), "L" );
   }
   leg->Draw("SAME");
+
+  //******************** Draw both stats boxes *******************//
 
   TPaveStats *st1 = (TPaveStats*)(histV1->GetListOfFunctions()->FindObject("stats"));
   TPaveStats *st2;
@@ -859,7 +863,7 @@ bool createPlot(const TString hname, const TString dirname, TFile *& V1file, con
     st2->SetY2NDC(st1->GetY1NDC() - gaph);
   }
 
-  // Draw ratio histogram
+  //******************** Make ratio histograms *******************//
 
   canvas->cd();
   TPad* respad = new TPad("respad","respad", 0.0, 0.05, 0.99, 0.3);
@@ -869,12 +873,11 @@ bool createPlot(const TString hname, const TString dirname, TFile *& V1file, con
   respad->cd();
 
   TH1F* hratio = (TH1F*) histV2->Clone("hratio");
-  if (hname.Contains("algorithm",TString::kExact)){
-    hratio->GetXaxis()->SetRangeUser(4,17); // algo
-  }
   hratio->Divide(histV1);
+
   hratio->SetMaximum(1.25);
   hratio->SetMinimum(0.75);
+  hratio->GetXaxis()->SetTitle(histV1->GetXaxis()->GetTitle());
 
   hratio->GetXaxis()->SetTitleSize(0.13);
   hratio->GetXaxis()->SetTitleOffset(0.9);
@@ -901,12 +904,23 @@ bool createPlot(const TString hname, const TString dirname, TFile *& V1file, con
   hratio->SetMarkerColor(1);
   hratio->Draw("EP");
 
-  // make a ratio line!
+  //******************** Draw ratio line *******************//
   
   TLine * ratioline = new TLine();
-  ratioline->SetX1(hratio->GetXaxis()->GetXmin());
+
+  if ( (hname.Contains("NumberOfTracks",TString::kExact)) && (dirname.Contains("highPurityTracks/pt_1/GeneralProperties",TString::kExact)) ){
+    ratioline->SetX1(0);
+    ratioline->SetX2(1000);
+  }
+  else if (hname.Contains("algorithm",TString::kExact)){
+    ratioline->SetX1(4);
+    ratioline->SetX2(17);
+  }
+  else {
+    ratioline->SetX1(hratio->GetXaxis()->GetXmin());
+    ratioline->SetX2(hratio->GetXaxis()->GetXmax());
+  }
   ratioline->SetY1(1.0);
-  ratioline->SetX2(hratio->GetXaxis()->GetXmax());
   ratioline->SetY2(1.0);
 
   // customize appearance
@@ -917,10 +931,11 @@ bool createPlot(const TString hname, const TString dirname, TFile *& V1file, con
   ratioline->Draw("SAME");
   hratio->Draw("EP SAME");
 
+  //******************** Define filename, change filename output if necessary *******************//
+
   TString filename = hname;
  
-  // shorten name of SiStrip plots for output .png
-  if (dirname.Contains("SiStrip",TString::kExact) ){
+  if (dirname.Contains("SiStrip",TString::kExact) ){  // shorten name of SiStrip plots for output .png
     if (filename.Contains("PerCMfromOrigin",TString::kExact) ){
       TString replacestr  = "Summary_ClusterChargePerCMfromOrigin";
       Ssiz_t  length      = replacestr.Length();
@@ -945,10 +960,8 @@ bool createPlot(const TString hname, const TString dirname, TFile *& V1file, con
       TString toreplace = "Sum_CC_";
       filename.Replace(filenamepos,length,toreplace);
     }
-  }
-
-  // drop _ at end of dEdx plots
-  if (dirname.Contains("dEdx",TString::kExact) ){
+  } // end sistrip plots name change
+  else if (dirname.Contains("dEdx",TString::kExact) ){ // drop _ at end of dEdx plots
     if (filename.Contains("PerTrack_",TString::kExact)) {  
       TString replacestr  = "PerTrack_";
       Ssiz_t  length      = replacestr.Length();
@@ -965,10 +978,8 @@ bool createPlot(const TString hname, const TString dirname, TFile *& V1file, con
       TString toreplace = "PerCluster";
       filename.Replace(filenamepos,length,toreplace);
     }
-  }
-
-  // drop extra duplicate modifier from track building plots
-  if (dirname.Contains("TrackBuilding",TString::kExact) ){
+  } // drop _ at end of dEdx plots
+  else if (dirname.Contains("TrackBuilding",TString::kExact) ){ // drop extra duplicate modifier from track building plots
     if (filename.Contains("detachedTripletStepSeeds",TString::kExact)) {  
       TString replacestr  = "detachedTripletStepSeeds_detachedTripletStep";
       Ssiz_t  length      = replacestr.Length();
@@ -1057,6 +1068,8 @@ bool createPlot(const TString hname, const TString dirname, TFile *& V1file, con
   else if (atoi(runstring1.Data()) == 251721){lumi = 0.21; tev = 13;}
   CMSLumi(canvas, 0, tev, lumi);
   
+  //******************** Save output canvas *******************//
+
   // linear first
   histV1->SetMaximum(max*(1.05));
   mainpad->cd();
@@ -1072,6 +1085,8 @@ bool createPlot(const TString hname, const TString dirname, TFile *& V1file, con
   filenamecopy.Prepend(outdir+"_log/");
   canvas->cd();
   canvas->Print(filenamecopy.Data());
+
+  //******************** delete objects *******************//
 
   if ( st1 ) {delete st1;}
   if ( isHist1 && isHist2 ) {
