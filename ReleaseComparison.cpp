@@ -631,8 +631,13 @@ bool createPlot(const TString hname, const TString dirname, TFile *& V1file, con
   double max = 0;
   double V1max = histV1->GetBinContent(histV1->GetMaximumBin());
   double V2max = histV2->GetBinContent(histV2->GetMaximumBin());
-
   max = (V1max>V2max) ? V1max : V2max;
+
+  double min = 0;
+  double V1min = histV1->GetBinContent(histV1->GetMinimumBin());
+  double V2min = histV2->GetBinContent(histV2->GetMinimumBin());
+  min = (V1min>V2min) ? V1min : V2min;
+
   histV1->SetLineStyle(1);
   histV1->GetYaxis()->SetLabelSize(0.038);
   histV1->GetXaxis()->SetTitleSize(0.0);
@@ -812,13 +817,13 @@ bool createPlot(const TString hname, const TString dirname, TFile *& V1file, con
 
   TLegend *leg;
   if ( (hname.Contains("NumberOfTracks",TString::kExact)) || (hname.Contains("vtxNbr",TString::kExact)) || (hname.Contains("algorithm",TString::kExact)) || (hname.Contains("NumberOfMeanRecHitsPerTrack",TString::kExact)) || (hname.Contains("NumberOfMeanLayersPerTrack",TString::kExact)) ){
-    leg = new TLegend(0.60,0.85,0.75,0.94);
+    leg = new TLegend(0.595,0.85,0.765,0.94);
   }
   else if ( hname.Contains("Summary_ClusterChargePerCMfromOrigin",TString::kExact) || hname.Contains("Summary_ClusterChargePerCMfromTrack",TString::kExact) ){
-    leg = new TLegend(0.18,0.85,0.33,0.94);
+    leg = new TLegend(0.175,0.85,0.345,0.94);
   }
   else{
-    leg = new TLegend(0.32,0.85,0.47,0.94);
+    leg = new TLegend(0.315,0.85,0.485,0.94);
   }
   leg->SetTextSize(0.042);
   leg->SetTextFont(42);
@@ -1064,25 +1069,27 @@ bool createPlot(const TString hname, const TString dirname, TFile *& V1file, con
   Int_t tev = 0;
   if      (atoi(runstring1.Data()) == 191226){lumi = 93.58; tev = 8;}
   else if (atoi(runstring1.Data()) == 208307){lumi = 122.79; tev = 8;} 
-  else if (atoi(runstring1.Data()) == 251643){lumi = 14.24; tev = 13;}
-  else if (atoi(runstring1.Data()) == 251721){lumi = 0.21; tev = 13;}
+  else if (atoi(runstring1.Data()) == 251643){lumi = 14.24; tev = 13;} // see comment below
+  else if (atoi(runstring1.Data()) == 251721){lumi = 0.21; tev = 13;}  // no idea
+  else if (atoi(runstring1.Data()) == 254790){lumi = 1.036; tev = 13;} // unsure if this should be corrected
   CMSLumi(canvas, 0, tev, lumi);
   
   //******************** Save output canvas *******************//
 
-  // linear first
-  histV1->SetMaximum(max*(1.05));
+  // log first
   mainpad->cd();
-  mainpad->SetLogy(0);
-  filename.Prepend(outdir+"_lin/");
+  mainpad->SetLogy(1);
+  histV1->SetMaximum(max*(1.5));
+  filename.Prepend(outdir+"_log/");
   canvas->cd();
   canvas->Print(filename.Data());
 
-  // then log
-  histV1->SetMaximum(max*(1.5));
+  // linear second
   mainpad->cd();
-  mainpad->SetLogy(1);
-  filenamecopy.Prepend(outdir+"_log/");
+  mainpad->SetLogy(0);
+  histV1->SetMaximum(max*(1.05));
+  histV1->SetMinimum(min/(1.05));
+  filenamecopy.Prepend(outdir+"_lin/");
   canvas->cd();
   canvas->Print(filenamecopy.Data());
 
