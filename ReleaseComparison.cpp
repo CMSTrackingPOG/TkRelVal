@@ -342,6 +342,17 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2, const T
   createPlot("ntracks", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createPlot("sumpt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
 
+  dirname = "/OfflinePV/Run summary/offlineBeamSpot";
+  outdir  = directory+"/PV/offlineBS";	     
+  createPlot("bsBeamWidthX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createPlot("bsBeamWidthY", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createPlot("bsDxdz", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createPlot("bsDydz", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createPlot("bsSigmaZ", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createPlot("bsX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createPlot("bsY", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createPlot("bsZ", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+
   dirname = "/OfflinePV/Run summary/offlinePrimaryVertices";
   outdir  = directory+"/PV/offlinePVs";	     
   createPlot("otherDiffX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
@@ -709,7 +720,35 @@ bool createPlot(const TString hname, const TString dirname, TFile *& V1file, con
 	}
       }
     }  // end check over alignment names
-    else { // now in offline whatever
+    else if (dirname.Contains("offlineBeamSpot",TString::kExact)){ 
+      if (hname.Contains("bsBeamWidthX",TString::kExact)) {
+	histV1->GetXaxis()->SetTitle("BeamSpot BeamWidthX");
+      }
+      else if (hname.Contains("bsBeamWidthY",TString::kExact)) {
+	histV1->GetXaxis()->SetTitle("BeamSpot BeamWidthY");
+      }
+      else if (hname.Contains("bsDxdz",TString::kExact)) {
+	histV1->GetXaxis()->SetTitle("BeamSpot dxdz");
+      }
+      else if (hname.Contains("bsDydz",TString::kExact)) {
+	histV1->GetXaxis()->SetTitle("BeamSpot dydz");
+      }
+      else if (hname.Contains("bsSigmaZ",TString::kExact)) {
+	histV1->GetXaxis()->SetTitle("BeamSpot #sigma_{z}");
+      }
+      else if (hname.Contains("bsX",TString::kExact)) {
+	histV1->GetXaxis()->SetTitle("BeamSpot x_{0}");
+      }
+      else if (hname.Contains("bsY",TString::kExact)) {
+	histV1->GetXaxis()->SetTitle("BeamSpot y_{0}");
+      }
+      else if (hname.Contains("bsZ",TString::kExact)) {
+	histV1->GetXaxis()->SetTitle("BeamSpot z_{0}");
+      }
+
+      histV1->GetYaxis()->SetTitle("Number of Beam Spots");
+    }
+    else if (dirname.Contains("offlinePrimaryVertices",TString::kExact)){ 
       TString nametag = "";
       if (hname.Contains("other",TString::kExact)){
 	nametag = "other";
@@ -767,11 +806,13 @@ bool createPlot(const TString hname, const TString dirname, TFile *& V1file, con
       Ssiz_t  detpos   = trackpos+tklength;
       
       detname.Remove(0,detpos);
-      
-      TString dblws = "__";
-      Ssiz_t  wspos = detname.Index(dblws.Data());   
-      Ssiz_t  wslen = dblws.Length();
-      detname.Replace(wspos,wslen," ");
+
+      if (!(hname.Contains("TIB",TString::kExact) || hname.Contains("TOB",TString::kExact))) {
+	TString dblws = "__";
+	Ssiz_t  wspos = detname.Index(dblws.Data());   
+	Ssiz_t  wslen = dblws.Length();
+	detname.Replace(wspos,wslen," ");
+      }
       
       if (hname.Contains("On",TString::kExact) ){
 	histV1->GetXaxis()->SetTitle(Form("%s dQ / dx from Origin ON Track [C/cm]",detname.Data()));
@@ -790,11 +831,13 @@ bool createPlot(const TString hname, const TString dirname, TFile *& V1file, con
       
       detname.Remove(0,detpos);
       
-      TString dblws = "__";
-      Ssiz_t  wspos = detname.Index(dblws.Data());   
-      Ssiz_t  wslen = dblws.Length();
-      detname.Replace(wspos,wslen," ");
-      
+      if (!(hname.Contains("TIB",TString::kExact) || hname.Contains("TOB",TString::kExact))) {
+	TString dblws = "__";
+	Ssiz_t  wspos = detname.Index(dblws.Data());   
+	Ssiz_t  wslen = dblws.Length();
+	detname.Replace(wspos,wslen," ");
+      }
+	
       histV1->GetXaxis()->SetTitle(Form("%s dQ / dx from Track [C/cm]",detname.Data()));
     } //fromTrack x axis title
   }
@@ -817,13 +860,13 @@ bool createPlot(const TString hname, const TString dirname, TFile *& V1file, con
 
   TLegend *leg;
   if ( (hname.Contains("NumberOfTracks",TString::kExact)) || (hname.Contains("vtxNbr",TString::kExact)) || (hname.Contains("algorithm",TString::kExact)) || (hname.Contains("NumberOfMeanRecHitsPerTrack",TString::kExact)) || (hname.Contains("NumberOfMeanLayersPerTrack",TString::kExact)) ){
-    leg = new TLegend(0.595,0.85,0.765,0.94);
+    leg = new TLegend(0.58,0.85,0.765,0.94);
   }
   else if ( hname.Contains("Summary_ClusterChargePerCMfromOrigin",TString::kExact) || hname.Contains("Summary_ClusterChargePerCMfromTrack",TString::kExact) ){
-    leg = new TLegend(0.175,0.85,0.345,0.94);
+    leg = new TLegend(0.175,0.85,0.36,0.94);
   }
   else{
-    leg = new TLegend(0.315,0.85,0.485,0.94);
+    leg = new TLegend(0.3,0.85,0.485,0.94);
   }
   leg->SetTextSize(0.042);
   leg->SetTextFont(42);

@@ -40,7 +40,7 @@ if [ ! -d ${directory} ] ; then
 	mkdir -p ${directory}/dEdx/${subdir}_log
     done
 
-    for subdir in Alignment offlinePVs
+    for subdir in Alignment offlineBS offlinePVs
     do
 	mkdir -p ${directory}/PV/${subdir}_lin
 	mkdir -p ${directory}/PV/${subdir}_log
@@ -79,7 +79,7 @@ else
 	mkdir -p ${directory}/dEdx/${subdir}_log
     done
 
-    for subdir in Alignment offlinePVs
+    for subdir in Alignment offlineBS offlinePVs
     do
 	mkdir -p ${directory}/PV/${subdir}_lin
 	mkdir -p ${directory}/PV/${subdir}_log
@@ -166,7 +166,7 @@ do
     done
 done
 
-for subdir in offlinePVs Alignment
+for subdir in offlinePVs offlineBS Alignment
 do
     for scale in lin log
     do 
