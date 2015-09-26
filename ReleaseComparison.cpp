@@ -44,10 +44,10 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2, const T
     std::cout << "File: " << fileName2 << " cannot be opened!" << std::endl;
   //  relString2 += " - NEW";
 
-  //******************* Make master canvas  ***********************//
+  //====================== Make master canvas  ======================// 
   TCanvas *canvas = new TCanvas("master canv","");
 
-  //******************* Get histo integrals ***********************//
+  //====================== Get histo integrals ======================// 
   TString tempname1 = "DQMData/Run ";
   tempname1.Append(runString1);
   tempname1.Append("/Tracking/Run summary/TrackParameters/generalTracks/GeneralProperties/NumberOfTracks_GenTk");
@@ -65,7 +65,7 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2, const T
 
   delete hNormTempV2;
   
-  //******************* done with scaling ***********************//
+  //====================== done with scaling ======================// 
 
   // Histograms in BeamSpotParameters directory
   TString dirname = ""; // input root file directory
@@ -157,6 +157,25 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2, const T
   // Histograms in GeneralProperties directory
   dirname = "/Tracking/Run summary/TrackParameters/generalTracks/GeneralProperties";
   outdir  = directory+"/genTks/GenProps";
+
+  // TProfile Plots
+  createTProfPlot("DistanceOfClosestApproachToBSVsPhi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfLayersPerTrackVsEta_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfLayersPerTrackVsPhi_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfRecHitsPerTrackVsEta_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfRecHitsPerTrackVsPhi_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  //  createTProfPlot("NumberOfRecHitsPerTrackVsLS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  //  createTProfPlot("NumberOfTracksVsLS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfValidRecHitsPerTrackVsEta_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfValidRecHitsPerTrackVsPhi_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("TrackPtErrOverPtVsEta_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("xPointOfClosestApproachVsZ0wrt000", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("xPointOfClosestApproachVsZ0wrtBS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("yPointOfClosestApproachVsZ0wrt000", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("yPointOfClosestApproachVsZ0wrtBS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("zPointOfClosestApproachVsPhi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+
+  // TH1F plots
   createTH1FPlot("algorithm", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("Chi2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("Chi2oNDF", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
@@ -178,6 +197,31 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2, const T
   // High purity histos
   dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_1/GeneralProperties";
   outdir  = directory+"/HPTks/GenProps";
+
+  // TProfile Plots
+  createTProfPlot("DistanceOfClosestApproachToBSVsPhi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("DistanceOfClosestApproachToPVVsPhi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("DistanceOfClosestApproachVsEta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("DistanceOfClosestApproachVsPhi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  //  createTProfPlot("GoodTracksFractionVsLS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfLayersPerTrackVsEta_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfLayersPerTrackVsPhi_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfRecHitsPerTrackVsEta_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfRecHitsPerTrackVsPhi_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  //  createTProfPlot("NumberOfRecHitsPerTrackVsLS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  //  createTProfPlot("NumberOfTracksVsLS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfValidRecHitsPerTrackVsEta_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfValidRecHitsPerTrackVsPhi_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("TrackPtErrOverPtVsEta_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("xPointOfClosestApproachVsZ0wrt000", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("xPointOfClosestApproachVsZ0wrtBS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("xPointOfClosestApproachVsZ0wrtPV", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("yPointOfClosestApproachVsZ0wrt000", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("yPointOfClosestApproachVsZ0wrtBS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("yPointOfClosestApproachVsZ0wrtPV", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("zPointOfClosestApproachVsPhi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+
+  // TH1F Plots
   createTH1FPlot("algorithm", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);  // first set is copy of genTrack distributions
   createTH1FPlot("Chi2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("Chi2oNDF", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
@@ -209,7 +253,7 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2, const T
   createTH1FPlot("xPointOfClosestApproach", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("yPointOfClosestApproach", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("zPointOfClosestApproach", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
-
+  
   // Histograms in HitProperties directory --> generalTracks
   dirname = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties";
   outdir  = directory+"/genTks/HitProps";
@@ -219,26 +263,68 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2, const T
   createTH1FPlot("NumberOfLayersPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
 
   dirname = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties/TIB";
+  // TProfile Plots
+  createTProfPlot("NumberOfLayersPerTrackVsEta_TIB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfLayersPerTrackVsPhi_TIB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfRecHitsPerTrackVsEta_TIB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfRecHitsPerTrackVsPhi_TIB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+
+  // TH1F Plots
   createTH1FPlot("NumberOfRecHitsPerTrack_TIB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("NumberOfLayersPerTrack_TIB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
 
   dirname = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties/TOB";
+  // TProfile Plots
+  createTProfPlot("NumberOfLayersPerTrackVsEta_TOB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfLayersPerTrackVsPhi_TOB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfRecHitsPerTrackVsEta_TOB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfRecHitsPerTrackVsPhi_TOB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+
+  // TH1F Plots
   createTH1FPlot("NumberOfRecHitsPerTrack_TOB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("NumberOfLayersPerTrack_TOB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
 
   dirname = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties/TID";
+  // TProfile Plots
+  createTProfPlot("NumberOfLayersPerTrackVsEta_TID", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfLayersPerTrackVsPhi_TID", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfRecHitsPerTrackVsEta_TID", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfRecHitsPerTrackVsPhi_TID", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+
+  // TH1F Plots
   createTH1FPlot("NumberOfRecHitsPerTrack_TID", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("NumberOfLayersPerTrack_TID", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
 
   dirname = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties/TEC";
+  // TProfile Plots
+  createTProfPlot("NumberOfLayersPerTrackVsEta_TEC", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfLayersPerTrackVsPhi_TEC", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfRecHitsPerTrackVsEta_TEC", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfRecHitsPerTrackVsPhi_TEC", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+
+  // TH1F Plots
   createTH1FPlot("NumberOfRecHitsPerTrack_TEC", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("NumberOfLayersPerTrack_TEC", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
 
   dirname = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties/PixBarrel";
+  // TProfile Plots
+  createTProfPlot("NumberOfLayersPerTrackVsEta_PixBarrel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfLayersPerTrackVsPhi_PixBarrel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfRecHitsPerTrackVsEta_PixBarrel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfRecHitsPerTrackVsPhi_PixBarrel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+
+  // TH1F Plots
   createTH1FPlot("NumberOfRecHitsPerTrack_PixBarrel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("NumberOfLayersPerTrack_PixBarrel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
 
   dirname = "/Tracking/Run summary/TrackParameters/generalTracks/HitProperties/PixEndcap";
+  // TProfile Plots
+  createTProfPlot("NumberOfLayersPerTrackVsEta_PixEndcap", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfLayersPerTrackVsPhi_PixEndcap", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfRecHitsPerTrackVsEta_PixEndcap", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfRecHitsPerTrackVsPhi_PixEndcap", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+
+  // TH1F Plots
   createTH1FPlot("NumberOfRecHitsPerTrack_PixEndcap", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("NumberOfLayersPerTrack_PixEndcap", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
 
@@ -251,26 +337,68 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2, const T
   createTH1FPlot("NumberOfLayersPerTrack", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
 
   dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_1/HitProperties/TIB";
+  // TProfile Plots
+  createTProfPlot("NumberOfLayersPerTrackVsEta_TIB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfLayersPerTrackVsPhi_TIB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfRecHitsPerTrackVsEta_TIB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfRecHitsPerTrackVsPhi_TIB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+
+  // TH1F Plots
   createTH1FPlot("NumberOfRecHitsPerTrack_TIB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("NumberOfLayersPerTrack_TIB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
 	     
   dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_1/HitProperties/TOB";
+  // TProfile Plots
+  createTProfPlot("NumberOfLayersPerTrackVsEta_TOB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfLayersPerTrackVsPhi_TOB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfRecHitsPerTrackVsEta_TOB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfRecHitsPerTrackVsPhi_TOB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+
+  // TH1F Plots
   createTH1FPlot("NumberOfRecHitsPerTrack_TOB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("NumberOfLayersPerTrack_TOB", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
 
   dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_1/HitProperties/TID";
+  // TProfile Plots
+  createTProfPlot("NumberOfLayersPerTrackVsEta_TID", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfLayersPerTrackVsPhi_TID", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfRecHitsPerTrackVsEta_TID", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfRecHitsPerTrackVsPhi_TID", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+
+  // TH1F Plots
   createTH1FPlot("NumberOfRecHitsPerTrack_TID", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("NumberOfLayersPerTrack_TID", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
 
   dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_1/HitProperties/TEC";
+  // TProfile Plots
+  createTProfPlot("NumberOfLayersPerTrackVsEta_TEC", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfLayersPerTrackVsPhi_TEC", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfRecHitsPerTrackVsEta_TEC", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfRecHitsPerTrackVsPhi_TEC", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+
+  // TH1F Plots
   createTH1FPlot("NumberOfRecHitsPerTrack_TEC", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("NumberOfLayersPerTrack_TEC", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
 
   dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_1/HitProperties/PixBarrel";
+  // TProfile Plots
+  createTProfPlot("NumberOfLayersPerTrackVsEta_PixBarrel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfLayersPerTrackVsPhi_PixBarrel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfRecHitsPerTrackVsEta_PixBarrel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfRecHitsPerTrackVsPhi_PixBarrel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+
+  // TH1F Plots
   createTH1FPlot("NumberOfRecHitsPerTrack_PixBarrel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("NumberOfLayersPerTrack_PixBarrel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
 
   dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_1/HitProperties/PixEndcap";
+  // TProfile Plots
+  createTProfPlot("NumberOfLayersPerTrackVsEta_PixEndcap", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfLayersPerTrackVsPhi_PixEndcap", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfRecHitsPerTrackVsEta_PixEndcap", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("NumberOfRecHitsPerTrackVsPhi_PixEndcap", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+
+  // TH1F Plots
   createTH1FPlot("NumberOfRecHitsPerTrack_PixEndcap", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("NumberOfLayersPerTrack_PixEndcap", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
 
@@ -283,58 +411,115 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2, const T
   createTH1FPlot("SeedEta_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("SeedPhi_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("SeedPt_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTH1FPlot("NumberOfTrackCandidates_detachedTripletStepTrackCandidates_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTH1FPlot("TrackCandEta_detachedTripletStepTrackCandidates_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTH1FPlot("TrackCandPhi_detachedTripletStepTrackCandidates_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTH1FPlot("TrackCandPt_detachedTripletStepTrackCandidates_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
 
   // initialStep
   createTH1FPlot("NumberOfSeeds_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("SeedEta_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("SeedPhi_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("SeedPt_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTH1FPlot("NumberOfTrackCandidates_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTH1FPlot("TrackCandEta_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTH1FPlot("TrackCandPhi_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTH1FPlot("TrackCandPt_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+
+  // jetCoreRegional
+  createTH1FPlot("NumberOfSeeds_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTH1FPlot("SeedEta_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTH1FPlot("SeedPhi_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTH1FPlot("SeedPt_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTH1FPlot("NumberOfTrackCandidates_jetCoreRegionalStepTrackCandidates_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTH1FPlot("TrackCandEta_jetCoreRegionalStepTrackCandidates_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTH1FPlot("TrackCandPhi_jetCoreRegionalStepTrackCandidates_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTH1FPlot("TrackCandPt_jetCoreRegionalStepTrackCandidates_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
 
   // low pt triplet
   createTH1FPlot("NumberOfSeeds_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("SeedEta_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("SeedPhi_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("SeedPt_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTH1FPlot("NumberOfTrackCandidates_lowPtTripletStepTrackCandidates_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTH1FPlot("TrackCandEta_lowPtTripletStepTrackCandidates_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTH1FPlot("TrackCandPhi_lowPtTripletStepTrackCandidates_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTH1FPlot("TrackCandPt_lowPtTripletStepTrackCandidates_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
 
   // mixed triplet
   createTH1FPlot("NumberOfSeeds_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("SeedEta_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("SeedPhi_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("SeedPt_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTH1FPlot("NumberOfTrackCandidates_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTH1FPlot("TrackCandEta_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTH1FPlot("TrackCandPhi_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTH1FPlot("TrackCandPt_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
 
   // muon in out
   createTH1FPlot("NumberOfSeeds_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("SeedEta_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("SeedPhi_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("SeedPt_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTH1FPlot("NumberOfTrackCandidates_muonSeededTrackCandidatesInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTH1FPlot("TrackCandEta_muonSeededTrackCandidatesInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTH1FPlot("TrackCandPhi_muonSeededTrackCandidatesInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTH1FPlot("TrackCandPt_muonSeededTrackCandidatesInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
 
   // muon out in
   createTH1FPlot("NumberOfSeeds_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("SeedEta_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("SeedPhi_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("SeedPt_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTH1FPlot("NumberOfTrackCandidates_muonSeededTrackCandidatesOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTH1FPlot("TrackCandEta_muonSeededTrackCandidatesOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTH1FPlot("TrackCandPhi_muonSeededTrackCandidatesOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTH1FPlot("TrackCandPt_muonSeededTrackCandidatesOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
 
   // pixelLess
   createTH1FPlot("NumberOfSeeds_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("SeedEta_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("SeedPhi_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("SeedPt_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTH1FPlot("NumberOfTrackCandidates_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTH1FPlot("TrackCandEta_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTH1FPlot("TrackCandPhi_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTH1FPlot("TrackCandPt_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
 
   // pixel pair
   createTH1FPlot("NumberOfSeeds_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("SeedEta_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("SeedPhi_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("SeedPt_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTH1FPlot("NumberOfTrackCandidates_pixelPairStepTrackCandidates_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTH1FPlot("TrackCandEta_pixelPairStepTrackCandidates_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTH1FPlot("TrackCandPhi_pixelPairStepTrackCandidates_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTH1FPlot("TrackCandPt_pixelPairStepTrackCandidates_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
 
   // tobtec
   createTH1FPlot("NumberOfSeeds_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("SeedEta_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("SeedPhi_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("SeedPt_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTH1FPlot("NumberOfTrackCandidates_tobTecStepTrackCandidates_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTH1FPlot("TrackCandEta_tobTecStepTrackCandidates_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTH1FPlot("TrackCandPhi_tobTecStepTrackCandidates_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTH1FPlot("TrackCandPt_tobTecStepTrackCandidates_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
 
   // Offline Primary vertices
   dirname = "/OfflinePV/Run summary/Alignment";
   outdir  = directory+"/PV/Alignment";	     
+  // TProfile Plots
+  createTProfPlot("dxyVsEta_pt1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("dxyVsEta_pt10", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("dxyVsPhi_pt1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("dxyVsPhi_pt10", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("dzVsEta_pt1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("dzVsEta_pt10", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("dzVsPhi_pt1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+  createTProfPlot("dzVsPhi_pt10", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
+
+  // TH1F Plots
   createTH1FPlot("chi2ndf", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("chi2prob", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
   createTH1FPlot("dxy", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir);
@@ -452,16 +637,34 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2, const T
   delete tdrStyle;
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                                //
+//                                                                                                //
+//                             START OF Create Plots for TH1Fs                                    //
+//                                                                                                //
+//                                                                                                //
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
 bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file, const TString runstring1, const TString relstring1, TFile *& V2file, const TString runstring2, const TString relstring2, TCanvas *& canvas, const Double_t V1_integral, const Double_t V2_integral, TString outdir) {
 
   canvas->cd();
 
-  TPad* mainpad = new TPad("mainpad","mainpad", 0.0, 0.3, 0.99, 0.99);
+  TPad* mainpad = new TPad("mainpad","mainpad", 0.0, 0.3, 0.93, 0.99);
   mainpad->SetBottomMargin(0);
   mainpad->Draw();
   mainpad->cd();
 
-  // ************ Get name of histos and get histos ************* //
+  // ++++++++++++ Get name of histos and get histos +++++++++++++ //
   
   TString basename1 = "DQMData/Run ";
   basename1.Append(runstring1);
@@ -609,7 +812,7 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
   //  histV1->GetXaxis()->SetRangeUser(1,range_upper);
   //  histV2->GetXaxis()->SetRangeUser(1,range_upper);
 
-  //*****NORMALIZING V1-V2****************************************
+  //+++++NORMALIZING V1-V2++++++++++++++++++++++++++++++++++++++++
 
   if (isHist1 && isHist2) {
     if (V1_integral>V2_integral) {
@@ -621,9 +824,11 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
       histV2->Scale(V1_integral / V2_integral); // scale down h2
     }
   }
-  //*****NORMALIZING V1-V2*end***************************************
+  //+++++NORMALIZING V1-V2+end+++++++++++++++++++++++++++++++++++++++
 
-  //***Name the files under comparison***
+  //++++++++++++++++++++ Settings for Histos +++++++++++++++++++//
+
+  //+++Name the files under comparison+++
   TString V1_V1run = relstring1;
   TString V2_V2run = relstring2;
 
@@ -680,7 +885,7 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
     histV2->GetXaxis()->SetRangeUser(4,17);
   }
 
-  //******************** Change axis title names *******************//
+  //++++++++++++++++++++ Change axis title names +++++++++++++++++++//
   
   if (hname.Contains("algorithm",TString::kExact)){
     histV1->GetXaxis()->SetTitle("");
@@ -793,7 +998,7 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
     }
   } // end check over OfflinePV to set titles
   
-  //******************** Change histogram names *******************//
+  //++++++++++++++++++++ Change histogram names +++++++++++++++++++//
 
   if (hname.Contains("Summary_ClusterCharge",TString::kExact) ){
     histV1->GetYaxis()->SetTitle("Numer of Charge Clusters");
@@ -847,7 +1052,7 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
   histV2->GetXaxis()->SetTitleSize(0);
   histV2->GetXaxis()->SetLabelSize(0);
 
-  //******************** Draw Histograms *******************//
+  //++++++++++++++++++++ Draw Histograms +++++++++++++++++++//
 
   histV1->Draw("EP"); // Draw old histo first, ratio is new/old
   if (isHist1 && isHist2) {
@@ -856,17 +1061,17 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
 
   mainpad->Update();
 
-  //******************** Draw Legends *******************//
+  //++++++++++++++++++++ Draw Legends +++++++++++++++++++//
 
   TLegend *leg;
   if ( (hname.Contains("NumberOfTracks",TString::kExact)) || (hname.Contains("vtxNbr",TString::kExact)) || (hname.Contains("algorithm",TString::kExact)) || (hname.Contains("NumberOfMeanRecHitsPerTrack",TString::kExact)) || (hname.Contains("NumberOfMeanLayersPerTrack",TString::kExact)) ){
-    leg = new TLegend(0.58,0.85,0.765,0.94);
+    leg = new TLegend(0.57,0.85,0.765,0.94);
   }
   else if ( hname.Contains("Summary_ClusterChargePerCMfromOrigin",TString::kExact) || hname.Contains("Summary_ClusterChargePerCMfromTrack",TString::kExact) ){
-    leg = new TLegend(0.175,0.85,0.36,0.94);
+    leg = new TLegend(0.175,0.85,0.37,0.94);
   }
   else{
-    leg = new TLegend(0.3,0.85,0.485,0.94);
+    leg = new TLegend(0.29,0.85,0.485,0.94);
   }
   leg->SetTextSize(0.042);
   leg->SetTextFont(42);
@@ -878,7 +1083,7 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
   }
   leg->Draw("SAME");
 
-  //******************** Draw both stats boxes *******************//
+  //++++++++++++++++++++ Draw both stats boxes +++++++++++++++++++//
 
   TPaveStats *st1 = (TPaveStats*)(histV1->GetListOfFunctions()->FindObject("stats"));
   TPaveStats *st2;
@@ -911,10 +1116,10 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
     st2->SetY2NDC(st1->GetY1NDC() - gaph);
   }
 
-  //******************** Make ratio histograms *******************//
+  //++++++++++++++++++++ Make ratio histograms +++++++++++++++++++//
 
   canvas->cd();
-  TPad* respad = new TPad("respad","respad", 0.0, 0.05, 0.99, 0.3);
+  TPad* respad = new TPad("respad","respad", 0.0, 0.05, 0.93, 0.3);
   respad->SetTopMargin(0.0);
   respad->SetBottomMargin(0.2);
   respad->Draw();
@@ -952,7 +1157,7 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
   hratio->SetMarkerColor(1);
   hratio->Draw("EP");
 
-  //******************** Draw ratio line *******************//
+  //++++++++++++++++++++ Draw ratio line +++++++++++++++++++//
   
   TLine * ratioline = new TLine();
 
@@ -979,7 +1184,7 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
   ratioline->Draw("SAME");
   hratio->Draw("EP SAME");
 
-  //******************** Define filename, change filename output if necessary *******************//
+  //++++++++++++++++++++ Define filename, change filename output if necessary +++++++++++++++++++//
 
   TString filename = hname;
  
@@ -1028,77 +1233,185 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
     }
   } // drop _ at end of dEdx plots
   else if (dirname.Contains("TrackBuilding",TString::kExact) ){ // drop extra duplicate modifier from track building plots
-    if (filename.Contains("detachedTripletStepSeeds",TString::kExact)) {  
-      TString replacestr  = "detachedTripletStepSeeds_detachedTripletStep";
-      Ssiz_t  length      = replacestr.Length();
-      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-      
-      TString toreplace = "detachedTripletStep";
-      filename.Replace(filenamepos,length,toreplace);
+    if (filename.Contains("detachedTripletStep",TString::kExact)) {  
+      if (filename.Contains("detachedTripletStepSeeds",TString::kExact)) {  
+	TString replacestr  = "detachedTripletStepSeeds_detachedTripletStep";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+	
+	TString toreplace = "detachedTripletStep";
+	filename.Replace(filenamepos,length,toreplace);
+      }
+      else if (filename.Contains("detachedTripletStepTrackCandidates",TString::kExact)) {  
+	TString replacestr  = "detachedTripletStepTrackCandidates_detachedTripletStep";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+	
+	TString toreplace = "detachedTripletStep";
+	filename.Replace(filenamepos,length,toreplace);
+      }
     }
-    else if (filename.Contains("initialStepSeeds",TString::kExact)) {  
-      TString replacestr  = "initialStepSeeds_initialStep";
-      Ssiz_t  length      = replacestr.Length();
-      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-      
-      TString toreplace = "initialStep";
-      filename.Replace(filenamepos,length,toreplace);
+    else if (filename.Contains("initialStep",TString::kExact)) {  
+      if (filename.Contains("initialStepSeeds",TString::kExact)) {  
+	TString replacestr  = "initialStepSeeds_initialStep";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+	
+	TString toreplace = "initialStep";
+	filename.Replace(filenamepos,length,toreplace);
+      }
+      else if (filename.Contains("initialStepTrackCandidates",TString::kExact)) {  
+	TString replacestr  = "initialStepTrackCandidates_initialStep";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+	
+	TString toreplace = "initialStep";
+	filename.Replace(filenamepos,length,toreplace);
+      }
     }
-    else if (filename.Contains("lowPtTripletStepSeeds",TString::kExact)) {  
-      TString replacestr  = "lowPtTripletStepSeeds_lowPtTripletStep";
-      Ssiz_t  length      = replacestr.Length();
-      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-      
-      TString toreplace = "lowPtTripletStep";
-      filename.Replace(filenamepos,length,toreplace);
+    else if (filename.Contains("jetCoreRegionalStep",TString::kExact)) {  
+      if (filename.Contains("jetCoreRegionalStepSeeds",TString::kExact)) {  
+	TString replacestr  = "jetCoreRegionalStepSeeds_jetCoreRegionalStep";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+	
+	TString toreplace = "jetCoreRegionalStep";
+	filename.Replace(filenamepos,length,toreplace);
+      }
+      else if (filename.Contains("jetCoreRegionalStepTrackCandidates",TString::kExact)) {  
+	TString replacestr  = "jetCoreRegionalStepTrackCandidates_jetCoreRegionalStep";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+	
+	TString toreplace = "jetCoreRegionalStep";
+	filename.Replace(filenamepos,length,toreplace);
+      }
     }
-    else if (filename.Contains("mixedTripletStepSeeds",TString::kExact)) {  
-      TString replacestr  = "mixedTripletStepSeeds_mixedTripletStep";
-      Ssiz_t  length      = replacestr.Length();
-      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-      
-      TString toreplace = "mixedTripletStep";
-      filename.Replace(filenamepos,length,toreplace);
+    else if (filename.Contains("lowPtTripletStep",TString::kExact)) {  
+      if (filename.Contains("lowPtTripletStepSeeds",TString::kExact)) {  
+	TString replacestr  = "lowPtTripletStepSeeds_lowPtTripletStep";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+	
+	TString toreplace = "lowPtTripletStep";
+	filename.Replace(filenamepos,length,toreplace);
+      }
+      else if (filename.Contains("lowPtTripletStepTrackCandidates",TString::kExact)) {  
+	TString replacestr  = "lowPtTripletStepTrackCandidates_lowPtTripletStep";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+	
+	TString toreplace = "lowPtTripletStep";
+	filename.Replace(filenamepos,length,toreplace);
+      }
     }
-    else if (filename.Contains("muonSeededSeedsInOut",TString::kExact)) {  
-      TString replacestr  = "muonSeededSeedsInOut_muonSeededStepInOut";
-      Ssiz_t  length      = replacestr.Length();
-      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-      
-      TString toreplace = "muonSeededStepInOut";
-      filename.Replace(filenamepos,length,toreplace);
+    else if (filename.Contains("mixedTripletStep",TString::kExact)) {  
+      if (filename.Contains("mixedTripletStepSeeds",TString::kExact)) {  
+	TString replacestr  = "mixedTripletStepSeeds_mixedTripletStep";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+	
+	TString toreplace = "mixedTripletStep";
+	filename.Replace(filenamepos,length,toreplace);
+      }
+      else if (filename.Contains("mixedTripletStepTrackCandidates",TString::kExact)) {  
+	TString replacestr  = "mixedTripletStepTrackCandidates_mixedTripletStep";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+	
+	TString toreplace = "mixedTripletStep";
+	filename.Replace(filenamepos,length,toreplace);
+      }
     }
-    else if (filename.Contains("muonSeededSeedsOutIn",TString::kExact)) {  
-      TString replacestr  = "muonSeededSeedsOutIn_muonSeededStepOutIn";
-      Ssiz_t  length      = replacestr.Length();
-      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+    else if (filename.Contains("muonSeededStepInOut",TString::kExact)) {  
+      if (filename.Contains("muonSeededSeedsInOut",TString::kExact)) {  
+	TString replacestr  = "muonSeededSeedsInOut_muonSeededStepInOut";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
       
-      TString toreplace = "muonSeededStepOutIn";
-      filename.Replace(filenamepos,length,toreplace);
+	TString toreplace = "muonSeededStepInOut";
+	filename.Replace(filenamepos,length,toreplace);
+      }
+      else if (filename.Contains("muonSeededTrackCandidatesInOut",TString::kExact)) {  
+	TString replacestr  = "muonSeededTrackCandidatesInOut_muonSeededStepInOut";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+      
+	TString toreplace = "muonSeededStepInOut";
+	filename.Replace(filenamepos,length,toreplace);
+      }
     }
-    else if (filename.Contains("pixelLessStepSeeds",TString::kExact)) {  
-      TString replacestr  = "pixelLessStepSeeds_pixelLessStep";
-      Ssiz_t  length      = replacestr.Length();
-      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-      
-      TString toreplace = "pixelLessStep";
-      filename.Replace(filenamepos,length,toreplace);
+    else if (filename.Contains("muonSeededStepOutIn",TString::kExact)) {  
+      if (filename.Contains("muonSeededSeedsOutIn",TString::kExact)) {  
+	TString replacestr  = "muonSeededSeedsOutIn_muonSeededStepOutIn";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+	
+	TString toreplace = "muonSeededStepOutIn";
+	filename.Replace(filenamepos,length,toreplace);
+      }
+      else if (filename.Contains("muonSeededTrackCandidatesOutIn",TString::kExact)) {  
+	TString replacestr  = "muonSeededTrackCandidatesOutIn_muonSeededStepOutIn";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+	
+	TString toreplace = "muonSeededStepOutIn";
+	filename.Replace(filenamepos,length,toreplace);
+      }
     }
-    else if (filename.Contains("pixelPairStepSeeds",TString::kExact)) {  
-      TString replacestr  = "pixelPairStepSeeds_pixelPairStep";
-      Ssiz_t  length      = replacestr.Length();
-      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-      
-      TString toreplace = "pixelPairStep";
-      filename.Replace(filenamepos,length,toreplace);
+    else if (filename.Contains("pixelLessStep",TString::kExact)) {  
+      if (filename.Contains("pixelLessStepSeeds",TString::kExact)) {  
+	TString replacestr  = "pixelLessStepSeeds_pixelLessStep";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+	
+	TString toreplace = "pixelLessStep";
+	filename.Replace(filenamepos,length,toreplace);
+      }
+      else if (filename.Contains("pixelLessStepTrackCandidates",TString::kExact)) {  
+	TString replacestr  = "pixelLessStepTrackCandidates_pixelLessStep";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+	
+	TString toreplace = "pixelLessStep";
+	filename.Replace(filenamepos,length,toreplace);
+      }
     }
-    else if (filename.Contains("tobTecStepSeeds",TString::kExact)) {  
-      TString replacestr  = "tobTecStepSeeds_tobTecStep";
-      Ssiz_t  length      = replacestr.Length();
-      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-      
-      TString toreplace = "tobTecStep";
-      filename.Replace(filenamepos,length,toreplace);
+    else if (filename.Contains("pixelPairStep",TString::kExact)) {  
+      if (filename.Contains("pixelPairStepSeeds",TString::kExact)) {  
+	TString replacestr  = "pixelPairStepSeeds_pixelPairStep";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+	
+	TString toreplace = "pixelPairStep";
+	filename.Replace(filenamepos,length,toreplace);
+      }
+      else if (filename.Contains("pixelPairStepTrackCandidates",TString::kExact)) {  
+	TString replacestr  = "pixelPairStepTrackCandidates_pixelPairStep";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+	
+	TString toreplace = "pixelPairStep";
+	filename.Replace(filenamepos,length,toreplace);
+      }
+    }
+    else if (filename.Contains("tobTecStep",TString::kExact)) {  
+      if (filename.Contains("tobTecStepSeeds",TString::kExact)) {  
+	TString replacestr  = "tobTecStepSeeds_tobTecStep";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+	
+	TString toreplace = "tobTecStep";
+	filename.Replace(filenamepos,length,toreplace);
+      }
+      else if (filename.Contains("tobTecStepTrackCandidates",TString::kExact)) {  
+	TString replacestr  = "tobTecStepTrackCandidates_tobTecStep";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+	
+	TString toreplace = "tobTecStep";
+	filename.Replace(filenamepos,length,toreplace);
+      }
     }
   }// end concatinating track building strings
   else if (dirname.Contains("GeneralProperties",TString::kExact) || dirname.Contains("HitProperties",TString::kExact) ){ // shorten "NumberOf" or "Distance of Closest "
@@ -1140,7 +1453,7 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
   // copy filename for log .. stupid but whatever
   TString filenamecopy = filename;
 
-  // *************** Print CMS Lumi on these guys ************ //
+  // +++++++++++++++ Print CMS Lumi on these guys ++++++++++++ //
 
   Double_t lumi = 0;
   Int_t tev = 0;
@@ -1151,7 +1464,7 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
   else if (atoi(runstring1.Data()) == 254790){lumi = 1.036; tev = 13;} // unsure if this should be corrected
   CMSLumi(canvas, 0, tev, lumi);
   
-  //******************** Save output canvas *******************//
+  //++++++++++++++++++++ Save output canvas +++++++++++++++++++//
 
   // log first
   mainpad->cd();
@@ -1170,7 +1483,7 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
   canvas->cd();
   canvas->Print(filenamecopy.Data());
 
-  //******************** delete objects *******************//
+  //++++++++++++++++++++ delete objects +++++++++++++++++++//
 
   if ( st1 ) {delete st1;}
   if ( isHist1 && isHist2 ) {
@@ -1193,6 +1506,488 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
 
   return true;
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                                //
+//                                                                                                //
+//                              END OF Create Plots for TH1Fs                                     //
+//                                                                                                //
+//                                                                                                //
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                                //
+//                                                                                                //
+//                          START OF Create Plots for TProfiles                                   //
+//                                                                                                //
+//                                                                                                //
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+bool createTProfPlot(const TString hname, const TString dirname, TFile *& V1file, const TString runstring1, const TString relstring1, TFile *& V2file, const TString runstring2, const TString relstring2, TCanvas *& canvas, const Double_t V1_integral, const Double_t V2_integral, TString outdir) {
+
+  canvas->cd();
+
+  TPad* mainpad = new TPad("mainpad","mainpad", 0.0, 0.3, 0.93, 0.99);
+  mainpad->SetBottomMargin(0);
+  mainpad->Draw();
+  mainpad->cd();
+
+  // ++++++++++++ Get name of histos and get histos +++++++++++++ //
+  
+  TString basename1 = "DQMData/Run ";
+  basename1.Append(runstring1);
+
+  TString hnameV1 = basename1; // reference
+  hnameV1.Append(dirname+"/");
+  hnameV1.Append(hname);
+
+  if (dirname.Contains("GeneralProperties",TString::kExact) || dirname.Contains("HitProperties",TString::kExact)) {
+    hnameV1.Append("_GenTk");
+  }
+
+  TString basename2 = "DQMData/Run ";
+  basename2.Append(runstring2);
+
+  TString hnameV2 = basename2;
+  hnameV2.Append(dirname+"/");
+  hnameV2.Append(hname);
+
+  if (dirname.Contains("GeneralProperties",TString::kExact) || dirname.Contains("HitProperties",TString::kExact)) {
+    hnameV2.Append("_GenTk");
+  }
+
+  // use booleans to plot hists even if some are missing
+  Bool_t isHist1 = false;
+  Bool_t isHist2 = false;
+
+  TProfile * hBinTempV1 = (TProfile*)V1file->Get(hnameV1.Data());
+  if ( hBinTempV1 == (TProfile*) NULL ) {
+    std::cout << "Could not grab hist: " << hnameV1  << std::endl << " for REF file " << V1file->GetName() << std::endl;
+  }
+  else {
+    isHist1 = true;
+  }
+  
+  TProfile * hBinTempV2 = (TProfile*)V2file->Get(hnameV2.Data());
+  if ( hBinTempV2 == (TProfile*) NULL ) {
+    std::cout << "Could not grab hist: " << hnameV2  << std::endl << " for NEW file " << V2file->GetName() << std::endl;
+  }
+  else {
+    isHist2 = true;
+  }
+
+  if (!isHist1 && !isHist2){ // skip plot if neither there
+    std::cout << "Well, couldn't grab this hist from either file, just go to the next one." << std::endl << std::endl;
+      return false;
+  }
+  else if (!isHist1 && isHist2) { // just draw one hist 
+    hBinTempV1 = (TProfile*)hBinTempV2->Clone();
+  }
+  else if (!isHist2 && isHist1) { // just draw one hist
+    hBinTempV2 = (TProfile*)hBinTempV1->Clone();
+  }
+
+  // Check that bins match for ratio plot
+
+  TProfile * histV1 = 0; // reference
+  TProfile * histV2 = 0; // target
+
+  Double_t h1_xlow = hBinTempV1->GetXaxis()->GetBinLowEdge(hBinTempV1->GetXaxis()->GetFirst());
+  Double_t h2_xlow = hBinTempV2->GetXaxis()->GetBinLowEdge(hBinTempV2->GetXaxis()->GetFirst());
+
+  Double_t h1_xup = hBinTempV1->GetXaxis()->GetBinUpEdge(hBinTempV1->GetXaxis()->GetLast());
+  Double_t h2_xup = hBinTempV2->GetXaxis()->GetBinUpEdge(hBinTempV2->GetXaxis()->GetLast());
+
+  Int_t h1_nbins = hBinTempV1->GetNbinsX();
+  Int_t h2_nbins = hBinTempV2->GetNbinsX();
+
+  Double_t h1_binWidth = (h1_xup - h1_xlow) / (Double_t)h1_nbins;
+  Double_t h2_binWidth = (h2_xup - h2_xlow) / (Double_t)h2_nbins;
+
+  Double_t h1_nEntries = hBinTempV1->GetEntries();
+  Double_t h2_nEntries = hBinTempV2->GetEntries();
+
+  if ((h1_xlow == h2_xlow) && (h1_xup == h2_xup) && (h1_binWidth == h2_binWidth)){
+    histV1 = (TProfile*)hBinTempV1->Clone();//V1file->Get(hnameV1);
+    histV2 = (TProfile*)hBinTempV2->Clone();//V2file->Get(hnameV2);
+  }
+  else if((h1_xlow == h2_xlow) && (h1_xup < h2_xup) && (h1_binWidth == h2_binWidth)){ // Fill h1 from h1xlow to h1high with h1 info, and up to h2high, fill zero 
+    histV2 = (TProfile*)hBinTempV2->Clone();//V2file->Get(hnameV2); // copy histV2 
+
+    histV1 = new TProfile(hBinTempV1->GetName(),hBinTempV1->GetTitle(),h2_nbins,h2_xlow,h2_xup);
+    histV1->SetXTitle(hBinTempV1->GetXaxis()->GetTitle());
+    histV1->SetYTitle(hBinTempV1->GetYaxis()->GetTitle());
+    for (Int_t ibin = 1; ibin <= h2_nbins; ibin++){
+      if (ibin <= h1_nbins){
+	histV1->SetBinContent(ibin,hBinTempV1->GetBinContent(ibin));
+      }
+      else if (ibin > h1_nbins){
+	histV1->SetBinContent(ibin,0.0); 
+      }
+    }
+  }
+  else if((h1_xlow == h2_xlow) && (h1_xup > h2_xup) && (h1_binWidth == h2_binWidth)){ // Fill h1 from h1xlow to h1high with h1 info, and up to h2high, fill zero 
+    histV1 = (TProfile*)hBinTempV1->Clone();//V1file->Get(hnameV1); // copy histV1 
+
+    histV2 = new TProfile(hBinTempV2->GetName(),hBinTempV2->GetTitle(),h1_nbins,h1_xlow,h1_xup);
+    histV2->SetXTitle(hBinTempV2->GetXaxis()->GetTitle());
+    histV2->SetYTitle(hBinTempV2->GetYaxis()->GetTitle());
+    for (Int_t ibin = 1; ibin <= h1_nbins; ibin++){
+      if (ibin <= h2_nbins){
+	histV2->SetBinContent(ibin,hBinTempV2->GetBinContent(ibin));
+      }
+      else if (ibin > h2_nbins){
+	histV2->SetBinContent(ibin,0.0); 
+      }
+    }
+  }
+  else if(h1_binWidth != h2_binWidth){
+    if ((h1_xlow < h2_xlow) && (h1_xup == h2_xup)){
+      histV1 = (TProfile*)hBinTempV1->Clone();//V1file->Get(hnameV1);
+
+      histV2 = new TProfile(hBinTempV2->GetName(),hBinTempV2->GetTitle(),h2_nbins,h1_xlow,h2_xup);
+      histV2->SetXTitle(hBinTempV2->GetXaxis()->GetTitle());
+      histV2->SetYTitle(hBinTempV2->GetYaxis()->GetTitle());
+      for (Int_t ibin = 1; ibin <= h1_nbins; ibin++){
+	histV2->SetBinContent(ibin,hBinTempV2->GetBinContent(ibin));
+      }
+    }
+    else if ((h2_xlow < h1_xlow) && (h1_xup == h2_xup)){
+      histV2 = (TProfile*)hBinTempV2->Clone();//V2file->Get(hnameV2);
+
+      histV1 = new TProfile(hBinTempV1->GetName(),hBinTempV1->GetTitle(),h1_nbins,h2_xlow,h1_xup);
+      histV1->SetXTitle(hBinTempV1->GetXaxis()->GetTitle());
+      histV1->SetYTitle(hBinTempV1->GetYaxis()->GetTitle());
+      for (Int_t ibin = 1; ibin <= h2_nbins; ibin++){
+	histV1->SetBinContent(ibin,hBinTempV1->GetBinContent(ibin));
+      }
+    }
+  }
+  else{
+    std::cout << "Bin Check Failed... here's what happened: " << std::endl;
+    std::cout << "histV1 failed on " << hnameV1  << std::endl << " for file " << V1file->GetName() << std::endl;
+    std::cout << "       bin info: " << h1_xlow << " " << h1_xup << " " << h1_nbins << std::endl;
+    std::cout << "histV2 failed on " << hnameV2  << std::endl << " for file " << V2file->GetName() << std::endl;
+    std::cout << "       bin info: " << h2_xlow << " " << h2_xup << " " << h2_nbins << std::endl;
+    exit(1);
+  }
+
+  histV1->SetEntries(h1_nEntries);
+  histV2->SetEntries(h2_nEntries);
+
+  // Don't look at zero bin -- > Also could use this for truncation and bin setting -->Range is binlower to upper
+  //  Int_t range_upper = histV1->GetXaxis()->GetLast();
+  //  histV1->GetXaxis()->SetRangeUser(1,range_upper);
+  //  histV2->GetXaxis()->SetRangeUser(1,range_upper);
+
+  //+++++NORMALIZING V1-V2++++++++++++++++++++++++++++++++++++++++
+
+  if (isHist1 && isHist2) {
+    if (V1_integral>V2_integral) {
+      histV1->Scale(V2_integral / V1_integral); // scale down h1
+      histV2->Scale(1);
+    } 
+    else if (V2_integral>V1_integral) {
+      histV1->Scale(1);
+      histV2->Scale(V1_integral / V2_integral); // scale down h2
+    }
+  }
+  //+++++NORMALIZING V1-V2+end+++++++++++++++++++++++++++++++++++++++
+
+  //++++++++++++++++++++ Settings for Histos +++++++++++++++++++//
+
+  //+++Name the files under comparison+++
+  TString V1_V1run = relstring1;
+  TString V2_V2run = relstring2;
+
+  if (isHist1 && isHist2) {
+    histV1->SetName(V1_V1run);
+    histV2->SetName(V2_V2run);
+  }
+  else if (!isHist1 && isHist2) { // only plot histV1 in the case of missing hists
+    histV1->SetName(V2_V2run);
+  }
+  else if (isHist1 && !isHist2) { // only plot histV1 in the case of missing hists
+    histV1->SetName(V1_V1run);
+  }
+
+  // options for drawing
+  double max = 0;
+  double V1max = histV1->GetBinContent(histV1->GetMaximumBin());
+  double V2max = histV2->GetBinContent(histV2->GetMaximumBin());
+  max = (V1max>V2max) ? V1max : V2max;
+
+  double min = 0;
+  double V1min = histV1->GetBinContent(histV1->GetMinimumBin());
+  double V2min = histV2->GetBinContent(histV2->GetMinimumBin());
+  min = (V1min>V2min) ? V1min : V2min;
+
+  histV1->SetLineStyle(1);
+  histV1->GetYaxis()->SetLabelSize(0.038);
+  histV1->GetXaxis()->SetTitleSize(0.0);
+  histV1->SetLineWidth(2);
+  histV1->SetLineColor(kBlue); // h1 is ref ...originally was red... switched to match MC comparisons
+  histV1->SetMarkerColor(kBlue); // h1 is ref ...originally was red... switched to match MC comparisons
+  histV1->SetMaximum(max); // just to get all points to show up
+
+  histV2->GetXaxis()->SetTitleSize(0.0);
+  histV2->SetLineWidth(2);
+  histV2->SetLineStyle(1);
+  histV2->SetLineColor(kRed); // h2 is new ... ogirinally was blue --> switched to match MC 
+  histV2->SetMarkerColor(kRed); // h2 is new ... ogirinally was blue --> switched to match MC 
+
+  if (!isHist1) { // only plot hist1 in case of missing hists
+    histV1->SetLineColor(kRed);
+    histV1->SetMarkerColor(kRed);
+    histV1->SetLineWidth(2);
+  }
+
+  histV1->GetXaxis()->SetTitleSize(0);
+  histV1->GetXaxis()->SetLabelSize(0);
+  histV2->GetXaxis()->SetTitleSize(0);
+  histV2->GetXaxis()->SetLabelSize(0);
+
+  //++++++++++++++++++++ Draw Histograms +++++++++++++++++++//
+
+  histV1->Draw("EP"); // Draw old histo first, ratio is new/old
+  if (isHist1 && isHist2) {
+    histV2->Draw("EP sames");
+  }
+
+  mainpad->Update();
+
+  //++++++++++++++++++++ Draw Legends +++++++++++++++++++//
+
+  TLegend *leg;
+  leg = new TLegend(0.29,0.85,0.485,0.94);
+  leg->SetTextSize(0.042);
+  leg->SetTextFont(42);
+  leg->SetFillColor(10); 
+  leg->SetBorderSize(1); // no frame, no shadow
+  leg->AddEntry(histV1, histV1->GetName(), "L" );
+  if (isHist1 && isHist2) {
+    leg->AddEntry(histV2, histV2->GetName(), "L" );
+  }
+  leg->Draw("SAME");
+
+  //++++++++++++++++++++ Draw both stats boxes +++++++++++++++++++//
+
+  TPaveStats *st1 = (TPaveStats*)(histV1->GetListOfFunctions()->FindObject("stats"));
+  TPaveStats *st2;
+  if (isHist1 && isHist2){
+    st2 = (TPaveStats*)(histV2->GetListOfFunctions()->FindObject("stats"));
+  }
+  st1->SetX1NDC(0.77);
+  st1->SetX2NDC(0.98);
+  if (isHist1 && isHist2){
+    st2->SetX1NDC(0.77);  
+    st2->SetX2NDC(0.98);    
+  }
+  st1->SetY1NDC(0.77);
+  st1->SetY2NDC(0.94);
+  
+  Double_t defaulth = st1->GetY2NDC() - st1->GetY1NDC();
+  Double_t gaph = 0.02;
+  if (isHist1 && isHist2){
+    st2->SetY1NDC(st1->GetY1NDC() - 1.0*defaulth - gaph);
+    st2->SetY2NDC(st1->GetY1NDC() - gaph);
+  }
+
+  //++++++++++++++++++++ Make ratio histograms +++++++++++++++++++//
+
+  canvas->cd();
+  TPad* respad = new TPad("respad","respad", 0.0, 0.05, 0.93, 0.3);
+  respad->SetTopMargin(0.0);
+  respad->SetBottomMargin(0.2);
+  respad->Draw();
+  respad->cd();
+
+  TH1D * hratio = histV2->ProjectionX("numer","E"); // Ratio is TARGET divided by REF
+  TH1D * hdenom = histV1->ProjectionX("denom","E");
+  hratio->Divide(hdenom);
+
+  hratio->SetMaximum(1.25);
+  hratio->SetMinimum(0.75);
+  hratio->GetXaxis()->SetTitle(histV1->GetXaxis()->GetTitle());
+
+  hratio->GetXaxis()->SetTitleSize(0.13);
+  hratio->GetXaxis()->SetTitleOffset(0.9);
+  hratio->GetXaxis()->SetLabelSize(0.13);
+  hratio->GetXaxis()->SetTickSize(0.1);
+  hratio->GetXaxis()->SetNdivisions(510);
+
+  hratio->GetYaxis()->SetTitleSize(0.13);
+  hratio->GetYaxis()->SetTitleOffset(0.36);
+  hratio->GetYaxis()->SetLabelSize(0.13);
+  hratio->GetYaxis()->SetNdivisions(505);
+  if (isHist1 && isHist2){
+    hratio->GetYaxis()->SetTitle("NEW/REF");
+  }
+  else if (!isHist1 && isHist2){
+    hratio->GetYaxis()->SetTitle("NEW/NEW");
+  }
+  else if (isHist1 && !isHist2){
+    hratio->GetYaxis()->SetTitle("REF/REF");
+  }
+  hratio->SetStats(0);
+  hratio->SetTitle("");
+  hratio->SetLineColor(1);
+  hratio->SetMarkerColor(1);
+  hratio->Draw("P");
+
+  //++++++++++++++++++++ Draw ratio line +++++++++++++++++++//
+  
+  TLine * ratioline = new TLine();
+
+  ratioline->SetX1(hratio->GetXaxis()->GetXmin());
+  ratioline->SetX2(hratio->GetXaxis()->GetXmax());
+  ratioline->SetY1(1.0);
+  ratioline->SetY2(1.0);
+
+  // customize appearance
+  ratioline->SetLineColor(kRed);
+  ratioline->SetLineWidth(2);
+
+  // draw line then redraw hratio on top
+  ratioline->Draw("SAME");
+  hratio->Draw("P SAME");
+
+  //++++++++++++++++++++ Define filename, change filename output if necessary +++++++++++++++++++//
+
+  TString filename = hname;
+ 
+  if (dirname.Contains("GeneralProperties",TString::kExact) || dirname.Contains("HitProperties",TString::kExact) ){ // shorten "NumberOf" or "Distance of Closest "
+    if (filename.Contains("NumberOf",TString::kExact)) {  
+      TString replacestr  = "NumberOf";
+      Ssiz_t  length      = replacestr.Length();
+      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+      
+      TString toreplace = "N";
+      filename.Replace(filenamepos,length,toreplace);
+    }
+    
+    if (filename.Contains("ImpactPoint",TString::kExact)) {  
+      TString replacestr  = "ImpactPoint";
+      Ssiz_t  length      = replacestr.Length();
+      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+      
+      TString toreplace = "IP";
+      filename.Replace(filenamepos,length,toreplace);
+    }
+    else if (filename.Contains("PointOfClosestApproach",TString::kExact)) {  
+      TString replacestr  = "PointOfClosestApproach";
+      Ssiz_t  length      = replacestr.Length();
+      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+      
+      TString toreplace = "PCA";
+      filename.Replace(filenamepos,length,toreplace);
+    }
+    else if (filename.Contains("DistanceOfClosestApproach",TString::kExact)) {  
+      TString replacestr  = "DistanceOfClosestApproach";
+      Ssiz_t  length      = replacestr.Length();
+      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+      
+      TString toreplace = "DistCA";
+      filename.Replace(filenamepos,length,toreplace);
+    }
+  }
+
+  filename.Append(".png");
+  // copy filename for log .. stupid but whatever
+  TString filenamecopy = filename;
+
+  // +++++++++++++++ Print CMS Lumi on these guys ++++++++++++ //
+
+  Double_t lumi = 0;
+  Int_t tev = 0;
+  if      (atoi(runstring1.Data()) == 191226){lumi = 93.58; tev = 8;}
+  else if (atoi(runstring1.Data()) == 208307){lumi = 122.79; tev = 8;} 
+  else if (atoi(runstring1.Data()) == 251643){lumi = 14.24; tev = 13;} // see comment below
+  else if (atoi(runstring1.Data()) == 251721){lumi = 0.21; tev = 13;}  // no idea
+  else if (atoi(runstring1.Data()) == 254790){lumi = 1.036; tev = 13;} // unsure if this should be corrected
+  CMSLumi(canvas, 0, tev, lumi);
+  
+  //++++++++++++++++++++ Save output canvas +++++++++++++++++++//
+
+  // log first
+  mainpad->cd();
+  mainpad->SetLogy(1);
+  histV1->SetMaximum(max*(1.5));
+  filename.Prepend(outdir+"_log/");
+  canvas->cd();
+  canvas->Print(filename.Data());
+
+  // linear second
+  mainpad->cd();
+  mainpad->SetLogy(0);
+  histV1->SetMaximum(max*(1.05));
+  histV1->SetMinimum(min/(1.05));
+  filenamecopy.Prepend(outdir+"_lin/");
+  canvas->cd();
+  canvas->Print(filenamecopy.Data());
+
+  //++++++++++++++++++++ delete objects +++++++++++++++++++//
+
+  if ( st1 ) {delete st1;}
+  if ( isHist1 && isHist2 ) {
+    if ( st2 ) {delete st2;}
+  }
+
+  if ( leg ) {delete leg;}
+
+  if ( ratioline ) {delete ratioline;}
+  if ( hratio ) {delete hratio;}
+  if ( hdenom ) {delete hdenom;}
+
+  if ( histV1 ) {delete histV1;}
+  if ( histV2 ) {delete histV2;}
+
+  if ( hBinTempV1 ) {delete hBinTempV1;} 
+  if ( hBinTempV2 ) {delete hBinTempV2;}
+
+  if ( mainpad ) {delete mainpad;}
+  if ( respad )  {delete respad;}
+
+  return true;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                                //
+//                                                                                                //
+//                           END OF Create Plots for TProfiles                                    //
+//                                                                                                //
+//                                                                                                //
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void setTDRStyle(TStyle *& tdrStyle) {
   // For the canvas:
@@ -1352,7 +2147,7 @@ void CMSLumi(TCanvas *& canv, const Int_t iPosX, const Int_t tev, const Double_t
   latex.SetTextFont(42);
   latex.SetTextAlign(31); 
   latex.SetTextSize(lumiTextSize*t);    
-  latex.DrawLatex(1-r,1-t+lumiTextOffset*t,lumiText);
+  latex.DrawLatex(0.93-r,1-t+lumiTextOffset*t,lumiText); //  1-r, 0.93-r
 
   if (outOfFrame) {
     latex.SetTextFont(cmsTextFont);
