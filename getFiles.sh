@@ -7,8 +7,7 @@ run=$2 #specify what run you want to download
 rel_old=$3 #old release to check against (e.g. pre1)
 rel_new=$4 #new release (e.q. pre2)
 
-
-for sample in MinimumBias Jet #DoubleMu DoubleEl #SingleMu SingleEl 
+for sample in JetHT HLTPhysics #MinimumBias Jet #SingleMuon MuOnia #ZeroBias HLTPhysics #MinimumBias Jet #DoubleMu DoubleEl #SingleMu SingleEl 
 do
 #Get all the necessary files
 

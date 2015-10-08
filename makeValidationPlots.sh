@@ -92,7 +92,8 @@ else
     done
 fi                            
 
-echo "Analyzing ${refFile} and ${newFile} in ${release}"                                                                                   
+echo "Analyzing ${refFile} and ${newFile} in ${release}"   
+
 #Run the ROOT Macro. This is trivial, compiles a .cpp file that makes all the plots.  
 root -b -q -l "runValidationComparison.C("\"${refFile}\",\"${newFile}\",\"${directory}\"")"   
 
@@ -131,7 +132,7 @@ do
     for scale in lin log
     do 
 	cd ${directory}/SiStrip/${subdir}_${scale}
-	../../../diow.pl -t "${release} SiStrip ${subdir} Validation (${scale})" -c 3 -icon 200                 
+	../../../diow.pl -t "${release} SiStrip ${subdir} Validation (${scale})" -c 3 -icon 200    
 	cd --
     done
 done
@@ -141,7 +142,7 @@ do
     for scale in lin log
     do 
 	cd ${directory}/genTks/${subdir}_${scale}
-	../../../diow.pl -t "${release} genTks ${subdir} Validation (${scale})" -c 3 -icon 200                 
+	../../../diow.pl -t "${release} genTks ${subdir} Validation (${scale})" -c 3 -icon 200  
 	cd --
     done
 done
@@ -151,7 +152,7 @@ do
     for scale in lin log
     do 
 	cd ${directory}/HPTks/${subdir}_${scale}
-	../../../diow.pl -t "${release} HPTks ${subdir} Validation (${scale})" -c 3 -icon 200                 
+	../../../diow.pl -t "${release} HPTks ${subdir} Validation (${scale})" -c 3 -icon 200 
 	cd --
     done
 done
@@ -171,7 +172,7 @@ do
     for scale in lin log
     do 
 	cd ${directory}/PV/${subdir}_${scale}
-	../../../diow.pl -t "${release} OfflinePV ${subdir} Validation (${scale})" -c 3 -icon 200                 
+	../../../diow.pl -t "${release} OfflinePV ${subdir} Validation (${scale})" -c 3 -icon 200  
 	cd --
     done
 done
@@ -181,7 +182,7 @@ do
     for scale in lin log
     do 
 	cd ${directory}/PackCand/${subdir}_${scale}
-	../../../diow.pl -t "${release} Packed Candidate ${subdir} Validation (${scale})" -c 3 -icon 200                 
+	../../../diow.pl -t "${release} Packed Candidate ${subdir} Validation (${scale})" -c 3 -icon 200
 	cd --
     done
 done
