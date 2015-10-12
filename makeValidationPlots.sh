@@ -8,6 +8,7 @@ sample=$4 #Jet, JetHT, MinBias, SingleMu, SingleEl, ZeroBias
 
 refFile=$(ls *"${run}"*"${sample}"*"${rel_old}"*)
 newFile=$(ls *"${run}"*"${sample}"*"${rel_new}"*)
+#release=CMSSW_7412p4_HLTnewcond_vs_HLTref_"${run}"_"${sample}"
 release=CMSSW_"${rel_new}"_vs_"${rel_old}"_"${run}"_"${sample}"
 
 directory=/afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}
@@ -22,13 +23,13 @@ if [ ! -d ${directory} ] ; then
 	mkdir -p ${directory}/SiStrip/${subdir}_log
     done
 
-    for subdir in GenProps HitProps TkBuilding
+    for subdir in GenProps HitProps HitEff PU TkBuilding
     do
 	mkdir -p ${directory}/genTks/${subdir}_lin
 	mkdir -p ${directory}/genTks/${subdir}_log
     done
     
-    for subdir in GenProps HitProps
+    for subdir in GenProps HitProps HitEff PU
     do
 	mkdir -p ${directory}/HPTks/${subdir}_lin
 	mkdir -p ${directory}/HPTks/${subdir}_log
@@ -61,13 +62,13 @@ else
 	mkdir -p ${directory}/SiStrip/${subdir}_log
     done
 
-    for subdir in GenProps HitProps TkBuilding
+    for subdir in GenProps HitProps HitEff PU TkBuilding
     do
 	mkdir -p ${directory}/genTks/${subdir}_lin
 	mkdir -p ${directory}/genTks/${subdir}_log
     done
     
-    for subdir in GenProps HitProps
+    for subdir in GenProps HitProps HitEff PU
     do
 	mkdir -p ${directory}/HPTks/${subdir}_lin
 	mkdir -p ${directory}/HPTks/${subdir}_log
@@ -137,7 +138,7 @@ do
     done
 done
 
-for subdir in GenProps HitProps TkBuilding
+for subdir in GenProps HitProps HitEff PU TkBuilding
 do
     for scale in lin log
     do 
@@ -147,7 +148,7 @@ do
     done
 done
 
-for subdir in GenProps HitProps
+for subdir in GenProps HitProps HitEff PU
 do
     for scale in lin log
     do 
@@ -186,4 +187,3 @@ do
 	cd --
     done
 done
-
