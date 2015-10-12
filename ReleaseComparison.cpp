@@ -636,7 +636,7 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2, const T
   createTH1FPlot("globalEfficiencies", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
 
   // HitEffFromHitPattern
-  dirname = "/Tracking/Run summary/TrackParameters/highpurityTracks/pt_1/HitEffFromHitPattern";
+  dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_1/HitEffFromHitPattern";
   outdir  = directory+"/HPTks/HitEff";
 
   // efficiencies
@@ -785,7 +785,7 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2, const T
   createTProfPlot("dzVsEta_pt10", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
   createTProfPlot("dzVsPhi_pt1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
   createTProfPlot("dzVsPhi_pt10", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
-
+  
   // TH1F Plots
   createTH1FPlot("chi2ndf", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
   createTH1FPlot("chi2prob", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
@@ -924,13 +924,6 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2, const T
 
 bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file, const TString runstring1, const TString relstring1, TFile *& V2file, const TString runstring2, const TString relstring2, TCanvas *& canvas, const Double_t V1_integral, const Double_t V2_integral, TString outdir, const Double_t lumi, const Int_t tev) {
 
-  canvas->cd();
-
-  TPad* mainpad = new TPad("mainpad","mainpad", 0.0, 0.3, 0.93, 0.99);
-  mainpad->SetBottomMargin(0);
-  mainpad->Draw();
-  mainpad->cd();
-
   // ++++++++++++ Get name of histos and get histos +++++++++++++ //
   
   TString basename1 = "DQMData/Run ";
@@ -940,7 +933,7 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
   hnameV1.Append(dirname+"/");
   hnameV1.Append(hname);
 
-  if ( (!dirname.Contains("SiStrip",TString::kExact)) && (!dirname.Contains("TrackBuilding",TString::kExact)) && (!dirname.Contains("dEdx",TString::kExact)) && (!dirname.Contains("OfflinePV",TString::kExact)) && (!dirname.Contains("PackedCandidate",TString::kExact)) ) {
+  if ( dirname.Contains("GeneralProperties",TString::kExact) || dirname.Contains("HitProperties",TString::kExact) ) {
     hnameV1.Append("_GenTk");
   }
 
@@ -951,7 +944,7 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
   hnameV2.Append(dirname+"/");
   hnameV2.Append(hname);
 
-  if ( (!dirname.Contains("SiStrip",TString::kExact)) && (!dirname.Contains("TrackBuilding",TString::kExact)) && (!dirname.Contains("dEdx",TString::kExact)) && (!dirname.Contains("OfflinePV",TString::kExact)) && (!dirname.Contains("PackedCandidate",TString::kExact)) ) {
+  if ( dirname.Contains("GeneralProperties",TString::kExact) || dirname.Contains("HitProperties",TString::kExact) ) {
     hnameV2.Append("_GenTk");
   }
 
@@ -977,7 +970,7 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
 
   if (!isHist1 && !isHist2){ // skip plot if neither there
     std::cout << "Well, couldn't grab this hist from either file, just go to the next one." << std::endl << std::endl;
-      return false;
+    return false;
   }
   else if (!isHist1 && isHist2) { // just draw one hist 
     hBinTempV1 = (TH1F*)hBinTempV2->Clone();
@@ -991,20 +984,20 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
   TH1F * histV1 = 0; // reference
   TH1F * histV2 = 0; // target
 
-  Double_t h1_xlow = hBinTempV1->GetXaxis()->GetBinLowEdge(hBinTempV1->GetXaxis()->GetFirst());
-  Double_t h2_xlow = hBinTempV2->GetXaxis()->GetBinLowEdge(hBinTempV2->GetXaxis()->GetFirst());
+  const Double_t h1_xlow = hBinTempV1->GetXaxis()->GetBinLowEdge(hBinTempV1->GetXaxis()->GetFirst());
+  const Double_t h2_xlow = hBinTempV2->GetXaxis()->GetBinLowEdge(hBinTempV2->GetXaxis()->GetFirst());
 
-  Double_t h1_xup = hBinTempV1->GetXaxis()->GetBinUpEdge(hBinTempV1->GetXaxis()->GetLast());
-  Double_t h2_xup = hBinTempV2->GetXaxis()->GetBinUpEdge(hBinTempV2->GetXaxis()->GetLast());
+  const Double_t h1_xup = hBinTempV1->GetXaxis()->GetBinUpEdge(hBinTempV1->GetXaxis()->GetLast());
+  const Double_t h2_xup = hBinTempV2->GetXaxis()->GetBinUpEdge(hBinTempV2->GetXaxis()->GetLast());
 
-  Int_t h1_nbins = hBinTempV1->GetNbinsX();
-  Int_t h2_nbins = hBinTempV2->GetNbinsX();
+  const Int_t h1_nbins = hBinTempV1->GetNbinsX();
+  const Int_t h2_nbins = hBinTempV2->GetNbinsX();
 
-  Double_t h1_binWidth = (h1_xup - h1_xlow) / (Double_t)h1_nbins;
-  Double_t h2_binWidth = (h2_xup - h2_xlow) / (Double_t)h2_nbins;
+  const Double_t h1_binWidth = (h1_xup - h1_xlow) / (Double_t)h1_nbins;
+  const Double_t h2_binWidth = (h2_xup - h2_xlow) / (Double_t)h2_nbins;
 
-  Double_t h1_nEntries = hBinTempV1->GetEntries();
-  Double_t h2_nEntries = hBinTempV2->GetEntries();
+  const Double_t h1_nEntries = hBinTempV1->GetEntries();
+  const Double_t h2_nEntries = hBinTempV2->GetEntries();
 
   if ((h1_xlow == h2_xlow) && (h1_xup == h2_xup) && (h1_binWidth == h2_binWidth)){
     histV1 = (TH1F*)hBinTempV1->Clone();//V1file->Get(hnameV1);
@@ -1013,14 +1006,14 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
   else if((h1_xlow == h2_xlow) && (h1_xup < h2_xup) && (h1_binWidth == h2_binWidth)){ // Fill h1 from h1xlow to h1high with h1 info, and up to h2high, fill zero 
     histV2 = (TH1F*)hBinTempV2->Clone();//V2file->Get(hnameV2); // copy histV2 
 
-    histV1 = new TH1F(hBinTempV1->GetName(),hBinTempV1->GetTitle(),h2_nbins,h2_xlow,h2_xup);
+    histV1 = new TH1F(hBinTempV1->GetName(),hBinTempV1->GetTitle(),h2_nbins,h2_xlow,h2_xup); // want to have the same number of bins as larger histo
     histV1->SetXTitle(hBinTempV1->GetXaxis()->GetTitle());
     histV1->SetYTitle(hBinTempV1->GetYaxis()->GetTitle());
-    for (Int_t ibin = 1; ibin <= h2_nbins; ibin++){
+    for (Int_t ibin = 1; ibin <= h2_nbins; ibin++){ // fill bins with first original content (up to hist1 bins), then zeros after
       if (ibin <= h1_nbins){
 	histV1->SetBinContent(ibin,hBinTempV1->GetBinContent(ibin));
       }
-      else if (ibin > h1_nbins){
+      else { //if (ibin > h1_nbins){
 	histV1->SetBinContent(ibin,0.0); 
       }
     }
@@ -1035,40 +1028,55 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
       if (ibin <= h2_nbins){
 	histV2->SetBinContent(ibin,hBinTempV2->GetBinContent(ibin));
       }
-      else if (ibin > h2_nbins){
+      else { //if (ibin > h2_nbins){
 	histV2->SetBinContent(ibin,0.0); 
       }
     }
   }
-  else if(h1_binWidth != h2_binWidth){
-    if ((h1_xlow < h2_xlow) && (h1_xup == h2_xup)){
-      histV1 = (TH1F*)hBinTempV1->Clone();//V1file->Get(hnameV1);
+  else if((h1_xlow < h2_xlow) && (h1_xup == h2_xup) && (h1_binWidth == h2_binWidth)){ // Fill h1 from h1xlow to h1high with h1 info, and up to h2high, fill zero 
+    histV1 = (TH1F*)hBinTempV1->Clone();//V1file->Get(hnameV1); // copy histV1 
 
-      histV2 = new TH1F(hBinTempV2->GetName(),hBinTempV2->GetTitle(),h2_nbins,h1_xlow,h2_xup);
-      histV2->SetXTitle(hBinTempV2->GetXaxis()->GetTitle());
-      histV2->SetYTitle(hBinTempV2->GetYaxis()->GetTitle());
-      for (Int_t ibin = 1; ibin <= h1_nbins; ibin++){
-	histV2->SetBinContent(ibin,hBinTempV2->GetBinContent(ibin));
+    histV2 = new TH1F(hBinTempV2->GetName(),hBinTempV2->GetTitle(),h1_nbins,h1_xlow,h1_xup);
+    histV2->SetXTitle(hBinTempV2->GetXaxis()->GetTitle());
+    histV2->SetYTitle(hBinTempV2->GetYaxis()->GetTitle());
+
+    const Int_t bindiff = h1_nbins - h2_nbins;
+    for (Int_t ibin = 1; ibin <= h1_nbins; ibin++){
+      if (ibin <= bindiff){ // fill zeros for bins not originally in hist2
+	histV2->SetBinContent(ibin,0.0); 
+      }
+      else { 
+	histV2->SetBinContent(ibin,hBinTempV2->GetBinContent(ibin-bindiff));	
       }
     }
-    else if ((h2_xlow < h1_xlow) && (h1_xup == h2_xup)){
-      histV2 = (TH1F*)hBinTempV2->Clone();//V2file->Get(hnameV2);
+  }
+  else if((h1_xlow > h2_xlow) && (h1_xup == h2_xup) && (h1_binWidth == h2_binWidth)){ // Fill h1 from h1xlow to h1high with h1 info, and up to h2high, fill zero 
+    histV2 = (TH1F*)hBinTempV1->Clone();//V1file->Get(hnameV1); // copy histV1 
 
-      histV1 = new TH1F(hBinTempV1->GetName(),hBinTempV1->GetTitle(),h1_nbins,h2_xlow,h1_xup);
-      histV1->SetXTitle(hBinTempV1->GetXaxis()->GetTitle());
-      histV1->SetYTitle(hBinTempV1->GetYaxis()->GetTitle());
-      for (Int_t ibin = 1; ibin <= h2_nbins; ibin++){
-	histV1->SetBinContent(ibin,hBinTempV1->GetBinContent(ibin));
+    histV1 = new TH1F(hBinTempV1->GetName(),hBinTempV1->GetTitle(),h2_nbins,h2_xlow,h2_xup);
+    histV1->SetXTitle(hBinTempV1->GetXaxis()->GetTitle());
+    histV1->SetYTitle(hBinTempV1->GetYaxis()->GetTitle());
+
+    const Int_t bindiff = h2_nbins - h1_nbins;
+    for (Int_t ibin = 1; ibin <= h2_nbins; ibin++){
+      if (ibin <= bindiff){ // fill zeros for bins not originally in hist1
+	histV1->SetBinContent(ibin,0.0); 
+      }
+      else { 
+	histV1->SetBinContent(ibin,hBinTempV1->GetBinContent(ibin-bindiff));	
       }
     }
   }
   else{
-    std::cout << "Bin Check Failed... here's what happened: " << std::endl;
+    std::cout << "Bin Check Failed...skipping this histogram... here's what happened: " << std::endl;
     std::cout << "histV1 failed on " << hnameV1  << std::endl << " for file " << V1file->GetName() << std::endl;
     std::cout << "       bin info: " << h1_xlow << " " << h1_xup << " " << h1_nbins << std::endl;
     std::cout << "histV2 failed on " << hnameV2  << std::endl << " for file " << V2file->GetName() << std::endl;
     std::cout << "       bin info: " << h2_xlow << " " << h2_xup << " " << h2_nbins << std::endl;
-    exit(1);
+
+    delete hBinTempV1;
+    delete hBinTempV2;
+    return false;
   }
 
   histV1->SetEntries(h1_nEntries);
@@ -1112,13 +1120,13 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
 
   // options for drawing
   double max = 0;
-  double V1max = histV1->GetBinContent(histV1->GetMaximumBin());
-  double V2max = histV2->GetBinContent(histV2->GetMaximumBin());
+  const double V1max = histV1->GetBinContent(histV1->GetMaximumBin());
+  const double V2max = histV2->GetBinContent(histV2->GetMaximumBin());
   max = (V1max>V2max) ? V1max : V2max;
 
   double min = 0;
-  double V1min = histV1->GetBinContent(histV1->GetMinimumBin());
-  double V2min = histV2->GetBinContent(histV2->GetMinimumBin());
+  const double V1min = histV1->GetBinContent(histV1->GetMinimumBin());
+  const double V2min = histV2->GetBinContent(histV2->GetMinimumBin());
   min = (V1min<V2min) ? V1min : V2min;
 
   histV1->SetLineStyle(1);
@@ -1153,7 +1161,7 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
   }
 
   //++++++++++++++++++++ Change axis title names +++++++++++++++++++//
-  
+
   if (hname.Contains("algorithm",TString::kExact) || hname.Contains("Algorithm",TString::kExact)){
     histV1->GetXaxis()->SetTitle("");
     histV2->GetXaxis()->SetTitle("");
@@ -1338,6 +1346,13 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
 
   //++++++++++++++++++++ Draw Histograms +++++++++++++++++++//
 
+  canvas->cd();
+
+  TPad* mainpad = new TPad("mainpad","mainpad", 0.0, 0.3, 0.93, 0.99);
+  mainpad->SetBottomMargin(0);
+  mainpad->Draw();
+  mainpad->cd();
+
   histV1->Draw("EP"); // Draw old histo first, ratio is new/old
   if (isHist1 && isHist2) {
     histV2->Draw("EP sames");
@@ -1393,8 +1408,8 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
 
   st1->SetY1NDC(0.77);
   st1->SetY2NDC(0.94);
-  Double_t defaulth = st1->GetY2NDC() - st1->GetY1NDC();
-  Double_t gaph = 0.02;
+  const Double_t defaulth = st1->GetY2NDC() - st1->GetY1NDC();
+  const Double_t gaph = 0.02;
   if (isHist1 && isHist2){
     st2->SetY1NDC(st1->GetY1NDC() - 1.0*defaulth - gaph);
     st2->SetY2NDC(st1->GetY1NDC() - gaph);
@@ -1819,13 +1834,6 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
 
 bool createTProfPlot(const TString hname, const TString dirname, TFile *& V1file, const TString runstring1, const TString relstring1, TFile *& V2file, const TString runstring2, const TString relstring2, TCanvas *& canvas, const Double_t V1_integral, const Double_t V2_integral, TString outdir, const Double_t lumi, const Int_t tev) {
 
-  canvas->cd();
-
-  TPad* mainpad = new TPad("mainpad","mainpad", 0.0, 0.3, 0.93, 0.99);
-  mainpad->SetBottomMargin(0);
-  mainpad->Draw();
-  mainpad->cd();
-
   // ++++++++++++ Get name of histos and get histos +++++++++++++ //
   
   TString basename1 = "DQMData/Run ";
@@ -1886,20 +1894,20 @@ bool createTProfPlot(const TString hname, const TString dirname, TFile *& V1file
   TProfile * histV1 = 0; // reference
   TProfile * histV2 = 0; // target
 
-  Double_t h1_xlow = hBinTempV1->GetXaxis()->GetBinLowEdge(hBinTempV1->GetXaxis()->GetFirst());
-  Double_t h2_xlow = hBinTempV2->GetXaxis()->GetBinLowEdge(hBinTempV2->GetXaxis()->GetFirst());
+  const Double_t h1_xlow = hBinTempV1->GetXaxis()->GetBinLowEdge(hBinTempV1->GetXaxis()->GetFirst());
+  const Double_t h2_xlow = hBinTempV2->GetXaxis()->GetBinLowEdge(hBinTempV2->GetXaxis()->GetFirst());
 
-  Double_t h1_xup = hBinTempV1->GetXaxis()->GetBinUpEdge(hBinTempV1->GetXaxis()->GetLast());
-  Double_t h2_xup = hBinTempV2->GetXaxis()->GetBinUpEdge(hBinTempV2->GetXaxis()->GetLast());
+  const Double_t h1_xup = hBinTempV1->GetXaxis()->GetBinUpEdge(hBinTempV1->GetXaxis()->GetLast());
+  const Double_t h2_xup = hBinTempV2->GetXaxis()->GetBinUpEdge(hBinTempV2->GetXaxis()->GetLast());
 
-  Int_t h1_nbins = hBinTempV1->GetNbinsX();
-  Int_t h2_nbins = hBinTempV2->GetNbinsX();
+  const Int_t h1_nbins = hBinTempV1->GetNbinsX();
+  const Int_t h2_nbins = hBinTempV2->GetNbinsX();
 
-  Double_t h1_binWidth = (h1_xup - h1_xlow) / (Double_t)h1_nbins;
-  Double_t h2_binWidth = (h2_xup - h2_xlow) / (Double_t)h2_nbins;
+  const Double_t h1_binWidth = (h1_xup - h1_xlow) / (Double_t)h1_nbins;
+  const Double_t h2_binWidth = (h2_xup - h2_xlow) / (Double_t)h2_nbins;
 
-  Double_t h1_nEntries = hBinTempV1->GetEntries();
-  Double_t h2_nEntries = hBinTempV2->GetEntries();
+  const Double_t h1_nEntries = hBinTempV1->GetEntries();
+  const Double_t h2_nEntries = hBinTempV2->GetEntries();
 
   if ((h1_xlow == h2_xlow) && (h1_xup == h2_xup) && (h1_binWidth == h2_binWidth)){
     histV1 = (TProfile*)hBinTempV1->Clone();//V1file->Get(hnameV1);
@@ -1908,14 +1916,14 @@ bool createTProfPlot(const TString hname, const TString dirname, TFile *& V1file
   else if((h1_xlow == h2_xlow) && (h1_xup < h2_xup) && (h1_binWidth == h2_binWidth)){ // Fill h1 from h1xlow to h1high with h1 info, and up to h2high, fill zero 
     histV2 = (TProfile*)hBinTempV2->Clone();//V2file->Get(hnameV2); // copy histV2 
 
-    histV1 = new TProfile(hBinTempV1->GetName(),hBinTempV1->GetTitle(),h2_nbins,h2_xlow,h2_xup);
+    histV1 = new TProfile(hBinTempV1->GetName(),hBinTempV1->GetTitle(),h2_nbins,h2_xlow,h2_xup); // want to have the same number of bins as larger histo
     histV1->SetXTitle(hBinTempV1->GetXaxis()->GetTitle());
     histV1->SetYTitle(hBinTempV1->GetYaxis()->GetTitle());
-    for (Int_t ibin = 1; ibin <= h2_nbins; ibin++){
+    for (Int_t ibin = 1; ibin <= h2_nbins; ibin++){ // fill bins with first original content (up to hist1 bins), then zeros after
       if (ibin <= h1_nbins){
 	histV1->SetBinContent(ibin,hBinTempV1->GetBinContent(ibin));
       }
-      else if (ibin > h1_nbins){
+      else { //if (ibin > h1_nbins){
 	histV1->SetBinContent(ibin,0.0); 
       }
     }
@@ -1930,40 +1938,55 @@ bool createTProfPlot(const TString hname, const TString dirname, TFile *& V1file
       if (ibin <= h2_nbins){
 	histV2->SetBinContent(ibin,hBinTempV2->GetBinContent(ibin));
       }
-      else if (ibin > h2_nbins){
+      else { //if (ibin > h2_nbins){
 	histV2->SetBinContent(ibin,0.0); 
       }
     }
   }
-  else if(h1_binWidth != h2_binWidth){
-    if ((h1_xlow < h2_xlow) && (h1_xup == h2_xup)){
-      histV1 = (TProfile*)hBinTempV1->Clone();//V1file->Get(hnameV1);
+  else if((h1_xlow < h2_xlow) && (h1_xup == h2_xup) && (h1_binWidth == h2_binWidth)){ // Fill h1 from h1xlow to h1high with h1 info, and up to h2high, fill zero 
+    histV1 = (TProfile*)hBinTempV1->Clone();//V1file->Get(hnameV1); // copy histV1 
 
-      histV2 = new TProfile(hBinTempV2->GetName(),hBinTempV2->GetTitle(),h2_nbins,h1_xlow,h2_xup);
-      histV2->SetXTitle(hBinTempV2->GetXaxis()->GetTitle());
-      histV2->SetYTitle(hBinTempV2->GetYaxis()->GetTitle());
-      for (Int_t ibin = 1; ibin <= h1_nbins; ibin++){
-	histV2->SetBinContent(ibin,hBinTempV2->GetBinContent(ibin));
+    histV2 = new TProfile(hBinTempV2->GetName(),hBinTempV2->GetTitle(),h1_nbins,h1_xlow,h1_xup);
+    histV2->SetXTitle(hBinTempV2->GetXaxis()->GetTitle());
+    histV2->SetYTitle(hBinTempV2->GetYaxis()->GetTitle());
+
+    const Int_t bindiff = h1_nbins - h2_nbins;
+    for (Int_t ibin = 1; ibin <= h1_nbins; ibin++){
+      if (ibin <= bindiff){ // fill zeros for bins not originally in hist2
+	histV2->SetBinContent(ibin,0.0); 
+      }
+      else { 
+	histV2->SetBinContent(ibin,hBinTempV2->GetBinContent(ibin-bindiff));	
       }
     }
-    else if ((h2_xlow < h1_xlow) && (h1_xup == h2_xup)){
-      histV2 = (TProfile*)hBinTempV2->Clone();//V2file->Get(hnameV2);
+  }
+  else if((h1_xlow > h2_xlow) && (h1_xup == h2_xup) && (h1_binWidth == h2_binWidth)){ // Fill h1 from h1xlow to h1high with h1 info, and up to h2high, fill zero 
+    histV2 = (TProfile*)hBinTempV1->Clone();//V1file->Get(hnameV1); // copy histV1 
 
-      histV1 = new TProfile(hBinTempV1->GetName(),hBinTempV1->GetTitle(),h1_nbins,h2_xlow,h1_xup);
-      histV1->SetXTitle(hBinTempV1->GetXaxis()->GetTitle());
-      histV1->SetYTitle(hBinTempV1->GetYaxis()->GetTitle());
-      for (Int_t ibin = 1; ibin <= h2_nbins; ibin++){
-	histV1->SetBinContent(ibin,hBinTempV1->GetBinContent(ibin));
+    histV1 = new TProfile(hBinTempV1->GetName(),hBinTempV1->GetTitle(),h2_nbins,h2_xlow,h2_xup);
+    histV1->SetXTitle(hBinTempV1->GetXaxis()->GetTitle());
+    histV1->SetYTitle(hBinTempV1->GetYaxis()->GetTitle());
+
+    const Int_t bindiff = h2_nbins - h1_nbins;
+    for (Int_t ibin = 1; ibin <= h2_nbins; ibin++){
+      if (ibin <= bindiff){ // fill zeros for bins not originally in hist1
+	histV1->SetBinContent(ibin,0.0); 
+      }
+      else { 
+	histV1->SetBinContent(ibin,hBinTempV1->GetBinContent(ibin-bindiff));	
       }
     }
   }
   else{
-    std::cout << "Bin Check Failed... here's what happened: " << std::endl;
+    std::cout << "Bin Check Failed...skipping this histogram... here's what happened: " << std::endl;
     std::cout << "histV1 failed on " << hnameV1  << std::endl << " for file " << V1file->GetName() << std::endl;
     std::cout << "       bin info: " << h1_xlow << " " << h1_xup << " " << h1_nbins << std::endl;
     std::cout << "histV2 failed on " << hnameV2  << std::endl << " for file " << V2file->GetName() << std::endl;
     std::cout << "       bin info: " << h2_xlow << " " << h2_xup << " " << h2_nbins << std::endl;
-    exit(1);
+
+    delete hBinTempV1;
+    delete hBinTempV2;
+    return false;
   }
 
   histV1->SetEntries(h1_nEntries);
@@ -2007,13 +2030,13 @@ bool createTProfPlot(const TString hname, const TString dirname, TFile *& V1file
 
   // options for drawing
   double max = 0;
-  double V1max = histV1->GetBinContent(histV1->GetMaximumBin());
-  double V2max = histV2->GetBinContent(histV2->GetMaximumBin());
+  const double V1max = histV1->GetBinContent(histV1->GetMaximumBin());
+  const double V2max = histV2->GetBinContent(histV2->GetMaximumBin());
   max = (V1max>V2max) ? V1max : V2max;
 
   double min = 0;
-  double V1min = histV1->GetBinContent(histV1->GetMinimumBin());
-  double V2min = histV2->GetBinContent(histV2->GetMinimumBin());
+  const double V1min = histV1->GetBinContent(histV1->GetMinimumBin());
+  const double V2min = histV2->GetBinContent(histV2->GetMinimumBin());
   min = (V1min<V2min) ? V1min : V2min;
 
   histV1->SetLineStyle(1);
@@ -2043,6 +2066,12 @@ bool createTProfPlot(const TString hname, const TString dirname, TFile *& V1file
 
   //++++++++++++++++++++ Draw Histograms +++++++++++++++++++//
 
+  canvas->cd();
+
+  TPad* mainpad = new TPad("mainpad","mainpad", 0.0, 0.3, 0.93, 0.99);
+  mainpad->SetBottomMargin(0);
+  mainpad->Draw();
+  mainpad->cd();
   histV1->Draw("EP"); // Draw old histo first, ratio is new/old
   if (isHist1 && isHist2) {
     histV2->Draw("EP sames");
@@ -2080,8 +2109,8 @@ bool createTProfPlot(const TString hname, const TString dirname, TFile *& V1file
   st1->SetY1NDC(0.77);
   st1->SetY2NDC(0.94);
   
-  Double_t defaulth = st1->GetY2NDC() - st1->GetY1NDC();
-  Double_t gaph = 0.02;
+  const Double_t defaulth = st1->GetY2NDC() - st1->GetY1NDC();
+  const Double_t gaph = 0.02;
   if (isHist1 && isHist2){
     st2->SetY1NDC(st1->GetY1NDC() - 1.0*defaulth - gaph);
     st2->SetY2NDC(st1->GetY1NDC() - gaph);
