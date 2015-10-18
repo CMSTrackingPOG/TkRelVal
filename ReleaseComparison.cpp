@@ -52,13 +52,15 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2, const T
 
   Double_t lumi = 0;
   Int_t    tev = 0;
-  if      (atoi(runString1.c_str()) == 191226){lumi = 93.58;  tev = 8;}
-  else if (atoi(runString1.c_str()) == 208307){lumi = 122.79; tev = 8;} 
+  if      (atoi(runString1.c_str()) == 191226){lumi = 93.58;  tev = 8;} // 2012A
+  else if (atoi(runString1.c_str()) == 208307){lumi = 122.79; tev = 8;} // 2012D
   else if (atoi(runString1.c_str()) == 251643){lumi = 15.68;  tev = 13;} // 50ns, 3.8T, Run 2015B 
-  else if (atoi(runString1.c_str()) == 251251){lumi = 0.93;   tev = 13;}  // 50ns, 3.8T, Run 2015B 
-  else if (atoi(runString1.c_str()) == 251721){lumi = 1.15;   tev = 13;}  // 50ns, 3.8T, Run 2015B low PU
+  else if (atoi(runString1.c_str()) == 251251){lumi = 0.93;   tev = 13;} // 50ns, 3.8T, Run 2015B 
+  else if (atoi(runString1.c_str()) == 251721){lumi = 1.15;   tev = 13;} // 50ns, 3.8T, Run 2015B low PU
   else if (atoi(runString1.c_str()) == 254790){lumi = 10.36;  tev = 13;} // 25ns, 3.8T, Run 2015C
-  else if (atoi(runString1.c_str()) == 256869){lumi = 1.54;   tev = 13;} // 25ns, 3.8T, Run 2015C
+  else if (atoi(runString1.c_str()) == 254879){lumi = 1.66;   tev = 13;} // 25ns, 3.8T, Run 2015C
+  else if (atoi(runString1.c_str()) == 256677){lumi = 15.58;  tev = 13;} // 25ns, 3.8T, Run 2015D
+  else if (atoi(runString1.c_str()) == 256869){lumi = 1.54;   tev = 13;} // 25ns, 3.8T, Run 2015D
 
   //====================== Make master canvas  ======================// 
   TCanvas *canvas = new TCanvas("master canv","");
@@ -863,6 +865,7 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2, const T
   createTH1FPlot("diffNormalizedChi2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
   createTH1FPlot("diffNumberOfHits", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
   createTH1FPlot("diffNumberOfPixelHits", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  createTH1FPlot("selectionFlow", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
 
   dirname = "/Tracking/Run summary/PackedCandidate/lostTracks";
   outdir  = directory+"/PackCand/LostTks";
@@ -897,6 +900,7 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2, const T
   createTH1FPlot("diffNormalizedChi2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
   createTH1FPlot("diffNumberOfHits", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
   createTH1FPlot("diffNumberOfPixelHits", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  createTH1FPlot("selectionFlow", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
 
   delete file1;
   delete file2;
@@ -1167,7 +1171,9 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
     histV2->GetXaxis()->SetTitle("");
   }
   else if (dirname.Contains("PackedCandidate",TString::kExact)) {
-    histV1->GetXaxis()->SetTitle(histV1->GetTitle());
+    if (!hname.Contains("selectionFlow",TString::kExact)) {
+      histV1->GetXaxis()->SetTitle(histV1->GetTitle());
+    }
     histV1->GetYaxis()->SetTitle("Number of Tracks");
   }
   else if (dirname.Contains("OfflinePV",TString::kExact)) {
