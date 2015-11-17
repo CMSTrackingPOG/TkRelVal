@@ -28,6 +28,7 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2, const T
   if ( file1->IsZombie() )
     std::cout << "File: " << fileName1 << " cannot be opened!" << std::endl;
   //  relString1 = "HLTref";
+  //relString1 = "Prompt";
 
   // fileName2 --> NEW
   pos = fileName2.find("_R0");
@@ -47,6 +48,7 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2, const T
   if ( file2->IsZombie() )
     std::cout << "File: " << fileName2 << " cannot be opened!" << std::endl;
   //  relString2 = "HLTnewcon";
+  //  relString2 = "7_6_0";
 
   //================= Print CMS Lumi on these guys =================//
 
@@ -61,6 +63,9 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2, const T
   else if (atoi(runString1.c_str()) == 254879){lumi = 1.66;   tev = 13;} // 25ns, 3.8T, Run 2015C
   else if (atoi(runString1.c_str()) == 256677){lumi = 15.58;  tev = 13;} // 25ns, 3.8T, Run 2015D
   else if (atoi(runString1.c_str()) == 256869){lumi = 1.54;   tev = 13;} // 25ns, 3.8T, Run 2015D
+  else if (atoi(runString1.c_str()) == 257490){lumi = 32.53;  tev = 13;} // 25ns, 3.8T, Run 2015D
+  else if (atoi(runString1.c_str()) == 258742){lumi = 59.30;  tev = 13;} // 25ns, 3.8T, Run 2015D
+  else if (atoi(runString1.c_str()) == 259686){lumi = 25.95;  tev = 13;} // 25ns, 3.8T, Run 2015D
 
   //====================== Make master canvas  ======================// 
   TCanvas *canvas = new TCanvas("master canv","");
