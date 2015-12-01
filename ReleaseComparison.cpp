@@ -66,6 +66,8 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2, const T
   else if (atoi(runString1.c_str()) == 257490){lumi = 32.53;  tev = 13;} // 25ns, 3.8T, Run 2015D
   else if (atoi(runString1.c_str()) == 258742){lumi = 59.30;  tev = 13;} // 25ns, 3.8T, Run 2015D
   else if (atoi(runString1.c_str()) == 259686){lumi = 25.95;  tev = 13;} // 25ns, 3.8T, Run 2015D
+  else if (atoi(runString1.c_str()) == 260627){lumi = 164.68; tev = 13;} // 25ns, 3.8T, Run 2015D
+  else if (atoi(runString1.c_str()) == 262205){lumi = 0.26;   tev = 5.02;} // HI reference run (pp collisions), B=3.8T
 
   //====================== Make master canvas  ======================// 
   TCanvas *canvas = new TCanvas("master canv","");
@@ -2403,6 +2405,7 @@ void CMSLumi(TCanvas *& canv, const Int_t iPosX, const Int_t tev, const Double_t
   Double_t extraTextFont = 52;  // default is helvetica-italics
 
   TString lumiText = Form("#sqrt{s} = %2i TeV, L = %3.2f pb^{-1}",tev,lumi); 
+  //  TString lumiText = "#sqrt{s} = 5.02 TeV, L = 0.258 pb^{-1}"; // just do by hand instead of rewriting this 
   
   // text sizes and text offsets with respect to the top frame
   // in unit of the top margin size
