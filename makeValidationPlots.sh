@@ -5,10 +5,11 @@ run=$1 #specify what run you want to download
 rel_old=$2 #old release to check against (e.g. pre1)
 rel_new=$3 #new release (e.q. pre2)
 sample=$4 #Jet, JetHT, MinBias, SingleMu, SingleEl, ZeroBias
+full=$5 # if true, do all plots, otherwise, just essential plots
 
 refFile=$(ls *"${run}"*"${sample}"*"${rel_old}"*)
 newFile=$(ls *"${run}"*"${sample}"*"${rel_new}"*)
-#release=CMSSW_7412p4_HLTnewcond_vs_HLTref_"${run}"_"${sample}"
+#release=CMSSW_761_rerecoGT_vs_760_"${run}"_"${sample}"
 release=CMSSW_"${rel_new}"_vs_"${rel_old}"_"${run}"_"${sample}"
 
 directory=/afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}
@@ -96,7 +97,7 @@ fi
 echo "Analyzing ${refFile} and ${newFile} in ${release}"   
 
 #Run the ROOT Macro. This is trivial, compiles a .cpp file that makes all the plots.  
-root -b -q -l "runValidationComparison.C("\"${refFile}\",\"${newFile}\",\"${directory}\"")"   
+root -b -q -l "runValidationComparison.C("\"${refFile}\",\"${newFile}\",\"${directory}\",\"${full}\"")"   
 
 #generate index.html files on the fly for release directory
 cd ${directory}
