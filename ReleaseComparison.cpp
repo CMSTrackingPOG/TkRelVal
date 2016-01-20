@@ -41,6 +41,7 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2,
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.find("-74X");
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.find("-75X");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.find("-76X");  
+  if (pos2 == -1 || pos2<pos1) pos2 = fileName2.find("-80X");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.find("-2015");  
   std::string relString2 = fileName2.substr (pos1,pos2-pos1);
   TFile *file2 = TFile::Open(fileName2.c_str());
