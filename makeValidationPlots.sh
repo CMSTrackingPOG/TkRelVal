@@ -1,98 +1,74 @@
 #! /bin/sh
 
 #Parameters passed from command line
-run=$1 #specify what run you want to download 
+run=$1 #specify run number
 rel_old=$2 #old release to check against (e.g. pre1)
 rel_new=$3 #new release (e.q. pre2)
 sample=$4 #Jet, JetHT, MinBias, SingleMu, SingleEl, ZeroBias
-full=$5 # if true, do all plots, otherwise, just essential plots
+full=${5:false} # if true, do all plots, otherwise, just essential plots
 
 refFile=$(ls *"${run}"*"${sample}"*"${rel_old}"*)
 newFile=$(ls *"${run}"*"${sample}"*"${rel_new}"*)
-#release=CMSSW_761_rerecoGT_vs_760_"${run}"_"${sample}"
-release=CMSSW_"${rel_new}"_vs_"${rel_old}"_"${run}"_"${sample}"
+release=CMSSW_8_0_0_vs_"${rel_old}"_"${run}"_"${sample}"
+#release=CMSSW_"${rel_new}"_vs_"${rel_old}"_"${run}"_"${sample}"
 
 directory=/afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}
 
 #Create directories for webpage
 if [ ! -d ${directory} ] ; then    
     mkdir ${directory} 
-
-    for subdir in TEC TIB TID TOB 
-    do
-	mkdir -p ${directory}/SiStrip/${subdir}_lin
-	mkdir -p ${directory}/SiStrip/${subdir}_log
-    done
-
-    for subdir in GenProps HitProps HitEff PU TkBuilding
-    do
-	mkdir -p ${directory}/genTks/${subdir}_lin
-	mkdir -p ${directory}/genTks/${subdir}_log
-    done
-    
-    for subdir in GenProps HitProps HitEff PU
-    do
-	mkdir -p ${directory}/HPTks/${subdir}_lin
-	mkdir -p ${directory}/HPTks/${subdir}_log
-    done
-    
-    for subdir in PO SO SP HitInfo
-    do
-	mkdir -p ${directory}/dEdx/${subdir}_lin
-	mkdir -p ${directory}/dEdx/${subdir}_log
-    done
-
-    for subdir in Alignment offlineBS offlinePVs
-    do
-	mkdir -p ${directory}/PV/${subdir}_lin
-	mkdir -p ${directory}/PV/${subdir}_log
-    done
-
-    for subdir in MatchedTks LostTks
-    do
-	mkdir -p ${directory}/PackCand/${subdir}_lin
-	mkdir -p ${directory}/PackCand/${subdir}_log
-    done
 else
     rm -r ${directory} 
     mkdir ${directory} 
-
-    for subdir in TEC TIB TID TOB 
-    do
-	mkdir -p ${directory}/SiStrip/${subdir}_lin
-	mkdir -p ${directory}/SiStrip/${subdir}_log
-    done
-
-    for subdir in GenProps HitProps HitEff PU TkBuilding
-    do
-	mkdir -p ${directory}/genTks/${subdir}_lin
-	mkdir -p ${directory}/genTks/${subdir}_log
-    done
-    
-    for subdir in GenProps HitProps HitEff PU
-    do
-	mkdir -p ${directory}/HPTks/${subdir}_lin
-	mkdir -p ${directory}/HPTks/${subdir}_log
-    done
-    
-    for subdir in PO SO SP HitInfo
-    do
-	mkdir -p ${directory}/dEdx/${subdir}_lin
-	mkdir -p ${directory}/dEdx/${subdir}_log
-    done
-
-    for subdir in Alignment offlineBS offlinePVs
-    do
-	mkdir -p ${directory}/PV/${subdir}_lin
-	mkdir -p ${directory}/PV/${subdir}_log
-    done
-
-    for subdir in MatchedTks LostTks
-    do
-	mkdir -p ${directory}/PackCand/${subdir}_lin
-	mkdir -p ${directory}/PackCand/${subdir}_log
-    done
 fi                            
+
+for subdir in offline pixel
+do
+    mkdir -p ${directory}/PV_HPTks/${subdir}_lin
+    mkdir -p ${directory}/PV_HPTks/${subdir}_log
+done
+
+for subdir in TEC TIB TID TOB 
+do
+    mkdir -p ${directory}/SiStrip/${subdir}_lin
+    mkdir -p ${directory}/SiStrip/${subdir}_log
+done
+
+for subdir in GenProps HitProps HitEff PU TkBuilding LSan
+do
+    mkdir -p ${directory}/genTks/${subdir}_lin
+    mkdir -p ${directory}/genTks/${subdir}_log
+done
+
+for subdir in GenProps HitProps PU LSan
+do
+    mkdir -p ${directory}/HPTks_0to1/${subdir}_lin
+    mkdir -p ${directory}/HPTks_0to1/${subdir}_log
+done
+
+for subdir in GenProps HitProps HitEff PU LSan
+do
+    mkdir -p ${directory}/HPTks_gt1/${subdir}_lin
+    mkdir -p ${directory}/HPTks_gt1/${subdir}_log
+done
+
+for subdir in PO SO SP HitInfo
+do
+    mkdir -p ${directory}/dEdx/${subdir}_lin
+    mkdir -p ${directory}/dEdx/${subdir}_log
+done
+
+for subdir in Alignment offlineBS offlinePVs
+do
+    mkdir -p ${directory}/OfflinePV/${subdir}_lin
+    mkdir -p ${directory}/OfflinePV/${subdir}_log
+done
+
+for subdir in MatchedTks LostTks
+do
+    mkdir -p ${directory}/PackCand/${subdir}_lin
+    mkdir -p ${directory}/PackCand/${subdir}_log
+done
 
 echo "Analyzing ${refFile} and ${newFile} in ${release}"   
 
@@ -104,6 +80,10 @@ cd ${directory}
 ../genSubDir.sh "${release}" 
 cd -
 
+cd ${directory}/PV_HPTks
+../../genSubSubDirPV_HPTks.sh "${release}" 
+cd -                                                    
+
 cd ${directory}/SiStrip
 ../../genSubSubDirSiStrip.sh "${release}" 
 cd -                                                    
@@ -112,16 +92,20 @@ cd ${directory}/genTks
 ../../genSubSubDirTk.sh "${release}" "genTks"
 cd -
 
-cd ${directory}/HPTks
-../../genSubSubDirTk.sh "${release}" "HPTks"
+cd ${directory}/HPTks_0to1
+../../genSubSubDirTk.sh "${release}" "HPTks_0to1"
+cd -
+
+cd ${directory}/HPTks_gt1
+../../genSubSubDirTk.sh "${release}" "HPTks_gt1"
 cd -
 
 cd ${directory}/dEdx
 ../../genSubSubDirdEdx.sh "${release}" 
 cd -
 
-cd ${directory}/PV
-../../genSubSubDirPV.sh "${release}" 
+cd ${directory}/OfflinePV
+../../genSubSubDirOfflinePV.sh "${release}" 
 cd -
 
 cd ${directory}/PackCand
@@ -129,6 +113,17 @@ cd ${directory}/PackCand
 cd -
 
 # now make pretty plots on webpage with perl script
+
+for subdir in offline pixel
+do
+    for scale in lin log
+    do 
+	cd ${directory}/PV_HPTks/${subdir}_${scale}
+	../../../diow.pl -t "${release} Tracking PV HP Tracks, 0 < pT < 1 GeV ${subdir} Validation (${scale})" -c 3 -icon 200    
+	cd --
+    done
+done
+
 for subdir in TEC TIB TID TOB 
 do
     for scale in lin log
@@ -139,7 +134,7 @@ do
     done
 done
 
-for subdir in GenProps HitProps HitEff PU TkBuilding
+for subdir in GenProps HitProps HitEff PU TkBuilding LSan
 do
     for scale in lin log
     do 
@@ -149,12 +144,22 @@ do
     done
 done
 
-for subdir in GenProps HitProps HitEff PU
+for subdir in GenProps HitProps HitEff PU LSan
 do
     for scale in lin log
     do 
-	cd ${directory}/HPTks/${subdir}_${scale}
-	../../../diow.pl -t "${release} HPTks ${subdir} Validation (${scale})" -c 3 -icon 200 
+	cd ${directory}/HPTks_0to1/${subdir}_${scale}
+	../../../diow.pl -t "${release} HPTks, 0 < pT < 1 GeV ${subdir} Validation (${scale})" -c 3 -icon 200 
+	cd --
+    done
+done
+
+for subdir in GenProps HitProps HitEff PU LSan
+do
+    for scale in lin log
+    do 
+	cd ${directory}/HPTks_gt1/${subdir}_${scale}
+	../../../diow.pl -t "${release} HPTks, pT > 1 GeV ${subdir} Validation (${scale})" -c 3 -icon 200 
 	cd --
     done
 done
@@ -173,7 +178,7 @@ for subdir in offlinePVs offlineBS Alignment
 do
     for scale in lin log
     do 
-	cd ${directory}/PV/${subdir}_${scale}
+	cd ${directory}/OfflinePV/${subdir}_${scale}
 	../../../diow.pl -t "${release} OfflinePV ${subdir} Validation (${scale})" -c 3 -icon 200  
 	cd --
     done
