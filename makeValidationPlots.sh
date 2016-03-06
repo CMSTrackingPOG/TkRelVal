@@ -9,8 +9,8 @@ full=${5:false} # if true, do all plots, otherwise, just essential plots
 
 refFile=$(ls *"${run}"*"${sample}"*"${rel_old}"*)
 newFile=$(ls *"${run}"*"${sample}"*"${rel_new}"*)
-release=CMSSW_8_0_0_vs_"${rel_old}"_"${run}"_"${sample}"
-#release=CMSSW_"${rel_new}"_vs_"${rel_old}"_"${run}"_"${sample}"
+#release=CMSSW_8_0_0_vs_"${rel_old}"_"${run}"_"${sample}"
+release=CMSSW_"${rel_new}"_vs_"${rel_old}"_"${run}"_"${sample}"
 
 directory=/afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}
 
@@ -144,7 +144,7 @@ do
     done
 done
 
-for subdir in GenProps HitProps HitEff PU LSan
+for subdir in GenProps HitProps PU LSan
 do
     for scale in lin log
     do 

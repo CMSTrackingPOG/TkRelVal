@@ -120,7 +120,7 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2,
   TString outdir  = ""; // output file directory
 
   // PV plots inside Tracking (not offlinePV folder)
-  dirname = "/Tracking/Run summary/PrimaryVertices/pt_0to1/offline";
+  dirname = "/Tracking/Run summary/PrimaryVertices/highPurityTracks/pt_0to1/offline";
   outdir  = directory+"/PV_HPTks/offline";
   createTH1FPlot("FractionOfGoodPVtx_offline", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
   createTH1FPlot("GoodPVtxNumberOfTracks_offline", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
@@ -130,18 +130,18 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2,
   createTH1FPlot("NumberOfPVtx_offline", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
 
   if (full) { // profile plots
-    dirname = "/Tracking/Run summary/PrimaryVertices/pt_0to1/offline/PUmonitoring/VsGoodPVtx";
+    dirname = "/Tracking/Run summary/PrimaryVertices/highPurityTracks/pt_0to1/offline/PUmonitoring/VsGoodPVtx";
     createTProfPlot("FractionOfGoodPVtxVsGoodPVtx_offline", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTProfPlot("FractionOfGoodPVtxVsPVtx_offline", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTProfPlot("GoodPVtxChi2ProbVsGoodPVtx_offline", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTProfPlot("GoodPVtxChi2oNDFVsGoodPVtx_offline", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("GoodPVtxNumberOfTracksVSGoodPVtx_offline", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTProfPlot("GoodPVtxNumberOfTracksVsGoodPVtx_offline", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTProfPlot("GoodPVtxSumPtVsGoodPVtx_offline", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTProfPlot("NumberOfBADndofPVtxVsGoodPVtx_offline", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTProfPlot("NumberOfPVtxVsGoodPVtx_offline", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
   }
 
-  dirname = "/Tracking/Run summary/PrimaryVertices/pt_0to1/pixel";
+  dirname = "/Tracking/Run summary/PrimaryVertices/highPurityTracks/pt_0to1/pixel";
   outdir  = directory+"/PV_HPTks/pixel";
   createTH1FPlot("FractionOfGoodPVtx_pixel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
   createTH1FPlot("GoodPVtxNumberOfTracks_pixel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
@@ -151,12 +151,12 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2,
   createTH1FPlot("NumberOfPVtx_pixel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
 
   if (full) { // profile plots
-    dirname = "/Tracking/Run summary/PrimaryVertices/pt_0to1/pixel/PUmonitoring/VsGoodPVtx";
+    dirname = "/Tracking/Run summary/PrimaryVertices/highPurityTracks/pt_0to1/pixel/PUmonitoring/VsGoodPVtx";
     createTProfPlot("FractionOfGoodPVtxVsGoodPVtx_pixel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTProfPlot("FractionOfGoodPVtxVsPVtx_pixel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTProfPlot("GoodPVtxChi2ProbVsGoodPVtx_pixel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTProfPlot("GoodPVtxChi2oNDFVsGoodPVtx_pixel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("GoodPVtxNumberOfTracksVSGoodPVtx_pixel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTProfPlot("GoodPVtxNumberOfTracksVsGoodPVtx_pixel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTProfPlot("GoodPVtxSumPtVsGoodPVtx_pixel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTProfPlot("NumberOfBADndofPVtxVsGoodPVtx_pixel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTProfPlot("NumberOfPVtxVsGoodPVtx_pixel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
@@ -305,7 +305,7 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2,
   }
 
   // High purity histos - 0 < pt < 1 GeV
-  dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_1/GeneralProperties";
+  dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_0to1/GeneralProperties";
   outdir  = directory+"/HPTks_0to1/GenProps";
 
   // TProfile Plots
@@ -353,7 +353,7 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2,
 
   // PU Monitoring
   if (full) {
-    dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_1/PUmonitoring";
+    dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_0to1/PUmonitoring";
     outdir  = directory+"/HPTks_0to1/PU";
     createTProfPlot("NumberOfTracksVsGoodPVtx", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTProfPlot("NumberOfTracksVsPUPVtx", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
@@ -637,27 +637,27 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2,
   createTH1FPlot("NumberOfRecHitsPerTrack_lumiFlag_GenTk", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
   createTH1FPlot("NumberOfTracks_lumiFlag_GenTk", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
   if  (full) {
-    createTH1FPlot("NumberOfTracks_lumiFlag_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTH1FPlot("NumberOfTracks_lumiFlag_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTH1FPlot("NumberOfTracks_lumiFlag_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTH1FPlot("NumberOfTracks_lumiFlag_lowPtStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTH1FPlot("NumberOfTracks_lumiFlag_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTH1FPlot("NumberOfTracks_lumiFlag_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTH1FPlot("NumberOfTracks_lumiFlag_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTH1FPlot("NumberOfTracks_lumiFlag_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTH1FPlot("NumberOfTracks_lumiFlag_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTH1FPlot("NumberOfTracks_lumiFlag_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("NumberOfSeeds_lumiFlag_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("NumberOfSeeds_lumiFlag_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("NumberOfSeeds_lumiFlag_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("NumberOfSeeds_lumiFlag_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("NumberOfSeeds_lumiFlag_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("NumberOfSeeds_lumiFlag_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("NumberOfSeeds_lumiFlag_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("NumberOfSeeds_lumiFlag_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("NumberOfSeeds_lumiFlag_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("NumberOfSeeds_lumiFlag_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
   }
 
   //LS Analysis - HP 0pt1
-  dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_0to1";
+  dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_0to1/LSanalysis";
   outdir  = directory+"/HPTks_0to1/LSan";
   createTH1FPlot("Chi2oNDF_lumiFlag_GenTk", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
   createTH1FPlot("NumberOfRecHitsPerTrack_lumiFlag_GenTk", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
   createTH1FPlot("NumberOfTracks_lumiFlag_GenTk", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
 
   //LS Analysis - HP 0pt1
-  dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_1";
+  dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_1/LSanalysis";
   outdir  = directory+"/HPTks_gt1/LSan";
   createTH1FPlot("Chi2oNDF_lumiFlag_GenTk", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
   createTH1FPlot("NumberOfRecHitsPerTrack_lumiFlag_GenTk", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
@@ -1743,7 +1743,7 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
   
   TLine * ratioline = new TLine();
 
-  if ( (hname.Contains("NumberOfTracks",TString::kExact)) && (dirname.Contains("highPurityTracks/pt_1/GeneralProperties",TString::kExact)) ){
+  if ( (hname.Contains("NumberOfTracks",TString::kExact)) && (dirname.Contains("highPurityTracks",TString::kExact)) ){
     ratioline->SetX1(0);
     ratioline->SetX2(1000);
   }
@@ -1834,7 +1834,7 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
   } // drop _ at end of dEdx plots
   else if ((dirname.Contains("TrackBuilding",TString::kExact)) || (dirname.Contains("LSanalysis",TString::kExact)) ){ // drop extra duplicate modifier from track building and LS analysis plots
     if (dirname.Contains("LSanalysis",TString::kExact) ){  // drop lumiFlag and GenTk from LSanalysis plots
-      if (dirname.Contains("lumiFlag",TString::kExact) ){
+      if (filename.Contains("lumiFlag",TString::kExact) ){
 	TString replacestr  = "_lumiFlag";
 	Ssiz_t  length      = replacestr.Length();
 	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
@@ -1842,7 +1842,7 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
 	TString toreplace = "";
 	filename.Replace(filenamepos,length,toreplace);
       }
-      if (dirname.Contains("GenTk",TString::kExact) ){
+      if (filename.Contains("GenTk",TString::kExact) ){
 	TString replacestr  = "_GenTk";
 	Ssiz_t  length      = replacestr.Length();
 	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
