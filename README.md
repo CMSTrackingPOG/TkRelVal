@@ -14,7 +14,9 @@ I have a small script to grab the files: getFiles.sh
 To grab files from the same directory do:
 
 ./getFiles.sh [CMSSW_Z_Y_x] [Run #] [ref rel, e.g. Z_Y_x_pre1] [target rel, e.g. Z_Y_x_pre2] [sample, e.g. JetHT]
+
 e.g. 
+
 ./getFiles.sh CMSSW_7_4_x 256677 8_0_1_pre1 8_0_1_pre2
 
 ----------------------------------------
@@ -50,6 +52,7 @@ The optional bool will produce ALL plots (which is a lot, on the order of ~300 p
 /afs/cern.ch/cms/Physics/tracking/validation/DATA
 
 For the examples above, the output would then be in:
+
 /afs/cern.ch/cms/Physics/tracking/validation/DATA/CMSSW_8_0_1_pre2_vs_8_0_0_pre1_256677_JetHT/
 
 Now, before we view the plots on the web, we need to unfornately update a small index.html file.
@@ -65,7 +68,9 @@ cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/
 Now, we will need to use a script that outputs some html code to copy+paste into the index.html file in this directory (getDirHL.sh):
 
 ./getDirHL.sh [CMSSW_Z_Y_x]
+
 e.g.
+
 ./getDirHL.sh CMSSW_8_0_1_pre1
 
 from here, copy the output from the terminal into the appropriate heading in index.html.  Obviously, make a new heading if a top category does not exist!  (i.e. CMSSW_8_0_x)
