@@ -1,78 +1,115 @@
 TkRelVal
 ========
 
-Code for data charged particle tracking release validation in CMSSW
+Code for charged particle tracking release validation in CMSSW with data.  This README provides instructions for performing the validation end-to-end, i.e. the steps in getting the relval samples, running the comparator, analyzing by eye the comparisons, and then writing the relval report. The code is meant to be run on lxplus, although in principle one could hack this to put the images in another file, then copy them over at the end.  
 
 ----------------------------------------
-Get the files
+1. Get the files
 ----------------------------------------
 
-To use, first need to grab the relevant files from the interwebz: https://cmsweb.cern.ch/dqm/relval/data/browse/ROOT/RelValData/
+The first thing (after checking out this repo) is to grab the relevant files from the interwebz: https://cmsweb.cern.ch/dqm/relval/data/browse/ROOT/RelValData/
+
 I have a small script to grab the files: getFiles.sh
+
 To grab files from the same directory do:
 
-./getFiles.sh [CMSSW_Z_Y_x] [Run #] [ref rel, e.g. Z_Y_x_pre1] [target rel, e.g. Z_Y_x_pre2]
+./getFiles.sh [CMSSW_Z_Y_x] [Run #] [ref rel, e.g. Z_Y_x_pre1] [target rel, e.g. Z_Y_x_pre2] [sample, e.g. JetHT]
+
 e.g. 
-./getFiles.sh CMSSW_7_4_x 191226 7_6_0_pre4 7_6_0_pre5
 
---> As of now, just grab MinimumBias and Jet... can change the loop to grab ZeroBias, HLTPhysics, etc... Need a grid certificate to get files
-
-----------------------------------------
-Rename MinBias
-----------------------------------------
-
-Small script renames MinimumBias to MinBias... just do:
-
-./renameMB.sh
+./getFiles.sh CMSSW_7_4_x 256677 8_0_1_pre1 8_0_1_pre2
 
 ----------------------------------------
-Make sure afscode matches
+2. Ensure subdirectories for viewing plots on the web exist
 ----------------------------------------
 
-Not perfect, have some small scripts that handle making plots in right directories for web.  Copy the afsdirectory down to: /afs/cern.ch/cms/Physics/tracking/validation/DATA
+This step is a bit hacky and normally not needed. The comparison plots on the web are placed in directories that mostly match the directories in the relvals. This is done for two reasons: 
+1. Some of the subdirectories are superfluous and so the plots are more conviently grouped into at most two subdirectories.   
+2. The directory and plots names in the relvals are quite long, so I have shortened them. As will become apparent when using the valDB validation reporting tool, there is a character limit, and when there are long reports, you may not be able to fit all the relevant plots within the character limit.  
 
-if any changes are made to the directory structure (also would change ./makeValidationPlots.sh and ReleaseComparison.cpp)
+It is not perfect, I must admit, but it gets the job down.  The scripts that will do the subdirectory creation for every campaign are in afscode/. Copy all of these down to: 
+
+/afs/cern.ch/cms/Physics/tracking/validation/DATA 
+
+This only has to be done once, and in principle is already done.  However, if you decide to change the directory structure, obviously you would need to copy down the relevant scripts.
 
 ----------------------------------------
-Run the code
+3. Run the comparator 
 ----------------------------------------
 
-TO run the plot producer, use the script:
+The plots are overlaid with a script that calls a ROOT macro (runValidationComparison.C), that itself compiles ReleaseComparison.cpp/hh. This will produce a set of pdf's of each plot relevant for tracking validation, with the reference release on top of the target release. Each plot is made in both log and linear y-axis. Each comparison has a ratio plot of Target/Ref. ReleaseComparison.cpp has a number of checks to make sure it can indeed produce the plots, in addition to shortening the strings of plot names, setting the axes, stats, lumi, etc.
 
-./makeValidationPlots.sh [Run #] [ref rel] [target rel] [sample]
+Run the plot producer with:
+
+./makeValidationPlots.sh [Run #] [ref rel] [target rel] [sample] [optional: true/false]
+
 e.g.
 
-./makeValidationPlots.sh 191226 7_6_0_pre4 7_6_0_pre5 Jet
+./makeValidationPlots.sh 256677 8_0_1_pre1 8_0_1_pre2 JetHT false
 
-This calls runComparison.C (amongst other small scripts), which compiles ReleaseComparison.cpp (2000 lines...).  produces log and lin plots for all distributions.  Currently at 250+ plots...
-This will take about ~3 minutes to run. All plots are automatically placed in the right directories in /afs/cern.ch/cms/Physics/tracking/validation/DATA
+The optional bool will produce ALL plots (which is a lot, on the order of ~300 plots). False will just do the "standard" plots, i.e. all that is really needed to the validation. For starters, use "false", as true will also eat into the amount of space where the plots are stored. Occasionally, the DQM files get different strings and this screws things up.  To grab the right files and not crash the macro, check to see all the string matching inside ReleaseComparison.cpp is correct.  Occasionally, you will just have to hack the output directory name/labels in the plots to get the thing to run. All plots are automatically placed in the right directories in:
+
+/afs/cern.ch/cms/Physics/tracking/validation/DATA
+
 For the examples above, the output would then be in:
-/afs/cern.ch/cms/Physics/tracking/validation/DATA/CMSSW_7_6_0_pre5_vs_7_6_0_pre4_191226_Jet/
 
-Now, before we view them on the web, need to unfornately update a small index.html file.
+/afs/cern.ch/cms/Physics/tracking/validation/DATA/CMSSW_8_0_1_pre2_vs_8_0_0_pre1_256677_JetHT/
+
+Now, before we view the plots on the web, we need to unfornately update a small index.html file.
 
 ----------------------------------------
-Prepare things for the web viewing
+4. Prepare things for the web viewing
 ----------------------------------------
+
+First go down to where the plots are stored:
 
 cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/
 
 Now, we will need to use a script that outputs some html code to copy+paste into the index.html file in this directory (getDirHL.sh):
 
 ./getDirHL.sh [CMSSW_Z_Y_x]
-e.g.
-./getDirHL.sh CMSSW_7_6_0_pre5
 
-from here, copy the output from the terminal into the appropriate heading in index.html.   Obviously, make a new heading if a top category does not exist!  (i.e. CMSSW_7_4_x)
+e.g.
+
+./getDirHL.sh CMSSW_8_0_1_pre1
+
+from here, copy the output from the terminal into the appropriate heading in index.html.  Obviously, make a new heading if a top category does not exist!  (i.e. CMSSW_8_0_x)
 
 ----------------------------------------
-View on the web
+5. View plots on the web
 ----------------------------------------
 
 All campaigns are viewable here: https://cmsdoc.cern.ch/cms/Physics/tracking/validation/DATA/
 
 example:
 
-http://cmsdoc.cern.ch/cms/Physics/tracking/validation/DATA/CMSSW_7_6_0_pre5_vs_7_6_0_pre4_191226_MinBias/index.html
+http://cmsdoc.cern.ch/cms/Physics/tracking/validation/DATA/CMSSW_8_0_1_pre2_vs_8_0_0_pre1_256677_JetHT/index.html
 
----> now report to cms-tracking-validation@cern.ch for internal discussion before reporting on valDB.
+Check the log/linear plots of the most relevant plots produced.  Namely, high purity tracks and general tracks general properties and hit properties is the first place to start.  Make sure to also check the miniAOD validation (PackedCand).  Also check the linear versions of the dxy/dz vs phi/eta in the offlinePV folder (important for alignment checks).  
+
+----------------------------------------
+6. Fill out the validation report
+----------------------------------------
+
+First, email the tracking conveners and MC validators in the cms-tracking-validation@cern.ch chain. In the case that changes are expected, check with everyone before writing and submitting your report on valDB.
+
+Once you have the green light, go to valDB: https://cms-conddb-prod.cern.ch/PdmV/valdb/
+
+Type in the search box the relevant campaign (e.g. 8_0_1_pre2).  On the right hand side, select show all.  Then, click on Reconstruction, and the box for Data tracking will appear.  Click on the box to fill out your report.
+
+This will send an email through the relval HN: https://hypernews.cern.ch/HyperNews/CMS/get/relval.html
+
+Make sure to be on this HN! That way you will receive the announcements of all the campaigns.  The price of course is that now your inbox will be flooded with emails about relval sample submission as well as every single relval validation report from all the POGs/PAGs/DPGs...
+
+---------------------
+Other useful tips
+---------------------
+
+Always check in the announcement email for the diffs in the GT's and code on github, to see if any changes are expected. Also check the Tracking POG indico for talks on expected changes as well: https://indico.cern.ch/category/7803/
+
+Lastly, although not mandatory, check in with the PPD meetings when the present the results from the validation campaigns: https://indico.cern.ch/category/3905/
+
+Other useful links:
+* DQM GUI (useful for quick checks): https://cmsweb.cern.ch/dqm/offline/session/ (make sure to select RelVal as the service)
+* RelMon (the automatic comparator from central PdmV): http://cms-service-reldqm.web.cern.ch/cms-service-reldqm/cgi-bin/RelMon.py
+* Twiki on valDB: https://twiki.cern.ch/twiki/bin/viewauth/CMS/PdmVValDB
