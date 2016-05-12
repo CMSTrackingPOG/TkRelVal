@@ -29,7 +29,7 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2,
 	    <<" for release " << relString1 << std::endl;  
   if ( file1->IsZombie() )
     std::cout << "File: " << fileName1 << " cannot be opened!" << std::endl;
-  //  relString1 = "8_0_0_pre6";
+  //  relString1 = "HLTref";
 
   // fileName2 --> NEW
   pos = fileName2.find("_R0");
@@ -49,7 +49,7 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2,
     	    <<" for release " << relString2 << std::endl;  
   if ( file2->IsZombie() )
     std::cout << "File: " << fileName2 << " cannot be opened!" << std::endl;
-  //  relString2 = "8_0_0";
+  //  relString2 = "805_miniAODv2";
 
   //================= Print CMS Lumi on these guys =================//
 
@@ -72,6 +72,9 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2,
   else if (atoi(runString1.c_str()) == 259686){lumi = 27.37;  tev = 13;} // 25ns, 3.8T, Run 2015D
   else if (atoi(runString1.c_str()) == 260627){lumi = 178.93; tev = 13;} // 25ns, 3.8T, Run 2015D
   else if (atoi(runString1.c_str()) == 262205){lumi = 0.26;   tev = 5.02;} // HI reference run (pp collisions), B=3.8T
+
+  else if (atoi(runString1.c_str()) == 269598){lumi = 0.00;   tev = 13;} // 2016 data, 25ns, 0T
+  else if (atoi(runString1.c_str()) == 272930){lumi = 3.48;   tev = 13;} // 2016 data, 25ns, 3.8T
 
   //====================== Make master canvas  ======================// 
   TCanvas *canvas = new TCanvas("master canv","");
@@ -141,26 +144,26 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2,
     createTProfPlot("NumberOfPVtxVsGoodPVtx_offline", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
   }
 
-  dirname = "/Tracking/Run summary/PrimaryVertices/highPurityTracks/pt_0to1/pixel";
-  outdir  = directory+"/PV_HPTks/pixel";
-  createTH1FPlot("FractionOfGoodPVtx_pixel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-  createTH1FPlot("GoodPVtxNumberOfTracks_pixel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-  createTH1FPlot("GoodPVtxSumPt_pixel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-  createTH1FPlot("NumberOfBADndofPVtx_pixel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-  createTH1FPlot("NumberOfGoodPVtx_pixel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-  createTH1FPlot("NumberOfPVtx_pixel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  // dirname = "/Tracking/Run summary/PrimaryVertices/highPurityTracks/pt_0to1/pixel";
+  // outdir  = directory+"/PV_HPTks/pixel";
+  // createTH1FPlot("FractionOfGoodPVtx_pixel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  // createTH1FPlot("GoodPVtxNumberOfTracks_pixel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  // createTH1FPlot("GoodPVtxSumPt_pixel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  // createTH1FPlot("NumberOfBADndofPVtx_pixel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  // createTH1FPlot("NumberOfGoodPVtx_pixel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  // createTH1FPlot("NumberOfPVtx_pixel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
 
-  if (full) { // profile plots
-    dirname = "/Tracking/Run summary/PrimaryVertices/highPurityTracks/pt_0to1/pixel/PUmonitoring/VsGoodPVtx";
-    createTProfPlot("FractionOfGoodPVtxVsGoodPVtx_pixel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("FractionOfGoodPVtxVsPVtx_pixel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("GoodPVtxChi2ProbVsGoodPVtx_pixel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("GoodPVtxChi2oNDFVsGoodPVtx_pixel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("GoodPVtxNumberOfTracksVsGoodPVtx_pixel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("GoodPVtxSumPtVsGoodPVtx_pixel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("NumberOfBADndofPVtxVsGoodPVtx_pixel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("NumberOfPVtxVsGoodPVtx_pixel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-  }
+  // if (full) { // profile plots
+  //   dirname = "/Tracking/Run summary/PrimaryVertices/highPurityTracks/pt_0to1/pixel/PUmonitoring/VsGoodPVtx";
+  //   createTProfPlot("FractionOfGoodPVtxVsGoodPVtx_pixel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  //   createTProfPlot("FractionOfGoodPVtxVsPVtx_pixel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  //   createTProfPlot("GoodPVtxChi2ProbVsGoodPVtx_pixel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  //   createTProfPlot("GoodPVtxChi2oNDFVsGoodPVtx_pixel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  //   createTProfPlot("GoodPVtxNumberOfTracksVsGoodPVtx_pixel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  //   createTProfPlot("GoodPVtxSumPtVsGoodPVtx_pixel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  //   createTProfPlot("NumberOfBADndofPVtxVsGoodPVtx_pixel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  //   createTProfPlot("NumberOfPVtxVsGoodPVtx_pixel", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  // }
 
   if (full) {
     // Histograms in dEdx directory 

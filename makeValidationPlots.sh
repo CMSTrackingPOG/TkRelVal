@@ -9,7 +9,7 @@ full=${5:false} # if true, do all plots, otherwise, just essential plots
 
 refFile=$(ls *"${run}"*"${sample}"*"${rel_old}"*)
 newFile=$(ls *"${run}"*"${sample}"*"${rel_new}"*)
-#release=CMSSW_8_0_0_vs_"${rel_old}"_"${run}"_"${sample}"
+#release=CMSSW_"${rel_new}"_miniAODv2_vs_"${rel_old}"_"${run}"_"${sample}"
 release=CMSSW_"${rel_new}"_vs_"${rel_old}"_"${run}"_"${sample}"
 
 directory=/afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}
@@ -22,7 +22,7 @@ else
     mkdir ${directory} 
 fi                            
 
-for subdir in offline pixel
+for subdir in offline #pixel
 do
     mkdir -p ${directory}/PV_HPTks/${subdir}_lin
     mkdir -p ${directory}/PV_HPTks/${subdir}_log
@@ -114,7 +114,7 @@ cd -
 
 # now make pretty plots on webpage with perl script
 
-for subdir in offline pixel
+for subdir in offline #pixel
 do
     for scale in lin log
     do 
