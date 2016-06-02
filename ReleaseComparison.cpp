@@ -29,7 +29,7 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2,
 	    <<" for release " << relString1 << std::endl;  
   if ( file1->IsZombie() )
     std::cout << "File: " << fileName1 << " cannot be opened!" << std::endl;
-  //  relString1 = "HLTref";
+  //  relString1 = "PRref";
 
   // fileName2 --> NEW
   pos = fileName2.find("_R0");
@@ -49,7 +49,7 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2,
     	    <<" for release " << relString2 << std::endl;  
   if ( file2->IsZombie() )
     std::cout << "File: " << fileName2 << " cannot be opened!" << std::endl;
-  //  relString2 = "805_miniAODv2";
+  //  relString2 = "HLTnewcond";
 
   //================= Print CMS Lumi on these guys =================//
 
@@ -75,6 +75,7 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2,
 
   else if (atoi(runString1.c_str()) == 269598){lumi = 0.00;   tev = 13;} // 2016 data, 25ns, 0T
   else if (atoi(runString1.c_str()) == 272930){lumi = 3.48;   tev = 13;} // 2016 data, 25ns, 3.8T
+  else if (atoi(runString1.c_str()) == 273503){lumi = 24.56;  tev = 13;} // 2016 data, 25ns, 3.8T
 
   //====================== Make master canvas  ======================// 
   TCanvas *canvas = new TCanvas("master canv","");
@@ -2090,8 +2091,8 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
   // linear second
   mainpad->cd();
   mainpad->SetLogy(0);
-  histV1->SetMaximum(max*(1.05));
-  histV1->SetMinimum(min/(1.05));
+  histV1->SetMaximum( (max>0 ? max*1.05 : max/1.05) );
+  histV1->SetMinimum( (min>0 ? min/1.05 : min*1.05) );
   filenamecopy.Prepend(outdir+"_lin/");
   canvas->cd();
   canvas->Print(filenamecopy.Data());
@@ -2575,8 +2576,8 @@ bool createTProfPlot(const TString hname, const TString dirname, TFile *& V1file
   // linear second
   mainpad->cd();
   mainpad->SetLogy(0);
-  histV1->SetMaximum(max*(1.05));
-  histV1->SetMinimum(min/(1.05));
+  histV1->SetMaximum( (max>0 ? max*1.05 : max/1.05) );
+  histV1->SetMinimum( (min>0 ? min/1.05 : min*1.05) );
   filenamecopy.Prepend(outdir+"_lin/");
   canvas->cd();
   canvas->Print(filenamecopy.Data());
@@ -2733,8 +2734,7 @@ void CMSLumi(TCanvas *& canv, const Int_t iPosX, const Int_t tev, const Double_t
   TString extraText      = "Preliminary";
   Double_t extraTextFont = 52;  // default is helvetica-italics
 
-  TString lumiText = Form("#sqrt{s} = %2i TeV, L = %3.2f pb^{-1}",tev,lumi); 
-  //  TString lumiText = "#sqrt{s} = 5.02 TeV, L = 0.258 pb^{-1}"; // just do by hand instead of rewriting this 
+  TString lumiText = Form("%3.2f pb^{-1} (%2i TeV)",lumi,tev); 
   
   // text sizes and text offsets with respect to the top frame
   // in unit of the top margin size
