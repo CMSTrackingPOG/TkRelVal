@@ -9,7 +9,7 @@ full=${5:false} # if true, do all plots, otherwise, just essential plots
 
 refFile=$(ls *"${run}"*"${sample}"*"${rel_old}"*)
 newFile=$(ls *"${run}"*"${sample}"*"${rel_new}"*)
-#release=CMSSW_8_0_7_HLTnewcond_vs_PRref_"${run}"_"${sample}"
+#release=CMSSW_808p1_HLTnewcond_vs_HLTref_"${run}"_"${sample}"
 release=CMSSW_"${rel_new}"_vs_"${rel_old}"_"${run}"_"${sample}"
 
 directory=/afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}
