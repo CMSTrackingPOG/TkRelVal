@@ -34,7 +34,7 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2,
   pos2 = fileName2.find("-GR");
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.find("-76X");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.find("-80X");  
-  if (pos2 == -1 || pos2<pos1) pos2 = fileName1.find("-81X");  
+  if (pos2 == -1 || pos2<pos1) pos2 = fileName2.find("-81X");  
   std::string relString2 = fileName2.substr (pos1,pos2-pos1);
   TFile *file2 = TFile::Open(fileName2.c_str());
   std::cout << "Getting histos for run number... " << runString2 
@@ -960,7 +960,7 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2,
     createTH1FPlot("SeedEta_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedPhi_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedPt_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTH1FPlot("NumberOfTrackCandidates_detachedTripletStepTrackCandidates_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lum
+    createTH1FPlot("NumberOfTrackCandidates_detachedTripletStepTrackCandidates_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("TrackCandEta_detachedTripletStepTrackCandidates_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("TrackCandPhi_detachedTripletStepTrackCandidates_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("TrackCandPt_detachedTripletStepTrackCandidates_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
@@ -1496,14 +1496,14 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
   histV1->SetLineColor(kBlue); // h1 is ref ...originally was red... switched to match MC comparisons
   histV1->SetMarkerColor(kBlue); // h1 is ref ...originally was red... switched to match MC comparisons
   histV1->SetMaximum(max); // just to get all points to show up
-  histV1->Sumw2();
+  if (histV1->GetSumw2() == (TArrayD*) NULL) histV1->Sumw2();
 
   histV2->GetXaxis()->SetTitleSize(0.0);
   histV2->SetLineWidth(2);
   histV2->SetLineStyle(1);
   histV2->SetLineColor(kRed); // h2 is new ... ogirinally was blue --> switched to match MC 
   histV2->SetMarkerColor(kRed); // h2 is new ... ogirinally was blue --> switched to match MC 
-  histV2->Sumw2();
+  if (histV2->GetSumw2() == (TArrayD*) NULL) histV2->Sumw2();
 
   if (!isHist1) { // only plot hist1 in case of missing hists
     histV1->SetLineColor(kRed);

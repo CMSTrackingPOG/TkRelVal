@@ -33,7 +33,7 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2,
   pos2 = fileName2.find("-GR");
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.find("-76X");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.find("-80X");  
-  if (pos2 == -1 || pos2<pos1) pos2 = fileName1.find("-81X");  
+  if (pos2 == -1 || pos2<pos1) pos2 = fileName2.find("-81X");  
   std::string relString2 = fileName2.substr (pos1,pos2-pos1);
   TFile *file2 = TFile::Open(fileName2.c_str());
   std::cout << "Getting histos for run number... " << runString2 
@@ -58,7 +58,7 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2,
 
   TString tempname1 = "DQMData/Run ";
   tempname1.Append(runString1);
-  tempname1.Append("/Tracking/Run summary/TrackParameters/generalTracks/GeneralProperties/NumberOfTracks_CosmicTk");
+  tempname1.Append("/Tracking/Run summary/TrackParameters/GeneralProperties/NumberOfTracks_CosmicTk");
 
   TH1F * hNormTempV1   = (TH1F*)file1->Get(tempname1.Data());
   Double_t V1_integral = hNormTempV1->GetEntries();
@@ -66,7 +66,7 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2,
 
   TString tempname2 = "DQMData/Run ";
   tempname2.Append(runString2);
-  tempname2.Append("/Tracking/Run summary/TrackParameters/generalTracks/GeneralProperties/NumberOfTracks_CosmicTk");
+  tempname2.Append("/Tracking/Run summary/TrackParameters/GeneralProperties/NumberOfTracks_CosmicTk");
 
   TH1F * hNormTempV2 = (TH1F*)file2->Get(tempname2.Data());
   Double_t V2_integral = hNormTempV2->GetEntries();
@@ -93,34 +93,33 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2,
     createTH1FPlot("Chi2", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
     createTH1FPlot("Chi2oNDF", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
     createTH1FPlot("FractionOfGoodTracks", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
-    createTH1FPlot("DistanceOfClosestApproachToBS", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
     createTH1FPlot("NumberOfMeanLayersPerTrack", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
     createTH1FPlot("NumberOfMeanRecHitsPerTrack", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
     createTH1FPlot("NumberOfTracks", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
-    createTH1FPlot("TrackEtaErr_ImpactPoint", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
-    createTH1FPlot("TrackEta_ImpactPoint", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
-    createTH1FPlot("TrackPErrOverP_ImpactPoint", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
-    createTH1FPlot("TrackP_ImpactPoint", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
-    createTH1FPlot("TrackPhiErr_ImpactPoint", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
-    createTH1FPlot("TrackPhi_ImpactPoint", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
-    createTH1FPlot("TrackPtErrOverPt_ImpactPoint", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
-    createTH1FPlot("TrackPt_ImpactPoint", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
-    createTH1FPlot("TrackPzErrOverPz_ImpactPoint", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
-    createTH1FPlot("TrackPz_ImpactPoint", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
-    createTH1FPlot("TrackQ_ImpactPoint", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
+    createTH1FPlot("TrackEtaErr", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
+    createTH1FPlot("TrackEta", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
+    createTH1FPlot("TrackPErrOverP", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
+    createTH1FPlot("TrackP", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
+    createTH1FPlot("TrackPhiErr", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
+    createTH1FPlot("TrackPhi", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
+    createTH1FPlot("TrackPtErrOverPt", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
+    createTH1FPlot("TrackPt", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
+    createTH1FPlot("TrackPzErrOverPz", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
+    createTH1FPlot("TrackPz", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
+    createTH1FPlot("TrackQ", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
     createTH1FPlot("algorithm", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
     createTH1FPlot("originalAlgorithm", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);  
     createTH1FPlot("stoppingSource", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
 
     // TProfile Plots
     if (full) {
-      createTProfPlot("NumberOfLayersPerTrackVsEta_ImpactPoint", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
-      createTProfPlot("NumberOfLayersPerTrackVsPhi_ImpactPoint", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
-      createTProfPlot("NumberOfRecHitsPerTrackVsEta_ImpactPoint", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
-      createTProfPlot("NumberOfRecHitsPerTrackVsPhi_ImpactPoint", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
-      createTProfPlot("NumberOfValidRecHitsPerTrackVsEta_ImpactPoint", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
-      createTProfPlot("NumberOfValidRecHitsPerTrackVsPhi_ImpactPoint", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
-      createTProfPlot("TrackPtErrOverPtVsEta_ImpactPoint", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
+      createTProfPlot("NumberOfLayersPerTrackVsEta", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
+      createTProfPlot("NumberOfLayersPerTrackVsPhi", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
+      createTProfPlot("NumberOfRecHitsPerTrackVsEta", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
+      createTProfPlot("NumberOfRecHitsPerTrackVsPhi", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
+      createTProfPlot("NumberOfValidRecHitsPerTrackVsEta", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
+      createTProfPlot("NumberOfValidRecHitsPerTrackVsPhi", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
+      createTProfPlot("TrackPtErrOverPtVsEta", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
     }
   }
 
@@ -168,8 +167,8 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2,
     if      (i == 0) extra = "_global";
     else if (i == 1) extra = "_tracker";
 
-    createTH1FPlot("dCurvAbsoluteResiduals", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
-    createTH1FPlot("dCurvNormalizedResiduals", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
+    createTH1FPlot("dcurvAbsoluteResiduals", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
+    createTH1FPlot("dcurvNormalizedResiduals", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
     createTH1FPlot("ddxyAbsoluteResiduals", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
     createTH1FPlot("ddxyNormalizedResiduals", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
     createTH1FPlot("ddzAbsoluteResiduals", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
@@ -473,14 +472,14 @@ bool createTH1FPlot(const TString hname, const TString extra, const TString dirn
   histV1->SetLineColor(kBlue); // h1 is ref ...originally was red... switched to match MC comparisons
   histV1->SetMarkerColor(kBlue); // h1 is ref ...originally was red... switched to match MC comparisons
   histV1->SetMaximum(max); // just to get all points to show up
-  histV1->Sumw2();
+  if (histV1->GetSumw2() == (TArrayD*) NULL) histV1->Sumw2();
 
   histV2->GetXaxis()->SetTitleSize(0.0);
   histV2->SetLineWidth(2);
   histV2->SetLineStyle(1);
   histV2->SetLineColor(kRed); // h2 is new ... ogirinally was blue --> switched to match MC 
   histV2->SetMarkerColor(kRed); // h2 is new ... ogirinally was blue --> switched to match MC 
-  histV2->Sumw2();
+  if (histV2->GetSumw2() == (TArrayD*) NULL) histV2->Sumw2();
 
   if (!isHist1) { // only plot hist1 in case of missing hists
     histV1->SetLineColor(kRed);
@@ -632,7 +631,7 @@ bool createTH1FPlot(const TString hname, const TString extra, const TString dirn
 
   //++++++++++++++++++++ Define filename, change filename output if necessary +++++++++++++++++++//
 
-  TString filename = hname;
+  TString filename = hname+extra;
   if (dirname.Contains("TrackBuilding",TString::kExact) ){
     TString replacestr  = "_combinedP5SeedsForCTF";
     Ssiz_t  length      = replacestr.Length();
@@ -933,14 +932,14 @@ bool createTProfPlot(const TString hname, const TString extra, const TString dir
   histV1->SetLineColor(kBlue); // h1 is ref ...originally was red... switched to match MC comparisons
   histV1->SetMarkerColor(kBlue); // h1 is ref ...originally was red... switched to match MC comparisons
   histV1->SetMaximum(max); // just to get all points to show up
-  histV1->Sumw2();
+  if (histV1->GetSumw2() == (TArrayD*) NULL) histV1->Sumw2();
 
   histV2->GetXaxis()->SetTitleSize(0.0);
   histV2->SetLineWidth(2);
   histV2->SetLineStyle(1);
   histV2->SetLineColor(kRed); // h2 is new ... ogirinally was blue --> switched to match MC 
   histV2->SetMarkerColor(kRed); // h2 is new ... ogirinally was blue --> switched to match MC 
-  histV2->Sumw2();
+  if (histV2->GetSumw2() == (TArrayD*) NULL) histV2->Sumw2();
 
   if (!isHist1) { // only plot hist1 in case of missing hists
     histV1->SetLineColor(kRed);
@@ -1092,7 +1091,7 @@ bool createTProfPlot(const TString hname, const TString extra, const TString dir
 
   //++++++++++++++++++++ Define filename, change filename output if necessary +++++++++++++++++++//
 
-  TString filename = hname;
+  TString filename = hname+extra;
   if (dirname.Contains("TrackBuilding",TString::kExact) ){
     TString replacestr  = "_combinedP5SeedsForCTF";
     Ssiz_t  length      = replacestr.Length();
