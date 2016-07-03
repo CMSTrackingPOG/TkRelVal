@@ -5,9 +5,9 @@ web="https://cmsdoc.cern.ch/Physics/tracking/validation/DATA"
 
 printf "<html>\n" > index.html               
 #printf "     <body text=\"#000000\" bgcolor=\"#FFFFFF\" link=\"#FFFF00\" vlink=\"#FF00FF\">\n" >> index.html  
-printf "  <title>%s Validation</title>\n" ${release} >> index.html
+printf "  <title>%s Collisions Validation</title>\n" ${release} >> index.html
 printf "     <body>\n" >> index.html  
-printf "        <h2> %s Validation </h2>\n" ${release} >> index.html
+printf "        <h2>%s Collisions Validation </h2>\n" ${release} >> index.html
 printf "           <ul>\n" >> index.html
 printf "              <li/><a href=\"%s/%s/genTks\">General Tracks Plots</a>\n" ${web} ${release} >> index.html
 printf "              <li/><a href=\"%s/%s/HPTks_0to1\">High Purity (0 < pT < 1 GeV) Tracks Plots</a>\n" ${web} ${release} >> index.html

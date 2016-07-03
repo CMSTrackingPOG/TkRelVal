@@ -119,7 +119,7 @@ do
     for scale in lin log
     do 
 	cd ${directory}/PV_HPTks/${subdir}_${scale}
-	../../../diow.pl -t "${release} Tracking PV HP Tracks, 0 < pT < 1 GeV ${subdir} Validation (${scale})" -c 3 -icon 200    
+	../../../diow.pl -t "${release} Tracking PV HP Tracks, 0 < pT < 1 GeV ${subdir} Collisions Validation (${scale})" -c 3 -icon 200    
 	cd --
     done
 done
@@ -129,7 +129,7 @@ do
     for scale in lin log
     do 
 	cd ${directory}/SiStrip/${subdir}_${scale}
-	../../../diow.pl -t "${release} SiStrip ${subdir} Validation (${scale})" -c 3 -icon 200    
+	../../../diow.pl -t "${release} SiStrip ${subdir} Collisions Validation (${scale})" -c 3 -icon 200    
 	cd --
     done
 done
@@ -139,7 +139,7 @@ do
     for scale in lin log
     do 
 	cd ${directory}/genTks/${subdir}_${scale}
-	../../../diow.pl -t "${release} genTks ${subdir} Validation (${scale})" -c 3 -icon 200  
+	../../../diow.pl -t "${release} genTks ${subdir} Collisions Validation (${scale})" -c 3 -icon 200  
 	cd --
     done
 done
@@ -149,7 +149,7 @@ do
     for scale in lin log
     do 
 	cd ${directory}/HPTks_0to1/${subdir}_${scale}
-	../../../diow.pl -t "${release} HPTks, 0 < pT < 1 GeV ${subdir} Validation (${scale})" -c 3 -icon 200 
+	../../../diow.pl -t "${release} HPTks, 0 < pT < 1 GeV ${subdir} Collisions Validation (${scale})" -c 3 -icon 200 
 	cd --
     done
 done
@@ -159,7 +159,7 @@ do
     for scale in lin log
     do 
 	cd ${directory}/HPTks_gt1/${subdir}_${scale}
-	../../../diow.pl -t "${release} HPTks, pT > 1 GeV ${subdir} Validation (${scale})" -c 3 -icon 200 
+	../../../diow.pl -t "${release} HPTks, pT > 1 GeV ${subdir} Collisions Validation (${scale})" -c 3 -icon 200 
 	cd --
     done
 done
@@ -169,7 +169,7 @@ do
     for scale in lin log
     do 
 	cd ${directory}/dEdx/${subdir}_${scale}
-	../../../diow.pl -t "${release} dEdx ${subdir} Validation (${scale})" -c 3 -icon 200                 
+	../../../diow.pl -t "${release} dEdx ${subdir} Collisions Validation (${scale})" -c 3 -icon 200                 
 	cd --
     done
 done
@@ -179,7 +179,7 @@ do
     for scale in lin log
     do 
 	cd ${directory}/OfflinePV/${subdir}_${scale}
-	../../../diow.pl -t "${release} OfflinePV ${subdir} Validation (${scale})" -c 3 -icon 200  
+	../../../diow.pl -t "${release} OfflinePV ${subdir} Collisions Validation (${scale})" -c 3 -icon 200  
 	cd --
     done
 done
@@ -189,7 +189,7 @@ do
     for scale in lin log
     do 
 	cd ${directory}/PackCand/${subdir}_${scale}
-	../../../diow.pl -t "${release} Packed Candidate ${subdir} Validation (${scale})" -c 3 -icon 200
+	../../../diow.pl -t "${release} Packed Candidate ${subdir} Collisions Validation (${scale})" -c 3 -icon 200
 	cd --
     done
 done
