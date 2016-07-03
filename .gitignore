@@ -24,3 +24,6 @@
 
 #user defined
 RunComparison/
+
+#temp files
+*~
