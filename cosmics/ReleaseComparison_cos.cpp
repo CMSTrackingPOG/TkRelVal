@@ -1,6 +1,6 @@
 #include "ReleaseComparison_cos.hh"
 
-void V1_V2_trkComparison(const string fileName1, const string fileName2, 
+void V1_V2_trkComparison(const TString fileName1, const TString fileName2, 
 			 const TString directory, const bool full) {
   TStyle *tdrStyle = new TStyle("tdrStyle","Style for P-TDR");
   setTDRStyle(tdrStyle);
@@ -12,34 +12,34 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2,
   gROOT->ForceStyle();
 
   // fileName1 --> REFERENCE
-  int pos = fileName1.find("_R0");
-  std::string runString1 = fileName1.substr (pos+5,6);
-  int pos1 = fileName1.find("CMSSW")+6;
-  int pos2 = fileName1.find("-GR");
-  if (pos2 == -1 || pos2<pos1) pos2 = fileName1.find("-76X");
-  if (pos2 == -1 || pos2<pos1) pos2 = fileName1.find("-80X");
-  if (pos2 == -1 || pos2<pos1) pos2 = fileName1.find("-81X");
-  std::string relString1 = fileName1.substr (pos1,pos2-pos1); 
-  TFile *file1 = TFile::Open(fileName1.c_str());
-  std::cout << "Getting histos for run number... " << runString1 
-	    <<" for release " << relString1 << std::endl;  
+  Int_t pos = fileName1.Index("_R0");
+  TString runString1(fileName1(pos+5,6));
+  Int_t pos1 = fileName1.Index("CMSSW")+6;
+  Int_t pos2 = fileName1.Index("-GR");
+  if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-76X");
+  if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-80X");
+  if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-81X");
+  TString relString1(fileName1(pos1,pos2-pos1)); 
+  TFile *file1 = TFile::Open(fileName1.Data());
+  std::cout << "Getting histos for run number... " << runString1.Data()
+	    <<" for release " << relString1.Data() << std::endl;  
   if ( file1->IsZombie() )
-    std::cout << "File: " << fileName1 << " cannot be opened!" << std::endl;
+    std::cout << "File: " << fileName1.Data() << " cannot be opened!" << std::endl;
 
   // fileName2 --> NEW
-  pos = fileName2.find("_R0");
-  std::string runString2 = fileName2.substr (pos+5,6);
-  pos1 = fileName2.find("CMSSW")+6;
-  pos2 = fileName2.find("-GR");
-  if (pos2 == -1 || pos2<pos1) pos2 = fileName2.find("-76X");  
-  if (pos2 == -1 || pos2<pos1) pos2 = fileName2.find("-80X");  
-  if (pos2 == -1 || pos2<pos1) pos2 = fileName2.find("-81X");  
-  std::string relString2 = fileName2.substr (pos1,pos2-pos1);
-  TFile *file2 = TFile::Open(fileName2.c_str());
-  std::cout << "Getting histos for run number... " << runString2 
-    	    <<" for release " << relString2 << std::endl;  
+  pos = fileName2.Index("_R0");
+  TString runString2(fileName2(pos+5,6));
+  pos1 = fileName2.Index("CMSSW")+6;
+  pos2 = fileName2.Index("-GR");
+  if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-76X");  
+  if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-80X");  
+  if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-81X");  
+  TString relString2(fileName2(pos1,pos2-pos1));
+  TFile *file2 = TFile::Open(fileName2.Data());
+  std::cout << "Getting histos for run number... " << runString2.Data()
+    	    <<" for release " << relString2.Data() << std::endl;  
   if ( file2->IsZombie() )
-    std::cout << "File: " << fileName2 << " cannot be opened!" << std::endl;
+    std::cout << "File: " << fileName2.Data() << " cannot be opened!" << std::endl;
 
   //================= Print CMS Lumi on these guys =================//
 
@@ -47,8 +47,8 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2,
   Int_t    year = 0;
 
   // hack in cosmics
-  if      (atoi(runString1.c_str()) == 256259){magB = 0.0; year = 2015;} // 2015C cosmics
-  else if (atoi(runString1.c_str()) == 272133){magB = 3.8; year = 2016;} // 2016B cosmics
+  if      (atoi(runString1.Data()) == 256259){magB = 0.0; year = 2015;} // 2015C cosmics
+  else if (atoi(runString1.Data()) == 272133){magB = 3.8; year = 2016;} // 2016B cosmics
 
   //====================== Make master canvas  ======================// 
   TCanvas *canvas = new TCanvas("master canv","");

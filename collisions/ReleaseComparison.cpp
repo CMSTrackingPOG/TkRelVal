@@ -1,6 +1,6 @@
 #include "ReleaseComparison.hh"
 
-void V1_V2_trkComparison(const string fileName1, const string fileName2, 
+void V1_V2_trkComparison(const TString fileName1, const TString fileName2, 
 			 const TString directory, const bool full) {
   TStyle *tdrStyle = new TStyle("tdrStyle","Style for P-TDR");
   setTDRStyle(tdrStyle);
@@ -12,35 +12,35 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2,
   gROOT->ForceStyle();
 
   // fileName1 --> REFERENCE
-  int pos = fileName1.find("_R0");
-  std::string runString1 = fileName1.substr (pos+5,6);
-  int pos1 = fileName1.find("CMSSW")+6;
-  int pos2 = fileName1.find("-GR");
-  if (pos2 == -1 || pos2<pos1) pos2 = fileName1.find("-76X");
-  if (pos2 == -1 || pos2<pos1) pos2 = fileName1.find("-80X");
-  if (pos2 == -1 || pos2<pos1) pos2 = fileName1.find("-81X");
-  std::string relString1 = fileName1.substr (pos1,pos2-pos1); 
-  TFile *file1 = TFile::Open(fileName1.c_str());
-  std::cout << "Getting histos for run number... " << runString1 
-	    <<" for release " << relString1 << std::endl;  
+  Int_t pos = fileName1.Index("_R0");
+  TString runString1(fileName1(pos+5,6));
+  Int_t pos1 = fileName1.Index("CMSSW")+6;
+  Int_t pos2 = fileName1.Index("-GR");
+  if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-76X");
+  if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-80X");
+  if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-81X");
+  TString relString1(fileName1(pos1,pos2-pos1)); 
+  TFile *file1 = TFile::Open(fileName1.Data());
+  std::cout << "Getting histos for run number... " << runString1.Data() 
+	    <<" for release " << relString1.Data() << std::endl;  
   if ( file1->IsZombie() )
-    std::cout << "File: " << fileName1 << " cannot be opened!" << std::endl;
+    std::cout << "File: " << fileName1.Data() << " cannot be opened!" << std::endl;
   //  relString1 = "HLTref";
 
   // fileName2 --> NEW
-  pos = fileName2.find("_R0");
-  std::string runString2 = fileName2.substr (pos+5,6);
-  pos1 = fileName2.find("CMSSW")+6;
-  pos2 = fileName2.find("-GR");
-  if (pos2 == -1 || pos2<pos1) pos2 = fileName2.find("-76X");  
-  if (pos2 == -1 || pos2<pos1) pos2 = fileName2.find("-80X");  
-  if (pos2 == -1 || pos2<pos1) pos2 = fileName2.find("-81X");  
-  std::string relString2 = fileName2.substr (pos1,pos2-pos1);
-  TFile *file2 = TFile::Open(fileName2.c_str());
-  std::cout << "Getting histos for run number... " << runString2 
-    	    <<" for release " << relString2 << std::endl;  
+  pos = fileName2.Index("_R0");
+  TString runString2(fileName2(pos+5,6));
+  pos1 = fileName2.Index("CMSSW")+6;
+  pos2 = fileName2.Index("-GR");
+  if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-76X");  
+  if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-80X");  
+  if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-81X");  
+  TString relString2(fileName2(pos1,pos2-pos1));
+  TFile *file2 = TFile::Open(fileName2.Data());
+  std::cout << "Getting histos for run number... " << runString2.Data() 
+    	    <<" for release " << relString2.Data() << std::endl;  
   if ( file2->IsZombie() )
-    std::cout << "File: " << fileName2 << " cannot be opened!" << std::endl;
+    std::cout << "File: " << fileName2.Data() << " cannot be opened!" << std::endl;
   //  relString2 = "HLTnewcond";
 
   //================= Print CMS Lumi on these guys =================//
@@ -48,29 +48,30 @@ void V1_V2_trkComparison(const string fileName1, const string fileName2,
   Double_t lumi = 0;
   Int_t    tev = 0;
 
-  if      (atoi(runString1.c_str()) == 191226){lumi = 93.58;  tev = 8;} // 2012A
-  else if (atoi(runString1.c_str()) == 208307){lumi = 122.79; tev = 8;} // 2012D
+  if      (atoi(runString1.Data()) == 191226){lumi = 93.58;  tev = 8;} // 2012A
+  else if (atoi(runString1.Data()) == 208307){lumi = 122.79; tev = 8;} // 2012D
 
   // Moriond 2016
-  else if (atoi(runString1.c_str()) == 251251){lumi = 0.92;   tev = 13;} // 50ns, 3.8T, Run 2015B 
-  else if (atoi(runString1.c_str()) == 251643){lumi = 15.29;  tev = 13;} // 50ns, 3.8T, Run 2015B 
-  else if (atoi(runString1.c_str()) == 251721){lumi = 1.12;   tev = 13;} // 50ns, 3.8T, Run 2015B low PU
+  else if (atoi(runString1.Data()) == 251251){lumi = 0.92;   tev = 13;} // 50ns, 3.8T, Run 2015B 
+  else if (atoi(runString1.Data()) == 251643){lumi = 15.29;  tev = 13;} // 50ns, 3.8T, Run 2015B 
+  else if (atoi(runString1.Data()) == 251721){lumi = 1.12;   tev = 13;} // 50ns, 3.8T, Run 2015B low PU
 
-  else if (atoi(runString1.c_str()) == 254790){lumi = 11.33;  tev = 13;} // 25ns, 3.8T, Run 2015C
-  else if (atoi(runString1.c_str()) == 254879){lumi = 1.80;   tev = 13;} // 25ns, 3.8T, Run 2015C
-  else if (atoi(runString1.c_str()) == 256677){lumi = 16.21;  tev = 13;} // 25ns, 3.8T, Run 2015D
-  else if (atoi(runString1.c_str()) == 256869){lumi = 1.61;   tev = 13;} // 25ns, 3.8T, Run 2015D
-  else if (atoi(runString1.c_str()) == 257490){lumi = 32.44;  tev = 13;} // 25ns, 3.8T, Run 2015D Silver JSON
-  else if (atoi(runString1.c_str()) == 258742){lumi = 65.37;  tev = 13;} // 25ns, 3.8T, Run 2015D
-  else if (atoi(runString1.c_str()) == 259686){lumi = 27.37;  tev = 13;} // 25ns, 3.8T, Run 2015D
-  else if (atoi(runString1.c_str()) == 260627){lumi = 178.93; tev = 13;} // 25ns, 3.8T, Run 2015D
-  else if (atoi(runString1.c_str()) == 262205){lumi = 0.26;   tev = 5.02;} // HI reference run (pp collisions), B=3.8T
+  else if (atoi(runString1.Data()) == 254790){lumi = 11.33;  tev = 13;} // 25ns, 3.8T, Run 2015C
+  else if (atoi(runString1.Data()) == 254879){lumi = 1.80;   tev = 13;} // 25ns, 3.8T, Run 2015C
+  else if (atoi(runString1.Data()) == 256677){lumi = 16.21;  tev = 13;} // 25ns, 3.8T, Run 2015D
+  else if (atoi(runString1.Data()) == 256869){lumi = 1.61;   tev = 13;} // 25ns, 3.8T, Run 2015D
+  else if (atoi(runString1.Data()) == 257490){lumi = 32.44;  tev = 13;} // 25ns, 3.8T, Run 2015D Silver JSON
+  else if (atoi(runString1.Data()) == 258742){lumi = 65.37;  tev = 13;} // 25ns, 3.8T, Run 2015D
+  else if (atoi(runString1.Data()) == 259686){lumi = 27.37;  tev = 13;} // 25ns, 3.8T, Run 2015D
+  else if (atoi(runString1.Data()) == 260627){lumi = 178.93; tev = 13;} // 25ns, 3.8T, Run 2015D
+  else if (atoi(runString1.Data()) == 262205){lumi = 0.26;   tev = 5.02;} // HI reference run (pp collisions), B=3.8T
 
-  else if (atoi(runString1.c_str()) == 269598){lumi = 0.00;  tev = 13;} // 2016A data, 25ns, 0T 
-  else if (atoi(runString1.c_str()) == 272930){lumi = 3.48;  tev = 13;} // 2016A data, 25ns, 3.8T
-  else if (atoi(runString1.c_str()) == 273503){lumi = 24.55; tev = 13;} // 2016B data, 25ns, 3.8T
-  else if (atoi(runString1.c_str()) == 274160){lumi = 17.27; tev = 13;} // 2016B data, 25ns, 3.8T
-  else if (atoi(runString1.c_str()) == 274199){lumi = 63.25; tev = 13;} // 2016B data, 25ns, 3.8T
+  else if (atoi(runString1.Data()) == 269598){lumi = 0.00;  tev = 13;} // 2016A data, 25ns, 0T 
+  else if (atoi(runString1.Data()) == 272930){lumi = 3.48;  tev = 13;} // 2016A data, 25ns, 3.8T
+  else if (atoi(runString1.Data()) == 273503){lumi = 24.55; tev = 13;} // 2016B data, 25ns, 3.8T
+  else if (atoi(runString1.Data()) == 274160){lumi = 17.27; tev = 13;} // 2016B data, 25ns, 3.8T
+  else if (atoi(runString1.Data()) == 274199){lumi = 63.25; tev = 13;} // 2016B data, 25ns, 3.8T
+  else if (atoi(runString1.Data()) == 276458){lumi = 32.15; tev = 13;} // 2016C data, 25ns, 3.8T
 
   //====================== Make master canvas  ======================// 
   TCanvas *canvas = new TCanvas("master canv","");

@@ -1,8 +1,5 @@
 #include <vector>
-#include <string>
 #include <iostream>
-#include <sstream>
-#include <fstream>
 
 #include "TROOT.h"
 #include "TFile.h"
@@ -13,12 +10,11 @@
 #include "TLegend.h"
 #include "TPaveStats.h"
 #include "TLine.h"
-
 #include "TStyle.h"
 #include "TString.h"
 #include "TLatex.h"
 
-void V1_V2_trkComparison(const string fileName1, const string fileName2, 
+void V1_V2_trkComparison(const TString fileName1, const TString fileName2, 
 			 const TString directory, const bool full);
 void CMSLumi(TCanvas *& canv, const Int_t iPosX, const Int_t year, const Double_t magB);
 bool createTH1FPlot (const TString hname, const TString extra, const TString dirname,
