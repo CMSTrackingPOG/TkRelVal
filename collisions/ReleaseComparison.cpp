@@ -25,7 +25,7 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
 	    <<" for release " << relString1.Data() << std::endl;  
   if ( file1->IsZombie() )
     std::cout << "File: " << fileName1.Data() << " cannot be opened!" << std::endl;
-  //  relString1 = "HLTref";
+  //  relString1 = "PRref";
 
   // fileName2 --> NEW
   pos = fileName2.Index("_R0");
@@ -1497,14 +1497,16 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
   histV1->SetLineColor(kBlue); // h1 is ref ...originally was red... switched to match MC comparisons
   histV1->SetMarkerColor(kBlue); // h1 is ref ...originally was red... switched to match MC comparisons
   histV1->SetMaximum(max); // just to get all points to show up
-  if (histV1->GetSumw2() == (TArrayD*) NULL) histV1->Sumw2();
+  //  if (histV1->GetSumw2() == (TArrayD*) NULL) histV1->Sumw2();
+  histV1->Sumw2();
 
   histV2->GetXaxis()->SetTitleSize(0.0);
   histV2->SetLineWidth(2);
   histV2->SetLineStyle(1);
   histV2->SetLineColor(kRed); // h2 is new ... ogirinally was blue --> switched to match MC 
   histV2->SetMarkerColor(kRed); // h2 is new ... ogirinally was blue --> switched to match MC 
-  if (histV2->GetSumw2() == (TArrayD*) NULL) histV2->Sumw2();
+  //  if (histV2->GetSumw2() == (TArrayD*) NULL) histV2->Sumw2();
+  histV2->Sumw2();
 
   if (!isHist1) { // only plot hist1 in case of missing hists
     histV1->SetLineColor(kRed);
