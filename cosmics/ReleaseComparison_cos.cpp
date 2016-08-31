@@ -113,13 +113,13 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
 
     // TProfile Plots
     if (full) {
-      createTProfPlot("NumberOfLayersPerTrackVsEta", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
-      createTProfPlot("NumberOfLayersPerTrackVsPhi", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
-      createTProfPlot("NumberOfRecHitsPerTrackVsEta", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
-      createTProfPlot("NumberOfRecHitsPerTrackVsPhi", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
-      createTProfPlot("NumberOfValidRecHitsPerTrackVsEta", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
-      createTProfPlot("NumberOfValidRecHitsPerTrackVsPhi", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
-      createTProfPlot("TrackPtErrOverPtVsEta", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
+      createTProfPlot("NumberOfLayersPerTrackVsEta", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, magB, year);
+      createTProfPlot("NumberOfLayersPerTrackVsPhi", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, magB, year);
+      createTProfPlot("NumberOfRecHitsPerTrackVsEta", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, magB, year);
+      createTProfPlot("NumberOfRecHitsPerTrackVsPhi", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, magB, year);
+      createTProfPlot("NumberOfValidRecHitsPerTrackVsEta", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, magB, year);
+      createTProfPlot("NumberOfValidRecHitsPerTrackVsPhi", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, magB, year);
+      createTProfPlot("TrackPtErrOverPtVsEta", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, magB, year);
     }
   }
 
@@ -153,8 +153,8 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
     outdir  = directory+"/PU";
     extra   = "";
 
-    createTProfPlot("NumberOfTracksVsGoodPVtx", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
-    createTProfPlot("NumberOfTracksVsPUPVtx", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
+    createTProfPlot("NumberOfTracksVsGoodPVtx", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, magB, year);
+    createTProfPlot("NumberOfTracksVsPUPVtx", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, magB, year);
   }
 
   /////////////////////////////////////////
@@ -202,8 +202,8 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
     createTH1FPlot("SeedTheta_combinedP5SeedsForCTF", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
     
     if (full) {
-      createTProfPlot("NumberOfRecHitsPerSeedVsEtaProfile_combinedP5SeedsForCTF", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
-      createTProfPlot("NumberOfRecHitsPerSeedVsPhiProfile_combinedP5SeedsForCTF", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, magB, year);
+      createTProfPlot("NumberOfRecHitsPerSeedVsEtaProfile_combinedP5SeedsForCTF", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, magB, year);
+      createTProfPlot("NumberOfRecHitsPerSeedVsPhiProfile_combinedP5SeedsForCTF", extra, dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, magB, year);
     }
   }
 
@@ -726,7 +726,7 @@ bool createTH1FPlot(const TString hname, const TString extra, const TString dirn
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-bool createTProfPlot(const TString hname, const TString extra, const TString dirname, TFile *& V1file, const TString runstring1, const TString relstring1, TFile *& V2file, const TString runstring2, const TString relstring2, TCanvas *& canvas, const Double_t V1_integral, const Double_t V2_integral, TString outdir, const Double_t magB, const Int_t year) {
+bool createTProfPlot(const TString hname, const TString extra, const TString dirname, TFile *& V1file, const TString runstring1, const TString relstring1, TFile *& V2file, const TString runstring2, const TString relstring2, TCanvas *& canvas, TString outdir, const Double_t magB, const Int_t year) {
 
   // ++++++++++++ Get name of histos and get histos +++++++++++++ //
   
@@ -884,20 +884,6 @@ bool createTProfPlot(const TString hname, const TString extra, const TString dir
   //  Int_t range_upper = histV1->GetXaxis()->GetLast();
   //  histV1->GetXaxis()->SetRangeUser(1,range_upper);
   //  histV2->GetXaxis()->SetRangeUser(1,range_upper);
-
-  //+++++NORMALIZING V1-V2++++++++++++++++++++++++++++++++++++++++
-
-  if (isHist1 && isHist2) {
-    if (V1_integral>V2_integral) {
-      histV1->Scale(V2_integral / V1_integral); // scale down h1
-      histV2->Scale(1);
-    } 
-    else if (V2_integral>V1_integral) {
-      histV1->Scale(1);
-      histV2->Scale(V1_integral / V2_integral); // scale down h2
-    }
-  }
-  //+++++NORMALIZING V1-V2+end+++++++++++++++++++++++++++++++++++++++
 
   //++++++++++++++++++++ Settings for Histos +++++++++++++++++++//
 

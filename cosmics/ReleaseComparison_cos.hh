@@ -25,6 +25,5 @@ bool createTH1FPlot (const TString hname, const TString extra, const TString dir
 bool createTProfPlot(const TString hname, const TString extra, const TString dirname,
 		     TFile *& V1file, const TString runstring1, const TString relstring1, 
 		     TFile *& V2file, const TString runstring2, const TString relstring2, 
-		     TCanvas *& canvas, const Double_t V1_integral, const Double_t V2_integral, 
-		     TString outdir, const Double_t magB, const Int_t year);
+		     TCanvas *& canvas, TString outdir, const Double_t magB, const Int_t year);
 void setTDRStyle(TStyle *& tdrStyle);
