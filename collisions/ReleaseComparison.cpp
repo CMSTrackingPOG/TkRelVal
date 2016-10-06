@@ -25,7 +25,7 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
 	    <<" for release " << relString1.Data() << std::endl;  
   if ( file1->IsZombie() )
     std::cout << "File: " << fileName1.Data() << " cannot be opened!" << std::endl;
-  //  relString1 = "HLTref";
+  //  relString1 = "HLTrefer";
 
   // fileName2 --> NEW
   pos = fileName2.Index("_R0");
@@ -72,9 +72,11 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
   else if (atoi(runString1.Data()) == 274160){lumi = 17.27; tev = 13;} // 2016B data, 25ns, 3.8T
   else if (atoi(runString1.Data()) == 274199){lumi = 63.25; tev = 13;} // 2016B data, 25ns, 3.8T
   else if (atoi(runString1.Data()) == 275657){lumi = 16.67; tev = 13;} // 2016C data, 25ns, 3.8T
+  else if (atoi(runString1.Data()) == 276092){lumi = 14.00; tev = 13;} // 2016C data, 25ns, 3.8T
   else if (atoi(runString1.Data()) == 276458){lumi = 32.15; tev = 13;} // 2016D data, 25ns, 3.8T
   else if (atoi(runString1.Data()) == 278274){lumi = 18.15; tev = 13;} // 2016F data, 25ns, 3.8T
   else if (atoi(runString1.Data()) == 278963){lumi = 37.45; tev = 13;} // 2016G data, 25ns, 3.8T
+  else if (atoi(runString1.Data()) == 280349){lumi = 104.78; tev = 13;} // 2016G data, 25ns, 3.8T
 
   //====================== Make master canvas  ======================// 
   TCanvas *canvas = new TCanvas("master canv","");
@@ -1164,6 +1166,14 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
   createTH1FPlot("numberPixelHitsOverMax", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
   createTH1FPlot("numberStripHitsOverMax", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
   createTH1FPlot("selectionFlow", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  createTH1FPlot("diffNumberOfPixelLayers", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  createTH1FPlot("diffNumberOfStripLayers", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  createTH1FPlot("diffHitPatternTrackerLayersWithMeasurement", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  createTH1FPlot("diffHitPatternPixelLayersWithMeasurement", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  createTH1FPlot("diffHitPatternStripLayersWithMeasurement", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  createTH1FPlot("numberLayersOverMax", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  createTH1FPlot("numberPixelLayersOverMax", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  createTH1FPlot("numberStripLayersOverMax", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
 
   dirname = "/Tracking/Run summary/PackedCandidate/lostTracks";
   outdir  = directory+"/PackCand/LostTks";
@@ -1229,6 +1239,14 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
   createTH1FPlot("numberPixelHitsOverMax", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
   createTH1FPlot("numberStripHitsOverMax", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
   createTH1FPlot("selectionFlow", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  createTH1FPlot("diffNumberOfPixelLayers", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  createTH1FPlot("diffNumberOfStripLayers", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  createTH1FPlot("diffHitPatternTrackerLayersWithMeasurement", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  createTH1FPlot("diffHitPatternPixelLayersWithMeasurement", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  createTH1FPlot("diffHitPatternStripLayersWithMeasurement", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  createTH1FPlot("numberLayersOverMax", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  createTH1FPlot("numberPixelLayersOverMax", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  createTH1FPlot("numberStripLayersOverMax", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
 
   delete file1;
   delete file2;
