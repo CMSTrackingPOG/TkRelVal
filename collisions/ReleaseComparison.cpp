@@ -74,9 +74,14 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
   else if (atoi(runString1.Data()) == 275657){lumi = 16.67; tev = 13;} // 2016C data, 25ns, 3.8T
   else if (atoi(runString1.Data()) == 276092){lumi = 14.00; tev = 13;} // 2016C data, 25ns, 3.8T
   else if (atoi(runString1.Data()) == 276458){lumi = 32.15; tev = 13;} // 2016D data, 25ns, 3.8T
+  else if (atoi(runString1.Data()) == 277069){lumi = 76.49; tev = 13;} // 2016E data, 25ns, 3.8T
   else if (atoi(runString1.Data()) == 278274){lumi = 18.15; tev = 13;} // 2016F data, 25ns, 3.8T
   else if (atoi(runString1.Data()) == 278963){lumi = 37.45; tev = 13;} // 2016G data, 25ns, 3.8T
   else if (atoi(runString1.Data()) == 280349){lumi = 104.78; tev = 13;} // 2016G data, 25ns, 3.8T
+  else if (atoi(runString1.Data()) == 281797){lumi = 397.99; tev = 13;} // 2016H data, 25ns, 3.8T
+  else if (atoi(runString1.Data()) == 281975){lumi = 54.01; tev = 13;} // 2016H data, 25ns, 3.8T
+  else if (atoi(runString1.Data()) == 282731){lumi = 48.11; tev = 13;} // 2016H data, 25ns, 3.8T
+  else if (atoi(runString1.Data()) == 283685){lumi = 21.08; tev = 13;} // 2016H data, 25ns, 3.8T
 
   //====================== Make master canvas  ======================// 
   TCanvas *canvas = new TCanvas("master canv","");
