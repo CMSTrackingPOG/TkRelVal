@@ -74,6 +74,7 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
   else if (atoi(runString1.Data()) == 275657){lumi = 16.67; tev = 13;} // 2016C data, 25ns, 3.8T
   else if (atoi(runString1.Data()) == 276092){lumi = 14.00; tev = 13;} // 2016C data, 25ns, 3.8T
   else if (atoi(runString1.Data()) == 276458){lumi = 32.15; tev = 13;} // 2016D data, 25ns, 3.8T
+  else if (atoi(runString1.Data()) == 276807){lumi = 31.38; tev = 13;} // 2016D data, 25ns, 3.8T
   else if (atoi(runString1.Data()) == 277069){lumi = 76.49; tev = 13;} // 2016E data, 25ns, 3.8T
   else if (atoi(runString1.Data()) == 278274){lumi = 18.15; tev = 13;} // 2016F data, 25ns, 3.8T
   else if (atoi(runString1.Data()) == 278963){lumi = 37.45; tev = 13;} // 2016G data, 25ns, 3.8T
