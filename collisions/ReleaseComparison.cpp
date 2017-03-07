@@ -19,13 +19,14 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-76X");
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-80X");
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-81X");
+  if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-90X");
   TString relString1(fileName1(pos1,pos2-pos1)); 
   TFile *file1 = TFile::Open(fileName1.Data());
   std::cout << "Getting histos for run number... " << runString1.Data() 
 	    <<" for release " << relString1.Data() << std::endl;  
   if ( file1->IsZombie() )
     std::cout << "File: " << fileName1.Data() << " cannot be opened!" << std::endl;
-  //  relString1 = "HLTrefer";
+  relString1 = "PRref";
 
   // fileName2 --> NEW
   pos = fileName2.Index("_R0");
@@ -34,14 +35,15 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
   pos2 = fileName2.Index("-GR");
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-76X");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-80X");  
-  if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-81X");  
+  if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-81X");
+  if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-90X");  
   TString relString2(fileName2(pos1,pos2-pos1));
   TFile *file2 = TFile::Open(fileName2.Data());
   std::cout << "Getting histos for run number... " << runString2.Data() 
     	    <<" for release " << relString2.Data() << std::endl;  
   if ( file2->IsZombie() )
     std::cout << "File: " << fileName2.Data() << " cannot be opened!" << std::endl;
-  //  relString2 = "HLTnewco";
+  relString2 = "PRnewco";
 
   //================= Print CMS Lumi on these guys =================//
 
@@ -83,6 +85,9 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
   else if (atoi(runString1.Data()) == 281975){lumi = 54.01; tev = 13;} // 2016H data, 25ns, 3.8T
   else if (atoi(runString1.Data()) == 282731){lumi = 48.11; tev = 13;} // 2016H data, 25ns, 3.8T
   else if (atoi(runString1.Data()) == 283685){lumi = 21.08; tev = 13;} // 2016H data, 25ns, 3.8T
+  else if (atoi(runString1.Data()) == 283946){lumi = 306.16; tev = 13;} // 2016H data, 25ns, 3.8T
+
+  else {lumi = 0.0; tev = 0.0;}
 
   //====================== Make master canvas  ======================// 
   TCanvas *canvas = new TCanvas("master canv","");
@@ -867,7 +872,8 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
   // createTH1FPlot("Hits_valid_TOB_Subdet6", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
   
   // efficiencies
-
+  if (full)
+  {
   createTH1FPlot("effic_vs_PU_PXB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
   createTH1FPlot("effic_vs_PU_PXB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
   createTH1FPlot("effic_vs_PU_PXB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
@@ -895,12 +901,15 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
   createTH1FPlot("effic_vs_PU_TOB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
   createTH1FPlot("effic_vs_PU_TOB5", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
   createTH1FPlot("effic_vs_PU_TOB6", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  }
   createTH1FPlot("globalEfficiencies", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
 
   // HitEffFromHitPattern
   dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_1/HitEffFromHitPattern";
   outdir  = directory+"/HPTks_gt1/HitEff";
 
+  if (full)
+  {
   // efficiencies
   createTH1FPlot("effic_vs_PU_PXB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
   createTH1FPlot("effic_vs_PU_PXB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
@@ -929,6 +938,7 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
   createTH1FPlot("effic_vs_PU_TOB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
   createTH1FPlot("effic_vs_PU_TOB5", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
   createTH1FPlot("effic_vs_PU_TOB6", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  }
   createTH1FPlot("globalEfficiencies", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
 
   // Track building info --> count seeds in gen tracks
