@@ -16,11 +16,12 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
   TString runString1(fileName1(pos+5,6));
   Int_t pos1 = fileName1.Index("CMSSW")+6;
   Int_t pos2 = fileName1.Index("-GR");
-  if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-76X");
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-80X");
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-81X");
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-90X");
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-91X");
+  if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-92X");  
+  if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-93X");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-2016");
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-2017");
   TString relString1(fileName1(pos1,pos2-pos1)); 
@@ -36,11 +37,12 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
   TString runString2(fileName2(pos+5,6));
   pos1 = fileName2.Index("CMSSW")+6;
   pos2 = fileName2.Index("-GR");
-  if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-76X");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-80X");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-81X");
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-90X");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-91X");  
+  if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-92X");  
+  if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-93X");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-2016");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-2017");  
   TString relString2(fileName2(pos1,pos2-pos1));
@@ -49,32 +51,14 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
     	    <<" for release " << relString2.Data() << std::endl;  
   if ( file2->IsZombie() )
     std::cout << "File: " << fileName2.Data() << " cannot be opened!" << std::endl;
-  //  relString2 = "PRnewco";
+  //  relString2 = "HLTrefer";
   
   //================= Print CMS Lumi on these guys =================//
 
   Double_t lumi = 0;
   Int_t    tev = 0;
 
-  if      (atoi(runString1.Data()) == 191226){lumi = 93.58;  tev = 8;} // 2012A
-  else if (atoi(runString1.Data()) == 208307){lumi = 122.79; tev = 8;} // 2012D
-
-  // Moriond 2016
-  else if (atoi(runString1.Data()) == 251251){lumi = 0.92;   tev = 13;} // 50ns, 3.8T, Run 2015B 
-  else if (atoi(runString1.Data()) == 251643){lumi = 15.29;  tev = 13;} // 50ns, 3.8T, Run 2015B 
-  else if (atoi(runString1.Data()) == 251721){lumi = 1.12;   tev = 13;} // 50ns, 3.8T, Run 2015B low PU
-
-  else if (atoi(runString1.Data()) == 254790){lumi = 11.33;  tev = 13;} // 25ns, 3.8T, Run 2015C
-  else if (atoi(runString1.Data()) == 254879){lumi = 1.80;   tev = 13;} // 25ns, 3.8T, Run 2015C
-  else if (atoi(runString1.Data()) == 256677){lumi = 16.21;  tev = 13;} // 25ns, 3.8T, Run 2015D
-  else if (atoi(runString1.Data()) == 256869){lumi = 1.61;   tev = 13;} // 25ns, 3.8T, Run 2015D
-  else if (atoi(runString1.Data()) == 257490){lumi = 32.44;  tev = 13;} // 25ns, 3.8T, Run 2015D Silver JSON
-  else if (atoi(runString1.Data()) == 258742){lumi = 65.37;  tev = 13;} // 25ns, 3.8T, Run 2015D
-  else if (atoi(runString1.Data()) == 259686){lumi = 27.37;  tev = 13;} // 25ns, 3.8T, Run 2015D
-  else if (atoi(runString1.Data()) == 260627){lumi = 178.93; tev = 13;} // 25ns, 3.8T, Run 2015D
-  else if (atoi(runString1.Data()) == 262205){lumi = 0.26;   tev = 5.02;} // HI reference run (pp collisions), B=3.8T
-
-  else if (atoi(runString1.Data()) == 269598){lumi = 0.00;  tev = 13;} // 2016  data, 25ns, 0T 
+  if      (atoi(runString1.Data()) == 269598){lumi = 0.00;  tev = 13;} // 2016  data, 25ns, 0T 
   else if (atoi(runString1.Data()) == 272930){lumi = 3.48;  tev = 13;} // 2016A data, 25ns, 3.8T
   else if (atoi(runString1.Data()) == 273503){lumi = 24.55; tev = 13;} // 2016B data, 25ns, 3.8T
   else if (atoi(runString1.Data()) == 274160){lumi = 17.27; tev = 13;} // 2016B data, 25ns, 3.8T
@@ -93,7 +77,8 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
   else if (atoi(runString1.Data()) == 283685){lumi = 21.08; tev = 13;} // 2016H data, 25ns, 3.8T
   else if (atoi(runString1.Data()) == 283877){lumi = 248.88; tev = 13;} // 2016H data, 25ns, 3.8T
   else if (atoi(runString1.Data()) == 283946){lumi = 306.16; tev = 13;} // 2016H data, 25ns, 3.8T
-
+  else if (atoi(runString1.Data()) == 295613){lumi = 7.33;  tev = 13;} // 2017A data, 25ns, 3.8T
+  else if (atoi(runString1.Data()) == 297227){lumi = 22.77; tev = 13;} // 2017B data, 25ns, 3.8T
   else {lumi = 0.0; tev = 0.0;}
 
   //====================== Make master canvas  ======================// 
