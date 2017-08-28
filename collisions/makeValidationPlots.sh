@@ -42,6 +42,12 @@ done
 
 for subdir in GenProps HitProps PU LSan
 do
+    mkdir -p ${directory}/HPTks_dzPV0p1/${subdir}_lin
+    mkdir -p ${directory}/HPTks_dzPV0p1/${subdir}_log
+done
+
+for subdir in GenProps HitProps PU LSan
+do
     mkdir -p ${directory}/HPTks_0to1/${subdir}_lin
     mkdir -p ${directory}/HPTks_0to1/${subdir}_log
 done
@@ -62,6 +68,12 @@ for subdir in Alignment offlineBS offlinePVs
 do
     mkdir -p ${directory}/OfflinePV/${subdir}_lin
     mkdir -p ${directory}/OfflinePV/${subdir}_log
+done
+
+for subdir in Ks Ks_Lxy16 Lambda Lambda_Lxy16
+do
+    mkdir -p ${directory}/V0/${subdir}_lin
+    mkdir -p ${directory}/V0/${subdir}_log
 done
 
 for subdir in MatchedTks LostTks
@@ -92,6 +104,10 @@ cd ${directory}/genTks
 ../../genSubSubDirTk.sh "${release}" "genTks"
 cd -
 
+cd ${directory}/HPTks_dzPV0p1
+../../genSubSubDirTk.sh "${release}" "HPTks_dzPV0p1"
+cd -
+
 cd ${directory}/HPTks_0to1
 ../../genSubSubDirTk.sh "${release}" "HPTks_0to1"
 cd -
@@ -106,6 +122,10 @@ cd -
 
 cd ${directory}/OfflinePV
 ../../genSubSubDirOfflinePV.sh "${release}" 
+cd -
+
+cd ${directory}/V0
+../../genSubSubDirV0.sh "${release}" 
 cd -
 
 cd ${directory}/PackCand
@@ -148,6 +168,16 @@ for subdir in GenProps HitProps PU LSan
 do
     for scale in lin log
     do 
+	cd ${directory}/HPTks_dzPV0p1/${subdir}_${scale}
+	../../../diow.pl -t "${release} HPTks, dz PV 0 < p < 1 ${subdir} Collisions Validation (${scale})" -c 3 -icon 200 
+	cd --
+    done
+done
+
+for subdir in GenProps HitProps PU LSan
+do
+    for scale in lin log
+    do 
 	cd ${directory}/HPTks_0to1/${subdir}_${scale}
 	../../../diow.pl -t "${release} HPTks, 0 < pT < 1 GeV ${subdir} Collisions Validation (${scale})" -c 3 -icon 200 
 	cd --
@@ -180,6 +210,16 @@ do
     do 
 	cd ${directory}/OfflinePV/${subdir}_${scale}
 	../../../diow.pl -t "${release} OfflinePV ${subdir} Collisions Validation (${scale})" -c 3 -icon 200  
+	cd --
+    done
+done
+
+for subdir in Ks Ks_Lxy16 Lambda Lambda_Lxy16
+do
+    for scale in lin log
+    do 
+	cd ${directory}/V0/${subdir}_${scale}
+	../../../diow.pl -t "${release} V0 Monitoring ${subdir} Collisions Validation (${scale})" -c 3 -icon 200
 	cd --
     done
 done
