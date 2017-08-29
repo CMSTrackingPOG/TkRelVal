@@ -985,12 +985,12 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
     createTH1FPlot("TrackCandEta_detachedTripletStepTrackCandidates_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("TrackCandPhi_detachedTripletStepTrackCandidates_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("TrackCandPt_detachedTripletStepTrackCandidates_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("TrackMVA1VsEtaProfile_detachedTripletStepTrackCandidates_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("TrackMVA1VsPtProfile_detachedTripletStepTrackCandidates_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("TrackMVA2VsEtaProfile_detachedTripletStepTrackCandidates_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("TrackMVA2VsPtProfile_detachedTripletStepTrackCandidates_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("TrackMVA2HPVsEtaProfile_detachedTripletStepTrackCandidates_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("TrackMVA2HPVsPtProfile_detachedTripletStepTrackCandidates_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTProfPlot("TrackMVA1VsEtaProfile_detachedTripletStepTrackCandidates_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("TrackMVA1VsPtProfile_detachedTripletStepTrackCandidates_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("TrackMVA2VsEtaProfile_detachedTripletStepTrackCandidates_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("TrackMVA2VsPtProfile_detachedTripletStepTrackCandidates_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("TrackMVA2HPVsEtaProfile_detachedTripletStepTrackCandidates_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("TrackMVA2HPVsPtProfile_detachedTripletStepTrackCandidates_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
 
     // initialStep
     createTH1FPlot("NumberOfSeeds_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
@@ -1002,16 +1002,16 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
     createTH1FPlot("TrackCandEta_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("TrackCandPhi_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("TrackCandPt_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("TrackMVA1VsEtaProfile_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("TrackMVA1VsPtProfile_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("TrackMVA2VsEtaProfile_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("TrackMVA2VsPtProfile_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("TrackMVA2HPVsEtaProfile_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("TrackMVA2HPVsPtProfile_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("TrackMVA3VsEtaProfile_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("TrackMVA3VsPtProfile_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("TrackMVA3HPVsEtaProfile_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("TrackMVA3HPVsPtProfile_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTProfPlot("TrackMVA1VsEtaProfile_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("TrackMVA1VsPtProfile_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("TrackMVA2VsEtaProfile_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("TrackMVA2VsPtProfile_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("TrackMVA2HPVsEtaProfile_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("TrackMVA2HPVsPtProfile_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("TrackMVA3VsEtaProfile_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("TrackMVA3VsPtProfile_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("TrackMVA3HPVsEtaProfile_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("TrackMVA3HPVsPtProfile_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
 
     // jetCoreRegional
     createTH1FPlot("NumberOfSeeds_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
@@ -1034,8 +1034,8 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
     createTH1FPlot("TrackCandEta_lowPtTripletStepTrackCandidates_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("TrackCandPhi_lowPtTripletStepTrackCandidates_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("TrackCandPt_lowPtTripletStepTrackCandidates_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("TrackMVA1VsEtaProfile_lowPtTripletStepTrackCandidates_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("TrackMVA1VsPtProfile_lowPtTripletStepTrackCandidates_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTProfPlot("TrackMVA1VsEtaProfile_lowPtTripletStepTrackCandidates_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("TrackMVA1VsPtProfile_lowPtTripletStepTrackCandidates_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
 
     // mixed triplet
     createTH1FPlot("NumberOfSeeds_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
@@ -1047,12 +1047,12 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
     createTH1FPlot("TrackCandEta_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("TrackCandPhi_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("TrackCandPt_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("TrackMVA1VsEtaProfile_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("TrackMVA1VsPtProfile_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("TrackMVA2VsEtaProfile_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("TrackMVA2VsPtProfile_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("TrackMVA2HPVsEtaProfile_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("TrackMVA2HPVsPtProfile_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTProfPlot("TrackMVA1VsEtaProfile_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("TrackMVA1VsPtProfile_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("TrackMVA2VsEtaProfile_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("TrackMVA2VsPtProfile_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("TrackMVA2HPVsEtaProfile_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("TrackMVA2HPVsPtProfile_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
 
     // muon in out
     createTH1FPlot("NumberOfSeeds_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
@@ -1086,12 +1086,12 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
     createTH1FPlot("TrackCandEta_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("TrackCandPhi_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("TrackCandPt_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("TrackMVA1VsEtaProfile_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("TrackMVA1VsPtProfile_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("TrackMVA2VsEtaProfile_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("TrackMVA2VsPtProfile_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("TrackMVA2HPVsEtaProfile_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("TrackMVA2HPVsPtProfile_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTProfPlot("TrackMVA1VsEtaProfile_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("TrackMVA1VsPtProfile_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("TrackMVA2VsEtaProfile_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("TrackMVA2VsPtProfile_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("TrackMVA2HPVsEtaProfile_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("TrackMVA2HPVsPtProfile_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
 
     // pixel pair
     createTH1FPlot("NumberOfSeeds_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
@@ -1103,8 +1103,8 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
     createTH1FPlot("TrackCandEta_pixelPairStepTrackCandidates_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("TrackCandPhi_pixelPairStepTrackCandidates_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("TrackCandPt_pixelPairStepTrackCandidates_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("TrackMVA1VsEtaProfile_pixelPairStepTrackCandidates_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("TrackMVA1VsPtProfile_pixelPairStepTrackCandidates_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTProfPlot("TrackMVA1VsEtaProfile_pixelPairStepTrackCandidates_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("TrackMVA1VsPtProfile_pixelPairStepTrackCandidates_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
 
     // tobtec
     createTH1FPlot("NumberOfSeeds_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
@@ -1117,11 +1117,11 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
     createTH1FPlot("TrackCandPhi_tobTecStepTrackCandidates_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("TrackCandPt_tobTecStepTrackCandidates_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTProfPlot("TrackMVA1VsEtaProfile_tobTecStepTrackCandidates_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("TrackMVA1VsPtProfile_tobTecStepTrackCandidates_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("TrackMVA2VsEtaProfile_tobTecStepTrackCandidates_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("TrackMVA2VsPtProfile_tobTecStepTrackCandidates_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("TrackMVA2HPVsEtaProfile_tobTecStepTrackCandidates_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTProfPlot("TrackMVA2HPVsPtProfile_tobTecStepTrackCandidates_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTProfPlot("TrackMVA1VsPtProfile_tobTecStepTrackCandidates_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("TrackMVA2VsEtaProfile_tobTecStepTrackCandidates_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("TrackMVA2VsPtProfile_tobTecStepTrackCandidates_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("TrackMVA2HPVsEtaProfile_tobTecStepTrackCandidates_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("TrackMVA2HPVsPtProfile_tobTecStepTrackCandidates_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
   }
 
   // Pixel Primary vertices
