@@ -9,8 +9,8 @@ full=${5:false} # if true, do all plots, otherwise, just essential plots
 
 refFile=$(ls *"${run}"*"${sample}"*"${rel_old}"*)
 newFile=$(ls *"${run}"*"${sample}"*"${rel_new}"*)
-release=CMSSW_8024_PRnewco_vs_8025_PRref_"${run}"_"${sample}"
-#release=CMSSW_"${rel_new}"_vs_"${rel_old}"_"${run}"_"${sample}"
+#release=CMSSW_9211_PRnewco_vs_PRref_"${run}"_"${sample}"
+release=CMSSW_"${rel_new}"_vs_"${rel_old}"_"${run}"_"${sample}"
 
 directory=/afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}
 
@@ -52,7 +52,7 @@ do
     mkdir -p ${directory}/HPTks_0to1/${subdir}_log
 done
 
-for subdir in GenProps HitProps HitEff PU LSan
+for subdir in GenProps HitProps HitEff HitEffBX PU LSan
 do
     mkdir -p ${directory}/HPTks_gt1/${subdir}_lin
     mkdir -p ${directory}/HPTks_gt1/${subdir}_log
@@ -184,7 +184,7 @@ do
     done
 done
 
-for subdir in GenProps HitProps HitEff PU LSan
+for subdir in GenProps HitProps HitEff HitEffBX PU LSan
 do
     for scale in lin log
     do 

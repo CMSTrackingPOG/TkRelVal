@@ -10,7 +10,7 @@ printf "     <body>\n" >> index.html
 printf "        <h2>%s Collisions Validation </h2>\n" ${release} >> index.html
 printf "           <ul>\n" >> index.html
 printf "              <li/><a href=\"%s/%s/genTks\">General Tracks Plots</a>\n" ${web} ${release} >> index.html
-printf "              <li/><a href=\"%s/%s/HPTks_dzPV0p1\">High Purity (dz PV 0 < p < 1) Tracks Plots</a>\n" ${web} ${release} >> index.html
+printf "              <li/><a href=\"%s/%s/HPTks_dzPV0p1\">High Purity (PV dz < 0.1) Tracks Plots</a>\n" ${web} ${release} >> index.html
 printf "              <li/><a href=\"%s/%s/HPTks_0to1\">High Purity (0 < pT < 1 GeV) Tracks Plots</a>\n" ${web} ${release} >> index.html
 printf "              <li/><a href=\"%s/%s/HPTks_gt1\">High Purity (pT > 1 GeV) Tracks Plots</a>\n" ${web} ${release} >> index.html
 printf "              <li/><a href=\"%s/%s/PackCand\">Packed Candidate Plots</a>\n" ${web} ${release} >> index.html
