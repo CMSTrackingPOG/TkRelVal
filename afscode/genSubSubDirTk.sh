@@ -14,7 +14,9 @@ printf "              <li/><a href=\"%s/%s/%s/GenProps_lin\">General Properties<
 printf "              <li/><a href=\"%s/%s/%s/HitProps_lin\">Hit Properties</a>\n" ${web} ${release} ${tracks} >> index.html
 if [ "${tracks}" != HPTks_0to1 ] && [ "${tracks}" != HPTks_dzPV0p1 ] ; then 
 printf "              <li/><a href=\"%s/%s/%s/HitEff_lin\">Hit Efficiency from HitPattern</a>\n" ${web} ${release} ${tracks} >> index.html
+if [ "${tracks}" == HPTks_gt1 ] ; then
 printf "              <li/><a href=\"%s/%s/%s/HitEffBX_lin\">Hit Efficiency BX from HitPattern</a>\n" ${web} ${release} ${tracks} >> index.html
+fi
 fi
 printf "              <li/><a href=\"%s/%s/%s/PU_lin\">Pileup Monitoring</a>\n" ${web} ${release} ${tracks} >> index.html
 if [ "${tracks}" == genTks ] ; then 
@@ -28,7 +30,9 @@ printf "              <li/><a href=\"%s/%s/%s/GenProps_log\">General Properties<
 printf "              <li/><a href=\"%s/%s/%s/HitProps_log\">Hit Properties</a>\n" ${web} ${release} ${tracks} >> index.html
 if [ "${tracks}" != HPTks_0to1 ] && [ "${tracks}" != HPTks_dzPV0p1 ] ; then 
 printf "              <li/><a href=\"%s/%s/%s/HitEff_log\">Hit Efficiency from HitPattern</a>\n" ${web} ${release} ${tracks} >> index.html
+if [ "${tracks}" == HPTks_gt1 ] ; then
 printf "              <li/><a href=\"%s/%s/%s/HitEffBX_log\">Hit Efficiency BX from HitPattern</a>\n" ${web} ${release} ${tracks} >> index.html
+fi
 fi
 printf "              <li/><a href=\"%s/%s/%s/PU_log\">Pileup Monitoring</a>\n" ${web} ${release} ${tracks} >> index.html
 if [ "${tracks}" == genTks ] ; then 
