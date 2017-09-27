@@ -128,9 +128,6 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
   TString dirname = ""; // input root file directory
   TString outdir  = ""; // output file directory
 
-  // could also include Tracking/Run summary/V0monitoring
-  // also include Tracking/Run summary/TrackParameters/highPurityTracks/dzPV0p1
-
   // PV plots inside Tracking (not offlinePV folder)
   dirname = "/Tracking/Run summary/PrimaryVertices/highPurityTracks/pt_0to1/offline";
   outdir  = directory+"/PV_HPTks/offline";
@@ -880,7 +877,44 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
   createTH1FPlot("globalEfficiencies", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
 
   // HitEffFromHitPattern
-  dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_1/HitEffFromHitPattern"; // could also add HitEffFromHitPatternVsBx
+  dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/dzPV0p1/HitEffFromHitPattern";
+  outdir  = directory+"/HPTks_dzPV0p1/HitEff";
+
+  if (full)
+  {
+    // efficiencies
+    createTH1FPlot("effic_vs_PU_PXB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_PXB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_PXB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_PXF1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_PXF2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TEC1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TEC2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TEC3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TEC4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TEC5", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TEC6", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TEC7", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TEC8", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TEC9", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TIB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TIB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TIB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TIB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TID1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TID2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TID3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TOB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TOB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TOB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TOB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TOB5", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TOB6", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  }
+  createTH1FPlot("globalEfficiencies", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+
+  // HitEffFromHitPattern
+  dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_1/HitEffFromHitPattern";
   outdir  = directory+"/HPTks_gt1/HitEff";
 
   if (full)
@@ -917,8 +951,82 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
   createTH1FPlot("globalEfficiencies", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
 
   // vs BX
-  dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_1/HitEffFromHitPatternVsBX"; // could also add HitEffFromHitPatternVsBx
+  dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_1/HitEffFromHitPatternVsBX";
   outdir  = directory+"/HPTks_gt1/HitEffBX";
+
+  if (full)
+  {
+    // efficiencies
+    createTH1FPlot("effic_vs_BX_PXB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_PXB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_PXB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_PXF1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_PXF2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TEC1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TEC2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TEC3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TEC4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TEC5", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TEC6", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TEC7", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TEC8", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TEC9", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TIB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TIB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TIB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TIB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TID1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TID2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TID3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TOB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TOB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TOB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TOB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TOB5", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TOB6", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  }
+  createTH1FPlot("globalEfficiencies", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+
+  // vs SCALLUMI
+  dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/dzPV0p1/HitEffFromHitPatternVsSCALLUMI";
+  outdir  = directory+"/dzPV0p1/HitEffSL";
+
+  if (full)
+  {
+    // efficiencies
+    createTH1FPlot("effic_vs_BX_PXB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_PXB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_PXB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_PXF1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_PXF2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TEC1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TEC2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TEC3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TEC4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TEC5", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TEC6", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TEC7", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TEC8", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TEC9", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TIB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TIB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TIB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TIB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TID1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TID2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TID3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TOB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TOB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TOB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TOB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TOB5", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TOB6", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  }
+  createTH1FPlot("globalEfficiencies", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+
+  // vs SCALLUMI
+  dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_1/HitEffFromHitPatternVsSCALLUMI";
+  outdir  = directory+"/HPTks_gt1/HitEffSL";
 
   if (full)
   {
@@ -957,29 +1065,77 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
   dirname = "/Tracking/Run summary/TrackParameters/generalTracks/TrackBuilding";
 
   outdir  = directory+"/genTks/TkBuilding";
+  // detached quads
+  createTH1FPlot("TrackMVA1_detachedQuadStepTrackCandidates_detachedQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  // detached triplets
   createTH1FPlot("TrackMVA1_detachedTripletStepTrackCandidates_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
   createTH1FPlot("TrackMVA2_detachedTripletStepTrackCandidates_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
   createTH1FPlot("TrackMVA2HP_detachedTripletStepTrackCandidates_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  // highPtTriplet
+  createTH1FPlot("TrackMVA1_highPtTripletStepTrackCandidates_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  // initial step
   createTH1FPlot("TrackMVA1_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
   createTH1FPlot("TrackMVA2_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
   createTH1FPlot("TrackMVA2HP_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
   createTH1FPlot("TrackMVA3_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
   createTH1FPlot("TrackMVA3HP_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  // jetCoreRegional
+  createTH1FPlot("TrackMVA1_jetCoreRegionalStepTrackCandidates_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  // lowPtQuad
+  createTH1FPlot("TrackMVA1_lowPtQuadStepTrackCandidates_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  // lowPtTriplet
   createTH1FPlot("TrackMVA1_lowPtTripletStepTrackCandidates_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  // mixedTriplet
   createTH1FPlot("TrackMVA1_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
   createTH1FPlot("TrackMVA2_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
   createTH1FPlot("TrackMVA2HP_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  // pixelLess
   createTH1FPlot("TrackMVA1_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
   createTH1FPlot("TrackMVA2_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
   createTH1FPlot("TrackMVA2HP_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  // pixelPair
   createTH1FPlot("TrackMVA1_pixelPairStepTrackCandidates_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  // tobTec
   createTH1FPlot("TrackMVA1_tobTecStepTrackCandidates_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
   createTH1FPlot("TrackMVA2_tobTecStepTrackCandidates_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
   createTH1FPlot("TrackMVA2HP_tobTecStepTrackCandidates_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
 
   if (full) 
   {
+    // detached quads
+    createTH1FPlot("FractionOfCandOverSeeds_detachedQuadStepTrackCandidates_detachedQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("NumberOfTrackCandidates_detachedQuadStepTrackCandidates_detachedQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTProfPlot("NumberOfTrajCandsPerSeedVsEta_detachedQuadStepSeeds_detachedQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("NumberOfTrajCandsPerSeedVsPhi_detachedQuadStepSeeds_detachedQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("NumberOfTrajCandsPerSeed_detachedQuadStepSeeds_detachedQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("SeedStoppingSource_detachedQuadStepSeeds_detachedQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVSeta_detachedQuadStepSeeds_detachedQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVSphi_detachedQuadStepSeeds_detachedQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVsEta_detachedQuadStepSeeds_detachedQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVsPhi_detachedQuadStepSeeds_detachedQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("NumberOfSeeds_detachedQuadStepSeeds_detachedQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("SeedEta_detachedQuadStepSeeds_detachedQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("SeedPhi_detachedQuadStepSeeds_detachedQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("SeedPt_detachedQuadStepSeeds_detachedQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("NumberOfTrackCandidates_detachedQuadStepTrackCandidates_detachedQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("StoppingSource_detachedQuadStepSeeds_detachedQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("TrackCandEta_detachedQuadStepTrackCandidates_detachedQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("TrackCandPhi_detachedQuadStepTrackCandidates_detachedQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("TrackCandPt_detachedQuadStepTrackCandidates_detachedQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTProfPlot("TrackMVA1VsEtaProfile_detachedQuadStepTrackCandidates_detachedQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("TrackMVA1VsPtProfile_detachedQuadStepTrackCandidates_detachedQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+
     // detached triplets
+    createTH1FPlot("FractionOfCandOverSeeds_detachedTripletStepTrackCandidates_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("NumberOfTrackCandidates_detachedTripletStepTrackCandidates_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTProfPlot("NumberOfTrajCandsPerSeedVsEta_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("NumberOfTrajCandsPerSeedVsPhi_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("NumberOfTrajCandsPerSeed_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("SeedStoppingSource_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVSeta_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVSphi_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVsEta_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVsPhi_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
     createTH1FPlot("NumberOfSeeds_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedEta_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedPhi_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
@@ -996,7 +1152,40 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
     createTProfPlot("TrackMVA2HPVsEtaProfile_detachedTripletStepTrackCandidates_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
     createTProfPlot("TrackMVA2HPVsPtProfile_detachedTripletStepTrackCandidates_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
 
+    // highPtTriplet
+    createTH1FPlot("FractionOfCandOverSeeds_highPtTripletStepTrackCandidates_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("NumberOfTrackCandidates_highPtTripletStepTrackCandidates_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTProfPlot("NumberOfTrajCandsPerSeedVsEta_highPtTripletStepSeeds_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("NumberOfTrajCandsPerSeedVsPhi_highPtTripletStepSeeds_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("NumberOfTrajCandsPerSeed_highPtTripletStepSeeds_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("SeedStoppingSource_highPtTripletStepSeeds_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVSeta_highPtTripletStepSeeds_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVSphi_highPtTripletStepSeeds_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVsEta_highPtTripletStepSeeds_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVsPhi_highPtTripletStepSeeds_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("NumberOfSeeds_highPtTripletStepSeeds_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("SeedEta_highPtTripletStepSeeds_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("SeedPhi_highPtTripletStepSeeds_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("SeedPt_highPtTripletStepSeeds_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("NumberOfTrackCandidates_highPtTripletStepTrackCandidates_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("StoppingSource_highPtTripletStepSeeds_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("TrackCandEta_highPtTripletStepTrackCandidates_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("TrackCandPhi_highPtTripletStepTrackCandidates_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("TrackCandPt_highPtTripletStepTrackCandidates_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTProfPlot("TrackMVA1VsEtaProfile_highPtTripletStepTrackCandidates_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("TrackMVA1VsPtProfile_highPtTripletStepTrackCandidates_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+
     // initialStep
+    createTH1FPlot("FractionOfCandOverSeeds_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("NumberOfTrackCandidates_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTProfPlot("NumberOfTrajCandsPerSeedVsEta_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("NumberOfTrajCandsPerSeedVsPhi_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("NumberOfTrajCandsPerSeed_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("SeedStoppingSource_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVSeta_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVSphi_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVsEta_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVsPhi_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
     createTH1FPlot("NumberOfSeeds_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedEta_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedPhi_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
@@ -1018,17 +1207,63 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
     createTProfPlot("TrackMVA3HPVsPtProfile_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
 
     // jetCoreRegional
+    createTH1FPlot("FractionOfCandOverSeeds_jetCoreRegionalStepTrackCandidates_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("NumberOfTrackCandidates_jetCoreRegionalStepTrackCandidates_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTProfPlot("NumberOfTrajCandsPerSeedVsEta_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("NumberOfTrajCandsPerSeedVsPhi_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("NumberOfTrajCandsPerSeed_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("SeedStoppingSource_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVSeta_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVSphi_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVsEta_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVsPhi_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
     createTH1FPlot("NumberOfSeeds_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedEta_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedPhi_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedPt_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTH1FPlot("NumberOfTrackCandidates_jetCoreRegionalStepTrackCandidates_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("NumberOfTrackingRegions_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("StoppingSource_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("TrackCandEta_jetCoreRegionalStepTrackCandidates_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("TrackCandPhi_jetCoreRegionalStepTrackCandidates_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("TrackCandPt_jetCoreRegionalStepTrackCandidates_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("TrackingRegionCandidateEta_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("TrackingRegionCandidatePhi_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("TrackingRegionCandidatePt_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+
+    // low pt quads
+    createTH1FPlot("FractionOfCandOverSeeds_lowPtQuadStepTrackCandidates_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("NumberOfTrackCandidates_lowPtQuadStepTrackCandidates_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTProfPlot("NumberOfTrajCandsPerSeedVsEta_lowPtQuadStepSeeds_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("NumberOfTrajCandsPerSeedVsPhi_lowPtQuadStepSeeds_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("NumberOfTrajCandsPerSeed_lowPtQuadStepSeeds_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("SeedStoppingSource_lowPtQuadStepSeeds_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVSeta_lowPtQuadStepSeeds_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVSphi_lowPtQuadStepSeeds_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVsEta_lowPtQuadStepSeeds_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVsPhi_lowPtQuadStepSeeds_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("NumberOfSeeds_lowPtQuadStepSeeds_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("SeedEta_lowPtQuadStepSeeds_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("SeedPhi_lowPtQuadStepSeeds_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("SeedPt_lowPtQuadStepSeeds_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("NumberOfTrackCandidates_lowPtQuadStepTrackCandidates_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("StoppingSource_lowPtQuadStepSeeds_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("TrackCandEta_lowPtQuadStepTrackCandidates_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("TrackCandPhi_lowPtQuadStepTrackCandidates_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("TrackCandPt_lowPtQuadStepTrackCandidates_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTProfPlot("TrackMVA1VsEtaProfile_lowPtQuadStepTrackCandidates_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("TrackMVA1VsPtProfile_lowPtQuadStepTrackCandidates_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
 
     // low pt triplet
+    createTH1FPlot("FractionOfCandOverSeeds_lowPtTripletStepTrackCandidates_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("NumberOfTrackCandidates_lowPtTripletStepTrackCandidates_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTProfPlot("NumberOfTrajCandsPerSeedVsEta_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("NumberOfTrajCandsPerSeedVsPhi_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("NumberOfTrajCandsPerSeed_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("SeedStoppingSource_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVSeta_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVSphi_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVsEta_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVsPhi_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
     createTH1FPlot("NumberOfSeeds_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedEta_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedPhi_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
@@ -1042,6 +1277,16 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
     createTProfPlot("TrackMVA1VsPtProfile_lowPtTripletStepTrackCandidates_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
 
     // mixed triplet
+    createTH1FPlot("FractionOfCandOverSeeds_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("NumberOfTrackCandidates_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTProfPlot("NumberOfTrajCandsPerSeedVsEta_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("NumberOfTrajCandsPerSeedVsPhi_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("NumberOfTrajCandsPerSeed_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("SeedStoppingSource_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVSeta_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVSphi_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVsEta_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVsPhi_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
     createTH1FPlot("NumberOfSeeds_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedEta_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedPhi_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
@@ -1059,6 +1304,16 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
     createTProfPlot("TrackMVA2HPVsPtProfile_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
 
     // muon in out
+    createTH1FPlot("FractionOfCandOverSeeds_muonSeededTrackCandidatesInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("NumberOfTrackCandidates_muonSeededTrackCandidatesInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTProfPlot("NumberOfTrajCandsPerSeedVsEta_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("NumberOfTrajCandsPerSeedVsPhi_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("NumberOfTrajCandsPerSeed_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("SeedStoppingSource_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVSeta_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVSphi_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVsEta_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVsPhi_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
     createTH1FPlot("NumberOfSeeds_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedEta_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedPhi_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
@@ -1070,6 +1325,16 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
     createTH1FPlot("TrackCandPt_muonSeededTrackCandidatesInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
 
     // muon out in
+    createTH1FPlot("FractionOfCandOverSeeds_muonSeededTrackCandidatesOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("NumberOfTrackCandidates_muonSeededTrackCandidatesOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTProfPlot("NumberOfTrajCandsPerSeedVsEta_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("NumberOfTrajCandsPerSeedVsPhi_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("NumberOfTrajCandsPerSeed_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("SeedStoppingSource_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVSeta_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVSphi_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVsEta_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVsPhi_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
     createTH1FPlot("NumberOfSeeds_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedEta_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedPhi_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
@@ -1081,6 +1346,16 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
     createTH1FPlot("TrackCandPt_muonSeededTrackCandidatesOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
 
     // pixelLess
+    createTH1FPlot("FractionOfCandOverSeeds_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("NumberOfTrackCandidates_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTProfPlot("NumberOfTrajCandsPerSeedVsEta_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("NumberOfTrajCandsPerSeedVsPhi_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("NumberOfTrajCandsPerSeed_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("SeedStoppingSource_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVSeta_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVSphi_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVsEta_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVsPhi_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
     createTH1FPlot("NumberOfSeeds_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedEta_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedPhi_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
@@ -1096,8 +1371,18 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
     createTProfPlot("TrackMVA2VsPtProfile_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
     createTProfPlot("TrackMVA2HPVsEtaProfile_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
     createTProfPlot("TrackMVA2HPVsPtProfile_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
-
+  
     // pixel pair
+    createTH1FPlot("FractionOfCandOverSeeds_pixelPairStepTrackCandidates_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("NumberOfTrackCandidates_pixelPairStepTrackCandidates_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTProfPlot("NumberOfTrajCandsPerSeedVsEta_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("NumberOfTrajCandsPerSeedVsPhi_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("NumberOfTrajCandsPerSeed_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("SeedStoppingSource_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVSeta_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVSphi_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVsEta_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVsPhi_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
     createTH1FPlot("NumberOfSeeds_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedEta_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedPhi_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
@@ -1111,6 +1396,16 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
     createTProfPlot("TrackMVA1VsPtProfile_pixelPairStepTrackCandidates_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
 
     // tobtec
+    createTH1FPlot("FractionOfCandOverSeeds_tobTecStepTrackCandidates_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("NumberOfTrackCandidates_tobTecStepTrackCandidates_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTProfPlot("NumberOfTrajCandsPerSeedVsEta_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("NumberOfTrajCandsPerSeedVsPhi_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("NumberOfTrajCandsPerSeed_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("SeedStoppingSource_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVSeta_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVSphi_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVsEta_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTH1FPlot("StoppingSourceVsPhi_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
     createTH1FPlot("NumberOfSeeds_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedEta_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedPhi_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
@@ -1151,17 +1446,146 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
   createTH1FPlot("ntracks", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
   createTH1FPlot("sumpt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
 
-  dirname = "/OfflinePV/Run summary/offlineBeamSpot";
-  outdir  = directory+"/OfflinePV/offlineBS";	     
-  createTH1FPlot("bsBeamWidthX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-  createTH1FPlot("bsBeamWidthY", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-  createTH1FPlot("bsDxdz", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-  createTH1FPlot("bsDydz", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-  createTH1FPlot("bsSigmaZ", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-  createTH1FPlot("bsX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-  createTH1FPlot("bsY", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-  createTH1FPlot("bsZ", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  // Resolution PV
+  dirname = "/OfflinePV/Run summary/Resolution/PV";
+  outdir  = directory+"/OfflinePV/ResPV";
+  createTH1FPlot("pull_x", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("pull_x_vs_ntracks_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("pull_x_vs_ntracks_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("pull_x_vs_nvertices_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("pull_x_vs_nvertices_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("pull_x_vs_sumpt_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("pull_x_vs_sumpt_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("pull_y", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("pull_y_vs_ntracks_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("pull_y_vs_ntracks_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("pull_y_vs_nvertices_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("pull_y_vs_nvertices_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("pull_y_vs_sumpt_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("pull_y_vs_sumpt_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("pull_z", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("pull_z_vs_ntracks_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("pull_z_vs_ntracks_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("pull_z_vs_nvertices_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("pull_z_vs_nvertices_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("pull_z_vs_sumpt_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("pull_z_vs_sumpt_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("res_x", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("res_x_vs_ntracks_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("res_x_vs_ntracks_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("res_x_vs_nvertices_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("res_x_vs_nvertices_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("res_x_vs_sumpt_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("res_x_vs_sumpt_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("res_y", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("res_y_vs_ntracks_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("res_y_vs_ntracks_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("res_y_vs_nvertices_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("res_y_vs_nvertices_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("res_y_vs_sumpt_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("res_y_vs_sumpt_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("res_z", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("res_z_vs_ntracks_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("res_z_vs_ntracks_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("res_z_vs_nvertices_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("res_z_vs_nvertices_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("res_z_vs_sumpt_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("res_z_vs_sumpt_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
 
+  if (full)
+  {
+    createTH1FPlot("pull_x_vs_instLumiScal_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+    createTH1FPlot("pull_x_vs_instLumiScal_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+    createTH1FPlot("pull_y_vs_instLumiScal_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+    createTH1FPlot("pull_y_vs_instLumiScal_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+    createTH1FPlot("pull_z_vs_instLumiScal_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+    createTH1FPlot("pull_z_vs_instLumiScal_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+    createTH1FPlot("res_x_vs_instLumiScal_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+    createTH1FPlot("res_x_vs_instLumiScal_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+    createTH1FPlot("res_y_vs_instLumiScal_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+    createTH1FPlot("res_y_vs_instLumiScal_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+    createTH1FPlot("res_z_vs_instLumiScal_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+    createTH1FPlot("res_z_vs_instLumiScal_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  }
+
+  // Resolution OtherV
+  dirname = "/OfflinePV/Run summary/Resolution/OtherV";
+  outdir  = directory+"/OfflinePV/ResOtherV";
+  createTH1FPlot("pull_x", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("pull_x_vs_ntracks_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("pull_x_vs_ntracks_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("pull_x_vs_nvertices_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("pull_x_vs_nvertices_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("pull_x_vs_sumpt_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("pull_x_vs_sumpt_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("pull_y", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("pull_y_vs_ntracks_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("pull_y_vs_ntracks_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("pull_y_vs_nvertices_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("pull_y_vs_nvertices_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("pull_y_vs_sumpt_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("pull_y_vs_sumpt_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("pull_z", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("pull_z_vs_ntracks_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("pull_z_vs_ntracks_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("pull_z_vs_nvertices_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("pull_z_vs_nvertices_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("pull_z_vs_sumpt_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("pull_z_vs_sumpt_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("res_x", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("res_x_vs_ntracks_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("res_x_vs_ntracks_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("res_x_vs_nvertices_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("res_x_vs_nvertices_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("res_x_vs_sumpt_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("res_x_vs_sumpt_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("res_y", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("res_y_vs_ntracks_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("res_y_vs_ntracks_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("res_y_vs_nvertices_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("res_y_vs_nvertices_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("res_y_vs_sumpt_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("res_y_vs_sumpt_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("res_z", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("res_z_vs_ntracks_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("res_z_vs_ntracks_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("res_z_vs_nvertices_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("res_z_vs_nvertices_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("res_z_vs_sumpt_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  createTH1FPlot("res_z_vs_sumpt_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+
+  if (full)
+  {
+    createTH1FPlot("pull_x_vs_instLumiScal_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+    createTH1FPlot("pull_x_vs_instLumiScal_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+    createTH1FPlot("pull_y_vs_instLumiScal_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+    createTH1FPlot("pull_y_vs_instLumiScal_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+    createTH1FPlot("pull_z_vs_instLumiScal_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+    createTH1FPlot("pull_z_vs_instLumiScal_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+    createTH1FPlot("res_x_vs_instLumiScal_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+    createTH1FPlot("res_x_vs_instLumiScal_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+    createTH1FPlot("res_y_vs_instLumiScal_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+    createTH1FPlot("res_y_vs_instLumiScal_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+    createTH1FPlot("res_z_vs_instLumiScal_Mean", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+    createTH1FPlot("res_z_vs_instLumiScal_Sigma", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, tev);
+  }
+
+  // Offline Beamspot
+  if (full)
+  {
+    dirname = "/OfflinePV/Run summary/offlineBeamSpot";
+    outdir  = directory+"/OfflinePV/offlineBS";	     
+    createTH1FPlot("bsBeamWidthX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("bsBeamWidthY", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("bsDxdz", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("bsDydz", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("bsSigmaZ", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("bsX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("bsY", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("bsZ", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  }
+
+  // Offline PVs
   dirname = "/OfflinePV/Run summary/offlinePrimaryVertices";
   outdir  = directory+"/OfflinePV/offlinePVs";	     
   createTH1FPlot("otherDiffX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
@@ -1703,7 +2127,10 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
 
   //+++++NORMALIZING V1-V2++++++++++++++++++++++++++++++++++++++++
 
-  if (isHist1 && isHist2 && !(hname.Contains("globalEfficiencies",TString::kExact)) && !(hname.Contains("effic_vs_PU_",TString::kExact))) {
+  if (isHist1 && isHist2 && 
+      !(hname.Contains("globalEfficiencies",TString::kExact)) && 
+      !(hname.Contains("effic_vs_PU_",TString::kExact)) &&
+      !(dirname.Contains("Resolution",TString::kExact) && hname.Contains("_vs_",TString::kExact)) {
     // histV1->Sumw2();
     // histV2->Sumw2();
     // histV1->Scale(1.0/histV1->Integral()); // scale to unity
@@ -1822,6 +2249,29 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
 	}
       }
     }  // end check over alignment names
+    else if (dirname.Contains("Resolution",TString::kExact)) {
+      if (!hname.Contains("_vs_",TString::kExact)) {
+	histV1->GetXaxis()->SetTitle(histV1->GetTitle());
+	histV1->GetYaxis()->SetTitle("Number of Events");
+      }
+      else 
+      {
+	TString gaus = (hname.Contains("Mean",TString::kExact) ? "Mean" : "Sigma");
+	TString vs   = "_vs_";
+	Ssiz_t start = hname.Index(vs)+vs.Length();
+	Ssiz_t end   = hname.Index(TString("_"+gaus));
+
+	histV1->GetXaxis()->SetTitle(TString(hname(start,end-start)).Data());
+	
+	TString xyz;
+	if      (hname.Contains("_x_",TString::kExact)) xyz = "x";
+	else if (hname.Contains("_y_",TString::kExact)) xyz = "y";
+	else if (hname.Contains("_z_",TString::kExact)) xyz = "z";
+	
+	TString var = (hname.Contains("pull",TString::kExact) ? (xyz+" pull") : Form("#sigma(%s)",xyz.Data()));
+	histV1->GetYaxis()->SetTitle(TString(var+" "+gaus).Data());
+      }  
+    } // end check over resolution
     else if (dirname.Contains("offlineBeamSpot",TString::kExact)){ 
       if (hname.Contains("bsBeamWidthX",TString::kExact)) {
 	histV1->GetXaxis()->SetTitle("BeamSpot BeamWidthX");
@@ -2108,305 +2558,7 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
   //++++++++++++++++++++ Define filename, change filename output if necessary +++++++++++++++++++//
 
   TString filename = hname;
- 
-  if (dirname.Contains("PrimaryVertices/pt_0to1",TString::kExact) ){  // shorten name of offline PV plots in tracking dir, drop _offline
-    if (dirname.Contains("offline",TString::kExact) ){
-      TString replacestr  = "_offline";
-      Ssiz_t  length      = replacestr.Length();
-      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-      
-      TString toreplace = "";
-      filename.Replace(filenamepos,length,toreplace);
-    }
-    else if (dirname.Contains("pixel",TString::kExact) ){
-      TString replacestr  = "_pixel";
-      Ssiz_t  length      = replacestr.Length();
-      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-      
-      TString toreplace = "";
-      filename.Replace(filenamepos,length,toreplace);
-    }
-  }
-  else if (dirname.Contains("SiStrip",TString::kExact) ){  // shorten name of SiStrip plots for output .png
-    if (filename.Contains("PerCMfromOrigin",TString::kExact) ){
-      TString replacestr  = "Summary_ClusterChargePerCMfromOrigin";
-      Ssiz_t  length      = replacestr.Length();
-      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-      
-      TString toreplace = "Sum_CCPerCMOrigin";
-      filename.Replace(filenamepos,length,toreplace);
-    }
-    else if (filename.Contains("PerCMfromTrack",TString::kExact) ){
-      TString replacestr  = "Summary_ClusterChargePerCMfromTrack";
-      Ssiz_t  length      = replacestr.Length();
-      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-      
-      TString toreplace = "Sum_CCPerCMTrack";
-      filename.Replace(filenamepos,length,toreplace);
-    }
-    else if (filename.Contains("Summary_ClusterCharge_",TString::kExact) ){
-      TString replacestr  = "Summary_ClusterCharge_";
-      Ssiz_t  length      = replacestr.Length();
-      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-      
-      TString toreplace = "Sum_CC_";
-      filename.Replace(filenamepos,length,toreplace);
-    }
-  } // end sistrip plots name change
-  else if (dirname.Contains("dEdx",TString::kExact) ){ // drop _ at end of dEdx plots
-    if (filename.Contains("PerTrack_",TString::kExact)) {  
-      TString replacestr  = "PerTrack_";
-      Ssiz_t  length      = replacestr.Length();
-      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-      
-      TString toreplace = "PerTrack";
-      filename.Replace(filenamepos,length,toreplace);
-    }
-    else if (filename.Contains("PerCluster_",TString::kExact)) {  
-      TString replacestr  = "PerCluster_";
-      Ssiz_t  length      = replacestr.Length();
-      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-      
-      TString toreplace = "PerCluster";
-      filename.Replace(filenamepos,length,toreplace);
-    }
-  } // drop _ at end of dEdx plots
-  else if ((dirname.Contains("TrackBuilding",TString::kExact)) || (dirname.Contains("LSanalysis",TString::kExact)) ){ // drop extra duplicate modifier from track building and LS analysis plots
-    if (dirname.Contains("LSanalysis",TString::kExact) ){  // drop lumiFlag and GenTk from LSanalysis plots
-      if (filename.Contains("lumiFlag",TString::kExact) ){
-	TString replacestr  = "_lumiFlag";
-	Ssiz_t  length      = replacestr.Length();
-	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-      
-	TString toreplace = "";
-	filename.Replace(filenamepos,length,toreplace);
-      }
-      if (filename.Contains("GenTk",TString::kExact) ){
-	TString replacestr  = "_GenTk";
-	Ssiz_t  length      = replacestr.Length();
-	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-      
-	TString toreplace = "";
-	filename.Replace(filenamepos,length,toreplace);
-      }
-    } // end check over LSan plots
-
-    // begin checks for duplicate step names
-    if (filename.Contains("detachedTripletStep",TString::kExact)) {  
-      if (filename.Contains("detachedTripletStepSeeds",TString::kExact)) {  
-	TString replacestr  = "detachedTripletStepSeeds_detachedTripletStep";
-	Ssiz_t  length      = replacestr.Length();
-	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-	
-	TString toreplace = "detachedTripletStep";
-	filename.Replace(filenamepos,length,toreplace);
-      }
-      else if (filename.Contains("detachedTripletStepTrackCandidates",TString::kExact)) {  
-	TString replacestr  = "detachedTripletStepTrackCandidates_detachedTripletStep";
-	Ssiz_t  length      = replacestr.Length();
-	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-	
-	TString toreplace = "detachedTripletStep";
-	filename.Replace(filenamepos,length,toreplace);
-      }
-    }
-    else if (filename.Contains("initialStep",TString::kExact)) {  
-      if (filename.Contains("initialStepSeeds",TString::kExact)) {  
-	TString replacestr  = "initialStepSeeds_initialStep";
-	Ssiz_t  length      = replacestr.Length();
-	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-	
-	TString toreplace = "initialStep";
-	filename.Replace(filenamepos,length,toreplace);
-      }
-      else if (filename.Contains("initialStepTrackCandidates",TString::kExact)) {  
-	TString replacestr  = "initialStepTrackCandidates_initialStep";
-	Ssiz_t  length      = replacestr.Length();
-	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-	
-	TString toreplace = "initialStep";
-	filename.Replace(filenamepos,length,toreplace);
-      }
-    }
-    else if (filename.Contains("jetCoreRegionalStep",TString::kExact)) {  
-      if (filename.Contains("jetCoreRegionalStepSeeds",TString::kExact)) {  
-	TString replacestr  = "jetCoreRegionalStepSeeds_jetCoreRegionalStep";
-	Ssiz_t  length      = replacestr.Length();
-	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-	
-	TString toreplace = "jetCoreRegionalStep";
-	filename.Replace(filenamepos,length,toreplace);
-      }
-      else if (filename.Contains("jetCoreRegionalStepTrackCandidates",TString::kExact)) {  
-	TString replacestr  = "jetCoreRegionalStepTrackCandidates_jetCoreRegionalStep";
-	Ssiz_t  length      = replacestr.Length();
-	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-	
-	TString toreplace = "jetCoreRegionalStep";
-	filename.Replace(filenamepos,length,toreplace);
-      }
-    }
-    else if (filename.Contains("lowPtTripletStep",TString::kExact)) {  
-      if (filename.Contains("lowPtTripletStepSeeds",TString::kExact)) {  
-	TString replacestr  = "lowPtTripletStepSeeds_lowPtTripletStep";
-	Ssiz_t  length      = replacestr.Length();
-	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-	
-	TString toreplace = "lowPtTripletStep";
-	filename.Replace(filenamepos,length,toreplace);
-      }
-      else if (filename.Contains("lowPtTripletStepTrackCandidates",TString::kExact)) {  
-	TString replacestr  = "lowPtTripletStepTrackCandidates_lowPtTripletStep";
-	Ssiz_t  length      = replacestr.Length();
-	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-	
-	TString toreplace = "lowPtTripletStep";
-	filename.Replace(filenamepos,length,toreplace);
-      }
-    }
-    else if (filename.Contains("mixedTripletStep",TString::kExact)) {  
-      if (filename.Contains("mixedTripletStepSeeds",TString::kExact)) {  
-	TString replacestr  = "mixedTripletStepSeeds_mixedTripletStep";
-	Ssiz_t  length      = replacestr.Length();
-	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-	
-	TString toreplace = "mixedTripletStep";
-	filename.Replace(filenamepos,length,toreplace);
-      }
-      else if (filename.Contains("mixedTripletStepTrackCandidates",TString::kExact)) {  
-	TString replacestr  = "mixedTripletStepTrackCandidates_mixedTripletStep";
-	Ssiz_t  length      = replacestr.Length();
-	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-	
-	TString toreplace = "mixedTripletStep";
-	filename.Replace(filenamepos,length,toreplace);
-      }
-    }
-    else if (filename.Contains("muonSeededStepInOut",TString::kExact)) {  
-      if (filename.Contains("muonSeededSeedsInOut",TString::kExact)) {  
-	TString replacestr  = "muonSeededSeedsInOut_muonSeededStepInOut";
-	Ssiz_t  length      = replacestr.Length();
-	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-      
-	TString toreplace = "muonSeededStepInOut";
-	filename.Replace(filenamepos,length,toreplace);
-      }
-      else if (filename.Contains("muonSeededTrackCandidatesInOut",TString::kExact)) {  
-	TString replacestr  = "muonSeededTrackCandidatesInOut_muonSeededStepInOut";
-	Ssiz_t  length      = replacestr.Length();
-	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-      
-	TString toreplace = "muonSeededStepInOut";
-	filename.Replace(filenamepos,length,toreplace);
-      }
-    }
-    else if (filename.Contains("muonSeededStepOutIn",TString::kExact)) {  
-      if (filename.Contains("muonSeededSeedsOutIn",TString::kExact)) {  
-	TString replacestr  = "muonSeededSeedsOutIn_muonSeededStepOutIn";
-	Ssiz_t  length      = replacestr.Length();
-	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-	
-	TString toreplace = "muonSeededStepOutIn";
-	filename.Replace(filenamepos,length,toreplace);
-      }
-      else if (filename.Contains("muonSeededTrackCandidatesOutIn",TString::kExact)) {  
-	TString replacestr  = "muonSeededTrackCandidatesOutIn_muonSeededStepOutIn";
-	Ssiz_t  length      = replacestr.Length();
-	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-	
-	TString toreplace = "muonSeededStepOutIn";
-	filename.Replace(filenamepos,length,toreplace);
-      }
-    }
-    else if (filename.Contains("pixelLessStep",TString::kExact)) {  
-      if (filename.Contains("pixelLessStepSeeds",TString::kExact)) {  
-	TString replacestr  = "pixelLessStepSeeds_pixelLessStep";
-	Ssiz_t  length      = replacestr.Length();
-	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-	
-	TString toreplace = "pixelLessStep";
-	filename.Replace(filenamepos,length,toreplace);
-      }
-      else if (filename.Contains("pixelLessStepTrackCandidates",TString::kExact)) {  
-	TString replacestr  = "pixelLessStepTrackCandidates_pixelLessStep";
-	Ssiz_t  length      = replacestr.Length();
-	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-	
-	TString toreplace = "pixelLessStep";
-	filename.Replace(filenamepos,length,toreplace);
-      }
-    }
-    else if (filename.Contains("pixelPairStep",TString::kExact)) {  
-      if (filename.Contains("pixelPairStepSeeds",TString::kExact)) {  
-	TString replacestr  = "pixelPairStepSeeds_pixelPairStep";
-	Ssiz_t  length      = replacestr.Length();
-	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-	
-	TString toreplace = "pixelPairStep";
-	filename.Replace(filenamepos,length,toreplace);
-      }
-      else if (filename.Contains("pixelPairStepTrackCandidates",TString::kExact)) {  
-	TString replacestr  = "pixelPairStepTrackCandidates_pixelPairStep";
-	Ssiz_t  length      = replacestr.Length();
-	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-	
-	TString toreplace = "pixelPairStep";
-	filename.Replace(filenamepos,length,toreplace);
-      }
-    }
-    else if (filename.Contains("tobTecStep",TString::kExact)) {  
-      if (filename.Contains("tobTecStepSeeds",TString::kExact)) {  
-	TString replacestr  = "tobTecStepSeeds_tobTecStep";
-	Ssiz_t  length      = replacestr.Length();
-	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-	
-	TString toreplace = "tobTecStep";
-	filename.Replace(filenamepos,length,toreplace);
-      }
-      else if (filename.Contains("tobTecStepTrackCandidates",TString::kExact)) {  
-	TString replacestr  = "tobTecStepTrackCandidates_tobTecStep";
-	Ssiz_t  length      = replacestr.Length();
-	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-	
-	TString toreplace = "tobTecStep";
-	filename.Replace(filenamepos,length,toreplace);
-      }
-    }
-  }// end concatinating track building + LSanalysis strings
-  else if (dirname.Contains("GeneralProperties",TString::kExact) || dirname.Contains("HitProperties",TString::kExact) ){ // shorten "NumberOf" or "Distance of Closest "
-    if (filename.Contains("NumberOf",TString::kExact)) {  
-      TString replacestr  = "NumberOf";
-      Ssiz_t  length      = replacestr.Length();
-      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-      
-      TString toreplace = "N";
-      filename.Replace(filenamepos,length,toreplace);
-    }
-    else if (filename.Contains("ImpactPoint",TString::kExact)) {  
-      TString replacestr  = "ImpactPoint";
-      Ssiz_t  length      = replacestr.Length();
-      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-      
-      TString toreplace = "IP";
-      filename.Replace(filenamepos,length,toreplace);
-    }
-    else if (filename.Contains("PointOfClosestApproach",TString::kExact)) {  
-      TString replacestr  = "PointOfClosestApproach";
-      Ssiz_t  length      = replacestr.Length();
-      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-      
-      TString toreplace = "PCA";
-      filename.Replace(filenamepos,length,toreplace);
-    }
-    else if (filename.Contains("DistanceOfClosestApproach",TString::kExact)) {  
-      TString replacestr  = "DistanceOfClosestApproach";
-      Ssiz_t  length      = replacestr.Length();
-      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-      
-      TString toreplace = "DistCA";
-      filename.Replace(filenamepos,length,toreplace);
-    }
-  }
+  modifyFilename(filename,hname,dirname);    
 
   filename.Append(".png");
   // copy filename for log .. stupid but whatever
@@ -2824,60 +2976,7 @@ bool createTProfPlot(const TString hname, const TString dirname, TFile *& V1file
   //++++++++++++++++++++ Define filename, change filename output if necessary +++++++++++++++++++//
 
   TString filename = hname;
- 
-  if (dirname.Contains("PrimaryVertices/pt_0to1",TString::kExact) ){  // shorten name of offline PV plots in tracking dir, drop _offline
-    if (dirname.Contains("offline",TString::kExact) ){
-      TString replacestr  = "_offline";
-      Ssiz_t  length      = replacestr.Length();
-      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-      
-      TString toreplace = "";
-      filename.Replace(filenamepos,length,toreplace);
-    }
-    else if (dirname.Contains("pixel",TString::kExact) ){
-      TString replacestr  = "_pixel";
-      Ssiz_t  length      = replacestr.Length();
-      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-      
-      TString toreplace = "";
-      filename.Replace(filenamepos,length,toreplace);
-    }
-  }
-  else if (dirname.Contains("GeneralProperties",TString::kExact) || dirname.Contains("HitProperties",TString::kExact) ){ // shorten "NumberOf" or "Distance of Closest "
-    if (filename.Contains("NumberOf",TString::kExact)) {  
-      TString replacestr  = "NumberOf";
-      Ssiz_t  length      = replacestr.Length();
-      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-      
-      TString toreplace = "N";
-      filename.Replace(filenamepos,length,toreplace);
-    }
-    
-    if (filename.Contains("ImpactPoint",TString::kExact)) {  
-      TString replacestr  = "ImpactPoint";
-      Ssiz_t  length      = replacestr.Length();
-      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-      
-      TString toreplace = "IP";
-      filename.Replace(filenamepos,length,toreplace);
-    }
-    else if (filename.Contains("PointOfClosestApproach",TString::kExact)) {  
-      TString replacestr  = "PointOfClosestApproach";
-      Ssiz_t  length      = replacestr.Length();
-      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-      
-      TString toreplace = "PCA";
-      filename.Replace(filenamepos,length,toreplace);
-    }
-    else if (filename.Contains("DistanceOfClosestApproach",TString::kExact)) {  
-      TString replacestr  = "DistanceOfClosestApproach";
-      Ssiz_t  length      = replacestr.Length();
-      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
-      
-      TString toreplace = "DistCA";
-      filename.Replace(filenamepos,length,toreplace);
-    }
-  }
+  modifyFilename(filename, hname, dirname);
 
   filename.Append(".png");
   // copy filename for log .. stupid but whatever
@@ -3149,5 +3248,361 @@ void CMSLumi(TCanvas *& canv, const Int_t iPosX, const Int_t tev, const Double_t
     latex.SetTextSize(extraTextSize*t);
     latex.SetTextAlign(align_);
     latex.DrawLatex(posX_, posY_, extraText);      
+  }
+}
+
+void modifyFilename(TString& filename,const TString& hname, const TString& dirname)
+{
+  if (dirname.Contains("PrimaryVertices/pt_0to1",TString::kExact) ){  // shorten name of offline PV plots in tracking dir, drop _offline
+    if (dirname.Contains("offline",TString::kExact) ){
+      TString replacestr  = "_offline";
+      Ssiz_t  length      = replacestr.Length();
+      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+      
+      TString toreplace = "";
+      filename.Replace(filenamepos,length,toreplace);
+    }
+    else if (dirname.Contains("pixel",TString::kExact) ){
+      TString replacestr  = "_pixel";
+      Ssiz_t  length      = replacestr.Length();
+      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+      
+      TString toreplace = "";
+      filename.Replace(filenamepos,length,toreplace);
+    }
+  }
+  else if (dirname.Contains("SiStrip",TString::kExact) ){  // shorten name of SiStrip plots for output .png
+    if (filename.Contains("PerCMfromOrigin",TString::kExact) ){
+      TString replacestr  = "Summary_ClusterChargePerCMfromOrigin";
+      Ssiz_t  length      = replacestr.Length();
+      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+      
+      TString toreplace = "Sum_CCPerCMOrigin";
+      filename.Replace(filenamepos,length,toreplace);
+    }
+    else if (filename.Contains("PerCMfromTrack",TString::kExact) ){
+      TString replacestr  = "Summary_ClusterChargePerCMfromTrack";
+      Ssiz_t  length      = replacestr.Length();
+      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+      
+      TString toreplace = "Sum_CCPerCMTrack";
+      filename.Replace(filenamepos,length,toreplace);
+    }
+    else if (filename.Contains("Summary_ClusterCharge_",TString::kExact) ){
+      TString replacestr  = "Summary_ClusterCharge_";
+      Ssiz_t  length      = replacestr.Length();
+      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+      
+      TString toreplace = "Sum_CC_";
+      filename.Replace(filenamepos,length,toreplace);
+    }
+  } // end sistrip plots name change
+  else if (dirname.Contains("dEdx",TString::kExact) ){ // drop _ at end of dEdx plots
+    if (filename.Contains("PerTrack_",TString::kExact)) {  
+      TString replacestr  = "PerTrack_";
+      Ssiz_t  length      = replacestr.Length();
+      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+      
+      TString toreplace = "PerTrack";
+      filename.Replace(filenamepos,length,toreplace);
+    }
+    else if (filename.Contains("PerCluster_",TString::kExact)) {  
+      TString replacestr  = "PerCluster_";
+      Ssiz_t  length      = replacestr.Length();
+      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+      
+      TString toreplace = "PerCluster";
+      filename.Replace(filenamepos,length,toreplace);
+    }
+  } // drop _ at end of dEdx plots
+  else if ((dirname.Contains("TrackBuilding",TString::kExact)) || (dirname.Contains("LSanalysis",TString::kExact)) ){ // drop extra duplicate modifier from track building and LS analysis plots
+    if (dirname.Contains("LSanalysis",TString::kExact) ){  // drop lumiFlag and GenTk from LSanalysis plots
+      if (filename.Contains("lumiFlag",TString::kExact) ){
+	TString replacestr  = "_lumiFlag";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+      
+	TString toreplace = "";
+	filename.Replace(filenamepos,length,toreplace);
+      }
+      if (filename.Contains("GenTk",TString::kExact) ){
+	TString replacestr  = "_GenTk";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+      
+	TString toreplace = "";
+	filename.Replace(filenamepos,length,toreplace);
+      }
+    } // end check over LSan plots
+
+    // begin checks for duplicate step names
+    if (filename.Contains("detachedQuadStep",TString::kExact)) {  
+      if (filename.Contains("detachedQuadStepSeeds",TString::kExact)) {  
+	TString replacestr  = "detachedQuadStepSeeds_detachedQuadStep";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+	
+	TString toreplace = "detachedQuadStep";
+	filename.Replace(filenamepos,length,toreplace);
+      }
+      else if (filename.Contains("detachedQuadStepTrackCandidates",TString::kExact)) {  
+	TString replacestr  = "detachedQuadStepTrackCandidates_detachedQuadStep";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+	
+	TString toreplace = "detachedQuadStep";
+	filename.Replace(filenamepos,length,toreplace);
+      }
+    }
+    else if (filename.Contains("detachedTripletStep",TString::kExact)) {  
+      if (filename.Contains("detachedTripletStepSeeds",TString::kExact)) {  
+	TString replacestr  = "detachedTripletStepSeeds_detachedTripletStep";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+	
+	TString toreplace = "detachedTripletStep";
+	filename.Replace(filenamepos,length,toreplace);
+      }
+      else if (filename.Contains("detachedTripletStepTrackCandidates",TString::kExact)) {  
+	TString replacestr  = "detachedTripletStepTrackCandidates_detachedTripletStep";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+	
+	TString toreplace = "detachedTripletStep";
+	filename.Replace(filenamepos,length,toreplace);
+      }
+    }
+    else if (filename.Contains("highPtTripletStep",TString::kExact)) {  
+      if (filename.Contains("highPtTripletStepSeeds",TString::kExact)) {  
+	TString replacestr  = "highPtTripletStepSeeds_highPtTripletStep";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+	
+	TString toreplace = "highPtTripletStep";
+	filename.Replace(filenamepos,length,toreplace);
+      }
+      else if (filename.Contains("highPtTripletStepTrackCandidates",TString::kExact)) {  
+	TString replacestr  = "highPtTripletStepTrackCandidates_highPtTripletStep";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+	
+	TString toreplace = "highPtTripletStep";
+	filename.Replace(filenamepos,length,toreplace);
+      }
+    }
+    else if (filename.Contains("initialStep",TString::kExact)) {  
+      if (filename.Contains("initialStepSeeds",TString::kExact)) {  
+	TString replacestr  = "initialStepSeeds_initialStep";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+	
+	TString toreplace = "initialStep";
+	filename.Replace(filenamepos,length,toreplace);
+      }
+      else if (filename.Contains("initialStepTrackCandidates",TString::kExact)) {  
+	TString replacestr  = "initialStepTrackCandidates_initialStep";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+	
+	TString toreplace = "initialStep";
+	filename.Replace(filenamepos,length,toreplace);
+      }
+    }
+    else if (filename.Contains("jetCoreRegionalStep",TString::kExact)) {  
+      if (filename.Contains("jetCoreRegionalStepSeeds",TString::kExact)) {  
+	TString replacestr  = "jetCoreRegionalStepSeeds_jetCoreRegionalStep";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+	
+	TString toreplace = "jetCoreRegionalStep";
+	filename.Replace(filenamepos,length,toreplace);
+      }
+      else if (filename.Contains("jetCoreRegionalStepTrackCandidates",TString::kExact)) {  
+	TString replacestr  = "jetCoreRegionalStepTrackCandidates_jetCoreRegionalStep";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+	
+	TString toreplace = "jetCoreRegionalStep";
+	filename.Replace(filenamepos,length,toreplace);
+      }
+    }
+    else if (filename.Contains("lowPtQuadStep",TString::kExact)) {  
+      if (filename.Contains("lowPtQuadStepSeeds",TString::kExact)) {  
+	TString replacestr  = "lowPtQuadStepSeeds_lowPtQuadStep";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+	
+	TString toreplace = "lowPtQuadStep";
+	filename.Replace(filenamepos,length,toreplace);
+      }
+      else if (filename.Contains("lowPtQuadStepTrackCandidates",TString::kExact)) {  
+	TString replacestr  = "lowPtQuadStepTrackCandidates_lowPtQuadStep";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+	
+	TString toreplace = "lowPtQuadStep";
+	filename.Replace(filenamepos,length,toreplace);
+      }
+    }
+    else if (filename.Contains("lowPtTripletStep",TString::kExact)) {  
+      if (filename.Contains("lowPtTripletStepSeeds",TString::kExact)) {  
+	TString replacestr  = "lowPtTripletStepSeeds_lowPtTripletStep";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+	
+	TString toreplace = "lowPtTripletStep";
+	filename.Replace(filenamepos,length,toreplace);
+      }
+      else if (filename.Contains("lowPtTripletStepTrackCandidates",TString::kExact)) {  
+	TString replacestr  = "lowPtTripletStepTrackCandidates_lowPtTripletStep";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+	
+	TString toreplace = "lowPtTripletStep";
+	filename.Replace(filenamepos,length,toreplace);
+      }
+    }
+    else if (filename.Contains("mixedTripletStep",TString::kExact)) {  
+      if (filename.Contains("mixedTripletStepSeeds",TString::kExact)) {  
+	TString replacestr  = "mixedTripletStepSeeds_mixedTripletStep";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+	
+	TString toreplace = "mixedTripletStep";
+	filename.Replace(filenamepos,length,toreplace);
+      }
+      else if (filename.Contains("mixedTripletStepTrackCandidates",TString::kExact)) {  
+	TString replacestr  = "mixedTripletStepTrackCandidates_mixedTripletStep";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+	
+	TString toreplace = "mixedTripletStep";
+	filename.Replace(filenamepos,length,toreplace);
+      }
+    }
+    else if (filename.Contains("muonSeededStepInOut",TString::kExact)) {  
+      if (filename.Contains("muonSeededSeedsInOut",TString::kExact)) {  
+	TString replacestr  = "muonSeededSeedsInOut_muonSeededStepInOut";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+      
+	TString toreplace = "muonSeededStepInOut";
+	filename.Replace(filenamepos,length,toreplace);
+      }
+      else if (filename.Contains("muonSeededTrackCandidatesInOut",TString::kExact)) {  
+	TString replacestr  = "muonSeededTrackCandidatesInOut_muonSeededStepInOut";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+      
+	TString toreplace = "muonSeededStepInOut";
+	filename.Replace(filenamepos,length,toreplace);
+      }
+    }
+    else if (filename.Contains("muonSeededStepOutIn",TString::kExact)) {  
+      if (filename.Contains("muonSeededSeedsOutIn",TString::kExact)) {  
+	TString replacestr  = "muonSeededSeedsOutIn_muonSeededStepOutIn";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+	
+	TString toreplace = "muonSeededStepOutIn";
+	filename.Replace(filenamepos,length,toreplace);
+      }
+      else if (filename.Contains("muonSeededTrackCandidatesOutIn",TString::kExact)) {  
+	TString replacestr  = "muonSeededTrackCandidatesOutIn_muonSeededStepOutIn";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+	
+	TString toreplace = "muonSeededStepOutIn";
+	filename.Replace(filenamepos,length,toreplace);
+      }
+    }
+    else if (filename.Contains("pixelLessStep",TString::kExact)) {  
+      if (filename.Contains("pixelLessStepSeeds",TString::kExact)) {  
+	TString replacestr  = "pixelLessStepSeeds_pixelLessStep";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+	
+	TString toreplace = "pixelLessStep";
+	filename.Replace(filenamepos,length,toreplace);
+      }
+      else if (filename.Contains("pixelLessStepTrackCandidates",TString::kExact)) {  
+	TString replacestr  = "pixelLessStepTrackCandidates_pixelLessStep";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+	
+	TString toreplace = "pixelLessStep";
+	filename.Replace(filenamepos,length,toreplace);
+      }
+    }
+    else if (filename.Contains("pixelPairStep",TString::kExact)) {  
+      if (filename.Contains("pixelPairStepSeeds",TString::kExact)) {  
+	TString replacestr  = "pixelPairStepSeeds_pixelPairStep";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+	
+	TString toreplace = "pixelPairStep";
+	filename.Replace(filenamepos,length,toreplace);
+      }
+      else if (filename.Contains("pixelPairStepTrackCandidates",TString::kExact)) {  
+	TString replacestr  = "pixelPairStepTrackCandidates_pixelPairStep";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+	
+	TString toreplace = "pixelPairStep";
+	filename.Replace(filenamepos,length,toreplace);
+      }
+    }
+    else if (filename.Contains("tobTecStep",TString::kExact)) {  
+      if (filename.Contains("tobTecStepSeeds",TString::kExact)) {  
+	TString replacestr  = "tobTecStepSeeds_tobTecStep";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+	
+	TString toreplace = "tobTecStep";
+	filename.Replace(filenamepos,length,toreplace);
+      }
+      else if (filename.Contains("tobTecStepTrackCandidates",TString::kExact)) {  
+	TString replacestr  = "tobTecStepTrackCandidates_tobTecStep";
+	Ssiz_t  length      = replacestr.Length();
+	Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+	
+	TString toreplace = "tobTecStep";
+	filename.Replace(filenamepos,length,toreplace);
+      }
+    }
+  }// end concatinating track building + LSanalysis strings
+  else if (dirname.Contains("GeneralProperties",TString::kExact) || dirname.Contains("HitProperties",TString::kExact) ){ // shorten "NumberOf" or "Distance of Closest "
+    if (filename.Contains("NumberOf",TString::kExact)) {  
+      TString replacestr  = "NumberOf";
+      Ssiz_t  length      = replacestr.Length();
+      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+      
+      TString toreplace = "N";
+      filename.Replace(filenamepos,length,toreplace);
+    }
+    else if (filename.Contains("ImpactPoint",TString::kExact)) {  
+      TString replacestr  = "ImpactPoint";
+      Ssiz_t  length      = replacestr.Length();
+      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+      
+      TString toreplace = "IP";
+      filename.Replace(filenamepos,length,toreplace);
+    }
+    else if (filename.Contains("PointOfClosestApproach",TString::kExact)) {  
+      TString replacestr  = "PointOfClosestApproach";
+      Ssiz_t  length      = replacestr.Length();
+      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+      
+      TString toreplace = "PCA";
+      filename.Replace(filenamepos,length,toreplace);
+    }
+    else if (filename.Contains("DistanceOfClosestApproach",TString::kExact)) {  
+      TString replacestr  = "DistanceOfClosestApproach";
+      Ssiz_t  length      = replacestr.Length();
+      Ssiz_t  filenamepos = filename.Index(replacestr.Data());
+      
+      TString toreplace = "DistCA";
+      filename.Replace(filenamepos,length,toreplace);
+    }
   }
 }

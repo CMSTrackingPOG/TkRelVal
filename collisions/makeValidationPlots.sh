@@ -40,7 +40,7 @@ do
     mkdir -p ${directory}/genTks/${subdir}_log
 done
 
-for subdir in GenProps HitProps PU LSan
+for subdir in GenProps HitProps HitEff HitEffSL PU LSan
 do
     mkdir -p ${directory}/HPTks_dzPV0p1/${subdir}_lin
     mkdir -p ${directory}/HPTks_dzPV0p1/${subdir}_log
@@ -52,7 +52,7 @@ do
     mkdir -p ${directory}/HPTks_0to1/${subdir}_log
 done
 
-for subdir in GenProps HitProps HitEff HitEffBX PU LSan
+for subdir in GenProps HitProps HitEff HitEffBX HitEffSL PU LSan
 do
     mkdir -p ${directory}/HPTks_gt1/${subdir}_lin
     mkdir -p ${directory}/HPTks_gt1/${subdir}_log
@@ -64,7 +64,7 @@ do
     mkdir -p ${directory}/dEdx/${subdir}_log
 done
 
-for subdir in Alignment offlineBS offlinePVs
+for subdir in Alignment ResPV ResOtherV offlineBS offlinePVs
 do
     mkdir -p ${directory}/OfflinePV/${subdir}_lin
     mkdir -p ${directory}/OfflinePV/${subdir}_log
@@ -164,7 +164,7 @@ do
     done
 done
 
-for subdir in GenProps HitProps PU LSan
+for subdir in GenProps HitProps HitEff HitEffSL PU LSan
 do
     for scale in lin log
     do 
@@ -184,7 +184,7 @@ do
     done
 done
 
-for subdir in GenProps HitProps HitEff HitEffBX PU LSan
+for subdir in GenProps HitProps HitEff HitEffBX HitEffSL PU LSan
 do
     for scale in lin log
     do 
@@ -204,7 +204,7 @@ do
     done
 done
 
-for subdir in offlinePVs offlineBS Alignment
+for subdir in Alignment ResPV ResOtherV offlinePVs offlineBS
 do
     for scale in lin log
     do 

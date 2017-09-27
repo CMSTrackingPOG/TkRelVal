@@ -27,3 +27,4 @@ bool createTProfPlot(const TString hname, const TString dirname,
 		     TFile *& V2file, const TString runstring2, const TString relstring2, 
 		     TCanvas *& canvas, TString outdir, const Double_t lumi, const Int_t tev);
 void setTDRStyle(TStyle *& tdrStyle);
+void modifyFilename(TString& filename,const TString& hname, const TString& dirname);
