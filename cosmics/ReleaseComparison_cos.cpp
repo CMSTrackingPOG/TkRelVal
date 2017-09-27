@@ -22,6 +22,8 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-90X");
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-91X");
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-92X");
+  if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-93X");
+  if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-94X");
   TString relString1(fileName1(pos1,pos2-pos1)); 
   TFile *file1 = TFile::Open(fileName1.Data());
   std::cout << "Getting histos for run number... " << runString1.Data()
@@ -41,6 +43,8 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-90X");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-91X");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-92X");  
+  if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-93X");  
+  if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-94X");  
   TString relString2(fileName2(pos1,pos2-pos1));
   TFile *file2 = TFile::Open(fileName2.Data());
   std::cout << "Getting histos for run number... " << runString2.Data()
