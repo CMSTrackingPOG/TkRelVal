@@ -1109,10 +1109,10 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
     createTProfPlot("NumberOfTrajCandsPerSeedVsPhi_detachedQuadStepSeeds_detachedQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
     createTH1FPlot("NumberOfTrajCandsPerSeed_detachedQuadStepSeeds_detachedQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedStoppingSource_detachedQuadStepSeeds_detachedQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVSeta_detachedQuadStepSeeds_detachedQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVSphi_detachedQuadStepSeeds_detachedQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVsEta_detachedQuadStepSeeds_detachedQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVsPhi_detachedQuadStepSeeds_detachedQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVSeta_detachedQuadStepSeeds_detachedQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVSphi_detachedQuadStepSeeds_detachedQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVsEta_detachedQuadStepSeeds_detachedQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVsPhi_detachedQuadStepSeeds_detachedQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
     createTH1FPlot("NumberOfSeeds_detachedQuadStepSeeds_detachedQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedEta_detachedQuadStepSeeds_detachedQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedPhi_detachedQuadStepSeeds_detachedQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
@@ -1132,10 +1132,10 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
     createTProfPlot("NumberOfTrajCandsPerSeedVsPhi_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
     createTH1FPlot("NumberOfTrajCandsPerSeed_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedStoppingSource_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVSeta_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVSphi_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVsEta_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVsPhi_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVSeta_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVSphi_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVsEta_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVsPhi_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
     createTH1FPlot("NumberOfSeeds_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedEta_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedPhi_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
@@ -1159,10 +1159,10 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
     createTProfPlot("NumberOfTrajCandsPerSeedVsPhi_highPtTripletStepSeeds_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
     createTH1FPlot("NumberOfTrajCandsPerSeed_highPtTripletStepSeeds_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedStoppingSource_highPtTripletStepSeeds_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVSeta_highPtTripletStepSeeds_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVSphi_highPtTripletStepSeeds_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVsEta_highPtTripletStepSeeds_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVsPhi_highPtTripletStepSeeds_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVSeta_highPtTripletStepSeeds_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVSphi_highPtTripletStepSeeds_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVsEta_highPtTripletStepSeeds_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVsPhi_highPtTripletStepSeeds_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
     createTH1FPlot("NumberOfSeeds_highPtTripletStepSeeds_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedEta_highPtTripletStepSeeds_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedPhi_highPtTripletStepSeeds_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
@@ -1182,10 +1182,10 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
     createTProfPlot("NumberOfTrajCandsPerSeedVsPhi_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
     createTH1FPlot("NumberOfTrajCandsPerSeed_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedStoppingSource_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVSeta_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVSphi_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVsEta_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVsPhi_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVSeta_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVSphi_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVsEta_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVsPhi_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
     createTH1FPlot("NumberOfSeeds_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedEta_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedPhi_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
@@ -1213,10 +1213,10 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
     createTProfPlot("NumberOfTrajCandsPerSeedVsPhi_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
     createTH1FPlot("NumberOfTrajCandsPerSeed_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedStoppingSource_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVSeta_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVSphi_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVsEta_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVsPhi_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVSeta_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVSphi_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVsEta_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVsPhi_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
     createTH1FPlot("NumberOfSeeds_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedEta_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedPhi_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
@@ -1237,10 +1237,10 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
     createTProfPlot("NumberOfTrajCandsPerSeedVsPhi_lowPtQuadStepSeeds_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
     createTH1FPlot("NumberOfTrajCandsPerSeed_lowPtQuadStepSeeds_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedStoppingSource_lowPtQuadStepSeeds_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVSeta_lowPtQuadStepSeeds_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVSphi_lowPtQuadStepSeeds_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVsEta_lowPtQuadStepSeeds_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVsPhi_lowPtQuadStepSeeds_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVSeta_lowPtQuadStepSeeds_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVSphi_lowPtQuadStepSeeds_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVsEta_lowPtQuadStepSeeds_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVsPhi_lowPtQuadStepSeeds_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
     createTH1FPlot("NumberOfSeeds_lowPtQuadStepSeeds_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedEta_lowPtQuadStepSeeds_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedPhi_lowPtQuadStepSeeds_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
@@ -1260,10 +1260,10 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
     createTProfPlot("NumberOfTrajCandsPerSeedVsPhi_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
     createTH1FPlot("NumberOfTrajCandsPerSeed_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedStoppingSource_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVSeta_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVSphi_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVsEta_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVsPhi_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVSeta_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVSphi_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVsEta_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVsPhi_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
     createTH1FPlot("NumberOfSeeds_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedEta_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedPhi_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
@@ -1283,10 +1283,10 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
     createTProfPlot("NumberOfTrajCandsPerSeedVsPhi_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
     createTH1FPlot("NumberOfTrajCandsPerSeed_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedStoppingSource_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVSeta_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVSphi_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVsEta_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVsPhi_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVSeta_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVSphi_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVsEta_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVsPhi_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
     createTH1FPlot("NumberOfSeeds_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedEta_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedPhi_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
@@ -1310,10 +1310,10 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
     createTProfPlot("NumberOfTrajCandsPerSeedVsPhi_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
     createTH1FPlot("NumberOfTrajCandsPerSeed_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedStoppingSource_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVSeta_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVSphi_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVsEta_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVsPhi_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVSeta_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVSphi_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVsEta_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVsPhi_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
     createTH1FPlot("NumberOfSeeds_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedEta_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedPhi_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
@@ -1331,10 +1331,10 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
     createTProfPlot("NumberOfTrajCandsPerSeedVsPhi_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
     createTH1FPlot("NumberOfTrajCandsPerSeed_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedStoppingSource_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVSeta_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVSphi_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVsEta_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVsPhi_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVSeta_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVSphi_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVsEta_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVsPhi_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
     createTH1FPlot("NumberOfSeeds_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedEta_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedPhi_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
@@ -1352,10 +1352,10 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
     createTProfPlot("NumberOfTrajCandsPerSeedVsPhi_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
     createTH1FPlot("NumberOfTrajCandsPerSeed_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedStoppingSource_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVSeta_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVSphi_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVsEta_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVsPhi_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVSeta_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVSphi_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVsEta_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVsPhi_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
     createTH1FPlot("NumberOfSeeds_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedEta_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedPhi_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
@@ -1379,10 +1379,10 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
     createTProfPlot("NumberOfTrajCandsPerSeedVsPhi_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
     createTH1FPlot("NumberOfTrajCandsPerSeed_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedStoppingSource_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVSeta_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVSphi_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVsEta_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVsPhi_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVSeta_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVSphi_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVsEta_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVsPhi_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
     createTH1FPlot("NumberOfSeeds_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedEta_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedPhi_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
@@ -1402,10 +1402,10 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
     createTProfPlot("NumberOfTrajCandsPerSeedVsPhi_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
     createTH1FPlot("NumberOfTrajCandsPerSeed_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedStoppingSource_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVSeta_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVSphi_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVsEta_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
-    createTH1FPlot("StoppingSourceVsPhi_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVSeta_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVSphi_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVsEta_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
+    createTProfPlot("StoppingSourceVsPhi_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, tev);
     createTH1FPlot("NumberOfSeeds_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedEta_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("SeedPhi_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
@@ -2130,7 +2130,7 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
   if (isHist1 && isHist2 && 
       !(hname.Contains("globalEfficiencies",TString::kExact)) && 
       !(hname.Contains("effic_vs_PU_",TString::kExact)) &&
-      !(dirname.Contains("Resolution",TString::kExact) && hname.Contains("_vs_",TString::kExact)) {
+      !(dirname.Contains("Resolution",TString::kExact) && hname.Contains("_vs_",TString::kExact))) {
     // histV1->Sumw2();
     // histV2->Sumw2();
     // histV1->Scale(1.0/histV1->Integral()); // scale to unity
