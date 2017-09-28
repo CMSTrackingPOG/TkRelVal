@@ -2538,18 +2538,8 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
   
   TLine * ratioline = new TLine();
 
-  if ( (hname.Contains("NumberOfTracks",TString::kExact)) && (dirname.Contains("highPurityTracks",TString::kExact)) ){
-    ratioline->SetX1(0);
-    ratioline->SetX2(1000);
-  }
-  else if (hname.Contains("algorithm",TString::kExact) || hname.Contains("Algorithm",TString::kExact)){
-    ratioline->SetX1(4);
-    ratioline->SetX2(17);
-  }
-  else {
-    ratioline->SetX1(hratio->GetXaxis()->GetXmin());
-    ratioline->SetX2(hratio->GetXaxis()->GetXmax());
-  }
+  ratioline->SetX1(hratio->GetXaxis()->GetBinLowEdge(hratio->GetXaxis()->GetFirst()));
+  ratioline->SetX2(hratio->GetXaxis()->GetBinUpEdge(hratio->GetXaxis()->GetLast()));
   ratioline->SetY1(1.0);
   ratioline->SetY2(1.0);
 
