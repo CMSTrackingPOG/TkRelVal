@@ -31,7 +31,7 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
 	    <<" for release " << relString1.Data() << std::endl;  
   if ( file1->IsZombie() )
     std::cout << "File: " << fileName1.Data() << " cannot be opened!" << std::endl;
-  relString1 = "PRref";
+  //  relString1 = "PRref";
 
   // fileName2 --> NEW
   pos = fileName2.Index("_R0");
@@ -53,7 +53,7 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
     	    <<" for release " << relString2.Data() << std::endl;  
   if ( file2->IsZombie() )
     std::cout << "File: " << fileName2.Data() << " cannot be opened!" << std::endl;
-  relString2 = "PRnewco";
+  //  relString2 = "PRnewco";
   
   //================= Print CMS Lumi on these guys =================//
 
@@ -991,7 +991,7 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
 
   // vs SCALLUMI
   dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/dzPV0p1/HitEffFromHitPatternVsSCALLUMI";
-  outdir  = directory+"/dzPV0p1/HitEffSL";
+  outdir  = directory+"/HPTks_dzPV0p1/HitEffSL";
 
   if (full)
   {
@@ -2133,10 +2133,6 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
       !(hname.Contains("globalEfficiencies",TString::kExact)) && 
       !(hname.Contains("effic_vs_PU_",TString::kExact)) &&
       !(dirname.Contains("Resolution",TString::kExact) && hname.Contains("_vs_",TString::kExact))) {
-    // histV1->Sumw2();
-    // histV2->Sumw2();
-    // histV1->Scale(1.0/histV1->Integral()); // scale to unity
-    // histV2->Scale(1.0/histV2->Integral());
     if (V1_integral>V2_integral) {
       histV1->Scale(V2_integral / V1_integral); // scale down h1
       histV2->Scale(1);
@@ -2183,16 +2179,14 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
   histV1->SetLineColor(kBlue); // h1 is ref ...originally was red... switched to match MC comparisons
   histV1->SetMarkerColor(kBlue); // h1 is ref ...originally was red... switched to match MC comparisons
   histV1->SetMaximum(max); // just to get all points to show up
-  //  if (histV1->GetSumw2() == (TArrayD*) NULL) histV1->Sumw2();
-  histV1->Sumw2();
+  if (histV1->GetSumw2N() == 0) histV1->Sumw2();
 
   histV2->GetXaxis()->SetTitleSize(0.0);
   histV2->SetLineWidth(2);
   histV2->SetLineStyle(1);
   histV2->SetLineColor(kRed); // h2 is new ... ogirinally was blue --> switched to match MC 
   histV2->SetMarkerColor(kRed); // h2 is new ... ogirinally was blue --> switched to match MC 
-  //  if (histV2->GetSumw2() == (TArrayD*) NULL) histV2->Sumw2();
-  histV2->Sumw2();
+  if (histV2->GetSumw2N() == 0) histV2->Sumw2();
 
   if (!isHist1) { // only plot hist1 in case of missing hists
     histV1->SetLineColor(kRed);
