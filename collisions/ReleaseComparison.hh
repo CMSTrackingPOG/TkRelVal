@@ -28,3 +28,5 @@ bool createTProfPlot(const TString hname, const TString dirname,
 		     TCanvas *& canvas, TString outdir, const Double_t lumi, const Int_t tev);
 void setTDRStyle(TStyle *& tdrStyle);
 void modifyFilename(TString& filename,const TString& hname, const TString& dirname);
+float GetMaxRange(TH1F *& histV1, TH1F *& histV2);
+float GetMaxRange(TH1F *& hist);

@@ -2194,13 +2194,23 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
     histV1->SetLineWidth(2);
   }
 
-  if ( (hname.Contains("NumberOfTracks",TString::kExact)) && (dirname.Contains("highPurityTracks",TString::kExact)) ){
-    histV1->GetXaxis()->SetRangeUser(0,1000);
-    histV2->GetXaxis()->SetRangeUser(0,1000);
+  //++++++++++++++++++++ Change axis ranges +++++++++++++++++++//
+
+  if ((hname.Contains("NumberOfTracks",TString::kExact) && dirname.Contains("highPurityTracks",TString::kExact)) || 
+      (hname.Contains("vs_nvertices",TString::kExact) && dirname.Contains("Resolution"))){
+    const float max = GetMaxRange(histV1,histV2);
+    histV1->GetXaxis()->SetRangeUser(0,max);
+    histV2->GetXaxis()->SetRangeUser(0,max);
   }
   else if (hname.Contains("algorithm",TString::kExact) || hname.Contains("Algorithm",TString::kExact)){
-    histV1->GetXaxis()->SetRangeUser(4,17);
-    histV2->GetXaxis()->SetRangeUser(4,17);
+    if (runstring1.Atoi() < 294927){
+      histV1->GetXaxis()->SetRangeUser(4,17);
+      histV2->GetXaxis()->SetRangeUser(4,17);
+    }
+    else {
+      histV1->GetXaxis()->SetRangeUser(4,25);
+      histV2->GetXaxis()->SetRangeUser(4,25);
+    }
   }
 
   //++++++++++++++++++++ Change axis title names +++++++++++++++++++//
@@ -2563,6 +2573,11 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
   //++++++++++++++++++++ Save output canvas +++++++++++++++++++//
   CMSLumi(canvas, 0, tev, lumi);
 
+  if (hname.Contains("vs_sumpt",TString::kExact) && dirname.Contains("Resolution",TString::kExact)){
+    mainpad->SetLogx(1);
+    respad->SetLogx(1);
+  }
+
   // log first
   mainpad->cd();
   mainpad->SetLogy(1);
@@ -2579,6 +2594,11 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
   filenamecopy.Prepend(outdir+"_lin/");
   canvas->cd();
   canvas->Print(filenamecopy.Data());
+
+  if (hname.Contains("vs_sumpt",TString::kExact) && dirname.Contains("Resolution",TString::kExact)){
+    mainpad->SetLogx(0);
+    respad->SetLogx(0);
+  }
 
   //++++++++++++++++++++ delete objects +++++++++++++++++++//
 
@@ -3601,4 +3621,21 @@ void modifyFilename(TString& filename,const TString& hname, const TString& dirna
       filename.Replace(filenamepos,length,toreplace);
     }
   }
+}
+
+float GetMaxRange(TH1F *& histV1, TH1F *& histV2)
+{
+  const float max1 = GetMaxRange(histV1);
+  const float max2 = GetMaxRange(histV2);
+  return (max1 >= max2 ? max1 : max2);
+}
+
+float GetMaxRange(TH1F *& hist)
+{
+  int bin = hist->GetNbinsX();
+  for (Int_t ibin = 1; ibin <= hist->GetNbinsX(); ibin++)
+  {
+    if (hist->GetBinContent(ibin) != 0.f) bin = ibin;
+  }
+  return hist->GetXaxis()->GetBinUpEdge(bin);
 }
