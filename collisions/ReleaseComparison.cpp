@@ -2832,6 +2832,13 @@ bool createTProfPlot(const TString hname, const TString dirname, TFile *& V1file
   const double V2min = histV2->GetBinContent(histV2->GetMinimumBin());
   min = (V1min<V2min) ? V1min : V2min;
 
+  if (dirname.Contains("",TString::kExact) && (hname.Contains("dzVs",TString::kExact) || hname.Contains("dxyVs",TString::kExact)))
+  {
+    const double tmp = std::abs(max)>std::abs(min) ? max : min;
+    max = tmp * std::copysign(1.0,max);
+    min = tmp * std::copysign(1.0,min);
+  }
+
   histV1->SetLineStyle(1);
   histV1->GetYaxis()->SetLabelSize(0.038);
   histV1->GetXaxis()->SetTitleSize(0.0);
@@ -2923,8 +2930,8 @@ bool createTProfPlot(const TString hname, const TString dirname, TFile *& V1file
   hratio->Add(hdenom,-1);
   hratio->Divide(hdenom);
 
-  hratio->SetMaximum(1.25);
-  hratio->SetMinimum(0.75);
+  hratio->SetMaximum( 2.0);
+  hratio->SetMinimum(-2.0);
   hratio->GetXaxis()->SetTitle(histV1->GetXaxis()->GetTitle());
 
   hratio->GetXaxis()->SetTitleSize(0.13);
@@ -2958,8 +2965,8 @@ bool createTProfPlot(const TString hname, const TString dirname, TFile *& V1file
 
   ratioline->SetX1(hratio->GetXaxis()->GetXmin());
   ratioline->SetX2(hratio->GetXaxis()->GetXmax());
-  ratioline->SetY1(1.0);
-  ratioline->SetY2(1.0);
+  ratioline->SetY1(0.0);
+  ratioline->SetY2(0.0);
 
   // customize appearance
   ratioline->SetLineColor(kRed);
