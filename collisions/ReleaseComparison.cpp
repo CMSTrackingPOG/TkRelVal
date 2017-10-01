@@ -2834,7 +2834,7 @@ bool createTProfPlot(const TString hname, const TString dirname, TFile *& V1file
 
   if (dirname.Contains("",TString::kExact) && (hname.Contains("dzVs",TString::kExact) || hname.Contains("dxyVs",TString::kExact)))
   {
-    const double tmp = std::abs(max)>std::abs(min) ? max : min;
+    const double tmp = std::abs(std::abs(max)>std::abs(min) ? max : min);
     max = tmp * std::copysign(1.0,max);
     min = tmp * std::copysign(1.0,min);
   }
