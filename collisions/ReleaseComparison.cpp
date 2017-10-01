@@ -1,7 +1,8 @@
 #include "ReleaseComparison.hh"
 
 void V1_V2_trkComparison(const TString fileName1, const TString fileName2, 
-			 const TString directory, const bool full) {
+			 const TString directory, const bool full) 
+{
   TStyle *tdrStyle = new TStyle("tdrStyle","Style for P-TDR");
   setTDRStyle(tdrStyle);
 
@@ -2638,8 +2639,8 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-bool createTProfPlot(const TString hname, const TString dirname, TFile *& V1file, const TString runstring1, const TString relstring1, TFile *& V2file, const TString runstring2, const TString relstring2, TCanvas *& canvas, TString outdir, const Double_t lumi, const Int_t tev) {
-
+bool createTProfPlot(const TString hname, const TString dirname, TFile *& V1file, const TString runstring1, const TString relstring1, TFile *& V2file, const TString runstring2, const TString relstring2, TCanvas *& canvas, TString outdir, const Double_t lumi, const Int_t tev) 
+{
   // ++++++++++++ Get name of histos and get histos +++++++++++++ //
   
   TString basename1 = "DQMData/Run ";
@@ -2917,8 +2918,9 @@ bool createTProfPlot(const TString hname, const TString dirname, TFile *& V1file
   respad->Draw();
   respad->cd();
 
-  TH1D * hratio = histV2->ProjectionX("numer","E"); // Ratio is TARGET divided by REF
+  TH1D * hratio = histV2->ProjectionX("numer","E"); // Ratio is TARGET subtracted by REF divided by REF
   TH1D * hdenom = histV1->ProjectionX("denom","E");
+  hratio->Add(hdenom,-1);
   hratio->Divide(hdenom);
 
   hratio->SetMaximum(1.25);
@@ -2936,13 +2938,13 @@ bool createTProfPlot(const TString hname, const TString dirname, TFile *& V1file
   hratio->GetYaxis()->SetLabelSize(0.13);
   hratio->GetYaxis()->SetNdivisions(505);
   if (isHist1 && isHist2){
-    hratio->GetYaxis()->SetTitle("NEW/REF");
+    hratio->GetYaxis()->SetTitle("(NEW-REF)/REF");
   }
   else if (!isHist1 && isHist2){
-    hratio->GetYaxis()->SetTitle("NEW/NEW");
+    hratio->GetYaxis()->SetTitle("(NEW-NEW)/NEW");
   }
   else if (isHist1 && !isHist2){
-    hratio->GetYaxis()->SetTitle("REF/REF");
+    hratio->GetYaxis()->SetTitle("(REF-REF)/REF");
   }
   hratio->SetStats(0);
   hratio->SetTitle("");
