@@ -1,6 +1,7 @@
 #include "TString.h"
 #include "TSystem.h"
 #include "TROOT.h"
+#include "ReleaseComparison.cpp+"
 
 void setupcpp11() // customize ACLiC's behavior ...
 {
@@ -21,7 +22,7 @@ void runValidationComparison(const char * refFile, const char * newFile,
   setupcpp11(); 
 
   bool fullbool = full.Contains("true",TString::kExact);
-  gROOT->LoadMacro("ReleaseComparison.cpp+g");
+  //  gROOT->LoadMacro("ReleaseComparison.cpp+g");
   V1_V2_trkComparison(refFile,newFile,directory,fullbool);
 }
 

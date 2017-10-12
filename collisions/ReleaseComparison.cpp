@@ -8,7 +8,7 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
 
   gROOT->SetBatch(kTRUE);
   gStyle->SetPalette(1);
-  gStyle->SetOptStat(110111);
+  gStyle->SetOptStat("emroun");
   gStyle->SetOptFit(1);
   gROOT->ForceStyle();
 
@@ -82,6 +82,7 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
   else if (atoi(runString1.Data()) == 283946){lumi = 306.16; tev = 13;} // 2016H data, 25ns, 3.8T
   else if (atoi(runString1.Data()) == 295613){lumi = 7.33;  tev = 13;} // 2017A data, 25ns, 3.8T
   else if (atoi(runString1.Data()) == 297227){lumi = 22.77; tev = 13;} // 2017B data, 25ns, 3.8T
+  else if (atoi(runString1.Data()) == 301998){lumi = 221.62; tev = 13;} // 2017C data, 25ns, 3.8T
   else if (atoi(runString1.Data()) == 302474){lumi = 44.02; tev = 13;} // 2017D data, 25ns, 3.8T
   else {lumi = 0.0; tev = 0.0;}
 
@@ -2473,7 +2474,7 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
     }
   }
 
-  st1->SetY1NDC(0.77);
+  st1->SetY1NDC(0.75);
   st1->SetY2NDC(0.94);
   const Double_t defaulth = st1->GetY2NDC() - st1->GetY1NDC();
   const Double_t gaph = 0.02;
@@ -2906,7 +2907,7 @@ bool createTProfPlot(const TString hname, const TString dirname, TFile *& V1file
     st2->SetX1NDC(0.77);  
     st2->SetX2NDC(0.98);    
   }
-  st1->SetY1NDC(0.77);
+  st1->SetY1NDC(0.75);
   st1->SetY2NDC(0.94);
   
   const Double_t defaulth = st1->GetY2NDC() - st1->GetY1NDC();
