@@ -7,7 +7,7 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
 
   gROOT->SetBatch(kTRUE);
   gStyle->SetPalette(1);
-  gStyle->SetOptStat(110111);
+  gStyle->SetOptStat("menrou");
   gStyle->SetOptFit(1);
   gROOT->ForceStyle();
 
@@ -559,7 +559,7 @@ bool createTH1FPlot(const TString hname, const TString extra, const TString dirn
   //++++++++++++++++++++ Draw both stats boxes +++++++++++++++++++//
 
   TPaveStats *st1 = (TPaveStats*)(histV1->GetListOfFunctions()->FindObject("stats"));
-  TPaveStats *st2;
+  TPaveStats *st2 = NULL;
   if (isHist1 && isHist2){
     st2 = (TPaveStats*)(histV2->GetListOfFunctions()->FindObject("stats"));
   }
@@ -682,7 +682,7 @@ bool createTH1FPlot(const TString hname, const TString extra, const TString dirn
 
   if ( st1 ) {delete st1;}
   if ( isHist1 && isHist2 ) {
-    if ( st2 ) {delete st2;}
+    if ( st2 != NULL ) {delete st2;}
   }
 
   if ( leg ) {delete leg;}
@@ -1005,7 +1005,7 @@ bool createTProfPlot(const TString hname, const TString extra, const TString dir
   //++++++++++++++++++++ Draw both stats boxes +++++++++++++++++++//
 
   TPaveStats *st1 = (TPaveStats*)(histV1->GetListOfFunctions()->FindObject("stats"));
-  TPaveStats *st2;
+  TPaveStats *st2 = NULL;
   if (isHist1 && isHist2){
     st2 = (TPaveStats*)(histV2->GetListOfFunctions()->FindObject("stats"));
   }
@@ -1034,11 +1034,14 @@ bool createTProfPlot(const TString hname, const TString extra, const TString dir
   respad->Draw();
   respad->cd();
 
-  TProfile* hratio = (TProfile*) histV2->Clone("hratio");
-  hratio->Divide(histV1);
 
-  hratio->SetMaximum(1.25);
-  hratio->SetMinimum(0.75);
+  TH1D * hratio = histV2->ProjectionX("numer","E"); // Ratio is TARGET subtracted by REF divided by REF
+  TH1D * hdenom = histV1->ProjectionX("denom","E");
+  hratio->Add(hdenom,-1);
+  hratio->Divide(hdenom);
+
+  hratio->SetMaximum( 2.0);
+  hratio->SetMinimum(-2.0);
   hratio->GetXaxis()->SetTitle(histV1->GetXaxis()->GetTitle());
 
   hratio->GetXaxis()->SetTitleSize(0.13);
@@ -1052,13 +1055,13 @@ bool createTProfPlot(const TString hname, const TString extra, const TString dir
   hratio->GetYaxis()->SetLabelSize(0.13);
   hratio->GetYaxis()->SetNdivisions(505);
   if (isHist1 && isHist2){
-    hratio->GetYaxis()->SetTitle("NEW/REF");
+    hratio->GetYaxis()->SetTitle("(NEW-REF)/REF");
   }
   else if (!isHist1 && isHist2){
-    hratio->GetYaxis()->SetTitle("NEW/NEW");
+    hratio->GetYaxis()->SetTitle("(NEW-NEW)/NEW");
   }
   else if (isHist1 && !isHist2){
-    hratio->GetYaxis()->SetTitle("REF/REF");
+    hratio->GetYaxis()->SetTitle("(REF-REF)/REF");
   }
   hratio->SetStats(0);
   hratio->SetTitle("");
@@ -1069,17 +1072,10 @@ bool createTProfPlot(const TString hname, const TString extra, const TString dir
   //++++++++++++++++++++ Draw ratio line +++++++++++++++++++//
   
   TLine * ratioline = new TLine();
-
-  if (hname.Contains("algorithm",TString::kExact) || hname.Contains("Algorithm",TString::kExact)){
-    ratioline->SetX1(0);
-    ratioline->SetX2(2);
-  }
-  else {
-    ratioline->SetX1(hratio->GetXaxis()->GetXmin());
-    ratioline->SetX2(hratio->GetXaxis()->GetXmax());
-  }
-  ratioline->SetY1(1.0);
-  ratioline->SetY2(1.0);
+  ratioline->SetX1(hratio->GetXaxis()->GetXmin());
+  ratioline->SetX2(hratio->GetXaxis()->GetXmax());
+  ratioline->SetY1(0.0);
+  ratioline->SetY2(0.0);
 
   // customize appearance
   ratioline->SetLineColor(kRed);
@@ -1128,7 +1124,7 @@ bool createTProfPlot(const TString hname, const TString extra, const TString dir
 
   if ( st1 ) {delete st1;}
   if ( isHist1 && isHist2 ) {
-    if ( st2 ) {delete st2;}
+    if ( st2 != NULL) {delete st2;}
   }
 
   if ( leg ) {delete leg;}
@@ -1333,7 +1329,7 @@ void setTDRStyle(TStyle *& tdrStyle) {
     latex.DrawLatex(l+extraTextOffset,1-t+magBTextOffset*t,cmsText);
   }
   
-  Double_t posX_;
+  Double_t posX_ = 0;
   if (iPosX%10 <= 1) {
     posX_ =   l + relPosX*(1-l-r);
   }

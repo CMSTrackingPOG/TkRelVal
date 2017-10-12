@@ -2453,7 +2453,7 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
   //++++++++++++++++++++ Draw both stats boxes +++++++++++++++++++//
 
   TPaveStats *st1 = (TPaveStats*)(histV1->GetListOfFunctions()->FindObject("stats"));
-  TPaveStats *st2;
+  TPaveStats *st2 = NULL;
   if (isHist1 && isHist2){
     st2 = (TPaveStats*)(histV2->GetListOfFunctions()->FindObject("stats"));
   }
@@ -2584,7 +2584,7 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
 
   if ( st1 ) {delete st1;}
   if ( isHist1 && isHist2 ) {
-    if ( st2 ) {delete st2;}
+    if ( st2 != NULL ) {delete st2;}
   }
 
   if ( leg ) {delete leg;}
@@ -2897,7 +2897,7 @@ bool createTProfPlot(const TString hname, const TString dirname, TFile *& V1file
   //++++++++++++++++++++ Draw both stats boxes +++++++++++++++++++//
 
   TPaveStats *st1 = (TPaveStats*)(histV1->GetListOfFunctions()->FindObject("stats"));
-  TPaveStats *st2;
+  TPaveStats *st2 = NULL;
   if (isHist1 && isHist2){
     st2 = (TPaveStats*)(histV2->GetListOfFunctions()->FindObject("stats"));
   }
@@ -3010,7 +3010,7 @@ bool createTProfPlot(const TString hname, const TString dirname, TFile *& V1file
 
   if ( st1 ) {delete st1;}
   if ( isHist1 && isHist2 ) {
-    if ( st2 ) {delete st2;}
+    if ( st2 != NULL ) {delete st2;}
   }
 
   if ( leg ) {delete leg;}
@@ -3216,7 +3216,7 @@ void CMSLumi(TCanvas *& canv, const Int_t iPosX, const Int_t tev, const Double_t
     latex.DrawLatex(l+extraTextOffset,1-t+lumiTextOffset*t,cmsText);
   }
   
-  Double_t posX_;
+  Double_t posX_ = 0;
   if (iPosX%10 <= 1) {
     posX_ =   l + relPosX*(1-l-r);
   }

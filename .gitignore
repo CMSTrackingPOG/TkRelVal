@@ -8,6 +8,7 @@
 *.so
 *.dylib
 *.dll
+*.pcm
 
 # Compiled Static libraries
 *.lai
@@ -27,3 +28,4 @@ RunComparison/
 
 #temp files
 *~
+*#
