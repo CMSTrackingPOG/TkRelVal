@@ -841,8 +841,10 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
     createTH1FPlot("effic_vs_PU_PXB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_PU_PXB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_PU_PXB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_PXB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_PU_PXF1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_PU_PXF2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_PXF3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_PU_TEC1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_PU_TEC2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_PU_TEC3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
@@ -878,8 +880,10 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
     createTH1FPlot("effic_vs_PU_PXB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_PU_PXB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_PU_PXB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_PXB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_PU_PXF1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_PU_PXF2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_PXF3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_PU_TEC1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_PU_TEC2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_PU_TEC3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
@@ -915,8 +919,10 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
     createTH1FPlot("effic_vs_PU_PXB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_PU_PXB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_PU_PXB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_PXB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_PU_PXF1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_PU_PXF2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_PXF3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_PU_TEC1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_PU_TEC2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_PU_TEC3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
@@ -952,8 +958,10 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
     createTH1FPlot("effic_vs_BX_PXB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_BX_PXB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_BX_PXB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_PXB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_BX_PXF1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_BX_PXF2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_PXF3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_BX_TEC1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_BX_TEC2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_BX_TEC3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
@@ -989,8 +997,10 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
     createTH1FPlot("effic_vs_BX_PXB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_BX_PXB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_BX_PXB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_PXB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_BX_PXF1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_BX_PXF2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_PXF3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_BX_TEC1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_BX_TEC2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_BX_TEC3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
@@ -1026,8 +1036,10 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
     createTH1FPlot("effic_vs_BX_PXB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_BX_PXB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_BX_PXB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_PXB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_BX_PXF1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_BX_PXF2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_PXF3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_BX_TEC1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_BX_TEC2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_BX_TEC3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
@@ -1050,6 +1062,201 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
     createTH1FPlot("effic_vs_BX_TOB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_BX_TOB5", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
     createTH1FPlot("effic_vs_BX_TOB6", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  }
+  createTH1FPlot("globalEfficiencies", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+
+  // HitEff: All
+  dirname = "/Tracking/Run summary/TrackParameters/generalTracks/HitEffFromHitPatternAll";
+  outdir  = directory+"/genTks/HitEffAll";
+  
+  // efficiencies
+  if (full)
+  {
+    createTH1FPlot("effic_vs_PU_PXB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_PXB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_PXB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_PXB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_PXF1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_PXF2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_PXF3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TEC1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TEC2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TEC3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TEC4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TEC5", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TEC6", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TEC7", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TEC8", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TEC9", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TIB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TIB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TIB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TIB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TID1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TID2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TID3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TOB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TOB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TOB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TOB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TOB5", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TOB6", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  }
+  createTH1FPlot("globalEfficiencies", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+
+  // HitEff: All
+  dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/dzPV0p1/HitEffFromHitPatternAll";
+  outdir  = directory+"/HPTks_dzPV0p1/HitEffAll";
+
+  if (full)
+  {
+    // efficiencies
+    createTH1FPlot("effic_vs_BX_PXB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_PXB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_PXB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_PXB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_PXF1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_PXF2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_PXF3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TEC1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TEC2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TEC3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TEC4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TEC5", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TEC6", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TEC7", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TEC8", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TEC9", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TIB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TIB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TIB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TIB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TID1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TID2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TID3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TOB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TOB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TOB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TOB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TOB5", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TOB6", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  }
+  createTH1FPlot("globalEfficiencies", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+
+  // HitEff: All
+  dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_1/HitEffFromHitPatternAll";
+  outdir  = directory+"/HPTks_gt1/HitEffAll";
+  
+  // efficiencies
+  if (full)
+  {
+    createTH1FPlot("effic_vs_PU_PXB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_PXB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_PXB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_PXB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_PXF1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_PXF2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_PXF3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TEC1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TEC2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TEC3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TEC4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TEC5", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TEC6", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TEC7", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TEC8", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TEC9", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TIB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TIB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TIB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TIB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TID1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TID2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TID3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TOB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TOB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TOB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TOB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TOB5", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TOB6", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  }
+  createTH1FPlot("globalEfficiencies", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+
+  // All vs SCALLUMI
+  dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/dzPV0p1/HitEffFromHitPatternAllvsSCALLUMI";
+  outdir  = directory+"/HPTks_dzPV0p1/HitEffAllSL";
+
+  if (full)
+  {
+    // efficiencies
+    createTH1FPlot("effic_vs_BX_PXB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_PXB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_PXB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_PXB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_PXF1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_PXF2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_PXF3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TEC1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TEC2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TEC3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TEC4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TEC5", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TEC6", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TEC7", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TEC8", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TEC9", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TIB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TIB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TIB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TIB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TID1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TID2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TID3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TOB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TOB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TOB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TOB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TOB5", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_BX_TOB6", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+  }
+  createTH1FPlot("globalEfficiencies", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+
+  // All vs SCALLUMI
+  dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_1/HitEffFromHitPatternAllvsSCALLUMI";
+  outdir  = directory+"/HPTks_gt1/HitEffAllSL";
+  
+  // efficiencies
+  if (full)
+  {
+    createTH1FPlot("effic_vs_PU_PXB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_PXB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_PXB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_PXB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_PXF1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_PXF2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_PXF3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TEC1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TEC2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TEC3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TEC4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TEC5", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TEC6", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TEC7", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TEC8", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TEC9", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TIB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TIB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TIB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TIB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TID1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TID2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TID3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TOB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TOB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TOB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TOB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TOB5", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
+    createTH1FPlot("effic_vs_PU_TOB6", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
   }
   createTH1FPlot("globalEfficiencies", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, tev);
 

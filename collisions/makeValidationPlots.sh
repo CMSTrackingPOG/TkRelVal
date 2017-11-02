@@ -34,13 +34,13 @@ do
     mkdir -p ${directory}/SiStrip/${subdir}_log
 done
 
-for subdir in GenProps HitProps HitEff PU TkBuilding LSan
+for subdir in GenProps HitProps HitEff HitEffAll PU TkBuilding LSan
 do
     mkdir -p ${directory}/genTks/${subdir}_lin
     mkdir -p ${directory}/genTks/${subdir}_log
 done
 
-for subdir in GenProps HitProps HitEff HitEffSL PU LSan
+for subdir in GenProps HitProps HitEff HitEffAll HitEffSL HitEffAllSL PU LSan
 do
     mkdir -p ${directory}/HPTks_dzPV0p1/${subdir}_lin
     mkdir -p ${directory}/HPTks_dzPV0p1/${subdir}_log
@@ -52,7 +52,7 @@ do
     mkdir -p ${directory}/HPTks_0to1/${subdir}_log
 done
 
-for subdir in GenProps HitProps HitEff HitEffBX HitEffSL PU LSan
+for subdir in GenProps HitProps HitEff HitEffAll HitEffBX HitEffSL HitEffAllSL PU LSan
 do
     mkdir -p ${directory}/HPTks_gt1/${subdir}_lin
     mkdir -p ${directory}/HPTks_gt1/${subdir}_log
@@ -154,7 +154,7 @@ do
     done
 done
 
-for subdir in GenProps HitProps HitEff PU TkBuilding LSan
+for subdir in GenProps HitProps HitEff HitEffAll PU TkBuilding LSan
 do
     for scale in lin log
     do 
@@ -164,7 +164,7 @@ do
     done
 done
 
-for subdir in GenProps HitProps HitEff HitEffSL PU LSan
+for subdir in GenProps HitProps HitEff HitEffAll HitEffSL HitEffAllSL PU LSan
 do
     for scale in lin log
     do 
@@ -184,7 +184,7 @@ do
     done
 done
 
-for subdir in GenProps HitProps HitEff HitEffBX HitEffSL PU LSan
+for subdir in GenProps HitProps HitEff HitEffAll HitEffBX HitEffSL HitEffAllSL PU LSan
 do
     for scale in lin log
     do 
