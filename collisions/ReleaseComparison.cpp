@@ -84,6 +84,7 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
   else if (atoi(runString1.Data()) == 297227){lumi = 22.77; tev = 13;} // 2017B data, 25ns, 3.8T
   else if (atoi(runString1.Data()) == 301998){lumi = 221.62; tev = 13;} // 2017C data, 25ns, 3.8T
   else if (atoi(runString1.Data()) == 302474){lumi = 44.02; tev = 13;} // 2017D data, 25ns, 3.8T
+  else if (atoi(runString1.Data()) == 305440){lumi = 83.66; tev = 13;} // 2017F data, 25ns, 3.8T
   else {lumi = 0.0; tev = 0.0;}
 
   //====================== Make master canvas  ======================// 
