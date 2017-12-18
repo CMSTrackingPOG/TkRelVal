@@ -24,6 +24,7 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-92X");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-93X");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-94X");  
+  if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-100X");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-2016");
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-2017");
   TString relString1(fileName1(pos1,pos2-pos1)); 
@@ -46,6 +47,7 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-92X");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-93X");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-94X");  
+  if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-100X");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-2016");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-2017");  
   TString relString2(fileName2(pos1,pos2-pos1));
@@ -81,10 +83,17 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
   else if (atoi(runString1.Data()) == 283877){lumi = 248.88; tev = 13;} // 2016H data, 25ns, 3.8T
   else if (atoi(runString1.Data()) == 283946){lumi = 306.16; tev = 13;} // 2016H data, 25ns, 3.8T
   else if (atoi(runString1.Data()) == 295613){lumi = 7.33;  tev = 13;} // 2017A data, 25ns, 3.8T
+  else if (atoi(runString1.Data()) == 297057){lumi = 116.49; tev = 13;} // 2017B data, 25ns, 3.8T
   else if (atoi(runString1.Data()) == 297227){lumi = 22.77; tev = 13;} // 2017B data, 25ns, 3.8T
+  else if (atoi(runString1.Data()) == 299380){lumi = 56.41; tev = 13;} // 2017C data, 25ns, 3.8T
   else if (atoi(runString1.Data()) == 301998){lumi = 221.62; tev = 13;} // 2017C data, 25ns, 3.8T
+  else if (atoi(runString1.Data()) == 300560){lumi = 138.55; tev = 13;} // 2017C data, 25ns, 3.8T
   else if (atoi(runString1.Data()) == 302474){lumi = 44.02; tev = 13;} // 2017D data, 25ns, 3.8T
+  else if (atoi(runString1.Data()) == 302525){lumi = 147.19; tev = 13;} // 2017D data, 25ns, 3.8T
   else if (atoi(runString1.Data()) == 305440){lumi = 83.66; tev = 13;} // 2017F data, 25ns, 3.8T
+  else if (atoi(runString1.Data()) == 304506){lumi = 119.49; tev = 13;} // 2017E data, 25ns, 3.8T
+  else if (atoi(runString1.Data()) == 305821){lumi = 240.60; tev = 13;} // 2017F data, 25ns, 3.8T
+  else if (atoi(runString1.Data()) == 306154){lumi = 339.01; tev = 13;} // 2017F data, 25ns, 3.8T
   else {lumi = 0.0; tev = 0.0;}
 
   //====================== Make master canvas  ======================// 
