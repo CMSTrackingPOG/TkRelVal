@@ -17,16 +17,13 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
   TString runString1(fileName1(pos+5,6));
   Int_t pos1 = fileName1.Index("CMSSW")+6;
   Int_t pos2 = fileName1.Index("-GR");
-  if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-80X");
-  if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-81X");
-  if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-90X");
-  if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-91X");
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-92X");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-93X");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-94X");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-100X");  
-  if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-2016");
+  if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-101X");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-2017");
+  if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-2018");
   TString relString1(fileName1(pos1,pos2-pos1)); 
   TFile *file1 = TFile::Open(fileName1.Data());
   std::cout << "Getting histos for run number... " << runString1.Data() 
@@ -40,16 +37,13 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
   TString runString2(fileName2(pos+5,6));
   pos1 = fileName2.Index("CMSSW")+6;
   pos2 = fileName2.Index("-GR");
-  if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-80X");  
-  if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-81X");
-  if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-90X");  
-  if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-91X");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-92X");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-93X");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-94X");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-100X");  
-  if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-2016");  
+  if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-101X");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-2017");  
+  if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-2018");  
   TString relString2(fileName2(pos1,pos2-pos1));
   TFile *file2 = TFile::Open(fileName2.Data());
   std::cout << "Getting histos for run number... " << runString2.Data() 
@@ -63,37 +57,22 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
   Double_t lumi = 0;
   Int_t    tev = 0;
 
-  if      (atoi(runString1.Data()) == 269598){lumi = 0.00;  tev = 13;} // 2016  data, 25ns, 0T 
-  else if (atoi(runString1.Data()) == 272930){lumi = 3.48;  tev = 13;} // 2016A data, 25ns, 3.8T
-  else if (atoi(runString1.Data()) == 273503){lumi = 24.55; tev = 13;} // 2016B data, 25ns, 3.8T
-  else if (atoi(runString1.Data()) == 274160){lumi = 17.27; tev = 13;} // 2016B data, 25ns, 3.8T
-  else if (atoi(runString1.Data()) == 274199){lumi = 63.25; tev = 13;} // 2016B data, 25ns, 3.8T
-  else if (atoi(runString1.Data()) == 275657){lumi = 16.67; tev = 13;} // 2016C data, 25ns, 3.8T
-  else if (atoi(runString1.Data()) == 276092){lumi = 14.00; tev = 13;} // 2016C data, 25ns, 3.8T
-  else if (atoi(runString1.Data()) == 276458){lumi = 32.15; tev = 13;} // 2016D data, 25ns, 3.8T
-  else if (atoi(runString1.Data()) == 276807){lumi = 31.38; tev = 13;} // 2016D data, 25ns, 3.8T
-  else if (atoi(runString1.Data()) == 277069){lumi = 76.49; tev = 13;} // 2016E data, 25ns, 3.8T
-  else if (atoi(runString1.Data()) == 278274){lumi = 18.15; tev = 13;} // 2016F data, 25ns, 3.8T
-  else if (atoi(runString1.Data()) == 278963){lumi = 37.45; tev = 13;} // 2016G data, 25ns, 3.8T
-  else if (atoi(runString1.Data()) == 280349){lumi = 104.78; tev = 13;} // 2016G data, 25ns, 3.8T
-  else if (atoi(runString1.Data()) == 281797){lumi = 397.99; tev = 13;} // 2016H data, 25ns, 3.8T
-  else if (atoi(runString1.Data()) == 281975){lumi = 54.01; tev = 13;} // 2016H data, 25ns, 3.8T
-  else if (atoi(runString1.Data()) == 282731){lumi = 48.11; tev = 13;} // 2016H data, 25ns, 3.8T
-  else if (atoi(runString1.Data()) == 283685){lumi = 21.08; tev = 13;} // 2016H data, 25ns, 3.8T
-  else if (atoi(runString1.Data()) == 283877){lumi = 248.88; tev = 13;} // 2016H data, 25ns, 3.8T
-  else if (atoi(runString1.Data()) == 283946){lumi = 306.16; tev = 13;} // 2016H data, 25ns, 3.8T
-  else if (atoi(runString1.Data()) == 295613){lumi = 7.33;  tev = 13;} // 2017A data, 25ns, 3.8T
+  if      (atoi(runString1.Data()) == 295613){lumi = 7.33;   tev = 13;} // 2017A data, 25ns, 3.8T
   else if (atoi(runString1.Data()) == 297057){lumi = 116.49; tev = 13;} // 2017B data, 25ns, 3.8T
-  else if (atoi(runString1.Data()) == 297227){lumi = 22.77; tev = 13;} // 2017B data, 25ns, 3.8T
-  else if (atoi(runString1.Data()) == 299380){lumi = 56.41; tev = 13;} // 2017C data, 25ns, 3.8T
+  else if (atoi(runString1.Data()) == 297227){lumi = 22.77;  tev = 13;} // 2017B data, 25ns, 3.8T
+  else if (atoi(runString1.Data()) == 299380){lumi = 56.41;  tev = 13;} // 2017C data, 25ns, 3.8T
   else if (atoi(runString1.Data()) == 301998){lumi = 221.62; tev = 13;} // 2017C data, 25ns, 3.8T
   else if (atoi(runString1.Data()) == 300560){lumi = 138.55; tev = 13;} // 2017C data, 25ns, 3.8T
-  else if (atoi(runString1.Data()) == 302474){lumi = 44.02; tev = 13;} // 2017D data, 25ns, 3.8T
+  else if (atoi(runString1.Data()) == 302474){lumi = 44.02;  tev = 13;} // 2017D data, 25ns, 3.8T
   else if (atoi(runString1.Data()) == 302525){lumi = 147.19; tev = 13;} // 2017D data, 25ns, 3.8T
-  else if (atoi(runString1.Data()) == 305440){lumi = 83.66; tev = 13;} // 2017F data, 25ns, 3.8T
+  else if (atoi(runString1.Data()) == 302663){lumi = 136.94; tev = 13;} // 2017D data, 25ns, 3.8T
   else if (atoi(runString1.Data()) == 304506){lumi = 119.49; tev = 13;} // 2017E data, 25ns, 3.8T
+  else if (atoi(runString1.Data()) == 305064){lumi = 383.01; tev = 13;} // 2017F data, 25ns, 3.8T
+  else if (atoi(runString1.Data()) == 305440){lumi = 83.66;  tev = 13;} // 2017F data, 25ns, 3.8T
   else if (atoi(runString1.Data()) == 305821){lumi = 240.60; tev = 13;} // 2017F data, 25ns, 3.8T
   else if (atoi(runString1.Data()) == 306154){lumi = 339.01; tev = 13;} // 2017F data, 25ns, 3.8T
+  else if (atoi(runString1.Data()) == 306580){lumi = 28.86;  tev =  5;} // 2017G data, 25ns, 3.8T, 5TeV pp
+  else if (atoi(runString1.Data()) == 307073){lumi = 16.30;  tev =  5;} // 2017H data, 25ns, 3.8T, 5TeV pp
   else {lumi = 0.0; tev = 0.0;}
 
   //====================== Make master canvas  ======================// 
