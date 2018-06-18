@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/bash
 
 #Parameters passed from command line
 run=$1 #specify run number
@@ -9,7 +9,7 @@ full=${5:false} # if true, do all plots, otherwise, just essential plots
 
 refFile=$(ls *"${run}"*"${sample}"*"${rel_old}"*)
 newFile=$(ls *"${run}"*"${sample}"*"${rel_new}"*)
-#release=CMSSW_940_PRnewco_vs_PRref_"${run}"_"${sample}"
+#release=CMSSW_10_1_4_HLTrefer_vs_PRref_"${run}"_"${sample}"
 release=CMSSW_"${rel_new}"_vs_"${rel_old}"_"${run}"_"${sample}"
 
 directory=/afs/cern.ch/cms/Physics/tracking/validation/DATA/${release}

@@ -17,11 +17,13 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
   TString runString1(fileName1(pos+5,6));
   Int_t pos1 = fileName1.Index("CMSSW")+6;
   Int_t pos2 = fileName1.Index("-GR");
+  if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-80X");
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-92X");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-93X");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-94X");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-100X");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-101X");  
+  if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-102X");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-2017");
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-2018");
   TString relString1(fileName1(pos1,pos2-pos1)); 
@@ -42,6 +44,7 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-94X");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-100X");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-101X");  
+  if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-102X");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-2017");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-2018");  
   TString relString2(fileName2(pos1,pos2-pos1));
@@ -50,7 +53,7 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
     	    <<" for release " << relString2.Data() << std::endl;  
   if ( file2->IsZombie() )
     std::cout << "File: " << fileName2.Data() << " cannot be opened!" << std::endl;
-  //  relString2 = "PRnewco";
+  //  relString2 = "HLTrefer";
   
   //================= Print CMS Lumi on these guys =================//
 
@@ -2628,13 +2631,13 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
 
   TLegend *leg;
   if ( (hname.Contains("NumberOfTracks",TString::kExact)) || (hname.Contains("vtxNbr",TString::kExact)) || (hname.Contains("algorithm",TString::kExact)) ||(hname.Contains("Algorithm",TString::kExact)) || (hname.Contains("NumberOfMeanRecHitsPerTrack",TString::kExact)) || (hname.Contains("NumberOfMeanLayersPerTrack",TString::kExact)) ){
-    leg = new TLegend(0.57,0.85,0.765,0.94);
+    leg = new TLegend(0.55,0.85,0.765,0.94);
   }
   else if ( hname.Contains("Summary_ClusterChargePerCMfromOrigin",TString::kExact) || hname.Contains("Summary_ClusterChargePerCMfromTrack",TString::kExact) ){
-    leg = new TLegend(0.175,0.85,0.37,0.94);
+    leg = new TLegend(0.173,0.85,0.37,0.94);
   }
   else{
-    leg = new TLegend(0.29,0.85,0.485,0.94);
+    leg = new TLegend(0.27,0.85,0.485,0.94);
   }
   leg->SetTextSize(0.042);
   leg->SetTextFont(42);
@@ -3079,7 +3082,7 @@ bool createTProfPlot(const TString hname, const TString dirname, TFile *& V1file
   //++++++++++++++++++++ Draw Legends +++++++++++++++++++//
 
   TLegend *leg;
-  leg = new TLegend(0.29,0.85,0.485,0.94);
+  leg = new TLegend(0.27,0.85,0.485,0.94);
   leg->SetTextSize(0.042);
   leg->SetTextFont(42);
   leg->SetFillColor(10); 
