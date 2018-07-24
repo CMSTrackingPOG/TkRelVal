@@ -60,22 +60,13 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
   Double_t lumi = 0;
   Int_t    tev = 0;
 
-  if      (atoi(runString1.Data()) == 295613){lumi = 7.33;   tev = 13;} // 2017A data, 25ns, 3.8T
-  else if (atoi(runString1.Data()) == 297057){lumi = 116.49; tev = 13;} // 2017B data, 25ns, 3.8T
-  else if (atoi(runString1.Data()) == 297227){lumi = 22.77;  tev = 13;} // 2017B data, 25ns, 3.8T
-  else if (atoi(runString1.Data()) == 299380){lumi = 56.41;  tev = 13;} // 2017C data, 25ns, 3.8T
+  if      (atoi(runString1.Data()) == 277069){lumi =  76.49; tev = 13;} // 2016E data, 25ns, 3.8T
+  else if (atoi(runString1.Data()) == 297227){lumi =  22.77; tev = 13;} // 2017B data, 25ns, 3.8T
+  else if (atoi(runString1.Data()) == 297557){lumi = 109.74; tev = 13;} // 2017B data, 25ns, 3.8T
   else if (atoi(runString1.Data()) == 301998){lumi = 221.62; tev = 13;} // 2017C data, 25ns, 3.8T
-  else if (atoi(runString1.Data()) == 300560){lumi = 138.55; tev = 13;} // 2017C data, 25ns, 3.8T
-  else if (atoi(runString1.Data()) == 302474){lumi = 44.02;  tev = 13;} // 2017D data, 25ns, 3.8T
-  else if (atoi(runString1.Data()) == 302525){lumi = 147.19; tev = 13;} // 2017D data, 25ns, 3.8T
-  else if (atoi(runString1.Data()) == 302663){lumi = 136.94; tev = 13;} // 2017D data, 25ns, 3.8T
-  else if (atoi(runString1.Data()) == 304506){lumi = 119.49; tev = 13;} // 2017E data, 25ns, 3.8T
   else if (atoi(runString1.Data()) == 305064){lumi = 383.01; tev = 13;} // 2017F data, 25ns, 3.8T
-  else if (atoi(runString1.Data()) == 305440){lumi = 83.66;  tev = 13;} // 2017F data, 25ns, 3.8T
-  else if (atoi(runString1.Data()) == 305821){lumi = 240.60; tev = 13;} // 2017F data, 25ns, 3.8T
-  else if (atoi(runString1.Data()) == 306154){lumi = 339.01; tev = 13;} // 2017F data, 25ns, 3.8T
-  else if (atoi(runString1.Data()) == 306580){lumi = 28.86;  tev =  5;} // 2017G data, 25ns, 3.8T, 5TeV pp
-  else if (atoi(runString1.Data()) == 307073){lumi = 16.30;  tev =  5;} // 2017H data, 25ns, 3.8T, 5TeV pp
+  else if (atoi(runString1.Data()) == 315489){lumi = 102.09; tev = 13;} // 2018A data, 25ns, 3.8T
+  else if (atoi(runString1.Data()) == 317435){lumi = 346.91; tev = 13;} // 2018B data, 25ns, 3.8T
   else {lumi = 0.0; tev = 0.0;}
 
   //====================== Make master canvas  ======================// 
