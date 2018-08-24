@@ -23,7 +23,8 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-94X");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-100X");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-101X");  
-  if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-102X");  
+  if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-102X"); 
+  if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-103X");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-2017");
   if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-2018");
   TString relString1(fileName1(pos1,pos2-pos1)); 
@@ -44,7 +45,8 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-94X");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-100X");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-101X");  
-  if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-102X");  
+  if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-102X"); 
+  if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-103X");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-2017");  
   if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-2018");  
   TString relString2(fileName2(pos1,pos2-pos1));
@@ -53,7 +55,7 @@ void V1_V2_trkComparison(const TString fileName1, const TString fileName2,
     	    <<" for release " << relString2.Data() << std::endl;  
   if ( file2->IsZombie() )
     std::cout << "File: " << fileName2.Data() << " cannot be opened!" << std::endl;
-  //  relString2 = "HLTrefer";
+  //  relString2 = "PRnewco";
   
   //================= Print CMS Lumi on these guys =================//
 

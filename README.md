@@ -1,7 +1,9 @@
 TkRelVal
 ========
 
-Code for charged particle tracking release validation in CMSSW with data.  This README provides instructions for performing the validation end-to-end, i.e. the steps in getting the relval samples, running the comparator, analyzing by eye the comparisons, and then writing the relval report. The code is meant to be run on lxplus, although in principle one could hack this to put the images in another file, then copy them over at the end.  
+Code for charged particle tracking release validation in CMSSW with data.  This README provides a set of slimmed instructions for performing the validation end-to-end, i.e. the steps in getting the relval samples, running the comparator, analyzing by eye the comparisons, and then writing the relval report. The code is meant to be run on lxplus, although in principle one could hack this to put the images in another file, then copy them over at the end.  
+
+A more verbose set of instructions can be found in: ```validation_instructions.txt```. Please consult this document in case the instructions here are not clear.
 
 ----------------------------------------
 1. Get the files
@@ -9,15 +11,15 @@ Code for charged particle tracking release validation in CMSSW with data.  This 
 
 The first thing (after checking out this repo) is to grab the relevant files from the interwebz: https://cmsweb.cern.ch/dqm/relval/data/browse/ROOT/RelValData/
 
-I have a small script to grab the files: getFiles.sh
+I have a small script to grab the files: ```getFiles.sh```
 
 To grab files from the same directory do:
 
-./getFiles.sh [CMSSW_Z_Y_x] [Run #] [ref rel, e.g. Z_Y_x_pre1] [target rel, e.g. Z_Y_x_pre2] [sample, e.g. JetHT]
+```./getFiles.sh [CMSSW_Z_Y_x] [Run #] [ref rel, e.g. Z_Y_x_pre1] [target rel, e.g. Z_Y_x_pre2] [sample, e.g. JetHT]```
 
 e.g. 
 
-./getFiles.sh CMSSW_7_4_x 256677 8_0_1_pre1 8_0_1_pre2
+```./getFiles.sh CMSSW_7_4_x 256677 8_0_1_pre1 8_0_1_pre2```
 
 Depending on the type of data you grab, it will either be dropped into the collisions subdirectory or the cosmics directory (should be rather obvious, seeing as "Cosmics" is a PD). 
 
@@ -31,7 +33,7 @@ This step is a bit hacky and normally not needed. The comparison plots on the we
 
 It is not perfect, I must admit, but it gets the job done.  The scripts that will do the subdirectory creation for every campaign are in afscode/. Copy all of these down to: 
 
-/afs/cern.ch/cms/Physics/tracking/validation/DATA 
+```/afs/cern.ch/cms/Physics/tracking/validation/DATA``` 
 
 This only has to be done once, and in principle is already done.  However, if you decide to change the directory structure, obviously you would need to copy down the relevant scripts.
 
@@ -39,23 +41,23 @@ This only has to be done once, and in principle is already done.  However, if yo
 3. Run the comparator (collisions)
 ----------------------------------------
 
-cd to collisions/ first.  The plots are overlaid with a script that calls a ROOT macro (runValidationComparison.C), that itself compiles ReleaseComparison.cpp/hh. This will produce a set of pdf's of each plot relevant for tracking validation, with the reference release on top of the target release. Each plot is made in both log and linear y-axis. Each comparison has a ratio plot of Target/Ref. ReleaseComparison.cpp has a number of checks to make sure it can indeed produce the plots, in addition to shortening the strings of plot names, setting the axes, stats, lumi, etc.
+cd to collisions/ first.  The plots are overlaid with a script that calls a ROOT macro (```runValidationComparison.C```), that itself compiles ```ReleaseComparison.cpp/hh```. This will produce a set of pdf's of each plot relevant for tracking validation, with the reference release on top of the target release. Each plot is made in both log and linear y-axis. Each comparison has a ratio plot of Target/Ref. ReleaseComparison.cpp has a number of checks to make sure it can indeed produce the plots, in addition to shortening the strings of plot names, setting the axes, stats, lumi, etc.
 
 Run the plot producer with:
 
-./makeValidationPlots.sh [Run #] [ref rel] [target rel] [sample] [optional: true/false]
+```./makeValidationPlots.sh [Run #] [ref rel] [target rel] [sample] [optional: true/false]```
 
 e.g.
 
-./makeValidationPlots.sh 256677 8_0_1_pre1 8_0_1_pre2 JetHT false
+```./makeValidationPlots.sh 256677 8_0_1_pre1 8_0_1_pre2 JetHT false```
 
 The optional bool will produce ALL plots (which is a lot, on the order of ~300 plots). False will just do the "standard" plots, i.e. all that is really needed to the validation. For starters, use "false", as true will also eat into the amount of space where the plots are stored. Occasionally, the DQM files get different strings and this screws things up.  To grab the right files and not crash the macro, check to see all the string matching inside ReleaseComparison.cpp is correct.  Occasionally, you will just have to hack the output directory name/labels in the plots to get the thing to run. All plots are automatically placed in the right directories in:
 
-/afs/cern.ch/cms/Physics/tracking/validation/DATA
+```/afs/cern.ch/cms/Physics/tracking/validation/DATA```
 
 For the examples above, the output would then be in:
 
-/afs/cern.ch/cms/Physics/tracking/validation/DATA/CMSSW_8_0_1_pre2_vs_8_0_0_pre1_256677_JetHT/
+```/afs/cern.ch/cms/Physics/tracking/validation/DATA/CMSSW_8_0_1_pre2_vs_8_0_0_pre1_256677_JetHT/```
 
 Now, before we view the plots on the web, we need to unfornately update a small index.html file.
 
@@ -71,15 +73,15 @@ The steps are effectively the same as collisions, just now cd to cosmics/ instea
 
 Now we need to go down to where the plots are stored:
 
-cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/
+```cd /afs/cern.ch/cms/Physics/tracking/validation/DATA/```
 
 From here, we will need to use a script that outputs some html code to copy+paste into the index.html file in this directory (getDirHL.sh):
 
-./getDirHL.sh [CMSSW_Z_Y_x]
+```./getDirHL.sh [CMSSW_Z_Y_x]```
 
 e.g.
 
-./getDirHL.sh CMSSW_8_0_1_pre1
+```./getDirHL.sh CMSSW_8_0_1_pre1```
 
 from here, copy the output from the terminal into the appropriate heading in index.html.  Obviously, make a new heading if a top category does not exist!  (i.e. CMSSW_8_0_x)
 
