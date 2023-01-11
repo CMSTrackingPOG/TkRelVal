@@ -3,20 +3,27 @@
 #Parameters passed from command line
 run=$1 #specify run number
 refFile=$2
-newFile=$3
-folderName=$4
-full=${5:false} # if true, do all plots, otherwise, just essential plots
+refLabel=$3
+newFile=$4
+newLabel=$5
+folderName=$6
+era=$7
+lumi=${8:-0}
+full=${9:false} # if true, do all plots, otherwise, just essential plots
 
 # directory=/eos/user/a/abulla/www/public/Physics/tracking/validation/DATA/${release}
 directory=/eos/project/c/cmsweb/www/tracking/validation/DATA/${folderName}
+
+## Se lumi = 0, ovvero non l'ho presa dal py, --> prendiamola da brillcalc direi
 
 #Create directories for webpage
 if [ ! -d ${directory} ] ; then    
     mkdir ${directory} 
 else
-    rm -r ${directory} 
+    rm -i -rf ${directory} 
     mkdir ${directory} 
-fi                            
+fi 
+                           
 
 for subdir in offline #pixel
 do
@@ -78,10 +85,10 @@ do
     mkdir -p ${directory}/PackCand/${subdir}_log
 done
 
-echo "Analyzing ${refFile} and ${newFile} in ${release}"   
+echo "Analyzing ${refFile} and ${newFile} in ${folderName}"   
 
 #Run the ROOT Macro. This is trivial, compiles a .cpp file that makes all the plots.  
-root -b -q -l "runValidationComparison.C("\"${refFile}\",\"${newFile}\",\"${directory}\",\"${full}\"")"   
+root -b -q -l "runValidationComparisonPROV.C("\"${refFile}\",\"${refLabel}\",\"${newFile}\",\"${newLabel}\",\"${directory}\",\"${era}\",${lumi},\"${full}\"")"   
 
 #generate index.html files on the fly for release directory
 cd ${directory}

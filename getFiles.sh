@@ -15,5 +15,16 @@ wget -e robots=off --wait 1 -r -l1 -nd -np "https://cmsweb.cern.ch/dqm/relval/da
 if [ ${sample} == "Cosmics" ] ; then
     mv *${sample}*.root cosmics/
 else
-    mv *${sample}*.root collisions/
+    cd collisions
+    if [ ! -d ${run} ] ; then    
+        mkdir ${run}
+    else
+        cd ${run}
+        if [ ! -d ${sample} ] ; then 
+            mkdir ${sample}
+        fi
+        cd ../../
+    fi
+
+    mv *${run}*${sample}*.root collisions/${run}/${sample}/
 fi

@@ -2,7 +2,6 @@
 
 release=$1
 tracks=$2
-web="https://cmsdoc.cern.ch/Physics/tracking/validation/DATA"
 
 printf "<html>\n" > index.html               
 #printf "     <body text=\"#000000\" bgcolor=\"#FFFFFF\" link=\"#FFFF00\" vlink=\"#FF00FF\">\n" >> index.html  
@@ -10,45 +9,45 @@ printf "  <title>Track Distributions</title>\n" >> index.html
 printf "     <body>\n" >> index.html  
 printf "        <h3> %s Distributions (Linear) </h3>\n" ${tracks} >> index.html
 printf "           <ul>\n" >> index.html
-printf "              <li/><a href=\"%s/%s/%s/GenProps_lin\">General Properties</a>\n" ${web} ${release} ${tracks} >> index.html
-printf "              <li/><a href=\"%s/%s/%s/HitProps_lin\">Hit Properties</a>\n" ${web} ${release} ${tracks} >> index.html
+printf "              <li/><a href=\"GenProps_lin\">General Properties</a>\n"  >> index.html
+printf "              <li/><a href=\"HitProps_lin\">Hit Properties</a>\n"  >> index.html
 if [ "${tracks}" != HPTks_0to1 ] ; then 
-printf "              <li/><a href=\"%s/%s/%s/HitEff_lin\">Hit Efficiency from HitPattern</a>\n" ${web} ${release} ${tracks} >> index.html
-printf "              <li/><a href=\"%s/%s/%s/HitEffAll_lin\">Hit Efficiency from HitPatternAll</a>\n" ${web} ${release} ${tracks} >> index.html
+printf "              <li/><a href=\"HitEff_lin\">Hit Efficiency from HitPattern</a>\n"  >> index.html
+printf "              <li/><a href=\"HitEffAll_lin\">Hit Efficiency from HitPatternAll</a>\n"  >> index.html
 if [ "${tracks}" == HPTks_gt1 ] ; then
-printf "              <li/><a href=\"%s/%s/%s/HitEffBX_lin\">Hit Efficiency BX from HitPattern</a>\n" ${web} ${release} ${tracks} >> index.html
+printf "              <li/><a href=\"HitEffBX_lin\">Hit Efficiency BX from HitPattern</a>\n"  >> index.html
 fi
 if [ "${tracks}" != genTks ] ; then 
-printf "              <li/><a href=\"%s/%s/%s/HitEffSL_lin\">Hit Efficiency SCALLUMI from HitPattern</a>\n" ${web} ${release} ${tracks} >> index.html
-printf "              <li/><a href=\"%s/%s/%s/HitEffSLAll_lin\">Hit Efficiency SCALLUMI from HitPatternAll</a>\n" ${web} ${release} ${tracks} >> index.html
+printf "              <li/><a href=\"HitEffSL_lin\">Hit Efficiency SCALLUMI from HitPattern</a>\n"  >> index.html
+printf "              <li/><a href=\"HitEffSLAll_lin\">Hit Efficiency SCALLUMI from HitPatternAll</a>\n"  >> index.html
 fi
 fi
-printf "              <li/><a href=\"%s/%s/%s/PU_lin\">Pileup Monitoring</a>\n" ${web} ${release} ${tracks} >> index.html
+printf "              <li/><a href=\"PU_lin\">Pileup Monitoring</a>\n"  >> index.html
 if [ "${tracks}" == genTks ] ; then 
-printf "              <li/><a href=\"%s/%s/%s/TkBuilding_lin\">Track Building</a>\n" ${web} ${release} ${tracks} >> index.html
+printf "              <li/><a href=\"TkBuilding_lin\">Track Building</a>\n"  >> index.html
 fi
-printf "              <li/><a href=\"%s/%s/%s/LSan_lin\">Lumi Section Analysis</a>\n" ${web} ${release} ${tracks} >> index.html
+printf "              <li/><a href=\"LSan_lin\">Lumi Section Analysis</a>\n"  >> index.html
 printf "           </ul>\n" >> index.html
 printf "        <h3> %s Distributions (Log) </h3>\n" ${tracks} >> index.html
 printf "           <ul>\n" >> index.html
-printf "              <li/><a href=\"%s/%s/%s/GenProps_log\">General Properties</a>\n" ${web} ${release} ${tracks} >> index.html
-printf "              <li/><a href=\"%s/%s/%s/HitProps_log\">Hit Properties</a>\n" ${web} ${release} ${tracks} >> index.html
+printf "              <li/><a href=\"GenProps_log\">General Properties</a>\n"  >> index.html
+printf "              <li/><a href=\"HitProps_log\">Hit Properties</a>\n"  >> index.html
 if [ "${tracks}" != HPTks_0to1 ] ; then 
-printf "              <li/><a href=\"%s/%s/%s/HitEff_log\">Hit Efficiency from HitPattern</a>\n" ${web} ${release} ${tracks} >> index.html
-printf "              <li/><a href=\"%s/%s/%s/HitEffAll_log\">Hit Efficiency from HitPatternAll</a>\n" ${web} ${release} ${tracks} >> index.html
+printf "              <li/><a href=\"HitEff_log\">Hit Efficiency from HitPattern</a>\n"  >> index.html
+printf "              <li/><a href=\"HitEffAll_log\">Hit Efficiency from HitPatternAll</a>\n"  >> index.html
 if [ "${tracks}" == HPTks_gt1 ] ; then
-printf "              <li/><a href=\"%s/%s/%s/HitEffBX_log\">Hit Efficiency BX from HitPattern</a>\n" ${web} ${release} ${tracks} >> index.html
+printf "              <li/><a href=\"HitEffBX_log\">Hit Efficiency BX from HitPattern</a>\n"  >> index.html
 fi
 if [ "${tracks}" != genTks ] ; then 
-printf "              <li/><a href=\"%s/%s/%s/HitEffSL_log\">Hit Efficiency SCALLUMI from HitPattern</a>\n" ${web} ${release} ${tracks} >> index.html
-printf "              <li/><a href=\"%s/%s/%s/HitEffSLAll_log\">Hit Efficiency SCALLUMI from HitPatternAll</a>\n" ${web} ${release} ${tracks} >> index.html
+printf "              <li/><a href=\"HitEffSL_log\">Hit Efficiency SCALLUMI from HitPattern</a>\n"  >> index.html
+printf "              <li/><a href=\"HitEffSLAll_log\">Hit Efficiency SCALLUMI from HitPatternAll</a>\n"  >> index.html
 fi
 fi
-printf "              <li/><a href=\"%s/%s/%s/PU_log\">Pileup Monitoring</a>\n" ${web} ${release} ${tracks} >> index.html
+printf "              <li/><a href=\"PU_log\">Pileup Monitoring</a>\n"  >> index.html
 if [ "${tracks}" == genTks ] ; then 
-printf "              <li/><a href=\"%s/%s/%s/TkBuilding_log\">Track Building</a>\n" ${web} ${release} ${tracks} >> index.html
+printf "              <li/><a href=\"TkBuilding_log\">Track Building</a>\n"  >> index.html
 fi
-printf "              <li/><a href=\"%s/%s/%s/LSan_log\">LumiSection Analysis</a>\n" ${web} ${release} ${tracks} >> index.html
+printf "              <li/><a href=\"LSan_log\">LumiSection Analysis</a>\n"  >> index.html
 printf "           </ul>\n" >> index.html
 printf "     </body>\n" >> index.html
 printf "</html>\n" >> index.html

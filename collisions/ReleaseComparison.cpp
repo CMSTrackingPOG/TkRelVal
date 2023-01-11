@@ -3347,7 +3347,7 @@ void CMSLumi(TCanvas *& canv, const Int_t iPosX, const Int_t tev, const Double_t
   Double_t cmsTextFont = 61;  // default is helvetic-bold
   
   Bool_t writeExtraText  = true;
-  TString extraText      = "Preliminary";
+  TString extraText      = "Internal";
   Double_t extraTextFont = 52;  // default is helvetica-italics
 
   TString lumiText = Form("%4.2f pb^{-1} (%2i TeV)",lumi,tev);
