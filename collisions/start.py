@@ -66,21 +66,21 @@ if __name__ == "__main__":
     newRun = findRun(newFile)
     if newRun != oldRun :
         print("FOUND ERROR IN RUN NUMBER. THERY ARE NOT EQUAL!")
-        exit()
+        # exit()
 
     ## trovo la era
     oldEra = findEra(oldFile)
     newEra = findEra(newFile)
     if newEra != oldEra :
         print("FOUND ERROR IN ERA. THERY ARE NOT EQUAL!")
-        exit()
+        # exit()
 
     ## trovo il sample name
     oldSample = findSample(oldFile)
     newSample = findSample(newFile)
     if newSample != oldSample :
         print("FOUND ERROR IN SAMPLE NAME. THERY ARE NOT THE SAME!")
-        exit()
+        # exit()
     
     ## trovo la "release" e creo in automatico il nome della cartella
     oldRelease = findRelease(oldFile)
@@ -153,9 +153,10 @@ if __name__ == "__main__":
         newstring = "<LI><A HREF=\""+folderName+"/index.html\">"+folderName+","+oldEra
         rc = subprocess.call(["sed -i \'{}i \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ {}\' /eos/project/c/cmsweb/www/tracking/validation/DATA/index.html".format(linenum,newstring)], shell=True)
 
+    lumi = "0"
 
     if args.FullPlots == True:
-        rc = subprocess.call(["./makeValidationPlotsPROV.sh", oldRun,oldFile,oldLabelName,newFile,newLabelName,folderName,oldEra,"True"])
+        rc = subprocess.call(["./makeValidationPlotsPROV.sh", oldRun,oldFile,oldLabelName,newFile,newLabelName,folderName,oldEra,lumi,"true"])
     else:
         rc = subprocess.call(["./makeValidationPlotsPROV.sh", oldRun,oldFile,oldLabelName,newFile,newLabelName,folderName,oldEra])
 
@@ -164,6 +165,8 @@ if __name__ == "__main__":
 # - Toccare ReleaseComparison.cpp per le robe grafiche che ci sono nel todo, quelle che rimangono
 # - Luminosità. C'è da capire ancora se utilizzare il grafico di V0 o se affidarsi a lumicalc col json di mia.. In ogni caso lo 
 # calcolerei qui e glielo passerei come parametro probabilmente.. magari non direttamente qui ma passandolo a make bla bla 
+
+# Script più intelligente per l'html file esterno, in modo da fare "capitoli" e orindarli in boh ordine alfabetico o qualcosa di simile?
 
 
 

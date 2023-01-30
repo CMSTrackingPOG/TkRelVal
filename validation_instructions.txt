@@ -430,10 +430,11 @@ Collection of important links
 
 Relevant HN: make sure to subscribe to each of these fora to stay up-to-date on the latest developments with the tracker, tracking, and release validation
 
-- Tracking POG: https://hypernews.cern.ch/HyperNews/CMS/get/recoTracking.html
-- Tracker DPG Performance: https://hypernews.cern.ch/HyperNews/CMS/get/tracker-performance.html
-- RelVal HN... you will receive A LOT of emails from this one... when you fill your report on ValDb, it gets entered here as well: https://hypernews.cern.ch/HyperNews/CMS/get/relval.html
-- Tracker Commissioning: https://hypernews.cern.ch/HyperNews/CMS/get/tk-commissioning.html
-- Tracker Alignment: https://hypernews.cern.ch/HyperNews/CMS/get/tk-alignment.html
-- AlCa: https://hypernews.cern.ch/HyperNews/CMS/get/calibrations.html
+- Tracking POG: https://cms-talk.web.cern.ch/c/physics/trk/148
+- Tracker DPG Performance: https://cms-talk.web.cern.ch/c/tracker/trackerperformance/179
+- RelVal HN [*]: https://cms-talk.web.cern.ch/c/ppd/pdmv/relval/111
+- Tracker Commissioning: https://cms-talk.web.cern.ch/c/tracker/pixel-commissioning/182
+- Tracker Alignment: https://cms-talk.web.cern.ch/c/tracker/tk-alignment/180
+- AlCa: https://cms-talk.web.cern.ch/c/ppd/alca/108
+[*] you will receive A LOT of emails from this one... when you fill your report on ValDb, it gets entered here as well => Still true :)
   
