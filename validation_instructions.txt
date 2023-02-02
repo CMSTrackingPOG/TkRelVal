@@ -1,39 +1,78 @@
 TRACKING VALIDATION: Data (Offline p-p Reconstruction)
 
-N.B. At the end of the document are a collection of acronyms, useful hyperlinks, and relevant hypernews fora. Make sure to subscribe to all the HN listed: you will receive lots of emails... so make sure to make an email filter. 
+N.B. At the end of the document are a collection of acronyms, useful hyperlinks, and relevant hypernews fora. 
+Make sure to subscribe to all the HN listed: you will receive lots of emails... so make sure to make an email filter. 
 
-There are two main tasks as the tracking offline p-p reconstruction data validator: pre-release (or just release) validation and data-taking conditions validation. The steps are mostly the same between the two tasks. In order to get a feel for the steps required for this position, we will go through a complete example of release validation. For the release validation, you will be asked to validate changes for p-p offline reconstruction in data only. On occasion, you may be asked to validate HI conditions, but in reality there is another validator that should handle this. I will report on what are the differences for condition validation and release validation at the end of this example.  
+There are two main tasks as the tracking offline p-p reconstruction data validator: pre-release (or just release) validation and data-taking conditions validation. 
+The steps are mostly the same between the two tasks. In order to get a feel for the steps required for this position, we will go through a complete example of 
+release validation. For the release validation, you will be asked to validate changes for p-p offline reconstruction in data only. On occasion, you may be asked 
+to validate HI conditions, but in reality there is another validator that should handle this. I will report on what are the differences for condition validation 
+and release validation at the end of this example.  
 
 ---------------------------------------
 
 ---> STEP 1: Check for code changes, condition changes
 
-For release validation, the first thing is to check out the announcement that comes via email from the PdmV/RelVal HN [A]. In the announcement are the campaign due date, target release, and reference release. In the case of the example, we want to compare 10_2_0_pre5 (target) to 10_2_0_pre4 (reference).
+For release validation, the first thing is to check out the announcement that comes via email from the PdmV/RelVal HN [A]. 
+In the announcement are the campaign due date, target release, and reference release. In the case of the example, we want to 
+compare 10_2_0_pre5 (target) to 10_2_0_pre4 (reference).
 
-Usually included in the announcement are the differences in code and global tags (i.e. conditions). For the code changes, usually there are "release notes" on GH, included as link [5] in this announcement email. This is a bad example unfortunately, as the announcement linked the previous pre-release comparison (pre4 to pre3) and not pre5 to pre4. The correct link is here [B]. All I did was changed pre4 to pre5 in the URL.
+Usually included in the announcement are the differences in code and global tags (i.e. conditions). 
+For the code changes, usually there are "release notes" on GH, included as link [5] in this announcement email. 
+This is a bad example unfortunately, as the announcement linked the previous pre-release comparison (pre4 to pre3) and not pre5 to pre4. 
+The correct link is here [B]. All I did was changed pre4 to pre5 in the URL.
 
 If the release notes are not included in the announcement, they can be found in two ways
-1) By entering a URL of type: https://github.com/cms-sw/cmssw/releases/CMSSW_X_Y_Z, where x_y_z is the release/pre-release you want to pull up (which will compare it to the most recent release/pre-release)
-2) Go to the CMSSW GH [C], click on "Issues", click on "Closed", search for the release you want, and then click on it. Finally, search for a message from the cms-bot that starts with "The release notes are ready" to go to the notes
+1) By entering a URL of type: https://github.com/cms-sw/cmssw/releases/CMSSW_X_Y_Z, where x_y_z is the release/pre-release you want to pull up 
+(which will compare it to the most recent release/pre-release)
+2) Go to the CMSSW GH [C], click on "Issues", click on "Closed", search for the release you want, and then click on it. Finally, search for a message 
+from the cms-bot that starts with "The release notes are ready" to go to the notes
 Once at the release notes, look for changes that could possible affect tracking reconstruction. 
 
-It may happen that you are asked to compare (pre-)releases that are separated by more than one release.  For example, PdmV might as you to compare 10_2_0_pre5 to 10_2_0_pre2. In that case, it is important to check the full set of code diffs between the two releases by repeating steps 1) or 2) above. So, in the case of comparing pre5 to pre2, just continue to open new tabs in your browser for pre5 to pre4, pre4 to pre3, and pre3 to pre2.
+It may happen that you are asked to compare (pre-)releases that are separated by more than one release.  
+For example, PdmV might as you to compare 10_2_0_pre5 to 10_2_0_pre2. In that case, it is important to check the full set of code diffs 
+between the two releases by repeating steps 1) or 2) above. So, in the case of comparing pre5 to pre2, just continue to open new tabs in your browser 
+for pre5 to pre4, pre4 to pre3, and pre3 to pre2.
 
-Often times, there will be changes to tracking code listed in the GH notes but will not have an effect on tracking reconstruction for data. For example, changes could be made for future tracking, or maybe current tracking but MC only. They could be for online (i.e. HLT) only. There could be configuration changes in HI, or there may be changes to DQM. In any of these cases, you can safely ignore them as they are out of the scope of this task. It takes some time to get used to figuring out which PRs will make a change even if they mention tracking reco, but after reading enough of these notes, you will get the hang of it. Look for "usual suspects" who contributes to tracking code: Vincenzo I. (VinInn), Marco R. (rovere), Matti K. (makortel), Marco M. (mmusich), Mia T. (miatosi), etc.  If you are not sure, just ping the validation e-group to find out :).
+Often times, there will be changes to tracking code listed in the GH notes but will not have an effect on tracking reconstruction for data. 
+For example, changes could be made for future tracking, or maybe current tracking but MC only. They could be for online (i.e. HLT) only. 
+There could be configuration changes in HI, or there may be changes to DQM. In any of these cases, you can safely ignore them as they are out of the scope of this task. 
+It takes some time to get used to figuring out which PRs will make a change even if they mention tracking reco, but after reading enough of these notes, you will 
+get the hang of it. Look for "usual suspects" who contributes to tracking code: Vincenzo I. (VinInn), Marco R. (rovere), Matti K. (makortel), 
+Marco M. (mmusich), Mia T. (miatosi), etc.  If you are not sure, just ping the validation e-group to find out :).
 
-Be on the lookout for news from the Tracking POG meetings about code changes as well, as they often will say changes are coming, although they may not know exactly when each PR will be integrated with each pre-release. 
+Be on the lookout for news from the Tracking POG meetings about code changes as well, as they often will say changes are coming, 
+although they may not know exactly when each PR will be integrated with each pre-release. 
 
 Finally, looking at the long list from [B], nothing seems to stand out, so we would expect no changes from the code to appear in the plots.
 
-Now, let's look for condition changes by first looking at the HN announcement. Since we are validating data, we only care about GT changes to data, which in the announcement is listed at link [4]. While they did list out the diff in GTs, they did not link to actual changes from the confDB webpage, so we will do it ourselves. This is a useful skill, as sometimes they do not list the diff in GTs. 
+Now, let's look for condition changes by first looking at the HN announcement. 
+Since we are validating data, we only care about GT changes to data, which in the announcement is listed at link [4]. 
+While they did list out the diff in GTs, they did not link to actual changes from the confDB webpage, so we will do it ourselves. 
+This is a useful skill, as sometimes they do not list the diff in GTs. 
 
-To do this, go to this confDB webpage [D]. Now type in the search box a string that is common to the two GTs used in the reference (101X_dataRun2_PromptLike_v1) and the target (102X_dataRun2_PromptLike_v3), as listed in the announcement. For example, I typed "dataRun2_PromptLike_v". Now, click the box next to each of the GTs we want to compare, and then hit the red "Diff" button. This will return the following webpage [E]. 
+To do this, go to this confDB webpage [D]. Now type in the search box a string that is common to the two GTs used in the reference 
+(101X_dataRun2_PromptLike_v1) and the target (102X_dataRun2_PromptLike_v3), as listed in the announcement. 
+For example, I typed "dataRun2_PromptLike_v". Now, click the box next to each of the GTs we want to compare, and then hit the red "Diff" button. 
+This will return the following webpage [E]. 
 
-First thing is that we want to look for "Tag Differences" that might affect tracking. This includes anything with SiStrip in the name, Trk, Pix, etc. The ones that matter the most are changes in SiStrip gain, alignment, and APE (alignment position errors). Pixel templates and alignment will also make a difference. On occasion, we tune the selection of seeds and tracks for the different tracking iterations, which can greatly impact the overall track collection. From this example, we see there is a change for: SiPixelTemplateDBObjectRcd, however this is only for tracking with B=0T, so we don't care about it. 
+First thing is that we want to look for "Tag Differences" that might affect tracking. 
+This includes anything with SiStrip in the name, Trk, Pix, etc. The ones that matter the most are changes in SiStrip gain, 
+alignment, and APE (alignment position errors). Pixel templates and alignment will also make a difference. 
+On occasion, we tune the selection of seeds and tracks for the different tracking iterations, which can greatly impact the overall track collection. 
+From this example, we see there is a change for: SiPixelTemplateDBObjectRcd, however this is only for tracking with B=0T, so we don't care about it. 
 
-Next, we look for "IOV Differences". An IOV designates a run range for which the given alignment/calibration record was injected and valid. The run listed is when the new conditions were uploaded, and thus any run above that will be affected by the new conditions. Relvals for release validation are always produced with the same runs every time, and often times the runs used are well behind any changes in IOV, as IOV changes are made for updating data-taking conditions quickly. 
+Next, we look for "IOV Differences". 
+An IOV designates a run range for which the given alignment/calibration record was injected and valid. 
+The run listed is when the new conditions were uploaded, and thus any run above that will be affected by the new conditions. 
+Relvals for release validation are always produced with the same runs every time, and often times the runs used are well behind any changes in IOV, 
+as IOV changes are made for updating data-taking conditions quickly. 
 
-Even then, IOV changes are often incremental in condition changes, so they will not often visibly affect reco for tracking. We are again looking for SiStrip/pixel stuff. As you can see if you scroll through, there are quite a few IOV diffs relevant for tracking. As we will see in the next steps, we will look at relvals produced from runs 315489 and 305064. Most of the IOV diffs that we see here are set for runs that actually are outside of the relvals produced, with just a few occurring before. As such, we could see something, but unlikely, as these are again minor effects.
+Even then, IOV changes are often incremental in condition changes, so they will not often visibly affect reco for tracking. 
+We are again looking for SiStrip/pixel stuff. As you can see if you scroll through, there are quite a few IOV diffs relevant for tracking. 
+As we will see in the next steps, we will look at relvals produced from runs 315489 and 305064. 
+Most of the IOV diffs that we see here are set for runs that actually are outside of the relvals produced, with just a few occurring before. 
+As such, we could see something, but unlikely, as these are again minor effects.
 
 At this point, we are ready to get the files we want to process and set up the plotting tool.
 
@@ -42,23 +81,36 @@ Links
 [B] https://github.com/cms-sw/cmssw/releases/CMSSW_10_2_0_pre5
 [C] https://github.com/cms-sw/cmssw/
 [D] https://cms-conddb.cern.ch/cmsDbBrowser/index/Prod
-[E] https://cms- conddb.cern.ch/cmsDbBrowser/diff/Prod/gts/101X_dataRun2_PromptLike_v1/102X_dataRu n2_PromptLike_v3
+[E] https://cms-conddb.cern.ch/cmsDbBrowser/diff/Prod/gts/101X_dataRun2_PromptLike_v1/102X_dataRun2_PromptLike_v3
 
 ---------------------------------------
        
 ---> STEP 2: Get the files for validation
 
-Okay, now that we think there should no changes (or very minimal), let's start making some plots to run the validation.
-The code used is a bit clunky. The code is here [A]. It actually comes with a README that explains a bit about how to do the validation. In any case, checkout the code inside a CMSSW release on lxplus (currently I have installed CMSSW_9_4_8, but any release beyond 92X will do). Make sure to do "cmsenv" inside CMSSW_X_Y_Z/src to pick up ROOT6. Also, make sure your grid certificate is set up so you can get the ROOT files from the DQM webpage.
+Okay, now that we think there should be no changes (or very minimal), let's start making some plots to run the validation.
+The code used is a bit clunky. The code is here [A]. It actually comes with a README that explains a bit about how to do the validation. 
+In any case, checkout the code inside a CMSSW release on lxplus (currently I have installed CMSSW_9_4_8, but any release beyond 92X will do). 
+Make sure to do "cmsenv" inside CMSSW_X_Y_Z/src to pick up ROOT6. Also, make sure your grid certificate is set up so you can get the ROOT files from the DQM webpage.
 
-We need both the target and reference relvals, for runs and PDs we care about. I usually start with JetHT, and occasionally will need to use ZeroBias. If I see something changing in JetHT, I will check with ZeroBias as a cross-check. JetHT is seeded by triggers with large amounts of jet activity which leads to an abundance of tracks, so it is high in stats and most sensitive to changes in tracking reco. 
+We need both the target and reference relvals, for runs and PDs we care about. I usually start with JetHT, and occasionally will need to use ZeroBias. 
+If I see something changing in JetHT, I will check with ZeroBias as a cross-check. 
+JetHT is seeded by triggers with large amounts of jet activity which leads to an abundance of tracks, so it is high in stats and most sensitive to changes 
+in tracking reco. 
 
-The files can be found here [B]. You will need a grid certificate loaded in your browser to see this page. Scroll to CMSSW_10_2_x, which is where the relvals for this campaign are located [C]. Since we want to compare the latest and greatest reco data, it is often best to run over the most recent runs, so we will run over one from 2018 and then as a sanity check, 2017 as well. Look for "pre5" and "pre4" for the two PDs and the runs below.
+The files can be found here [B]. You will need a grid certificate loaded in your browser to see this page. 
+Scroll to CMSSW_10_2_x, which is where the relvals for this campaign are located [C]. 
+Since we want to compare the latest and greatest reco data, it is often best to run over the most recent runs, 
+so we will run over one from 2018 and then as a sanity check, 2017 as well. Look for "pre5" and "pre4" for the two PDs and the runs below.
 
 2018: 315489 
 2017: 305064
 
-Sometimes there will be duplicates of relvals, some labeled "resub" or other labels. Resub means that the production of these samples failed the first time, so the relvals were resubmitted. Or, it can mean that conditions were wrongly assigned to the production, and thus new relvals were made.  When the relval production fails, you could see artificial differences between plots because not all lumi sections were processed and therefore is not a fair apples-to-apples comparison. Most notably, the number of tracks per event will be different, as will the shape of this distribution. For now, we see that both files are there without any extra resub labels, so we use those.
+Sometimes there will be duplicates of relvals, some labeled "resub" or other labels. 
+Resub means that the production of these samples failed the first time, so the relvals were resubmitted. 
+Or, it can mean that conditions were wrongly assigned to the production, and thus new relvals were made.  
+When the relval production fails, you could see artificial differences between plots because not all lumi sections were processed 
+and therefore is not a fair apples-to-apples comparison. Most notably, the number of tracks per event will be different, as will the shape of this distribution. 
+For now, we see that both files are there without any extra resub labels, so we use those.
 
 To get the files locally, make sure you are at the directory TkRelVal. Now use the script: getFiles.sh, and follow the README on the pattern to get the relvals. e.g.
 
@@ -77,33 +129,60 @@ Links
 
 ---> STEP 3: Setup the plot making and run!
 
-Before making the plots, there are a few things to check. First is to make sure the files we are comparing have the same number of events. To do this, first cd into collisions/, then use the ./getNevents.sh script, inputting the file name of the reference, target, and then the run number. e.g.
+Before making the plots, there are a few things to check. First is to make sure the files we are comparing have the same number of events. 
+To do this, first cd into collisions/, then use the ./getNevents.sh script, inputting the file name of the reference, target, and then the run number. e.g.
 
 cd collisions/
-./getNevents.sh DQM_V0001_R000315489__JetHT__CMSSW_10_2_0_pre4- 102X_dataRun2_PromptLike_v1_RelVal_jetHT2018A-v1__DQMIO.root DQM_V0001_R000315489__JetHT__CMSSW_10_2_0_pre4- 102X_dataRun2_PromptLike_v1_RelVal_jetHT2018A-v1__DQMIO.root 315489
+./getNevents.sh DQM_V0001_R000315489__JetHT__CMSSW_10_2_0_pre4-102X_dataRun2_PromptLike_v1_RelVal_jetHT2018A-v1__DQMIO.root DQM_V0001_R000315489__JetHT__CMSSW_10_2_0_pre4-102X_dataRun2_PromptLike_v1_RelVal_jetHT2018A-v1__DQMIO.root 315489
    
-A difference could occur if some of the relval production fails.  What typically happens is that for a given PD+run+release, the processing is done in parallel for lumi sections, and as such, one job could fail, so when the all the files are eventually merged (known as harvesting), some events could be missing. As it turns out, these files have the same number of events, so we are set for this comparison. 
+A difference could occur if some of the relval production fails.  What typically happens is that for a given PD+run+release, the processing is done in parallel 
+for lumi sections, and as such, one job could fail, so when the all the files are eventually merged (known as harvesting), some events could be missing. 
+As it turns out, these files have the same number of events, so we are set for this comparison. 
 
-Now we are ready to call the main plotting script: ./makeValidationPlots.sh. This will call the macro runValidationComparison.C, which in turn will compile ReleaseComparison.cpp/.hh. The bulk of the code in ReleaseComparison is simply setting up which plots to compare, using strings to get the appropriate files/directories/plots within the DQM relvals. It also sets axis titles, output png names, ranges, etc. These have been tuned for the plots we care about, but of course can be changed. 
+Now we are ready to call the main plotting script: ./makeValidationPlots.sh. 
+This will call the macro runValidationComparison.C, which in turn will compile ReleaseComparison.cpp/.hh. 
+The bulk of the code in ReleaseComparison is simply setting up which plots to compare, using strings to get the appropriate files/directories/plots within the DQM relvals. 
+It also sets axis titles, output png names, ranges, etc. These have been tuned for the plots we care about, but of course can be changed. 
 
-The reason for changing the output names of histograms is due to the validation reporting tool: ValDb. I will describe ValDb a bit more later, but for now I will mention that when filling out your report, there are two sections: the Comments section to describe in words what you have observed, and the Links section for providing the URLs for each plot/directory (or perhaps other references) you reference in the Comments section.  It turns out both sections are limited to 3000 characters, which, given the length of the URLs for plots, translates to 25 or so plots you can link before you run out of space. Without the renaming, it would be closer to 15.  In some validation campaigns, every last character will count, as you will need to reference at least that many plots.  There is a way around this (although not recommended), which I will describe later. 
+The reason for changing the output names of histograms is due to the validation reporting tool: ValDb. 
+I will describe ValDb a bit more later, but for now I will mention that when filling out your report, there are two sections: 
+    the Comments section to describe in words what you have observed
+    the Links section for providing the URLs for each plot/directory (or perhaps other references) you reference in the Comments section.  
+It turns out both sections are limited to 3000 characters, which, given the length of the URLs for plots, translates to 25 or so plots you can link before you run out of space. 
+Without the renaming, it would be closer to 15.  In some validation campaigns, every last character will count, as you will need to reference at least that many plots.  
+There is a way around this (although not recommended), which I will describe later. 
 
-The rest of the main script sets up the output directories before running ReleaseComparison using some scripts stored in afscode/. In reality, these scripts are actually already sitting in the top level output directory: /afs/cern.ch/cms/Physics/tracking/validation/DATA/. I simply copied them there from afscode/.
+The rest of the main script sets up the output directories before running ReleaseComparison using some scripts stored in afscode/. 
+In reality, these scripts are actually already sitting in the top level output directory: /afs/cern.ch/cms/Physics/tracking/validation/DATA/. I simply copied them there from afscode/.
 
-The output pngs are saved in the top level output directory. You will need write access to put plots here... send me your lxplus usernames, and I can try to get you write access there. It should be mentioned that, afs is being phased out of CERN in favor of eos. There is a tracking validation eos space shared with the MC validators, but I never made the transition. This would actually be a great opportunity to transition the tool once things are settled so you could get some familiarity with the code. I would in fact encourage you to do this: talk to the MC validators to get write access there (as well as what is needed for viewing the plots on the web), and then make the necessary changes in the script and source code to output there directly. 
+The output pngs are saved in the top level output directory. You will need write access to put plots here... send me your lxplus usernames, and I can try to get you write access there. 
+It should be mentioned that, afs is being phased out of CERN in favor of eos. There is a tracking validation eos space shared with the MC validators, but I never made the transition.
+This would actually be a great opportunity to transition the tool once things are settled so you could get some familiarity with the code. 
+I would in fact encourage you to do this: talk to the MC validators to get write access there (as well as what is needed for viewing the plots on the web), 
+and then make the necessary changes in the script and source code to output there directly. 
 
-For now, since you do not have write access to the afs directory, it would be a good exercise to edit the script and source code to write the plots to some temporary directory, and then upload that directory somewhere you can view the images.
+For now, since you do not have write access to the afs directory, it would be a good exercise to edit the script and source code to write the plots to some temporary directory, 
+and then upload that directory somewhere you can view the images.
 
-Few words about the plotting tool: it is a beast. At the end of the day, it simply is just plotting one histogram on top of the other. For this, the DQM GUI does the same thing, as does RelMon. However, what the tool does better is it sets some reasonable ranges for plots, renames plots so you don't exhaust the text character limit on ValDb, etc. The DQM GUI does allow you to change ranges, and some labels, but it is a bit clunky and requires a strong connection as the servers reside in Europe. The plots we produce are simply pngs that are static and quick to browse.
+Few words about the plotting tool: it is a beast. At the end of the day, it simply is just plotting one histogram on top of the other. 
+For this, the DQM GUI does the same thing, as does RelMon. However, what the tool does better is it sets some reasonable ranges for plots, renames plots so you don't exhaust 
+the text character limit on ValDb, etc. The DQM GUI does allow you to change ranges, and some labels, but it is a bit clunky and requires a strong connection as the servers reside in Europe. 
+The plots we produce are simply pngs that are static and quick to browse.
 
-The first few lines of the code try to setup the string format expected from the file name to properly parse things [0]. After that, it gets the integral number of events to scale the histograms in case the number of entries is different between the two relvals[1]. Then, it starts the plotting routine, one call for each histogram we care about. The overplotting of the histograms is handled differently for TH1Fs and TProfiles (i.e., the ratio of the histograms changes to make more sense when plotting profiles). In these routines, labels on the histograms change, as do ranges, scales, etc. There are comments in the code that hopefully make clear what each chunk of code is doing [2, 3].
+The first few lines of the code try to setup the string format expected from the file name to properly parse things [0]. 
+After that, it gets the integral number of events to scale the histograms in case the number of entries is different between the two relvals[1]. 
+Then, it starts the plotting routine, one call for each histogram we care about. The overplotting of the histograms is handled differently for TH1Fs and TProfiles 
+(i.e., the ratio of the histograms changes to make more sense when plotting profiles). In these routines, labels on the histograms change, as do ranges, scales, etc. 
+There are comments in the code that hopefully make clear what each chunk of code is doing [2, 3].
 
 To run the plotting tool, do
 
 ./makeValidationPlots.sh 315489 10_2_0_pre4 10_2_0_pre5 JetHT
 
-You should see the script running now, producing png for each histogram. The first parameter of the script is the run number of the relvals, the second is the reference release string, third the target, and finally, the PD. The second and third are used to grep for the files in the collisions/ directory and run with them, while also setting the labels on the legends.
-Inside the script, you can set by hand the top level afs output directory. If you do not, the script makes the output directory name [A]. In the source code, you can also set the legend labels by hand [B, C], otherwise the file names are parsed to set the legend labels.
+You should see the script running now, producing png for each histogram. The first parameter of the script is the run number of the relvals, the second is the reference release string, 
+third the target, and finally, the PD. The second and third are used to grep for the files in the collisions/ directory and run with them, while also setting the labels on the legends.
+Inside the script, you can set by hand the top level afs output directory. If you do not, the script makes the output directory name [A]. 
+In the source code, you can also set the legend labels by hand [B, C], otherwise the file names are parsed to set the legend labels.
  
 Links:
 [0] https://github.com/kmcdermo/TkRelVal/blob/master/collisions/ReleaseComparison.cpp#L16-L79
@@ -126,7 +205,9 @@ Then, run the script ./getDirHL.sh, with the input parameter the common name bet
 
 ./getDirHL.sh CMSSW_10_2_pre5
 
-This will spit out some text. Copy this text to the clipboard command+c on mac), and then open up index.html in an editor. Once opened, paste this text under the proper heading (e.g. 10_2_X). If you need to create a new heading, just follow the formatting in the file. This is a hacked html file I made, so please excuse the mess, as I am not a web developer :). Save it, and get ready for the "real" work: plot comparison. 
+This will spit out some text. Copy this text to the clipboard command+c on mac), and then open up index.html in an editor. Once opened, paste this text under the proper heading (e.g. 10_2_X). 
+If you need to create a new heading, just follow the formatting in the file. This is a hacked html file I made, so please excuse the mess, as I am not a web developer :). 
+Save it, and get ready for the "real" work: plot comparison. 
 
 Links:
 [A] https://cmsdoc.cern.ch/cms/Physics/tracking/validation/DATA/ 
@@ -135,26 +216,33 @@ Links:
 
 ---> STEP 5: Comparing the plots
 
-First find the main tracking data validation webpage [A]. Then, navigate to one set of plots for the validation campaign we are doing [B]. Now, I typically start off by comparing plots with the High Purity Tracks, pT > 1, as this collection of tracks is the most important for physics. I then look at HPTracks, 0 < pT < 1, then if needed (rarely), I look at generalTracks.
+First find the main tracking data validation webpage [A]. Then, navigate to one set of plots for the validation campaign we are doing [B]. 
+Now, I typically start off by comparing plots with the High Purity Tracks, pT > 1, as this collection of tracks is the most important for physics. 
+I then look at HPTracks, 0 < pT < 1, then if needed (rarely), I look at generalTracks.
                
-HPTracks are those that pass a strict quality selection to reduce contamination from fake or duplicate tracks. General tracks contain the full set of tracks, but these will have fakes/duplicates uncleaned and not ready for most physics analyses.
+HPTracks are those that pass a strict quality selection to reduce contamination from fake or duplicate tracks. General tracks contain the full set of tracks, but 
+these will have fakes/duplicates uncleaned and not ready for most physics analyses.
 
-I typically start in log scale, and then move to linear if needed. I first look at the generalProperties, wit the most important plots being:
-- ntracks/event
-- tracks/iteration (algo and algo original)
-- track chi2 / ndf
-- track chi2 / prob
-- track pt
-- track eta/phi (for sanity these should be similar)
+I typically start in log scale, and then move to linear if needed. I first look at the generalProperties, with the most important plots being:
+- ntracks/event (nTracks)
+- tracks/iteration (algo and algo original) (forse algorithm & original algorithm)
+- track chi2 / ndf (chi2oNDF)
+- track chi2 / prob (chi2Prob)
+- track pt (trackpt_IP)
+- track eta/phi (for sanity these should be similar) (trackEta/phi_IP)
 
-From there, I look at HitProperties - valid hits / track
+From there, I look at HitProperties - valid hits / track (hitprops)
 - hits on track / subdetector
 
 Then Hit Efficiency from Pattern (one plot)
 
-In the ideal world, if no changes are expected (which is our current hypothesis for this campaign), we should perfect agreement. However, we do not live in a perfect world, so there may be some little jitter in the tails of the distributions even when no changes are expected. 
+In the ideal world, if no changes are expected (which is our current hypothesis for this campaign), we should perfect agreement. 
+However, we do not live in a perfect world, so there may be some little jitter in the tails of the distributions even when no changes are expected. 
 
-This is because tracking is unfortunately not fully deterministic, and this is made worse by being platform dependent. Since CMSSW (and therefore the relval production for each new release) is run over a host of different platforms, results are not entirely deterministic as there can be numerical instabilities that lead to track parameters and hits being computed differently. The way tracks are selected/cleaned is also not deterministic if the reconstruction is multithreaded. So as you can see from some plots like:
+This is because tracking is unfortunately not fully deterministic, and this is made worse by being platform dependent. 
+Since CMSSW (and therefore the relval production for each new release) is run over a host of different platforms, results are not entirely deterministic as there can be numerical 
+instabilities that lead to track parameters and hits being computed differently. The way tracks are selected/cleaned is also not deterministic if the reconstruction is multithreaded. 
+So as you can see from some plots like:
 
 - ntracks/ event [1]
 - track phi error [2]
@@ -162,31 +250,55 @@ This is because tracking is unfortunately not fully deterministic, and this is m
 
 This level of "disagreement" is super small, so (unfortunately) is expected and fine. 
 
-If we look at the other run 315489, we see a bit more disagreement, but this is because about 10% of the events are missing in the reference. nTracks/event number of entries actually is the total number of events processed for each relval, as an FYI. The number of entires from this plot is actually the plot used for the ./getEntries.sh script. In fact, we use the number of entries to scale the histograms in the source code to "equal" number of events if the two numbers are not equal , i.e. if events are missing from one file or the other. It can happen that PdmV produces relvals that fail everywhere and does not want to resubmit them to make the target and reference files match in the number of events processed. As such, to make the comparisons as fair as possible, I scale up/down the target histograms to match the reference number of events.
+If we look at the other run 315489, we see a bit more disagreement, but this is because about 10% of the events are missing in the reference. 
+nTracks/event number of entries actually is the total number of events processed for each relval, as an FYI. 
+The number of entires from this plot is actually the plot used for the ./getEntries.sh script. In fact, we use the number of entries to scale the histograms 
+in the source code to "equal" number of events if the two numbers are not equal , i.e. if events are missing from one file or the other. 
+It can happen that PdmV produces relvals that fail everywhere and does not want to resubmit them to make the target and reference files match in the number of events processed. 
+As such, to make the comparisons as fair as possible, I scale up/down the target histograms to match the reference number of events.
 
 Even with so many events missing, the plots do a good job of laying on top of each other. Some things to keep in mind.
 
-- Ntracks/event, and tracks/iteration can change when we update the seeding/track selection MVA, duplicate removal, etc. Pay attention to the PR contributing to these changes and see if the changes go in the right direction. Arguably, these are the most important changes made to tracking during data-taking.
+- Ntracks/event, and tracks/iteration can change when we update the seeding/track selection MVA, duplicate removal, etc. 
+Pay attention to the PR contributing to these changes and see if the changes go in the right direction. Arguably, these are the most important changes made to tracking during data-taking.
 
-As an example: last year when we were having problems with the pixel detector, the seed selection criteria was changed to produce more seeds with pixel pairs, while also loosening the requirements for HP tracks from this iteration. This had the effect of accepting more pixel pair tracks at low pt, that otherwise failed the high purity selection. So in generalTracks there was no real change, but in HP, we saw more tracks here (in the originalAlgo). However, by way of how tracks are then sorted at the end, the assignment of the track to which algorithm (just the algo plot), moved some triplets out. If this is confusing, it is. One thing I want to iterate: it will take time to understand the subtleties and even then, there will be things that surprise you. If you see something you do not hesitate to ask the tracking experts :).
+As an example: last year when we were having problems with the pixel detector, the seed selection criteria was changed to produce more seeds with pixel pairs, 
+while also loosening the requirements for HP tracks from this iteration. This had the effect of accepting more pixel pair tracks at low pt, that otherwise failed the high purity selection. 
+So in generalTracks there was no real change, but in HP, we saw more tracks here (in the originalAlgo). However, by way of how tracks are then sorted at the end, 
+the assignment of the track to which algorithm (just the algo plot), moved some triplets out. If this is confusing, it is. 
+One thing I want to iterate: it will take time to understand the subtleties and even then, there will be things that surprise you. If you see something you do not hesitate to ask the tracking experts :).
 
-Track quality: chi2/ndf and chi2prob. The "flatter" chi2prob is, the better (i.e. the mean is close to 0.5), while for chi2/ndf, the closer the mean is to 1.0, the better. This is important for condition validation. However, when we update the APEs, it can happen these get worse as we may have underestimated them. As such, the chi2s will spread out, but this is actually better!
+- Track quality: chi2/ndf and chi2prob. 
+The "flatter" chi2prob is, the better (i.e. the mean is close to 0.5), while for chi2/ndf, the closer the mean is to 1.0, the better. This is important for condition validation. 
+However, when we update the APEs, it can happen these get worse as we may have underestimated them. As such, the chi2s will spread out, but this is actually better!
 
-Track pT/eta/phi: for sanity, these should lie on top of each other, unless of course we update the track selection to cut on track pT, or we have some recovery in some iteration to pick up tracks in depleted phi/eta regions of the detector. An example again is last year when we changed the pixel pair steps to do just that, there was a spike in phi/eta because we recovered tracks in a bad sector of the detector.
+- Track pT/eta/phi: for sanity, these should lie on top of each other, unless of course we update the track selection to cut on track pT, or we have some recovery in some iteration 
+to pick up tracks in depleted phi/eta regions of the detector. An example again is last year when we changed the pixel pair steps to do just that, there was a spike in phi/eta because 
+we recovered tracks in a bad sector of the detector.
 
-Hitplots: if we change the cuts in the selection, expect these plots to change. Often times, when we try to recover tracks because of some detector inefficiency, we end up with some short fake tracks, so the mean nHits/track actually gets lower, while the hit efficiency will go up.
+- Hitplots: if we change the cuts in the selection, expect these plots to change. 
+Often times, when we try to recover tracks because of some detector inefficiency, we end up with some short fake tracks, so the mean nHits/track actually gets lower, while the hit efficiency will go up.
 
 So, after looking at these plots, there are a few more to check.
 
-SiStrip Charge Cluster Cut plots, one for each subdetector [4]. These plots are more on the side of the Tracker DPG, but it is useful to check during AlCa campaigns when the gain conditions have changed. During these campaigns, usually you will see almost no change to the track quality, but you may see some changes here. Ask the tracker DPG experts for comments (include them in an email via the tracker performance HN).
+SiStrip Charge Cluster Cut plots, one for each subdetector [4]. 
+These plots are more on the side of the Tracker DPG, but it is useful to check during AlCa campaigns when the gain conditions have changed. 
+During these campaigns, usually you will see almost no change to the track quality, but you may see some changes here. 
+Ask the tracker DPG experts for comments (include them in an email via the tracker performance HN).
 
 Resolution plots: by far the most important for when we change the alignment for AlCa campaigns.
 
-[5]: Look for d{xy,z}Vs{phi,eta}_pt1.png : If the alignment is expected to change, these should improve -- i.e., become less biased and centered more around zero. Sometimes the relvals are accidentally produced with the wrong conditions in the AlCa campaigns (happens pretty frequently because of the fast pace), so it is important to check things do not get worse and hopefully improve.
+[5]: Look for d{xy,z}Vs{phi,eta}_pt1.png : If the alignment is expected to change, these should improve -- i.e., become less biased and centered more around zero. 
+Sometimes the relvals are accidentally produced with the wrong conditions in the AlCa campaigns (happens pretty frequently because of the fast pace), so it is important to check 
+things do not get worse and hopefully improve.
 
-[6]: Look for res_{x,y,z}_vs_sumpt_sigma.png : these should move down (or stay the same) if the alignment is supposed to improve, or PV selection is improved (e.g. comparing PromptReco to ReReco or something)
+[6]: Look for res_{x,y,z}_vs_sumpt_sigma.png : these should move down (or stay the same) if the alignment is supposed to improve, or PV selection is improved 
+(e.g. comparing PromptReco to ReReco or something)
 
-Lastly, and by far the most difficult to validate, are the miniAOD plots in PackedCand [7]. Changes can occur for a variety of reasons: repacking of miniAOD is changed, upstream reco collections are modified, which affects which candidates are matched, or we change the tracking code. Often times, I ping Matti as he is the expert on this. If you do see changes here, go back to the diff in the code and look for any PRs that mention changes to the way reco collections are modified, which impacts how we associate these objects to PackedCandidates (i.e. the objects used for validating tracking in miniAOD).
+Lastly, and by far the most difficult to validate, are the miniAOD plots in PackedCand [7]. 
+Changes can occur for a variety of reasons: repacking of miniAOD is changed, upstream reco collections are modified, which affects which candidates are matched, 
+or we change the tracking code. Often times, I ping Matti as he is the expert on this. If you do see changes here, go back to the diff in the code and look for any PRs 
+that mention changes to the way reco collections are modified, which impacts how we associate these objects to PackedCandidates (i.e. the objects used for validating tracking in miniAOD).
 
 After making a list of changes and such, we then need to write up an internal report before filling out the final report on ValDb.
 
@@ -205,26 +317,36 @@ Links
 
 ---> STEP 6: Report it
 
-After we have collected the plots of interest, it is time to alert the tracking conveners / tracker conveners of the changes. You can search the archives of the e-group to get some ideas of what goes in.
+After we have collected the plots of interest, it is time to alert the tracking conveners / tracker conveners of the changes. 
+You can search the archives of the e-group to get some ideas of what goes in.
 
-To start, I list briefly what the campaign is, when it is due, and if changes are expected (based on conditions/code changes). I then supply a list of supporting plots, and make a suggestion for how to mark the campaign in ValDb. More info on ValDb can be found here [A].
+To start, I list briefly what the campaign is, when it is due, and if changes are expected (based on conditions/code changes). 
+I then supply a list of supporting plots, and make a suggestion for how to mark the campaign in ValDb. More info on ValDb can be found here [A].
 
-For just release validation, email cms-tracking-validation@cern.ch. If it is an AlCa condition validation, include the tracker people:hn-cms-trackerperformance@cern.ch. The MC validator will also post a reply in the same thread, or may start one before you depending on how quickly you do your validation. This way, we can compare to MC if changes are expected there, too.
+For just release validation, email cms-tracking-validation@cern.ch. If it is an AlCa condition validation, include the tracker people:hn-cms-trackerperformance@cern.ch. 
+The MC validator will also post a reply in the same thread, or may start one before you depending on how quickly you do your validation. 
+This way, we can compare to MC if changes are expected there, too.
 
 For a campaign like this, since no changes were expected at all and none were seen, I would recommend we mark this campaign as "OK". The other options are:
 - In progress: if there are things no one understands and the deadline is coming up, we report we are working on it.
 - Failure: changes seen but unexpected, or changes expected but not seen
 - Changes Expected: quantitative and qualitative changes are known to occur from code/conditions, and then confirmed in plots
 
-Once one of the conveners agrees, you will fill out a ValDb report. They are busy, so sometimes they will not reply right away, so give it a day or two before pinging them again. For the AlCa campaigns, usually the turn-around is a single day (super annoying), so you may just have to update the JIRA tickets with an in progress report if you are unsure. On campaigns like this one with no changes, I would actually just write the internal email with a heads-up and then go straight to filling out ValDb. However, since you are just starting, you will wait until the conveners give the ok, just in case :).
+Once one of the conveners agrees, you will fill out a ValDb report. They are busy, so sometimes they will not reply right away, so give it a day or two before pinging them again. 
+For the AlCa campaigns, usually the turn-around is a single day (super annoying), so you may just have to update the JIRA tickets with an in progress report if you are unsure. 
+On campaigns like this one with no changes, I would actually just write the internal email with a heads-up and then go straight to filling out ValDb. 
+However, since you are just starting, you will wait until the conveners give the ok, just in case :).
 
-To fill out the ValDb report, you first go to the webpage [B], then search for the campaign name, which in this case is 10_2_0_pre5. Once you do that, go the right hand side and hit "Show All". Then, under Reconstruction, hit "Show All:. Find the column/row for the campaign and tracking RECO data. Hit that little square, and wait for a pop-up window.
+To fill out the ValDb report, you first go to the webpage [B], then search for the campaign name, which in this case is 10_2_0_pre5. Once you do that, go the right hand side and hit "Show All". 
+Then, under Reconstruction, hit "Show All:. Find the column/row for the campaign and tracking RECO data. Hit that little square, and wait for a pop-up window.
 
-Write your report in the Comments section, providing the links with numbers (like how I have been doing in this report) in the Links section. Make sure to change the drop down menu of the status of the validation to the final decision (OK, Failure, etc).
+Write your report in the Comments section, providing the links with numbers (like how I have been doing in this report) in the Links section. 
+Make sure to change the drop down menu of the status of the validation to the final decision (OK, Failure, etc).
 
 Once done, hit "Submit", and then wait (it can take awhile). You will eventually get an email from the relval HN with your report.
 
-N.B. I mentioned earlier this 3000 character limit. This can be a problem sometimes, so one around it is to edit directly the relval HN thread for the campaign, and then link that in ValDb.  I would not recommend doing that, as then the history of the campaign is not stored on ValDb, only on HN. However, if you are real need of those extra characters for more plots, this is a possibility.
+N.B. I mentioned earlier this 3000 character limit. This can be a problem sometimes, so one around it is to edit directly the relval HN thread for the campaign, and then link that in ValDb.  
+I would not recommend doing that, as then the history of the campaign is not stored on ValDb, only on HN. However, if you are real need of those extra characters for more plots, this is a possibility.
 
 Links
 [A] https://twiki.cern.ch/twiki/bin/viewauth/CMS/PdmVValDb
@@ -234,15 +356,24 @@ Links
 
 ---> Other details on AlCa campaigns (i.e. changes to data-taking conditions from alignment and calibration records)
 
-The first big difference is that these campaigns are usually announced through JIRA tickets. AlCa is responsible for ensuring the right validators are attached to the tickets. Sometimes they forget to include you, but if you are subscribed to the HN I have listed at the bottom of this report, you can usually get a "heads-up" by seeing emails come through that will soon announce the campaigns. On these campaigns, there will always be a validation from both offline reconstruction and HLT. You are only responsible for the offline reco, just as in the release validation. 
+The first big difference is that these campaigns are usually announced through JIRA tickets. AlCa is responsible for ensuring the right validators are attached to the tickets. 
+Sometimes they forget to include you, but if you are subscribed to the HN I have listed at the bottom of this report, you can usually get a "heads-up" by seeing emails come through 
+that will soon announce the campaigns. On these campaigns, there will always be a validation from both offline reconstruction and HLT. 
+You are only responsible for the offline reco, just as in the release validation. 
 
-These campaigns require (usually) a very rapid response: within 24 hours of the announcement. The reason is that these campaigns are for uploading new calibration and/or alignment conditions to the detector that will directly affect data-taking. As such, it is still good to draft up an email to the tracking validation e-group (as well as detector performance), but often times no one will respond within that time frame, so it is up to you to respond to the JIRA ticket with a report. 
+These campaigns require (usually) a very rapid response: within 24 hours of the announcement. The reason is that these campaigns are for uploading new calibration and/or alignment conditions
+to the detector that will directly affect data-taking. As such, it is still good to draft up an email to the tracking validation e-group (as well as detector performance), 
+but often times no one will respond within that time frame, so it is up to you to respond to the JIRA ticket with a report. 
 
-When trying to run the script to produce the plots, you will have to edit it to make a sensical top-level output directory name, as well as the legend labels. However, sometimes there is not enough time, or it is hard to decipher which root files are needed to run the script. In such a case, use the JIRA ticket to navigate to the correct section from the twiki link and browse the plots using the DQM GUI.
+When trying to run the script to produce the plots, you will have to edit it to make a sensical top-level output directory name, as well as the legend labels. 
+However, sometimes there is not enough time, or it is hard to decipher which root files are needed to run the script. In such a case, use the JIRA ticket to navigate to the correct section
+from the twiki link and browse the plots using the DQM GUI.
 
-In either using my script or the DQM GUI, to compare changes to reco only, use the files labeled PRref (reco ref) vs HLTref (reco target). On the (rare) occasion no HLT validation is requested, compare PRref to PRnewco.
+In either using my script or the DQM GUI, to compare changes to reco only, use the files labeled PRref (reco ref) vs HLTref (reco target). 
+On the (rare) occasion no HLT validation is requested, compare PRref to PRnewco.
 
-The most important plots to check are still the generalProperties of the tracks, in particular the track quality, but also making sure to back up any claim of improvement or degradation with the SiStrip (unlikely) plots or Alignment plots (much more likely -- specifically PVAlignment). SiStrip plots will typically see differences when the strip gain constants are changed. 
+The most important plots to check are still the generalProperties of the tracks, in particular the track quality, but also making sure to back up any claim of improvement or degradation 
+with the SiStrip (unlikely) plots or Alignment plots (much more likely -- specifically PVAlignment). SiStrip plots will typically see differences when the strip gain constants are changed. 
 
 -------------------------------
 
@@ -299,10 +430,11 @@ Collection of important links
 
 Relevant HN: make sure to subscribe to each of these fora to stay up-to-date on the latest developments with the tracker, tracking, and release validation
 
-- Tracking POG: https://hypernews.cern.ch/HyperNews/CMS/get/recoTracking.html
-- Tracker DPG Performance: https://hypernews.cern.ch/HyperNews/CMS/get/tracker-performance.html
-- RelVal HN... you will receive A LOT of emails from this one... when you fill your report on ValDb, it gets entered here as well: https://hypernews.cern.ch/HyperNews/CMS/get/relval.html
-- Tracker Commissioning: https://hypernews.cern.ch/HyperNews/CMS/get/tk-commissioning.html
-- Tracker Alignment: https://hypernews.cern.ch/HyperNews/CMS/get/tk-alignment.html
-- AlCa: https://hypernews.cern.ch/HyperNews/CMS/get/calibrations.html
+- Tracking POG: https://cms-talk.web.cern.ch/c/physics/trk/148
+- Tracker DPG Performance: https://cms-talk.web.cern.ch/c/tracker/trackerperformance/179
+- RelVal HN [*]: https://cms-talk.web.cern.ch/c/ppd/pdmv/relval/111
+- Tracker Commissioning: https://cms-talk.web.cern.ch/c/tracker/pixel-commissioning/182
+- Tracker Alignment: https://cms-talk.web.cern.ch/c/tracker/tk-alignment/180
+- AlCa: https://cms-talk.web.cern.ch/c/ppd/alca/108
+[*] you will receive A LOT of emails from this one... when you fill your report on ValDb, it gets entered here as well => Still true :)
   
