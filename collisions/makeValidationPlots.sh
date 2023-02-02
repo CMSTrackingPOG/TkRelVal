@@ -8,7 +8,7 @@ newFile=$4
 newLabel=$5
 folderName=$6
 era=$7
-lumi=${8:-0}
+lumi=${8}
 full=${9:false} # if true, do all plots, otherwise, just essential plots
 
 # directory=/eos/user/a/abulla/www/public/Physics/tracking/validation/DATA/${release}
@@ -88,7 +88,7 @@ done
 echo "Analyzing ${refFile} and ${newFile} in ${folderName}"   
 
 #Run the ROOT Macro. This is trivial, compiles a .cpp file that makes all the plots.  
-root -b -q -l "runValidationComparisonPROV.C("\"${refFile}\",\"${refLabel}\",\"${newFile}\",\"${newLabel}\",\"${directory}\",\"${era}\",${lumi},\"${full}\"")"   
+root -b -q -l "runValidationComparison.C("\"${refFile}\",\"${refLabel}\",\"${newFile}\",\"${newLabel}\",\"${directory}\",\"${era}\",${lumi},\"${full}\"")"   
 
 #generate index.html files on the fly for release directory
 cd ${directory}

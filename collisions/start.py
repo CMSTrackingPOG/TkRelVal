@@ -6,6 +6,7 @@ import os
 from configparser import ConfigParser
 import argparse
 import numpy as np
+import lumiCalc
 
 def findRun(filename):
     rawrun = filename.split("_")[2]
@@ -23,24 +24,22 @@ def findEra(filename):
     return filename.split("202")[1][1]
 
 def difference(string1, string2):
-      # Split both strings into list items
-  string1 = string1.split("_")
-  string2 = string2.split("_")
+# Split both strings into list items
+    string1 = string1.split("_")
+    string2 = string2.split("_")
 
-  A = set(string1) # Store all string1 list items in set A
-  B = set(string2) # Store all string2 list items in set B
+    A = set(string1) # Store all string1 list items in set A
+    B = set(string2) # Store all string2 list items in set B
  
-  str_diff = B.symmetric_difference(A)
-  isEmpty = (len(str_diff) == 0)
+    str_diff = B.symmetric_difference(A)
+    isEmpty = (len(str_diff) == 0)
  
-  if isEmpty:
+    if isEmpty:
     # print("No Difference. Both Strings Are Same")
-    return 1
-  else:
+        return 1
+    else:
     # print("The Difference Between Two Strings: ")
-    return list(str_diff)
-  
-#   print('The programs runs successfully.')
+        return list(str_diff)
 
 
 if __name__ == "__main__":
@@ -50,15 +49,16 @@ if __name__ == "__main__":
     parser.add_argument('--targetFile',     dest='targetFile',     help='new release version', required = True)
     parser.add_argument('--refLabel',     dest='referenceLabel',     help='label name for the reference file. It will appear on graphs and in the folder name', required = False)
     parser.add_argument('--targetLabel',     dest='targetLabel',     help='label name for the target file. It will appear on graphs and in the folder name', required = False)
+    parser.add_argument('--lumi',     dest='lumi',     help='lumi in ', required = False)
     parser.add_argument('--FullPlots',     dest='FullPlots',     help='command to produce ALL the plots', default = False, action = 'store_true', required = False)
     # parser.add_argument('--v',     dest='verbose',     help='Optional prints with retrieved infos', default = True, action = 'store_false', required = False)
-    # parser.add_argument('--BName',     dest='BName',     help='Branch name of TNtuple where weights are stored. Default is "w".', default = 'w', required = False)
-
 
     args = parser.parse_args()
 
-    oldFile = args.referenceFile
-    newFile = args.targetFile
+    oldFileName = args.referenceFile
+    newFileName = args.targetFile
+    oldFile = oldFileName.split("/")[-1]
+    newFile = newFileName.split("/")[-1]
     # print(oldFile)
 
     ## trovo il run number
@@ -100,6 +100,8 @@ if __name__ == "__main__":
             ## in questo caso c'è cambiamento di release
             check = True
 
+    ## here i want to store all the label "accepted". Dont know if it will be a feature i will use.. 
+    ## i just put it there for the moment.. 
     accepted_names = ["Prompt"]
     oldLabelName = output[0]
     newLabelName = output[1]
@@ -126,17 +128,12 @@ if __name__ == "__main__":
         folderName = oldRun+"_"+oldSample+"_"+oldRelease.split("_")[0]+"_"+oldRelease.split("_")[1]+"_"+oldRelease.split("_")[2]+"_"+oldRelease.split("_")[3]+"_vs_"+newRelease.split("_")[1]+"_"+newRelease.split("_")[2]+"_"+newRelease.split("_")[3]
         print(folderName)
 
-# STILL TO DO. "PROMPT" VA BENE INSERIRLO NELLE DIFFERENZA, MA AL POSTO DI V11 VORREI INSERIRE PER ESEMPIO "RERECO". 
-# HO BISOGNO DI UNA LISTA DI "CAMBIAMENTI" IMPORTANTI CHE POSSONO ESSERE MESSI, TIPO PROMPT, E NEGLI ALTR CASI METTERE DA TERMINALE
-
-# DA QUI DI FATTO POTREI TRADURRE makeValidationPlot.sh MA FACCIO PRIMA AD ESEGUIRLO.
-# Eventualmente, lo posso usare anche solo per la creazione delle cartelle e di alcuni index.html.. Per poi eseguire il root qui
-# In questo modo posso aggiungere ulteriori opzioni direttamente da qui.. Probabilmente è più comodo(?) per luminosità e altre cazzate
+# Before executing the macro, which takes quite much time, I update the index.html so that i can view the plots!
+# Now I search for the first "</UL>" word and insert an HREF to see the new folder in the webpage! search by line number and then insert a line
+# Not the smartest way, need to work on this one day
 
     import subprocess
 
-    # Before executing the macro, which takes quite much time, I update the index.html so that i can view the plots!
-    # Now I search for the first "</UL>" word and insert an HREF to see the new folder in the webpage! search by line number and then insert a line
     htmlFile=("/eos/project/c/cmsweb/www/tracking/validation/DATA/index.html")
     word="</UL>"
     linenum=0
@@ -153,20 +150,20 @@ if __name__ == "__main__":
         newstring = "<LI><A HREF=\""+folderName+"/index.html\">"+folderName+","+oldEra
         rc = subprocess.call(["sed -i \'{}i \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ {}\' /eos/project/c/cmsweb/www/tracking/validation/DATA/index.html".format(linenum,newstring)], shell=True)
 
-    lumi = "0"
+    lumi = str(round(float(lumiCalc.LumiCalc(oldFileName)),2))
+
+
+# FROM THIS POINT I SHOLD TRANSLATE THE .SH FILE.. 
+# I do not have time at this moment, but i will one day.
+# for now, i just use the sh
 
     if args.FullPlots == True:
-        rc = subprocess.call(["./makeValidationPlotsPROV.sh", oldRun,oldFile,oldLabelName,newFile,newLabelName,folderName,oldEra,lumi,"true"])
+        rc = subprocess.call(["./makeValidationPlots.sh", oldRun,oldFileName,oldLabelName,newFileName,newLabelName,folderName,oldEra,lumi,"true"])
     else:
-        rc = subprocess.call(["./makeValidationPlotsPROV.sh", oldRun,oldFile,oldLabelName,newFile,newLabelName,folderName,oldEra])
+        rc = subprocess.call(["./makeValidationPlots.sh", oldRun,oldFileName,oldLabelName,newFileName,newLabelName,folderName,oldEra,lumi])
 
  
-# STILL TO DO:
-# - Toccare ReleaseComparison.cpp per le robe grafiche che ci sono nel todo, quelle che rimangono
-# - Luminosità. C'è da capire ancora se utilizzare il grafico di V0 o se affidarsi a lumicalc col json di mia.. In ogni caso lo 
-# calcolerei qui e glielo passerei come parametro probabilmente.. magari non direttamente qui ma passandolo a make bla bla 
 
-# Script più intelligente per l'html file esterno, in modo da fare "capitoli" e orindarli in boh ordine alfabetico o qualcosa di simile?
 
 
 

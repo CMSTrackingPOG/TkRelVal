@@ -1,4 +1,4 @@
-#include "ReleaseComparisonPROV.hh"
+#include "ReleaseComparison.hh"
 
 void V1_V2_trkComparison(const TString fileName1, const TString labelName1, const TString fileName2, const TString labelName2,  
 			 const TString directory, const TString era, const Double_t lumi, const bool full) 
@@ -2308,7 +2308,6 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
     delete hBinTempV2;
     return false;
   }
-
   histV1->SetEntries(h1_nEntries);
   histV2->SetEntries(h2_nEntries);
 
@@ -2611,7 +2610,6 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
   histV1->GetXaxis()->SetLabelSize(0);
   histV2->GetXaxis()->SetTitleSize(0);
   histV2->GetXaxis()->SetLabelSize(0);
-
   //++++++++++++++++++++ Draw Histograms +++++++++++++++++++//
 
   canvas->cd();
@@ -2654,7 +2652,7 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
   }
   leg->Draw("SAME");
   sidepad->Update();
-
+  std::cout << "PRIMA DEGLI STATBOX" << std::endl;
   //++++++++++++++++++++ Draw both stats boxes +++++++++++++++++++//
 
   // Here I will do a not very good thing.. I want statbox out of the histogram but it is not
@@ -2669,7 +2667,7 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
   TPaveStats *st2 = NULL;
   TPaveStats *stats2  = NULL;
 
-   if (isHist1 && isHist2){
+  if (isHist1 && isHist2){
     st2 = (TPaveStats*)(histV2->GetListOfFunctions()->FindObject("stats"));
     stats2 = (TPaveStats*)(st2->Clone("stats2"));
   }
@@ -2692,17 +2690,16 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
     stats2->SetY1NDC(0.665);
     stats2->SetY2NDC(0.81);
   }
- 
   stats1->Draw();
-  stats2->Draw("SAME");
-
+  if (isHist1 && isHist2){
+    stats2->Draw("SAME");
+  }
 // From this point I have to do a bad thing but that works.
 // All I do is move 2 old stat box (st1 & st2) on the right, under the sidepad, so that 
 // they are not visible. I have to do this becuase if I delete them, a statbox appear 
 // on the right-top angle of the histo! And if I dont want it (Draw("same") without "sameS" S option)
 // I get a segmentation violation :( So this is not a good thing to do, but works.. 
 // note that to have printed st1 & st2 all i have to do is declare them and set their X&Y. Bot X and Y are necessary
-
 
   st1->SetX1NDC(1.2);
   st1->SetX2NDC(1.22);
@@ -2719,7 +2716,6 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
     st2->SetY1NDC(st1->GetY1NDC() - 1.0*defaulth - gaph);
     st2->SetY2NDC(st1->GetY1NDC() - gaph);
   }
-
   //++++++++++++++++++++ Make ratio histograms +++++++++++++++++++//
 
   canvas->cd();
@@ -2760,7 +2756,6 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
   hratio->SetLineColor(1);
   hratio->SetMarkerColor(1);
   hratio->Draw("EP");
-
   //++++++++++++++++++++ Draw ratio line +++++++++++++++++++//
   
   TLine * ratioline = new TLine();
@@ -2817,7 +2812,6 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
     mainpad->SetLogx(0);
     respad->SetLogx(0);
   }
-
   //++++++++++++++++++++ delete objects +++++++++++++++++++//
 
   if ( st1 ) {delete st1;}
@@ -3186,7 +3180,9 @@ bool createTProfPlot(const TString hname, const TString dirname, TFile *& V1file
   }
  
   stats1->Draw();
-  stats2->Draw("SAME");
+  if (isHist1 && isHist2){
+    stats2->Draw("SAME");
+  }
 
 // From this point I have to do a bad thing but that works.
 // All I do is move 2 old stat box (st1 & st2) on the right, under the sidepad, so that 

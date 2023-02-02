@@ -1,6 +1,6 @@
-#include "ReleaseComparisonPROV.cpp+"
+#include "ReleaseComparison.cpp+"
 
-void runValidationComparisonPROV(const char * refFile, const char * refLabel, const char * newFile, const char * newLabel,
+void runValidationComparison(const char * refFile, const char * refLabel, const char * newFile, const char * newLabel,
 			     const TString directory, const TString era, const Double_t lumi, const TString full) 
 {
   bool fullbool = full.Contains("true",TString::kExact);
