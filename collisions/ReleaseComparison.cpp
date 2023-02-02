@@ -2652,7 +2652,6 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
   }
   leg->Draw("SAME");
   sidepad->Update();
-  std::cout << "PRIMA DEGLI STATBOX" << std::endl;
   //++++++++++++++++++++ Draw both stats boxes +++++++++++++++++++//
 
   // Here I will do a not very good thing.. I want statbox out of the histogram but it is not
