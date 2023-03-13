@@ -147,7 +147,7 @@ if __name__ == "__main__":
                     break
 
     if linenum != 0:
-        newstring = "<LI><A HREF=\""+folderName+"/index.html\">"+folderName+","+oldEra
+        newstring = "<LI><A HREF=\""+folderName+"/index.html\">"+folderName+","+oldEra+"</A></LI>"
         rc = subprocess.call(["sed -i \'{}i \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ {}\' /eos/project/c/cmsweb/www/tracking/validation/DATA/index.html".format(linenum,newstring)], shell=True)
 
     lumi = str(round(float(lumiCalc.LumiCalc(oldFileName)),2))

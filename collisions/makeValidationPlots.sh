@@ -11,10 +11,7 @@ era=$7
 lumi=${8}
 full=${9:false} # if true, do all plots, otherwise, just essential plots
 
-# directory=/eos/user/a/abulla/www/public/Physics/tracking/validation/DATA/${release}
 directory=/eos/project/c/cmsweb/www/tracking/validation/DATA/${folderName}
-
-## Se lumi = 0, ovvero non l'ho presa dal py, --> prendiamola da brillcalc direi
 
 #Create directories for webpage
 if [ ! -d ${directory} ] ; then    
@@ -24,7 +21,6 @@ else
     mkdir ${directory} 
 fi 
                            
-
 for subdir in offline #pixel
 do
     mkdir -p ${directory}/PV_HPTks/${subdir}_lin
@@ -88,7 +84,7 @@ done
 echo "Analyzing ${refFile} and ${newFile} in ${folderName}"   
 
 #Run the ROOT Macro. This is trivial, compiles a .cpp file that makes all the plots.  
-root -b -q -l "runValidationComparison.C("\"${refFile}\",\"${refLabel}\",\"${newFile}\",\"${newLabel}\",\"${directory}\",\"${era}\",${lumi},\"${full}\"")"   
+root -b -q -l "${PWD}/runValidationComparison.C("\"${refFile}\",\"${refLabel}\",\"${newFile}\",\"${newLabel}\",\"${directory}\",\"${era}\",${lumi},\"${full}\"")"   
 
 #generate index.html files on the fly for release directory
 cd ${directory}

@@ -1,6 +1,11 @@
 TkRelVal
 ========
 
+----------------------------------------
+0. DISCLAIMER: these instructions are obsolete. 
+They are stored because they contain valuable informations. Please refer to the tutorial.md in the "collisions" folder for updated framework instructions. Please read validation_instructions.txt for validation instructions.
+----------------------------------------
+
 Code for charged particle tracking release validation in CMSSW with data.  This README provides a set of slimmed instructions for performing the validation end-to-end, i.e. the steps in getting the relval samples, running the comparator, analyzing by eye the comparisons, and then writing the relval report. The code is meant to be run on lxplus, although in principle one could hack this to put the images in another file, then copy them over at the end.  
 
 A more verbose set of instructions can be found in: ```validation_instructions.txt```. Please consult this document in case the instructions here are not clear.
