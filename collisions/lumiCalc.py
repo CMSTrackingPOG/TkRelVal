@@ -59,17 +59,16 @@ def mkJson(filename):
 def read_recorded_value(file_name):
     with open(file_name, 'r') as file:
         lines = file.readlines()
-        counter = 0;
+        counter = 0
         for line in lines:
             data_line = line.strip().split('|')
             if counter == 4 :
                 try:
-                    recorded = float(data_line[6].strip())
-                    return recorded
-                except ValueError:
-                    continue
+                    return float(data_line[6].strip())
+                except ValueError or IndexError:
+                    print "ERROR:: the luminosity value is not a number, something went wrong with lumicalc! Setting it to 0."
+                    return float(0.)
             counter = counter+1
-    return 0
     
  # now lets launch the command with our brand new json
 def LumiCalc(filename):

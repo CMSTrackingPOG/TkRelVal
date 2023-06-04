@@ -12,51 +12,17 @@ void V1_V2_trkComparison(const TString fileName1, const TString labelName1, cons
   gStyle->SetOptFit(1);
   gROOT->ForceStyle();
   
-  // std::cout << ":::DEBUG:: FILENAME 1 = " << fileName1 << endl;
-  // fileName1 --> REFERENCE
   Int_t pos = fileName1.Index("_R0");
   TString runString1(fileName1(pos+5,6));
-  // Int_t pos1 = fileName1.Index("CMSSW")+6;
-  // Int_t pos2 = fileName1.Index("-GR");
-  // if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-80X");
-  // if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-92X");  
-  // if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-93X");  
-  // if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-94X");  
-  // if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-100X");  
-  // if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-101X");  
-  // if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-102X"); 
-  // if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-103X");  
-  // if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-2017");
-  // if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-2018");
-  // if (pos2 == -1 || pos2<pos1) pos2 = fileName1.Index("-124X");
-  // TString relString1(fileName1(pos1,pos2-pos1)); 
   TString relString1 = labelName1;
 
-  // std::cout << ":::DEBUG:: relString1 = " << relString1 << endl;
   TFile *file1 = TFile::Open(fileName1.Data());
   std::cout << "Getting histos for run number... " << runString1.Data() 
 	    <<" for release " << relString1.Data() << std::endl;  
   if ( file1->IsZombie() )
     std::cout << "File: " << fileName1.Data() << " cannot be opened!" << std::endl;
-  //  relString1 = "PRref";
-
-  // fileName2 --> NEW
-  // std::cout << ":::DEBUG:: FILENAME 2 = " << fileName2 << endl;
   pos = fileName2.Index("_R0");
   TString runString2(fileName2(pos+5,6));
-  // pos1 = fileName2.Index("CMSSW")+6;
-  // pos2 = fileName2.Index("-GR");
-  // if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-92X");  
-  // if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-93X");  
-  // if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-94X");  
-  // if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-100X");  
-  // if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-101X");  
-  // if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-102X"); 
-  // if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-103X");  
-  // if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-2017");  
-  // if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-2018");  
-  // if (pos2 == -1 || pos2<pos1) pos2 = fileName2.Index("-124X");
-  // TString relString2(fileName2(pos1,pos2-pos1));
   TString relString2 = labelName2;
   TFile *file2 = TFile::Open(fileName2.Data());
   std::cout << "Getting histos for run number... " << runString2.Data() 
@@ -69,15 +35,6 @@ void V1_V2_trkComparison(const TString fileName1, const TString labelName1, cons
 
   // Double_t lumi = 0;
   Double_t tev = 13.6;
-
-  // if      (atoi(runString1.Data()) == 277069){lumi =  76.49; tev = 13;} // 2016E data, 25ns, 3.8T
-  // else if (atoi(runString1.Data()) == 297227){lumi =  22.77; tev = 13;} // 2017B data, 25ns, 3.8T
-  // else if (atoi(runString1.Data()) == 297557){lumi = 109.74; tev = 13;} // 2017B data, 25ns, 3.8T
-  // else if (atoi(runString1.Data()) == 301998){lumi = 221.62; tev = 13;} // 2017C data, 25ns, 3.8T
-  // else if (atoi(runString1.Data()) == 305064){lumi = 383.01; tev = 13;} // 2017F data, 25ns, 3.8T
-  // else if (atoi(runString1.Data()) == 315489){lumi = 102.09; tev = 13;} // 2018A data, 25ns, 3.8T
-  // else if (atoi(runString1.Data()) == 317435){lumi = 346.91; tev = 13;} // 2018B data, 25ns, 3.8T
-  // else {lumi = 0.0; tev = 0.0;}
 
   //====================== Make master canvas  ======================// 
   TCanvas *canvas = new TCanvas("master canv","");
@@ -2635,7 +2592,7 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
 
   TLegend *leg = new TLegend(0.05,0.565,0.95,0.655);
 
-  leg->SetTextSize(0.1);
+  leg->SetTextSize(0.08);
   leg->SetTextFont(42);
   leg->SetFillColor(10); 
   leg->SetBorderSize(1); // no frame, no shadow
@@ -2671,9 +2628,9 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
     stats2 = (TPaveStats*)(st2->Clone("stats2"));
   }
 
-  stats1->SetTextSize(0.1);
+  stats1->SetTextSize(0.08);
   if (isHist1 && isHist2){
-    stats2->SetTextSize(0.1);
+    stats2->SetTextSize(0.08);
   }
 
   stats1->SetX1NDC(0.05);
@@ -2724,6 +2681,7 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
   respad->Draw();
   respad->cd();
 
+
   TH1F* hratio = (TH1F*) histV2->Clone("hratio");
   hratio->Divide(histV1);
 
@@ -2754,22 +2712,35 @@ bool createTH1FPlot(const TString hname, const TString dirname, TFile *& V1file,
   hratio->SetTitle("");
   hratio->SetLineColor(1);
   hratio->SetMarkerColor(1);
-  hratio->Draw("EP");
+  hratio->Draw("EP"); 
   //++++++++++++++++++++ Draw ratio line +++++++++++++++++++//
-  
+  // drowing a line at 1.0 on the ratio plot
+  // and another at ratio intergal average value 
   TLine * ratioline = new TLine();
+  TLine * ratioline2 = new TLine();
+
+  float av_ratio = V2_integral / V1_integral;
 
   ratioline->SetX1(hratio->GetXaxis()->GetBinLowEdge(hratio->GetXaxis()->GetFirst()));
   ratioline->SetX2(hratio->GetXaxis()->GetBinUpEdge(hratio->GetXaxis()->GetLast()));
+  ratioline2->SetX1(hratio->GetXaxis()->GetBinLowEdge(hratio->GetXaxis()->GetFirst()));
+  ratioline2->SetX2(hratio->GetXaxis()->GetBinUpEdge(hratio->GetXaxis()->GetLast()));
   ratioline->SetY1(1.0);
   ratioline->SetY2(1.0);
+  ratioline2->SetY1(av_ratio);
+  ratioline2->SetY2(av_ratio);
 
   // customize appearance
   ratioline->SetLineColor(kRed);
+  ratioline2->SetLineColor(kGreen);
   ratioline->SetLineWidth(2);
+  ratioline2->SetLineWidth(2);
+  ratioline->SetLineStyle(2);
+  ratioline2->SetLineStyle(2);
 
   // draw line then redraw hratio on top
   ratioline->Draw("SAME");
+  ratioline2->Draw("SAME");
   hratio->Draw("EP SAME");
 
   //++++++++++++++++++++ Define filename, change filename output if necessary +++++++++++++++++++//
@@ -3122,7 +3093,7 @@ bool createTProfPlot(const TString hname, const TString dirname, TFile *& V1file
 
   TLegend *leg = new TLegend(0.05,0.45,0.95,0.54);
 
-  leg->SetTextSize(0.1);
+  leg->SetTextSize(0.08);
   leg->SetTextFont(42);
   leg->SetFillColor(10); 
   leg->SetBorderSize(1); // no frame, no shadow
@@ -3159,9 +3130,9 @@ bool createTProfPlot(const TString hname, const TString dirname, TFile *& V1file
     stats2 = (TPaveStats*)(st2->Clone("stats2"));
   }
 
-  stats1->SetTextSize(0.1);
+  stats1->SetTextSize(0.08);
   if (isHist1 && isHist2){
-    stats2->SetTextSize(0.1);
+    stats2->SetTextSize(0.08);
   }
 
   stats1->SetX1NDC(0.05);
@@ -3234,8 +3205,14 @@ bool createTProfPlot(const TString hname, const TString dirname, TFile *& V1file
   hratio->GetYaxis()->SetTitleOffset(0.36);
   hratio->GetYaxis()->SetLabelSize(0.13);
   hratio->GetYaxis()->SetNdivisions(505);
+
+  float av_ratio = 0.;
+  float V2_integral = histV2->Integral();
+  float V1_integral = histV1->Integral();
+
   if (isHist1 && isHist2){
     hratio->GetYaxis()->SetTitle(" (B-A) / A "); // (NEW-REF)/REF
+    av_ratio = (V2_integral -V1_integral) / V1_integral;
   }
   else if (!isHist1 && isHist2){
     hratio->GetYaxis()->SetTitle(" (B-B) / B "); // (NEW-NEW)/NEW
@@ -3251,20 +3228,33 @@ bool createTProfPlot(const TString hname, const TString dirname, TFile *& V1file
 
   //++++++++++++++++++++ Draw ratio line +++++++++++++++++++//
   
+ //++++++++++++++++++++ Draw ratio line +++++++++++++++++++//
+  // drowing a line at 1.0 on the ratio plot
+  // and another at ratio intergal average value 
   TLine * ratioline = new TLine();
+  TLine * ratioline2 = new TLine();
 
-  ratioline->SetX1(hratio->GetXaxis()->GetXmin());
-  ratioline->SetX2(hratio->GetXaxis()->GetXmax());
-  ratioline->SetY1(0.0);
-  ratioline->SetY2(0.0);
+  ratioline->SetX1(hratio->GetXaxis()->GetBinLowEdge(hratio->GetXaxis()->GetFirst()));
+  ratioline->SetX2(hratio->GetXaxis()->GetBinUpEdge(hratio->GetXaxis()->GetLast()));
+  ratioline2->SetX1(hratio->GetXaxis()->GetBinLowEdge(hratio->GetXaxis()->GetFirst()));
+  ratioline2->SetX2(hratio->GetXaxis()->GetBinUpEdge(hratio->GetXaxis()->GetLast()));
+  ratioline->SetY1(1.0);
+  ratioline->SetY2(1.0);
+  ratioline2->SetY1(av_ratio);
+  ratioline2->SetY2(av_ratio);
 
   // customize appearance
   ratioline->SetLineColor(kRed);
+  ratioline2->SetLineColor(kGreen);
   ratioline->SetLineWidth(2);
+  ratioline2->SetLineWidth(2);
+  ratioline->SetLineStyle(2);
+  ratioline2->SetLineStyle(2);
 
   // draw line then redraw hratio on top
   ratioline->Draw("SAME");
-  hratio->Draw("P SAME");
+  ratioline2->Draw("SAME");
+  hratio->Draw("EP SAME");
 
   //++++++++++++++++++++ Define filename, change filename output if necessary +++++++++++++++++++//
 
@@ -3448,7 +3438,19 @@ void CMSLumi(TCanvas *& canv, const Int_t iPosX, const Double_t tev, const Doubl
   TString extraText      = "Private";
   Double_t extraTextFont = 52;  // default is helvetica-italics
 
-  TString lumiText = Form("Era %s - %4.2f pb^{-1} - %2.1f TeV",era.Data(),lumi,tev);
+  TString lumiText; // Dichiarazione di lumiText all'esterno degli statement condizionali
+
+  if (strcmp(era.Data(), "X") == 0) {
+      if (lumi == 0.0) {
+          lumiText = Form("Era NaN - NaN pb^{-1} - %2.1f TeV", tev);
+      } else {
+          lumiText = Form("Era NaN - %4.2f pb^{-1} - %2.1f TeV", lumi, tev);
+      }
+  } else if (lumi == 0.0) {
+      lumiText = Form("Era %s - NaN pb^{-1} - %2.1f TeV", era.Data(), tev);
+  } else {
+      lumiText = Form("Era %s - %4.2f pb^{-1} - %2.1f TeV", era.Data(), lumi, tev);
+  }
   
   // text sizes and text offsets with respect to the top frame
   // in unit of the top margin size
