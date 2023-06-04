@@ -240,8 +240,13 @@ if __name__ == "__main__":
     ## check if afs is abulla or magdy
     ## in the first case, pass "Release" as a parameter, in the second case, pass "AlCa" --> to be implemented
 
-    new_html_line(htmlFile, chap, newstring, "Release")
+    current_path = os.getcwd()
+    if "abulla" not in current_path:
+        new_html_line(htmlFile, chap, newstring, "AlCa")
+    else:
+        new_html_line(htmlFile, chap, newstring, "Release")
 
+    
     oldLumi = str(round(float(lumiCalc.LumiCalc(oldFileName)),2))
     newLumi = str(round(float(lumiCalc.LumiCalc(newFileName)),2))
 
