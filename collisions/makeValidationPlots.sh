@@ -69,10 +69,13 @@ do
     mkdir -p ${directory}/OfflinePV/${subdir}_log
 done
 
-for subdir in Ks Ks_Lxy16 Lambda Lambda_Lxy16
+for subdir in HIP_OOTpu_INpu HIP_OOTpu_noINpu HIP_noOOTpu_INpu
 do
-    mkdir -p ${directory}/V0/${subdir}_lin
-    mkdir -p ${directory}/V0/${subdir}_log
+    for ssubdir in Ks Ks_Lxy16 Lambda Lambda_Lxy16
+    do
+        mkdir -p ${directory}/V0/${subdir}/${ssubdir}_lin
+        mkdir -p ${directory}/V0/${subdir}/${ssubdir}_log
+    done
 done
 
 for subdir in MatchedTks LostTks
@@ -123,9 +126,12 @@ cd ${directory}/OfflinePV
 ../../afscode/genSubSubDirOfflinePV.sh
 cd -
 
-cd ${directory}/V0
-../../afscode/genSubSubDirV0.sh
-cd -
+for subdir in HIP_OOTpu_INpu HIP_OOTpu_noINpu HIP_noOOTpu_INpu
+do
+    cd ${directory}/V0/${subdir}
+    ../../../afscode/genSubSubDirV0.sh
+    cd -
+done
 
 cd ${directory}/PackCand
 ../../afscode/genSubSubDirPackCand.sh
@@ -223,14 +229,21 @@ do
     done
 done
 
-for subdir in Ks Ks_Lxy16 Lambda Lambda_Lxy16
+
+cd ${directory}/V0/
+cp ../../afscode/index.php .
+cd --
+for subdir in HIP_OOTpu_INpu HIP_OOTpu_noINpu HIP_noOOTpu_INpu
 do
-    for scale in lin log
-    do 
-	cd ${directory}/V0/${subdir}_${scale}
-	# ../../../afscode/diow.pl -t "${release} V0 Monitoring ${subdir} Collisions Validation (${scale})" -c 3
-    cp ../../../afscode/index.php .  
-	cd --
+    for ssubdir in Ks Ks_Lxy16 Lambda Lambda_Lxy16
+    do
+        for scale in lin log
+        do 
+        cd ${directory}/V0/${subdir}/${ssubdir}_${scale}
+        # ../../../afscode/diow.pl -t "${release} V0 Monitoring ${subdir} Collisions Validation (${scale})" -c 3
+        cp ../../../../afscode/index.php .  
+        cd --
+        done
     done
 done
 

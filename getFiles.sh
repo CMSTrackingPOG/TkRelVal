@@ -10,7 +10,7 @@ optional_arg=${6:-*}
 
 echo "Getting sample: $sample"
 
-wget -e robots=off --wait 1 -r -l1 -nd -np "https://cmsweb.cern.ch/dqm/relval/data/browse/ROOT/RelValData/$web_dir/" -A "*$run*$sample*$rel*$add_key*$optional_arg*root" --no-check-certificate --certificate ~/.globus/myCert.pem --private-key ~/.globus/myCert.key
+wget -e robots=off --wait 1 -r -l1 -nd -np "https://cmsweb.cern.ch/dqm/relval/data/browse/ROOT/RelValData/$web_dir/" -A "*$run*$sample*$rel*$add_key*$optional_arg*root" --no-check-certificate --certificate ~/.globus/html_cert/myCert.pem --private-key ~/.globus/html_cert/myCert.key
 
 
 if [ ${sample} == "Cosmics" ] ; then

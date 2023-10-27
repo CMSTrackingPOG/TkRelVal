@@ -312,8 +312,8 @@ void V1_V2_trkComparison(const TString fileName1, const TString labelName1, cons
   if (full) {
     createTProfPlot("DistanceOfClosestApproachToBSVsPhi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
     createTProfPlot("GoodTracksFractionVsLS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("NumberOfGoodPVtxVsLS_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("NumberOfGoodPVtxWO0VsLS_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+    createTProfPlot("NumberOfGoodPVtxVsLS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+    createTProfPlot("NumberOfGoodPVtxWO0VsLS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
     createTProfPlot("NumberOfLayersPerTrackVsEta_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
     createTProfPlot("NumberOfLayersPerTrackVsPhi_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
     createTProfPlot("NumberOfRecHitsPerTrackVsEta_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
@@ -378,8 +378,8 @@ void V1_V2_trkComparison(const TString fileName1, const TString labelName1, cons
     createTProfPlot("DistanceOfClosestApproachVsEta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
     createTProfPlot("DistanceOfClosestApproachVsPhi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
     createTProfPlot("GoodTracksFractionVsLS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("NumberOfGoodPVtxVsLS_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("NumberOfGoodPVtxVsWO0VsLs_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+    createTProfPlot("NumberOfGoodPVtxVsLS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+    createTProfPlot("NumberOfGoodPVtxWO0VsLS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
     createTProfPlot("NumberOfLayersPerTrackVsEta_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
     createTProfPlot("NumberOfLayersPerTrackVsPhi_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
     createTProfPlot("NumberOfRecHitsPerTrackVsEta_ImpactPoint", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
@@ -747,18 +747,6 @@ void V1_V2_trkComparison(const TString fileName1, const TString labelName1, cons
   createTH1FPlot("Chi2oNDF_lumiFlag_GenTk", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
   createTH1FPlot("NumberOfRecHitsPerTrack_lumiFlag_GenTk", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
   createTH1FPlot("NumberOfTracks_lumiFlag_GenTk", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-  if  (full) {
-    createTH1FPlot("NumberOfSeeds_lumiFlag_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("NumberOfSeeds_lumiFlag_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("NumberOfSeeds_lumiFlag_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("NumberOfSeeds_lumiFlag_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("NumberOfSeeds_lumiFlag_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("NumberOfSeeds_lumiFlag_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("NumberOfSeeds_lumiFlag_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("NumberOfSeeds_lumiFlag_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("NumberOfSeeds_lumiFlag_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("NumberOfSeeds_lumiFlag_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-  }
 
   //LS Analysis - HP dz PV0 p1
   dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/dzPV0p1/LSanalysis";
@@ -937,81 +925,81 @@ void V1_V2_trkComparison(const TString fileName1, const TString labelName1, cons
   }
   createTH1FPlot("globalEfficiencies", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
 
-  // vs SCALLUMI
-  dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/dzPV0p1/HitEffFromHitPatternVsSCALLUMI";
+  // vs OnlineLUMI
+  dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/dzPV0p1/HitEffFromHitPatternVsOnlineLUMI";
   outdir  = directory+"/HPTks_dzPV0p1/HitEffSL";
 
   if (full)
   {
     // efficiencies
-    createTH1FPlot("effic_vs_BX_PXB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_PXB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_PXB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_PXB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_PXF1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_PXF2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_PXF3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TEC1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TEC2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TEC3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TEC4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TEC5", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TEC6", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TEC7", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TEC8", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TEC9", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TIB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TIB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TIB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TIB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TID1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TID2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TID3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TOB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TOB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TOB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TOB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TOB5", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TOB6", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_PXB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_PXB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_PXB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_PXB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_PXF1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_PXF2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_PXF3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TEC1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TEC2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TEC3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TEC4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TEC5", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TEC6", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TEC7", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TEC8", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TEC9", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TIB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TIB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TIB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TIB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TID1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TID2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TID3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TOB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TOB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TOB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TOB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TOB5", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TOB6", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
   }
   createTH1FPlot("globalEfficiencies", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
 
-  // vs SCALLUMI
-  dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_1/HitEffFromHitPatternVsSCALLUMI";
+  // vs OnlineLUMI
+  dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_1/HitEffFromHitPatternVsOnlineLUMI";
   outdir  = directory+"/HPTks_gt1/HitEffSL";
 
   if (full)
   {
     // efficiencies
-    createTH1FPlot("effic_vs_BX_PXB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_PXB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_PXB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_PXB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_PXF1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_PXF2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_PXF3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TEC1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TEC2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TEC3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TEC4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TEC5", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TEC6", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TEC7", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TEC8", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TEC9", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TIB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TIB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TIB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TIB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TID1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TID2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TID3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TOB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TOB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TOB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TOB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TOB5", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TOB6", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_PXB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_PXB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_PXB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_PXB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_PXF1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_PXF2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_PXF3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TEC1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TEC2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TEC3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TEC4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TEC5", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TEC6", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TEC7", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TEC8", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TEC9", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TIB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TIB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TIB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TIB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TID1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TID2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TID3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TOB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TOB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TOB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TOB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TOB5", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TOB6", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
   }
   createTH1FPlot("globalEfficiencies", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
 
@@ -1061,35 +1049,35 @@ void V1_V2_trkComparison(const TString fileName1, const TString labelName1, cons
   if (full)
   {
     // efficiencies
-    createTH1FPlot("effic_vs_BX_PXB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_PXB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_PXB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_PXB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_PXF1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_PXF2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_PXF3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TEC1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TEC2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TEC3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TEC4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TEC5", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TEC6", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TEC7", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TEC8", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TEC9", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TIB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TIB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TIB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TIB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TID1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TID2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TID3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TOB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TOB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TOB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TOB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TOB5", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TOB6", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_PU_PXB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_PU_PXB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_PU_PXB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_PU_PXB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_PU_PXF1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_PU_PXF2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_PU_PXF3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_PU_TEC1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_PU_TEC2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_PU_TEC3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_PU_TEC4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_PU_TEC5", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_PU_TEC6", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_PU_TEC7", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_PU_TEC8", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_PU_TEC9", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_PU_TIB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_PU_TIB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_PU_TIB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_PU_TIB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_PU_TID1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_PU_TID2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_PU_TID3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_PU_TOB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_PU_TOB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_PU_TOB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_PU_TOB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_PU_TOB5", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_PU_TOB6", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
   }
   createTH1FPlot("globalEfficiencies", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
 
@@ -1132,126 +1120,93 @@ void V1_V2_trkComparison(const TString fileName1, const TString labelName1, cons
   }
   createTH1FPlot("globalEfficiencies", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
 
-  // All vs SCALLUMI
-  dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/dzPV0p1/HitEffFromHitPatternAllvsSCALLUMI";
+  // All vs OnlineLUMI
+  dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/dzPV0p1/HitEffFromHitPatternAllVsOnlineLUMI";
   outdir  = directory+"/HPTks_dzPV0p1/HitEffAllSL";
 
   if (full)
   {
     // efficiencies
-    createTH1FPlot("effic_vs_BX_PXB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_PXB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_PXB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_PXB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_PXF1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_PXF2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_PXF3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TEC1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TEC2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TEC3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TEC4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TEC5", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TEC6", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TEC7", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TEC8", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TEC9", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TIB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TIB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TIB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TIB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TID1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TID2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TID3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TOB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TOB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TOB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TOB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TOB5", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_BX_TOB6", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_PXB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_PXB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_PXB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_PXB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_PXF1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_PXF2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_PXF3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TEC1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TEC2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TEC3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TEC4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TEC5", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TEC6", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TEC7", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TEC8", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TEC9", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TIB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TIB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TIB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TIB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TID1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TID2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TID3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TOB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TOB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TOB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TOB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TOB5", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TOB6", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
   }
   createTH1FPlot("globalEfficiencies", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
 
-  // All vs SCALLUMI
-  dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_1/HitEffFromHitPatternAllvsSCALLUMI";
+  // All vs OnlineLUMI
+  dirname = "/Tracking/Run summary/TrackParameters/highPurityTracks/pt_1/HitEffFromHitPatternAllVsOnlineLUMI";
   outdir  = directory+"/HPTks_gt1/HitEffAllSL";
   
   // efficiencies
   if (full)
   {
-    createTH1FPlot("effic_vs_PU_PXB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_PU_PXB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_PU_PXB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_PU_PXB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_PU_PXF1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_PU_PXF2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_PU_PXF3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_PU_TEC1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_PU_TEC2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_PU_TEC3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_PU_TEC4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_PU_TEC5", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_PU_TEC6", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_PU_TEC7", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_PU_TEC8", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_PU_TEC9", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_PU_TIB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_PU_TIB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_PU_TIB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_PU_TIB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_PU_TID1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_PU_TID2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_PU_TID3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_PU_TOB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_PU_TOB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_PU_TOB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_PU_TOB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_PU_TOB5", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("effic_vs_PU_TOB6", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_PXB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_PXB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_PXB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_PXB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_PXF1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_PXF2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_PXF3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TEC1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TEC2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TEC3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TEC4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TEC5", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TEC6", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TEC7", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TEC8", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TEC9", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TIB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TIB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TIB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TIB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TID1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TID2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TID3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TOB1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TOB2", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TOB3", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TOB4", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TOB5", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    createTH1FPlot("effic_vs_LUMI_TOB6", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
   }
   createTH1FPlot("globalEfficiencies", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
 
+
   // Track building info --> count seeds in gen tracks + MVA Plots
-  dirname = "/Tracking/Run summary/TrackParameters/generalTracks/TrackBuilding";
-
+  // detachedQuadStep
+  dirname = "/Tracking/Run summary/TrackParameters/generalTracks/SeedMon/detachedQuadStep/TrackBuilding";
   outdir  = directory+"/genTks/TkBuilding";
-  // detached quads
   createTH1FPlot("TrackMVA1_detachedQuadStepTrackCandidates_detachedQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-  // detached triplets
-  createTH1FPlot("TrackMVA1_detachedTripletStepTrackCandidates_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-  createTH1FPlot("TrackMVA2_detachedTripletStepTrackCandidates_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-  createTH1FPlot("TrackMVA2HP_detachedTripletStepTrackCandidates_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-  // highPtTriplet
-  createTH1FPlot("TrackMVA1_highPtTripletStepTrackCandidates_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-  // initial step
-  createTH1FPlot("TrackMVA1_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-  createTH1FPlot("TrackMVA2_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-  createTH1FPlot("TrackMVA2HP_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-  createTH1FPlot("TrackMVA3_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-  createTH1FPlot("TrackMVA3HP_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-  // jetCoreRegional
-  createTH1FPlot("TrackMVA1_jetCoreRegionalStepTrackCandidates_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-  // lowPtQuad
-  createTH1FPlot("TrackMVA1_lowPtQuadStepTrackCandidates_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-  // lowPtTriplet
-  createTH1FPlot("TrackMVA1_lowPtTripletStepTrackCandidates_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-  // mixedTriplet
-  createTH1FPlot("TrackMVA1_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-  createTH1FPlot("TrackMVA2_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-  createTH1FPlot("TrackMVA2HP_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-  // pixelLess
-  createTH1FPlot("TrackMVA1_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-  createTH1FPlot("TrackMVA2_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-  createTH1FPlot("TrackMVA2HP_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-  // pixelPair
-  createTH1FPlot("TrackMVA1_pixelPairStepTrackCandidates_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-  // tobTec
-  createTH1FPlot("TrackMVA1_tobTecStepTrackCandidates_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-  createTH1FPlot("TrackMVA2_tobTecStepTrackCandidates_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-  createTH1FPlot("TrackMVA2HP_tobTecStepTrackCandidates_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-
+  
   if (full) 
   {
-    // detached quads
     createTH1FPlot("FractionOfCandOverSeeds_detachedQuadStepTrackCandidates_detachedQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTH1FPlot("NumberOfTrackCandidates_detachedQuadStepTrackCandidates_detachedQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTProfPlot("NumberOfTrajCandsPerSeedVsEta_detachedQuadStepSeeds_detachedQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
@@ -1273,8 +1228,17 @@ void V1_V2_trkComparison(const TString fileName1, const TString labelName1, cons
     createTH1FPlot("TrackCandPt_detachedQuadStepTrackCandidates_detachedQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTProfPlot("TrackMVA1VsEtaProfile_detachedQuadStepTrackCandidates_detachedQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
     createTProfPlot("TrackMVA1VsPtProfile_detachedQuadStepTrackCandidates_detachedQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+  }
 
-    // detached triplets
+  // detachedTripletStep
+  dirname = "/Tracking/Run summary/TrackParameters/generalTracks/SeedMon/detachedTripletStep/TrackBuilding";
+  outdir  = directory+"/genTks/TkBuilding";
+  createTH1FPlot("TrackMVA1_detachedTripletStepTrackCandidates_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+  createTH1FPlot("TrackMVA2_detachedTripletStepTrackCandidates_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+  createTH1FPlot("TrackMVA2HP_detachedTripletStepTrackCandidates_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+  
+  if(full)
+  { 
     createTH1FPlot("FractionOfCandOverSeeds_detachedTripletStepTrackCandidates_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTH1FPlot("NumberOfTrackCandidates_detachedTripletStepTrackCandidates_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTProfPlot("NumberOfTrajCandsPerSeedVsEta_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
@@ -1300,8 +1264,22 @@ void V1_V2_trkComparison(const TString fileName1, const TString labelName1, cons
     createTProfPlot("TrackMVA2VsPtProfile_detachedTripletStepTrackCandidates_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
     createTProfPlot("TrackMVA2HPVsEtaProfile_detachedTripletStepTrackCandidates_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
     createTProfPlot("TrackMVA2HPVsPtProfile_detachedTripletStepTrackCandidates_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+  }
 
-    // highPtTriplet
+  dirname = "/Tracking/Run summary/TrackParameters/generalTracks/SeedMon/detachedTripletStep/LSanalysis";
+  outdir  = directory+"/genTks/LSan";
+  if (full)
+  { 
+    createTH1FPlot("NumberOfSeeds_lumiFlag_detachedTripletStepSeeds_detachedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+  }
+  
+  // highPtTripletStep
+  dirname = "/Tracking/Run summary/TrackParameters/generalTracks/SeedMon/highPtTripletStep/TrackBuilding";
+  outdir  = directory+"/genTks/TkBuilding";
+  createTH1FPlot("TrackMVA1_highPtTripletStepTrackCandidates_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+  
+  if (full)
+  {
     createTH1FPlot("FractionOfCandOverSeeds_highPtTripletStepTrackCandidates_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTH1FPlot("NumberOfTrackCandidates_highPtTripletStepTrackCandidates_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTProfPlot("NumberOfTrajCandsPerSeedVsEta_highPtTripletStepSeeds_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
@@ -1310,8 +1288,8 @@ void V1_V2_trkComparison(const TString fileName1, const TString labelName1, cons
     createTH1FPlot("SeedStoppingSource_highPtTripletStepSeeds_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTProfPlot("StoppingSourceVSeta_highPtTripletStepSeeds_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
     createTProfPlot("StoppingSourceVSphi_highPtTripletStepSeeds_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("StoppingSourceVsEta_highPtTripletStepSeeds_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("StoppingSourceVsPhi_highPtTripletStepSeeds_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+    // createTProfPlot("StoppingSourceVsEta_highPtTripletStepSeeds_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+    // createTProfPlot("StoppingSourceVsPhi_highPtTripletStepSeeds_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
     createTH1FPlot("NumberOfSeeds_highPtTripletStepSeeds_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTH1FPlot("SeedEta_highPtTripletStepSeeds_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTH1FPlot("SeedPhi_highPtTripletStepSeeds_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
@@ -1323,8 +1301,19 @@ void V1_V2_trkComparison(const TString fileName1, const TString labelName1, cons
     createTH1FPlot("TrackCandPt_highPtTripletStepTrackCandidates_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTProfPlot("TrackMVA1VsEtaProfile_highPtTripletStepTrackCandidates_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
     createTProfPlot("TrackMVA1VsPtProfile_highPtTripletStepTrackCandidates_highPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+  }
 
-    // initialStep
+  // initialStep
+  dirname = "/Tracking/Run summary/TrackParameters/generalTracks/SeedMon/initialStep/TrackBuilding";
+  outdir  = directory+"/genTks/TkBuilding";
+  createTH1FPlot("TrackMVA1_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+  // createTH1FPlot("TrackMVA2_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+  // createTH1FPlot("TrackMVA2HP_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+  // createTH1FPlot("TrackMVA3_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+  // createTH1FPlot("TrackMVA3HP_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+  
+  if(full)
+  { 
     createTH1FPlot("FractionOfCandOverSeeds_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTH1FPlot("NumberOfTrackCandidates_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTProfPlot("NumberOfTrajCandsPerSeedVsEta_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
@@ -1333,8 +1322,8 @@ void V1_V2_trkComparison(const TString fileName1, const TString labelName1, cons
     createTH1FPlot("SeedStoppingSource_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTProfPlot("StoppingSourceVSeta_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
     createTProfPlot("StoppingSourceVSphi_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("StoppingSourceVsEta_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("StoppingSourceVsPhi_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+    // createTProfPlot("StoppingSourceVsEta_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+    // createTProfPlot("StoppingSourceVsPhi_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
     createTH1FPlot("NumberOfSeeds_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTH1FPlot("SeedEta_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTH1FPlot("SeedPhi_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
@@ -1346,16 +1335,31 @@ void V1_V2_trkComparison(const TString fileName1, const TString labelName1, cons
     createTH1FPlot("TrackCandPt_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTProfPlot("TrackMVA1VsEtaProfile_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
     createTProfPlot("TrackMVA1VsPtProfile_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("TrackMVA2VsEtaProfile_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("TrackMVA2VsPtProfile_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("TrackMVA2HPVsEtaProfile_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("TrackMVA2HPVsPtProfile_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("TrackMVA3VsEtaProfile_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("TrackMVA3VsPtProfile_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("TrackMVA3HPVsEtaProfile_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("TrackMVA3HPVsPtProfile_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+    // createTProfPlot("TrackMVA2VsEtaProfile_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+    // createTProfPlot("TrackMVA2VsPtProfile_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+    // createTProfPlot("TrackMVA2HPVsEtaProfile_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+    // createTProfPlot("TrackMVA2HPVsPtProfile_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+    // createTProfPlot("TrackMVA3VsEtaProfile_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+    // createTProfPlot("TrackMVA3VsPtProfile_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+    // createTProfPlot("TrackMVA3HPVsEtaProfile_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+    // createTProfPlot("TrackMVA3HPVsPtProfile_initialStepTrackCandidates_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+  }
 
-    // jetCoreRegional
+  dirname = "/Tracking/Run summary/TrackParameters/generalTracks/SeedMon/initialStep/LSanalysis";
+  outdir  = directory+"/genTks/LSan";
+  if (full)
+  { 
+    createTH1FPlot("NumberOfSeeds_lumiFlag_initialStepSeeds_initialStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+  }
+  
+  
+  // jetCoreRegionalStep
+  dirname = "/Tracking/Run summary/TrackParameters/generalTracks/SeedMon/jetCoreRegionalStep/TrackBuilding";
+  outdir  = directory+"/genTks/TkBuilding";
+  createTH1FPlot("TrackMVA1_jetCoreRegionalStepTrackCandidates_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+  
+  if(full)
+  {
     createTH1FPlot("FractionOfCandOverSeeds_jetCoreRegionalStepTrackCandidates_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTH1FPlot("NumberOfTrackCandidates_jetCoreRegionalStepTrackCandidates_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTProfPlot("NumberOfTrajCandsPerSeedVsEta_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
@@ -1364,13 +1368,13 @@ void V1_V2_trkComparison(const TString fileName1, const TString labelName1, cons
     createTH1FPlot("SeedStoppingSource_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTProfPlot("StoppingSourceVSeta_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
     createTProfPlot("StoppingSourceVSphi_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("StoppingSourceVsEta_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("StoppingSourceVsPhi_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+    // createTProfPlot("StoppingSourceVsEta_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+    // createTProfPlot("StoppingSourceVsPhi_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
     createTH1FPlot("NumberOfSeeds_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTH1FPlot("SeedEta_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTH1FPlot("SeedPhi_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTH1FPlot("SeedPt_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("NumberOfTrackingRegions_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    // createTH1FPlot("NumberOfTrackingRegions_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTH1FPlot("StoppingSource_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTH1FPlot("TrackCandEta_jetCoreRegionalStepTrackCandidates_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTH1FPlot("TrackCandPhi_jetCoreRegionalStepTrackCandidates_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
@@ -1378,8 +1382,22 @@ void V1_V2_trkComparison(const TString fileName1, const TString labelName1, cons
     createTH1FPlot("TrackingRegionCandidateEta_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTH1FPlot("TrackingRegionCandidatePhi_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTH1FPlot("TrackingRegionCandidatePt_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+  }
+  
+  dirname = "/Tracking/Run summary/TrackParameters/generalTracks/SeedMon/jetCoreRegionalStep/LSanalysis";
+  outdir  = directory+"/genTks/LSan";
+  if (full)
+  { 
+    createTH1FPlot("NumberOfSeeds_lumiFlag_jetCoreRegionalStepSeeds_jetCoreRegionalStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+  }
 
-    // low pt quads
+  // lowPtQuadStep
+  dirname = "/Tracking/Run summary/TrackParameters/generalTracks/SeedMon/lowPtQuadStep/TrackBuilding";
+  outdir  = directory+"/genTks/TkBuilding";
+  createTH1FPlot("TrackMVA1_lowPtQuadStepTrackCandidates_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+  
+  if(full)
+  {
     createTH1FPlot("FractionOfCandOverSeeds_lowPtQuadStepTrackCandidates_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTH1FPlot("NumberOfTrackCandidates_lowPtQuadStepTrackCandidates_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTProfPlot("NumberOfTrajCandsPerSeedVsEta_lowPtQuadStepSeeds_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
@@ -1388,8 +1406,8 @@ void V1_V2_trkComparison(const TString fileName1, const TString labelName1, cons
     createTH1FPlot("SeedStoppingSource_lowPtQuadStepSeeds_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTProfPlot("StoppingSourceVSeta_lowPtQuadStepSeeds_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
     createTProfPlot("StoppingSourceVSphi_lowPtQuadStepSeeds_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("StoppingSourceVsEta_lowPtQuadStepSeeds_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("StoppingSourceVsPhi_lowPtQuadStepSeeds_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+    // createTProfPlot("StoppingSourceVsEta_lowPtQuadStepSeeds_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+    // createTProfPlot("StoppingSourceVsPhi_lowPtQuadStepSeeds_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
     createTH1FPlot("NumberOfSeeds_lowPtQuadStepSeeds_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTH1FPlot("SeedEta_lowPtQuadStepSeeds_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTH1FPlot("SeedPhi_lowPtQuadStepSeeds_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
@@ -1401,8 +1419,16 @@ void V1_V2_trkComparison(const TString fileName1, const TString labelName1, cons
     createTH1FPlot("TrackCandPt_lowPtQuadStepTrackCandidates_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTProfPlot("TrackMVA1VsEtaProfile_lowPtQuadStepTrackCandidates_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
     createTProfPlot("TrackMVA1VsPtProfile_lowPtQuadStepTrackCandidates_lowPtQuadStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-
-    // low pt triplet
+  }
+  
+  
+  // lowPtTripletStep
+  dirname = "/Tracking/Run summary/TrackParameters/generalTracks/SeedMon/lowPtTripletStep/TrackBuilding";
+  outdir  = directory+"/genTks/TkBuilding";
+  createTH1FPlot("TrackMVA1_lowPtTripletStepTrackCandidates_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+  
+  if(full)
+  {
     createTH1FPlot("FractionOfCandOverSeeds_lowPtTripletStepTrackCandidates_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTH1FPlot("NumberOfTrackCandidates_lowPtTripletStepTrackCandidates_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTProfPlot("NumberOfTrajCandsPerSeedVsEta_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
@@ -1411,8 +1437,8 @@ void V1_V2_trkComparison(const TString fileName1, const TString labelName1, cons
     createTH1FPlot("SeedStoppingSource_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTProfPlot("StoppingSourceVSeta_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
     createTProfPlot("StoppingSourceVSphi_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("StoppingSourceVsEta_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("StoppingSourceVsPhi_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+    // createTProfPlot("StoppingSourceVsEta_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+    // createTProfPlot("StoppingSourceVsPhi_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
     createTH1FPlot("NumberOfSeeds_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTH1FPlot("SeedEta_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTH1FPlot("SeedPhi_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
@@ -1424,8 +1450,25 @@ void V1_V2_trkComparison(const TString fileName1, const TString labelName1, cons
     createTH1FPlot("TrackCandPt_lowPtTripletStepTrackCandidates_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTProfPlot("TrackMVA1VsEtaProfile_lowPtTripletStepTrackCandidates_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
     createTProfPlot("TrackMVA1VsPtProfile_lowPtTripletStepTrackCandidates_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+  }
 
-    // mixed triplet
+  dirname = "/Tracking/Run summary/TrackParameters/generalTracks/SeedMon/lowPtTripletStep/LSanalysis";
+  outdir  = directory+"/genTks/LSan";
+  if (full)
+  { 
+    createTH1FPlot("NumberOfSeeds_lumiFlag_lowPtTripletStepSeeds_lowPtTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+  }
+  
+
+  // mixedTripletStep
+  dirname = "/Tracking/Run summary/TrackParameters/generalTracks/SeedMon/mixedTripletStep/TrackBuilding";
+  outdir  = directory+"/genTks/TkBuilding";
+  createTH1FPlot("TrackMVA1_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+  // createTH1FPlot("TrackMVA2_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+  // createTH1FPlot("TrackMVA2HP_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+  
+  if(full)
+  {
     createTH1FPlot("FractionOfCandOverSeeds_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTH1FPlot("NumberOfTrackCandidates_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTProfPlot("NumberOfTrajCandsPerSeedVsEta_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
@@ -1434,8 +1477,8 @@ void V1_V2_trkComparison(const TString fileName1, const TString labelName1, cons
     createTH1FPlot("SeedStoppingSource_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTProfPlot("StoppingSourceVSeta_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
     createTProfPlot("StoppingSourceVSphi_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("StoppingSourceVsEta_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("StoppingSourceVsPhi_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+    // createTProfPlot("StoppingSourceVsEta_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+    // createTProfPlot("StoppingSourceVsPhi_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
     createTH1FPlot("NumberOfSeeds_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTH1FPlot("SeedEta_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTH1FPlot("SeedPhi_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
@@ -1447,12 +1490,25 @@ void V1_V2_trkComparison(const TString fileName1, const TString labelName1, cons
     createTH1FPlot("TrackCandPt_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTProfPlot("TrackMVA1VsEtaProfile_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
     createTProfPlot("TrackMVA1VsPtProfile_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("TrackMVA2VsEtaProfile_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("TrackMVA2VsPtProfile_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("TrackMVA2HPVsEtaProfile_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("TrackMVA2HPVsPtProfile_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+    // createTProfPlot("TrackMVA2VsEtaProfile_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+    // createTProfPlot("TrackMVA2VsPtProfile_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+    // createTProfPlot("TrackMVA2HPVsEtaProfile_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+    // createTProfPlot("TrackMVA2HPVsPtProfile_mixedTripletStepTrackCandidates_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+  }
 
-    // muon in out
+  dirname = "/Tracking/Run summary/TrackParameters/generalTracks/SeedMon/mixedTripletStep/LSanalysis";
+  outdir  = directory+"/genTks/LSan";
+  if (full)
+  { 
+    createTH1FPlot("NumberOfSeeds_lumiFlag_mixedTripletStepSeeds_mixedTripletStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+  }
+
+  //MuonSeededStepInOut
+  dirname = "/Tracking/Run summary/TrackParameters/generalTracks/SeedMon/muonSeededStepInOut/TrackBuilding";
+  outdir  = directory+"/genTks/TkBuilding";
+  
+  if(full)
+  {
     createTH1FPlot("FractionOfCandOverSeeds_muonSeededTrackCandidatesInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTH1FPlot("NumberOfTrackCandidates_muonSeededTrackCandidatesInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTProfPlot("NumberOfTrajCandsPerSeedVsEta_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
@@ -1472,8 +1528,21 @@ void V1_V2_trkComparison(const TString fileName1, const TString labelName1, cons
     createTH1FPlot("TrackCandEta_muonSeededTrackCandidatesInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTH1FPlot("TrackCandPhi_muonSeededTrackCandidatesInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTH1FPlot("TrackCandPt_muonSeededTrackCandidatesInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+  }
 
-    // muon out in
+  dirname = "/Tracking/Run summary/TrackParameters/generalTracks/SeedMon/muonSeededStepInOut/LSanalysis";
+  outdir  = directory+"/genTks/LSan";
+  if (full)
+  { 
+    createTH1FPlot("NumberOfSeeds_lumiFlag_muonSeededSeedsInOut_muonSeededStepInOut", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+  }
+
+  //MuonSeededStepOutIn
+  dirname = "/Tracking/Run summary/TrackParameters/generalTracks/SeedMon/muonSeededStepOutIn/TrackBuilding";
+  outdir  = directory+"/genTks/TkBuilding";
+
+  if(full)
+  {
     createTH1FPlot("FractionOfCandOverSeeds_muonSeededTrackCandidatesOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTH1FPlot("NumberOfTrackCandidates_muonSeededTrackCandidatesOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTProfPlot("NumberOfTrajCandsPerSeedVsEta_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
@@ -1493,8 +1562,25 @@ void V1_V2_trkComparison(const TString fileName1, const TString labelName1, cons
     createTH1FPlot("TrackCandEta_muonSeededTrackCandidatesOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTH1FPlot("TrackCandPhi_muonSeededTrackCandidatesOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTH1FPlot("TrackCandPt_muonSeededTrackCandidatesOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+  }
 
-    // pixelLess
+  dirname = "/Tracking/Run summary/TrackParameters/generalTracks/SeedMon/muonSeededStepOutIn/LSanalysis";
+  outdir  = directory+"/genTks/LSan";
+  if (full)
+  { 
+    createTH1FPlot("NumberOfSeeds_lumiFlag_muonSeededSeedsOutIn_muonSeededStepOutIn", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+  }
+  
+
+  // pixelLessStep
+  dirname = "/Tracking/Run summary/TrackParameters/generalTracks/SeedMon/pixelLessStep/TrackBuilding";
+  outdir  = directory+"/genTks/TkBuilding";
+  createTH1FPlot("TrackMVA1_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+  // createTH1FPlot("TrackMVA2_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+  // createTH1FPlot("TrackMVA2HP_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+  
+  if(full)
+  {
     createTH1FPlot("FractionOfCandOverSeeds_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTH1FPlot("NumberOfTrackCandidates_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTProfPlot("NumberOfTrajCandsPerSeedVsEta_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
@@ -1503,8 +1589,8 @@ void V1_V2_trkComparison(const TString fileName1, const TString labelName1, cons
     createTH1FPlot("SeedStoppingSource_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTProfPlot("StoppingSourceVSeta_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
     createTProfPlot("StoppingSourceVSphi_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("StoppingSourceVsEta_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("StoppingSourceVsPhi_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+    // createTProfPlot("StoppingSourceVsEta_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+    // createTProfPlot("StoppingSourceVsPhi_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
     createTH1FPlot("NumberOfSeeds_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTH1FPlot("SeedEta_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTH1FPlot("SeedPhi_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
@@ -1516,12 +1602,27 @@ void V1_V2_trkComparison(const TString fileName1, const TString labelName1, cons
     createTH1FPlot("TrackCandPt_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTProfPlot("TrackMVA1VsEtaProfile_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
     createTProfPlot("TrackMVA1VsPtProfile_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("TrackMVA2VsEtaProfile_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("TrackMVA2VsPtProfile_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("TrackMVA2HPVsEtaProfile_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("TrackMVA2HPVsPtProfile_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+    // createTProfPlot("TrackMVA2VsEtaProfile_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+    // createTProfPlot("TrackMVA2VsPtProfile_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+    // createTProfPlot("TrackMVA2HPVsEtaProfile_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+    // createTProfPlot("TrackMVA2HPVsPtProfile_pixelLessStepTrackCandidates_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+  }
+
+  dirname = "/Tracking/Run summary/TrackParameters/generalTracks/SeedMon/pixelLessStep/LSanalysis";
+  outdir  = directory+"/genTks/LSan";
+  if (full)
+  { 
+    createTH1FPlot("NumberOfSeeds_lumiFlag_pixelLessStepSeeds_pixelLessStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+  }
   
-    // pixel pair
+
+  // pixelPairStep
+  dirname = "/Tracking/Run summary/TrackParameters/generalTracks/SeedMon/pixelPairStep/TrackBuilding";
+  outdir  = directory+"/genTks/TkBuilding";
+  createTH1FPlot("TrackMVA1_pixelPairStepTrackCandidates_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+  
+  if(full)
+  {
     createTH1FPlot("FractionOfCandOverSeeds_pixelPairStepTrackCandidates_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTH1FPlot("NumberOfTrackCandidates_pixelPairStepTrackCandidates_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTProfPlot("NumberOfTrajCandsPerSeedVsEta_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
@@ -1530,8 +1631,8 @@ void V1_V2_trkComparison(const TString fileName1, const TString labelName1, cons
     createTH1FPlot("SeedStoppingSource_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTProfPlot("StoppingSourceVSeta_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
     createTProfPlot("StoppingSourceVSphi_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("StoppingSourceVsEta_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("StoppingSourceVsPhi_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+    // createTProfPlot("StoppingSourceVsEta_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+    // createTProfPlot("StoppingSourceVsPhi_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
     createTH1FPlot("NumberOfSeeds_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTH1FPlot("SeedEta_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTH1FPlot("SeedPhi_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
@@ -1543,8 +1644,24 @@ void V1_V2_trkComparison(const TString fileName1, const TString labelName1, cons
     createTH1FPlot("TrackCandPt_pixelPairStepTrackCandidates_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTProfPlot("TrackMVA1VsEtaProfile_pixelPairStepTrackCandidates_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
     createTProfPlot("TrackMVA1VsPtProfile_pixelPairStepTrackCandidates_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+  }
 
-    // tobtec
+  dirname = "/Tracking/Run summary/TrackParameters/generalTracks/SeedMon/pixelPairStep/LSanalysis";
+  outdir  = directory+"/genTks/LSan";
+  if (full)
+  { 
+    createTH1FPlot("NumberOfSeeds_lumiFlag_pixelPairStepSeeds_pixelPairStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+  }
+  
+  // tobTecStep
+  dirname = "/Tracking/Run summary/TrackParameters/generalTracks/SeedMon/tobTecStep/TrackBuilding";
+  outdir  = directory+"/genTks/TkBuilding";
+  createTH1FPlot("TrackMVA1_tobTecStepTrackCandidates_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+  createTH1FPlot("TrackMVA2_tobTecStepTrackCandidates_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+  // createTH1FPlot("TrackMVA2HP_tobTecStepTrackCandidates_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+
+  if(full)
+  {
     createTH1FPlot("FractionOfCandOverSeeds_tobTecStepTrackCandidates_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTH1FPlot("NumberOfTrackCandidates_tobTecStepTrackCandidates_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTProfPlot("NumberOfTrajCandsPerSeedVsEta_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
@@ -1553,8 +1670,8 @@ void V1_V2_trkComparison(const TString fileName1, const TString labelName1, cons
     createTH1FPlot("SeedStoppingSource_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTProfPlot("StoppingSourceVSeta_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
     createTProfPlot("StoppingSourceVSphi_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("StoppingSourceVsEta_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("StoppingSourceVsPhi_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+    // createTProfPlot("StoppingSourceVsEta_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+    // createTProfPlot("StoppingSourceVsPhi_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
     createTH1FPlot("NumberOfSeeds_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTH1FPlot("SeedEta_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTH1FPlot("SeedPhi_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
@@ -1566,10 +1683,17 @@ void V1_V2_trkComparison(const TString fileName1, const TString labelName1, cons
     createTH1FPlot("TrackCandPt_tobTecStepTrackCandidates_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
     createTProfPlot("TrackMVA1VsEtaProfile_tobTecStepTrackCandidates_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
     createTProfPlot("TrackMVA1VsPtProfile_tobTecStepTrackCandidates_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("TrackMVA2VsEtaProfile_tobTecStepTrackCandidates_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("TrackMVA2VsPtProfile_tobTecStepTrackCandidates_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("TrackMVA2HPVsEtaProfile_tobTecStepTrackCandidates_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("TrackMVA2HPVsPtProfile_tobTecStepTrackCandidates_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+    // createTProfPlot("TrackMVA2VsEtaProfile_tobTecStepTrackCandidates_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+    // createTProfPlot("TrackMVA2VsPtProfile_tobTecStepTrackCandidates_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+    // createTProfPlot("TrackMVA2HPVsEtaProfile_tobTecStepTrackCandidates_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+    // createTProfPlot("TrackMVA2HPVsPtProfile_tobTecStepTrackCandidates_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+  }
+
+  dirname = "/Tracking/Run summary/TrackParameters/generalTracks/SeedMon/tobTecStep/LSanalysis";
+  outdir  = directory+"/genTks/LSan";
+  if (full)
+  { 
+    createTH1FPlot("NumberOfSeeds_lumiFlag_tobTecStepSeeds_tobTecStep", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
   }
 
   // Pixel Primary vertices
@@ -1588,10 +1712,14 @@ void V1_V2_trkComparison(const TString fileName1, const TString labelName1, cons
   // TH1F Plots
   createTH1FPlot("chi2ndf", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, era, tev);
   createTH1FPlot("chi2prob", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, era, tev);
-  createTH1FPlot("dxy", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, era, tev);
-  createTH1FPlot("dxyErr", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, era, tev);
-  createTH1FPlot("dz", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, era, tev);
-  createTH1FPlot("dzErr", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, era, tev);
+  createTH1FPlot("dxy_pt1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, era, tev);
+  createTH1FPlot("dxy_pt10", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, era, tev);
+  createTH1FPlot("dxyErr_pt1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, era, tev);
+  createTH1FPlot("dxyErr_pt10", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, era, tev);
+  createTH1FPlot("dz_pt1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, era, tev);
+  createTH1FPlot("dz_pt10", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, era, tev);
+  createTH1FPlot("dzErr_pt1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, era, tev);
+  createTH1FPlot("dzErr_pt10", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, era, tev);
   createTH1FPlot("ntracks", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, era, tev);
   createTH1FPlot("sumpt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, era, tev);
 
@@ -1778,164 +1906,167 @@ void V1_V2_trkComparison(const TString fileName1, const TString labelName1, cons
   // Ks
   if (full)
   {
-    dirname = "/Tracking/Run summary/V0Monitoring/Ks";
-    outdir  = directory+"/V0/Ks";
-    createTH1FPlot("n_vs_BX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("n_vs_LS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("n_vs_PU", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("n_vs_lumi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("v0_Lxy", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("v0_Lxy_normalized", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("v0_Lxy_wrtBS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("v0_N", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("v0_chi2oNDF", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("v0_deltaMass", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("v0_eta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("v0_mass", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("v0_phi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("v0_pt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+    // for (const std::string& var : {"HIP_OOTpu_INpu", "HIP_OOTpu_noINpu", "HIP_noOOTpu_INpu", "noHIP_OOTpu_INpu"}) {
+    for (const std::string& var : {"HIP_OOTpu_INpu", "HIP_OOTpu_noINpu", "HIP_noOOTpu_INpu"}) {
+      dirname = "/Tracking/Run summary/V0Monitoring/" + TString(var.c_str()) + "/Ks";
+      outdir  = directory+"/V0/" + TString(var.c_str()) + "/Ks";
+      createTH1FPlot("n_vs_BX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("n_vs_LS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("n_vs_PU", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("n_vs_lumi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("v0_Lxy", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      // createTH1FPlot("v0_Lxy_normalized", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("v0_Lxy_wrtBS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("v0_N", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("v0_chi2oNDF", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("v0_deltaMass", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("v0_eta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("v0_mass", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("v0_phi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("v0_pt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
 
-    createTProfPlot("v0_Lxy_vs_BX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_Lxy_vs_PU", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_Lxy_vs_deltaMass", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_Lxy_vs_eta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_Lxy_vs_lumi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_Lxy_vs_pt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_N_vs_BX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_N_vs_LS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_N_vs_PU", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_N_vs_lumi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_deltaMass_vs_BX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_deltaMass_vs_PU", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_deltaMass_vs_eta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_deltaMass_vs_lumi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_deltaMass_vs_pt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_mass_vs_BX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_mass_vs_PU", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_mass_vs_eta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_mass_vs_lumi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_mass_vs_pt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_mass_vs_p", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_Lxy_vs_BX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_Lxy_vs_PU", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_Lxy_vs_deltaMass", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_Lxy_vs_eta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_Lxy_vs_lumi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_Lxy_vs_pt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_N_vs_BX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_N_vs_LS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_N_vs_PU", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_N_vs_lumi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_deltaMass_vs_BX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_deltaMass_vs_PU", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_deltaMass_vs_eta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_deltaMass_vs_lumi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_deltaMass_vs_pt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_mass_vs_BX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_mass_vs_PU", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_mass_vs_eta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_mass_vs_lumi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_mass_vs_pt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_mass_vs_p", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
 
-    // Ks/Lxy16
-    dirname = "/Tracking/Run summary/V0Monitoring/Ks/Lxy16";
-    outdir  = directory+"/V0/Ks_Lxy16";
-    createTH1FPlot("n_vs_BX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("n_vs_LS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("n_vs_PU", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("n_vs_lumi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("v0_Lxy", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("v0_Lxy_normalized", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("v0_Lxy_wrtBS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("v0_N", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("v0_chi2oNDF", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("v0_deltaMass", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("v0_eta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("v0_mass", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("v0_phi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("v0_pt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    
-    createTProfPlot("v0_Lxy_vs_BX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_Lxy_vs_PU", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_Lxy_vs_deltaMass", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_Lxy_vs_eta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_Lxy_vs_lumi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_Lxy_vs_pt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_N_vs_BX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_N_vs_LS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_N_vs_PU", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_N_vs_lumi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_deltaMass_vs_BX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_deltaMass_vs_PU", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_deltaMass_vs_eta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_deltaMass_vs_lumi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_deltaMass_vs_pt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_mass_vs_BX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_mass_vs_PU", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_mass_vs_eta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_mass_vs_lumi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_mass_vs_pt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_mass_vs_p", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      // Ks/Lxy16
+      dirname = "/Tracking/Run summary/V0Monitoring/" + TString(var.c_str()) + "/Ks/Lxy16";
+      outdir  = directory+"/V0/" + TString(var.c_str()) + "/Ks_Lxy16";
+      createTH1FPlot("n_vs_BX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("n_vs_LS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("n_vs_PU", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("n_vs_lumi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("v0_Lxy", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("v0_Lxy_normalized", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("v0_Lxy_wrtBS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("v0_N", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("v0_chi2oNDF", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("v0_deltaMass", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("v0_eta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("v0_mass", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("v0_phi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("v0_pt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      
+      createTProfPlot("v0_Lxy_vs_BX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_Lxy_vs_PU", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_Lxy_vs_deltaMass", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_Lxy_vs_eta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_Lxy_vs_lumi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_Lxy_vs_pt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_N_vs_BX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_N_vs_LS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_N_vs_PU", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_N_vs_lumi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_deltaMass_vs_BX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_deltaMass_vs_PU", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_deltaMass_vs_eta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_deltaMass_vs_lumi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_deltaMass_vs_pt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_mass_vs_BX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_mass_vs_PU", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_mass_vs_eta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_mass_vs_lumi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_mass_vs_pt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_mass_vs_p", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
 
-    // Lambda
-    dirname = "/Tracking/Run summary/V0Monitoring/Lambda";
-    outdir  = directory+"/V0/Lambda";
-    createTH1FPlot("n_vs_BX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("n_vs_LS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("n_vs_PU", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("n_vs_lumi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("v0_Lxy", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("v0_Lxy_normalized", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("v0_Lxy_wrtBS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("v0_N", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("v0_chi2oNDF", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("v0_deltaMass", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("v0_eta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("v0_mass", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("v0_phi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("v0_pt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      // Lambda
+      dirname = "/Tracking/Run summary/V0Monitoring/" + TString(var.c_str()) + "/Lambda";
+      outdir  = directory+"/V0/" + TString(var.c_str()) + "/Lambda";
+      createTH1FPlot("n_vs_BX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("n_vs_LS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("n_vs_PU", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("n_vs_lumi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("v0_Lxy", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("v0_Lxy_normalized", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("v0_Lxy_wrtBS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("v0_N", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("v0_chi2oNDF", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("v0_deltaMass", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("v0_eta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("v0_mass", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("v0_phi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("v0_pt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
 
-    createTProfPlot("v0_Lxy_vs_BX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_Lxy_vs_PU", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_Lxy_vs_deltaMass", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_Lxy_vs_eta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_Lxy_vs_lumi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_Lxy_vs_pt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_N_vs_BX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_N_vs_LS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_N_vs_PU", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_N_vs_lumi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_deltaMass_vs_BX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_deltaMass_vs_PU", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_deltaMass_vs_eta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_deltaMass_vs_lumi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_deltaMass_vs_pt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_mass_vs_BX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_mass_vs_PU", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_mass_vs_eta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_mass_vs_lumi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_mass_vs_pt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_mass_vs_p", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_Lxy_vs_BX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_Lxy_vs_PU", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_Lxy_vs_deltaMass", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_Lxy_vs_eta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_Lxy_vs_lumi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_Lxy_vs_pt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_N_vs_BX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_N_vs_LS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_N_vs_PU", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_N_vs_lumi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_deltaMass_vs_BX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_deltaMass_vs_PU", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_deltaMass_vs_eta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_deltaMass_vs_lumi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_deltaMass_vs_pt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_mass_vs_BX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_mass_vs_PU", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_mass_vs_eta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_mass_vs_lumi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_mass_vs_pt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_mass_vs_p", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
 
-    // Lambda/Lxy16
-    dirname = "/Tracking/Run summary/V0Monitoring/Lambda/Lxy16";
-    outdir  = directory+"/V0/Lambda_Lxy16";
-    createTH1FPlot("n_vs_BX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("n_vs_LS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("n_vs_PU", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("n_vs_lumi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("v0_Lxy", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("v0_Lxy_normalized", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("v0_Lxy_wrtBS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("v0_N", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("v0_chi2oNDF", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("v0_deltaMass", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("v0_eta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("v0_mass", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("v0_phi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
-    createTH1FPlot("v0_pt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      // Lambda/Lxy16
+      dirname = "/Tracking/Run summary/V0Monitoring/" + TString(var.c_str()) + "/Lambda/Lxy16";
+      outdir  = directory+"/V0/" + TString(var.c_str()) + "/Lambda_Lxy16";
+      createTH1FPlot("n_vs_BX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("n_vs_LS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("n_vs_PU", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("n_vs_lumi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("v0_Lxy", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("v0_Lxy_normalized", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("v0_Lxy_wrtBS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("v0_N", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("v0_chi2oNDF", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("v0_deltaMass", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("v0_eta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("v0_mass", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("v0_phi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
+      createTH1FPlot("v0_pt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral, V2_integral, outdir, lumi, era, tev);
 
-    createTProfPlot("v0_Lxy_vs_BX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_Lxy_vs_PU", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_Lxy_vs_deltaMass", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_Lxy_vs_eta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_Lxy_vs_lumi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_Lxy_vs_pt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_N_vs_BX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_N_vs_LS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_N_vs_PU", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_N_vs_lumi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_deltaMass_vs_BX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_deltaMass_vs_PU", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_deltaMass_vs_eta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_deltaMass_vs_lumi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_deltaMass_vs_pt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_mass_vs_BX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_mass_vs_PU", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_mass_vs_eta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_mass_vs_lumi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_mass_vs_pt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-    createTProfPlot("v0_mass_vs_p", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_Lxy_vs_BX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_Lxy_vs_PU", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_Lxy_vs_deltaMass", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_Lxy_vs_eta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_Lxy_vs_lumi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_Lxy_vs_pt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_N_vs_BX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_N_vs_LS", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_N_vs_PU", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_N_vs_lumi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_deltaMass_vs_BX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_deltaMass_vs_PU", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_deltaMass_vs_eta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_deltaMass_vs_lumi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_deltaMass_vs_pt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_mass_vs_BX", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_mass_vs_PU", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_mass_vs_eta", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_mass_vs_lumi", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_mass_vs_pt", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+      createTProfPlot("v0_mass_vs_p", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+    }
   }
 
   // Packed Candidate - miniAOD validation
