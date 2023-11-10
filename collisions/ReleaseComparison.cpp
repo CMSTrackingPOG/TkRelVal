@@ -1708,7 +1708,16 @@ void V1_V2_trkComparison(const TString fileName1, const TString labelName1, cons
   createTProfPlot("dzVsEta_pt10", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
   createTProfPlot("dzVsPhi_pt1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
   createTProfPlot("dzVsPhi_pt10", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
-  
+  // IP errors
+  createTProfPlot("dxyErrVsEta_pt1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+  createTProfPlot("dxyErrVsEta_pt10", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+  createTProfPlot("dxyErrVsPhi_pt1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+  createTProfPlot("dxyErrVsPhi_pt10", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+  createTProfPlot("dzErrVsEta_pt1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+  createTProfPlot("dzErrVsEta_pt10", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+  createTProfPlot("dzErrVsPhi_pt1", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+  createTProfPlot("dzErrVsPhi_pt10", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, outdir, lumi, era, tev);
+
   // TH1F Plots
   createTH1FPlot("chi2ndf", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, era, tev);
   createTH1FPlot("chi2prob", dirname, file1, runString1, relString1, file2, runString2, relString2, canvas, V1_integral_al, V2_integral_al, outdir, lumi, era, tev);
