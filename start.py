@@ -6,24 +6,12 @@ import os
 from configparser import ConfigParser
 import argparse
 import numpy as np
-import collisions.lumiCalc
+from collisions.lumiCalc import *
 from common.utils import *
 
-def filter_list(output):
-    accepted = ["prompt", "Prompt", "rereco", "Rereco", "ReReco", "pre", "Pre"]
-    ## split all the element in output in a single word and check if it is in accepted. If not, remove it from output
-    new_list = []
-    for it in output:
-        if len(it.split("-")) > 0:
-            new_list.extend(it.split("-"))
-        elif len(it.split("_")) > 0:
-            new_list.extend(it.split("_"))
-
-    filtered = [item for item in new_list if any(term in item for term in accepted)]
-    del new_list
-    return filtered
 
 def new_html_line(html_file,release,newline,val):
+    # with file_lock:
     with open(html_file, "r") as file:
         lines = file.readlines()
     
@@ -37,21 +25,24 @@ def new_html_line(html_file,release,newline,val):
         for i, line in enumerate(lines):
             if line.strip().startswith("<div class=\"right-column\">"):
                 start = i
-            if line.strip().startswith("<div class=\"left-column\">"):
+            if line.strip().startswith("</div>"):
                 end = i
+                ## qui mi devo fermare al primo </div> che trovo, perche' e' quello che chiude la prima colonna
                 break
     elif val == "Release":
         for i, line in enumerate(lines):
             if line.strip().startswith("<div class=\"left-column\">"):
                 start = i
-                break
+            if line.strip().startswith("</div>"):
+                end = i
+                ## qui invece se mi fermo al primo, non trovo lo start.. vado avanti, niente break!!
 
     if start == len(lines):
         print "ERROR:: start not found in the hmlt file! Something went wrong"
         sys.exit(1)
     
     ## i dont want to add new lines if they are already there
-    selected_lines = [line.strip() for i, line in enumerate(lines) if i >= start and i <= end]
+    selected_lines = [line.strip() for i, line in enumerate(lines) if i >= start and i < end]
     if newline not in selected_lines:
         found_chapter = False
         last_index = 0
@@ -68,39 +59,22 @@ def new_html_line(html_file,release,newline,val):
                         last_index = i
 
         if last_index != 0 and found_chapter == False:
-            lines.insert(last_index, "            </BR>\n")
-            lines.insert(last_index, "            </BR>\n")
-            lines.insert(last_index, "            </BR>\n")
-            lines.insert(last_index, "            </OL>\n")
             lines.insert(last_index, "                </UL>\n")
             lines.insert(last_index, "                    {}\n".format(newline))
             lines.insert(last_index, "                <UL>\n")
-            lines.insert(last_index, "            <OL>{}\n".format(newline))
+            lines.insert(last_index, "            <OL>{}\n".format(release))
+            lines.insert(last_index, "            <BR>\n")
+            lines.insert(last_index, "            <BR>\n")
+            lines.insert(last_index, "            <BR>\n")
+            lines.insert(last_index, "            </OL>\n")
+            lines.insert(last_index, "                </UL>\n")
 
         if last_index == 0:
             print "ERROR:: last </UL> not found in the hmlt file! Something went wrong"
             sys.exit(1)
 
         with open(html_file, "w") as file:
-            file.writelines(lines)
-
-
-def difference(string1, string2):
-    # Split both strings into list items
-    string1 = string1.split("_")
-    string2 = string2.split("_")
-    A = set(string1) # Store all string1 list items in set A
-    B = set(string2) # Store all string2 list items in set B
- 
-    str_diff = B.symmetric_difference(A)
-    isEmpty = (len(str_diff) == 0)
- 
-    if isEmpty:
-    # print("No Difference. Both Strings Are Same")
-        return None
-    else:
-    # print("The Difference Between Two Strings: ")
-        return list(str_diff)
+            file.write("".join(lines))
 
 
 if __name__ == "__main__":
@@ -120,7 +94,7 @@ if __name__ == "__main__":
     newFileName = args.targetFile
     oldFile = oldFileName.split("/")[-1]
     newFile = newFileName.split("/")[-1]
-    # print(oldFile)
+    print(oldFile)
 
     ## find the run number
     oldRun = findRun(oldFile)
@@ -153,8 +127,14 @@ if __name__ == "__main__":
     oldRelease = findRelease(oldFile)
     newRelease = findRelease(newFile)
 
-    ## find the label name
-    folderName, oldLabelName, newLabelName = findLabels(oldRelease, newRelease, oldRun, oldSample, args.referenceLabel, args.targetLabel)
+    ## find the label name, only if it is not given as input. If it is given, it will be used
+    ## if args.referenceLabel is None and/or args.targetLabel is None they are hendled as input, so everything is fine
+    print("OLD RELEASE: {}".format(oldRelease))
+    print("NEW RELEASE: {}".format(newRelease))
+
+    oldLabelName, newLabelName = findLabel(oldRelease, newRelease, oldRun, args.referenceLabel, args.targetLabel)
+    folderName = make_folder_name(oldRun, oldSample, oldRelease, oldLabelName, newRelease, newLabelName)
+    
 
     # ## need to make this as a function, so that i can use it somewhere else
     # output = difference(oldRelease,newRelease)
@@ -216,17 +196,16 @@ if __name__ == "__main__":
     newstring = "<LI><A HREF=\""+folderName+"/index.html\">"+folderName+","+oldEra+"</A></LI>"
 
     ## check if afs is abulla or magdy
-    ## in the first case, pass "Release" as a parameter, in the second case, pass "AlCa" --> to be implemented
-
+    ## in the first case, pass "Release" as a parameter, in the second case, pass "AlCa"
     current_path = os.getcwd()
     if "abulla" not in current_path:
         new_html_line(htmlFile, chap, newstring, "AlCa")
     else:
         new_html_line(htmlFile, chap, newstring, "Release")
 
-    
-    oldLumi = str(round(float(lumiCalc.LumiCalc(oldFileName)),2))
-    newLumi = str(round(float(lumiCalc.LumiCalc(newFileName)),2))
+    ## now i need to check if the lumi is the same. If it is not, i need to print a warning and use the old one
+    oldLumi = str(round(float(LumiCalc(oldFileName)),2))
+    newLumi = str(round(float(LumiCalc(newFileName)),2))
 
     if oldLumi != newLumi:
         print("WARNING:: FOUND DIFFERENT LUMINOSITY VALUES: "+oldLumi+" vs "+newLumi)
@@ -242,4 +221,3 @@ if __name__ == "__main__":
         rc = subprocess.call(["./makeValidationPlots.sh", oldRun,oldFileName,oldLabelName,newFileName,newLabelName,folderName,oldEra,lumi,"true"])
     else:
         rc = subprocess.call(["./makeValidationPlots.sh", oldRun,oldFileName,oldLabelName,newFileName,newLabelName,folderName,oldEra,lumi])
-
