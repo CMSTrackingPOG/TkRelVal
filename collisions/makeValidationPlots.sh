@@ -11,10 +11,7 @@ era=$7
 lumi=${8}
 full=${9:false} # if true, do all plots, otherwise, just essential plots
 
-# directory=/eos/user/a/abulla/www/public/Physics/tracking/validation/DATA/${release}
 directory=/eos/project/c/cmsweb/www/tracking/validation/DATA/${folderName}
-
-## Se lumi = 0, ovvero non l'ho presa dal py, --> prendiamola da brillcalc direi
 
 #Create directories for webpage
 if [ ! -d ${directory} ] ; then    
@@ -24,7 +21,6 @@ else
     mkdir ${directory} 
 fi 
                            
-
 for subdir in offline #pixel
 do
     mkdir -p ${directory}/PV_HPTks/${subdir}_lin
@@ -73,10 +69,13 @@ do
     mkdir -p ${directory}/OfflinePV/${subdir}_log
 done
 
-for subdir in Ks Ks_Lxy16 Lambda Lambda_Lxy16
+for subdir in HIP_OOTpu_INpu HIP_OOTpu_noINpu HIP_noOOTpu_INpu
 do
-    mkdir -p ${directory}/V0/${subdir}_lin
-    mkdir -p ${directory}/V0/${subdir}_log
+    for ssubdir in Ks Ks_Lxy16 Lambda Lambda_Lxy16
+    do
+        mkdir -p ${directory}/V0/${subdir}/${ssubdir}_lin
+        mkdir -p ${directory}/V0/${subdir}/${ssubdir}_log
+    done
 done
 
 for subdir in MatchedTks LostTks
@@ -88,7 +87,7 @@ done
 echo "Analyzing ${refFile} and ${newFile} in ${folderName}"   
 
 #Run the ROOT Macro. This is trivial, compiles a .cpp file that makes all the plots.  
-root -b -q -l "runValidationComparison.C("\"${refFile}\",\"${refLabel}\",\"${newFile}\",\"${newLabel}\",\"${directory}\",\"${era}\",${lumi},\"${full}\"")"   
+root -b -q -l "${PWD}/runValidationComparison.C("\"${refFile}\",\"${refLabel}\",\"${newFile}\",\"${newLabel}\",\"${directory}\",\"${era}\",${lumi},\"${full}\"")"   
 
 #generate index.html files on the fly for release directory
 cd ${directory}
@@ -127,9 +126,12 @@ cd ${directory}/OfflinePV
 ../../afscode/genSubSubDirOfflinePV.sh
 cd -
 
-cd ${directory}/V0
-../../afscode/genSubSubDirV0.sh
-cd -
+for subdir in HIP_OOTpu_INpu HIP_OOTpu_noINpu HIP_noOOTpu_INpu
+do
+    cd ${directory}/V0/${subdir}
+    ../../../afscode/genSubSubDirV0.sh
+    cd -
+done
 
 cd ${directory}/PackCand
 ../../afscode/genSubSubDirPackCand.sh
@@ -227,14 +229,21 @@ do
     done
 done
 
-for subdir in Ks Ks_Lxy16 Lambda Lambda_Lxy16
+
+cd ${directory}/V0/
+cp ../../afscode/index.php .
+cd --
+for subdir in HIP_OOTpu_INpu HIP_OOTpu_noINpu HIP_noOOTpu_INpu
 do
-    for scale in lin log
-    do 
-	cd ${directory}/V0/${subdir}_${scale}
-	# ../../../afscode/diow.pl -t "${release} V0 Monitoring ${subdir} Collisions Validation (${scale})" -c 3
-    cp ../../../afscode/index.php .  
-	cd --
+    for ssubdir in Ks Ks_Lxy16 Lambda Lambda_Lxy16
+    do
+        for scale in lin log
+        do 
+        cd ${directory}/V0/${subdir}/${ssubdir}_${scale}
+        # ../../../afscode/diow.pl -t "${release} V0 Monitoring ${subdir} Collisions Validation (${scale})" -c 3
+        cp ../../../../afscode/index.php .  
+        cd --
+        done
     done
 done
 
