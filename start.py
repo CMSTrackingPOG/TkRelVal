@@ -38,7 +38,7 @@ def new_html_line(html_file,release,newline,val):
                 ## qui invece se mi fermo al primo, non trovo lo start.. vado avanti, niente break!!
 
     if start == len(lines):
-        print "ERROR:: start not found in the hmlt file! Something went wrong"
+        print("ERROR:: start not found in the hmlt file! Something went wrong")
         sys.exit(1)
     
     ## i dont want to add new lines if they are already there
@@ -70,7 +70,7 @@ def new_html_line(html_file,release,newline,val):
             lines.insert(last_index, "                </UL>\n")
 
         if last_index == 0:
-            print "ERROR:: last </UL> not found in the hmlt file! Something went wrong"
+            print("ERROR:: last </UL> not found in the hmlt file! Something went wrong")
             sys.exit(1)
 
         with open(html_file, "w") as file:
@@ -129,8 +129,8 @@ if __name__ == "__main__":
 
     ## find the label name, only if it is not given as input. If it is given, it will be used
     ## if args.referenceLabel is None and/or args.targetLabel is None they are hendled as input, so everything is fine
-    print("OLD RELEASE: {}".format(oldRelease))
-    print("NEW RELEASE: {}".format(newRelease))
+    print(("OLD RELEASE: {}".format(oldRelease)))
+    print(("NEW RELEASE: {}".format(newRelease)))
 
     oldLabelName, newLabelName = findLabel(oldRelease, newRelease, oldRun, args.referenceLabel, args.targetLabel)
     folderName = make_folder_name(oldRun, oldSample, oldRelease, oldLabelName, newRelease, newLabelName)
@@ -205,19 +205,21 @@ if __name__ == "__main__":
 
     ## now i need to check if the lumi is the same. If it is not, i need to print a warning and use the old one
     oldLumi = str(round(float(LumiCalc(oldFileName)),2))
+    print("sto qui")
     newLumi = str(round(float(LumiCalc(newFileName)),2))
+    print("sto qua")
 
     if oldLumi != newLumi:
-        print("WARNING:: FOUND DIFFERENT LUMINOSITY VALUES: "+oldLumi+" vs "+newLumi)
-        print("WARNING:: USING THE OLD LUMINOSITY VALUE: "+oldLumi)
-    lumi = oldLumi
+        print(("WARNING:: FOUND DIFFERENT LUMINOSITY VALUES: "+oldLumi+" vs "+newLumi))
+        print(("WARNING:: USING THE OLD LUMINOSITY VALUE: "+oldLumi))
 
 # FROM THIS POINT I SHOULD TRANSLATE THE .SH FILE.. 
 # I do not have time at this moment, but i will one day.
 # for now, i just use the sh
     import subprocess
-    os.chdir('/afs/cern.ch/user/a/abulla/CMSSW_9_4_8/src/TkRelVal/collisions')
+    # os.chdir('/afs/cern.ch/user/a/abulla/CMSSW_9_4_8/src/TkRelVal/collisions')
+    os.chdir('/afs/cern.ch/user/a/abulla/CMSSW_11_1_4/src/TkRelVal/collisions')
     if args.FullPlots == True:
-        rc = subprocess.call(["./makeValidationPlots.sh", oldRun,oldFileName,oldLabelName,newFileName,newLabelName,folderName,oldEra,lumi,"true"])
+        rc = subprocess.call(["./makeValidationPlots.sh", oldRun,oldFileName,oldLabelName,newFileName,newLabelName,folderName,oldEra,oldLumi,newLumi,"true"])
     else:
-        rc = subprocess.call(["./makeValidationPlots.sh", oldRun,oldFileName,oldLabelName,newFileName,newLabelName,folderName,oldEra,lumi])
+        rc = subprocess.call(["./makeValidationPlots.sh", oldRun,oldFileName,oldLabelName,newFileName,newLabelName,folderName,oldEra,oldLumi,newLumi])

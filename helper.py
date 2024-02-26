@@ -243,20 +243,58 @@ def findGTs(html_content):
     cleaned_target = [re.sub(r"<.*?>", "", elem) for elem in target_filtered]
     cleaned_reference = [re.sub(r"<.*?>", "", elem) for elem in reference_filtered]
 
+    ##easy case, everything was good
     if len(cleaned_reference) == 1 and len(cleaned_target) == 1:
         return {"target": cleaned_target[0], "reference": cleaned_reference[0]}
-    else:
-        print("Multiple (or absent) target or reference elements")
-        print("Filtered target:", cleaned_target)
-        print("Filtered reference:", cleaned_reference)
-        return {"target": '' , "reference": ''}
+
+    ##1st bad case, multiple GTs
+    if len(cleaned_reference) > 1 or len(cleaned_reference) > 1:
+        print ("Never tested. Multiple GTs found!")
+        if len(cleaned_reference) > 1:
+            print("Please, choose one GT for reference: ")
+            for i in cleaned_reference:
+                print ("GT {}-th: ".format(i,cleaned_reference[i]))
+            answer = int(raw_input().lower())
+        cleaned_reference_prov = [cleaned_reference[answer]]
+        cleaned_reference = cleaned_reference_prov
+
+        if len(cleaned_target) > 1:
+            print("Please, choose one GT for target: ")
+            for i in cleaned_target:
+                print ("GT {}-th: ".format(i,cleaned_target[i]))
+            answer = int(raw_input().lower())
+            cleaned_target_prov = [cleaned_target[answer]]
+            cleaned_target = cleaned_target_prov
+        return {"target": cleaned_target[0], "reference": cleaned_reference[0]}
+
+    ##2st bad case, not ref GT
+    if len(cleaned_reference) == 0:
+        print("Do you want to manually insert reference GT? [y/n]")
+        answer = raw_input().lower()
+        if answer == "n" or answer == "no":
+            print("Continuing without reference GT...")
+        elif answer == "y" or answer == "yes":
+            print("Please, insert reference GTs...")
+            cleaned_reference = [raw_input()]
+
+    ##2nd bad case, no target GT:
+    if len(cleaned_target) == 0:
+        print("Do you want to manually insert target GT? [y/n]")
+        answer = raw_input().lower()
+        if answer == "n" or answer == "no":
+            print("Continuing without target GT...")
+        elif answer == "y" or answer == "yes":
+            print("Please, insert target GTs...")
+            cleaned_target = [raw_input()]
+
+    return {"target": cleaned_target[0], "reference": cleaned_reference[0]}
 
 
 ## scarico html con i risultati della pagina e li salvo in output_files.html
 ## seleziono le righe che mi interessano e salvo il nome del file in una lista, selezionando tra DQM e .root
 ## tra questi faccio una classifica, cercando quelli che sono più simili alle mie parole chiave
 ## favoreggio quelli che hanno v2 dentro e penalizzo quelli che hanno v1 dentro
-## favoreggio quelli che hanno i soliti run number (355769, 356381,357735)
+## favoreggio quelli che hanno i soliti run number (355769, 356381,357735) + quelli del 2023
 ## se ci sono tre elementi con lo stesso identico punteggio e un nome file molto simile
 ## tipo DQM_V0001_R000356635__ZeroBias__CMSSW_13_1_0_pre4-130X_dataRun3_v1_RelVal_2022C-v1__DQMIO.root e DQM_V0001_R000357735__ZeroBias__CMSSW_13_1_0_pre4-130X_dataRun3_v1_RelVal_2022D-v1__DQMIO.root (cambia la era e il runnumber)
 ## favorisco la tripletta --> non sempre le campagne hanno tre file, ma ultimamente si.. 
@@ -265,7 +303,7 @@ def findGTs(html_content):
 def similarity_score(file_name, keys):
     score = sum(-200 for keyword in keys if keyword in file_name)
     score = score + sum(Levenshtein.distance(key, file_name) for key in keys)
-    hs_keys = ["v2", "v3", "355769", "356381", "357735", "2022C", "2022D", "2022B"]
+    hs_keys = ["v2", "v3", "355769", "356381", "357735", "367131", "369978", "2022C", "2022D", "2022B", "2023C", "2023D"]
     ls_keys = ["v1","HLT"]
     for item in hs_keys:
         if item in file_name:
@@ -313,10 +351,17 @@ def getFileNames(Rel, GTs, sample):
 
     # Calcola il punteggio di similarità per ogni file
     scores = {name: similarity_score(name, keywords) for name in files}
+    print scores
 
-    # Se ci sono tre files con un nome molto simile e lo stesso punteggio, abbassa il loro punteggio:
+    # Se ci sono tre (o due, per il 2023) files con un nome molto simile e lo stesso punteggio, abbassa il loro punteggio:
     # è molto verosimile che siano i file che cerco!
-    if len(scores) >= 3:
+    # if len(scores) >1 :
+    #     for name1, name2 in itertools.combinations(scores, 2):
+    #         if scores[name1] == scores[name2]:
+    #             if difflib.SequenceMatcher(None, name1, name2).ratio() > 0.9:
+    #                 scores[name1] -= 100
+    #                 scores[name2] -= 100
+    if len(scores) > 2 :
         for name1, name2, name3 in itertools.combinations(scores, 3):
             if scores[name1] == scores[name2] == scores[name3]:
                 if difflib.SequenceMatcher(None, name1, name2, name3).ratio() > 0.9:
@@ -477,7 +522,7 @@ if __name__ == "__main__":
     ## fin qui ho preso le relase, ora cerchiamo i GT!!!
     GTs = findGTs(html_content)
     print "Releases: ", Rel
-    print "Global Tags", GTs
+    print "Global Tags: ", GTs
 
 
     ## CHECK POINT
@@ -529,7 +574,7 @@ if __name__ == "__main__":
     def is_file_in_directory(file, directory):
         for root, dirs, files in os.walk(directory):
             if file in files:
-                return True
+                return root
         return False
 
 
@@ -570,8 +615,19 @@ if __name__ == "__main__":
         dire_tar = os.path.join(directory, findImportantRelease(tar["rootname"])[:-1]+"x", tar["label"], tar["run"], tar["sample"])
         dire_ref = os.path.join(directory, findImportantRelease(ref["rootname"])[:-1]+"x", ref["label"], ref["run"], ref["sample"])
 
-        if is_file_in_directory(tar["rootname"], directory): 
-            print("Files di target già presenti nella directory")
+        if is_file_in_directory(tar["rootname"], directory) != False: 
+            ## fix the case in which the file is *not* in a directory made with the label (i.e file is in ../pre5/.. but i want label 13_3_0_pre5 for comparison)
+            ## it was in that directory because for older comparison that was enought. Let's re-download, easiest and silliest thing to do but works :)
+            if dire_tar != os.path.join(is_file_in_directory(tar["rootname"], directory),tar["rootname"]):
+                print ("File was alredy here, but under different folder. Lets re-downald that.. i will fix in future...")
+                command = 'wget - q -e robots=off --wait 1 -r -l1 -nd -np "https://cmsweb.cern.ch/dqm/relval/data/browse/ROOT/RelValData/CMSSW_{}_{}_x/" -A "{}" --no-check-certificate --certificate ~/.globus/html_cert/myCert.pem --private-key ~/.globus/html_cert/myCert.key'.format(Rel["target"].split("_")[0], Rel["target"].split("_")[1], tar["rootname"])
+                os.system(command)
+                command = 'mkdir -p {}'.format(dire_tar)
+                os.system(command)
+                command = 'mv {} {}'.format(tar["rootname"], dire_tar)
+                os.system(command)
+            else:
+                print("Files di target già presenti nella directory")
         else:
             print("Il file target non è presente nella directory, scarico")
             command = 'wget - q -e robots=off --wait 1 -r -l1 -nd -np "https://cmsweb.cern.ch/dqm/relval/data/browse/ROOT/RelValData/CMSSW_{}_{}_x/" -A "{}" --no-check-certificate --certificate ~/.globus/html_cert/myCert.pem --private-key ~/.globus/html_cert/myCert.key'.format(Rel["target"].split("_")[0], Rel["target"].split("_")[1], tar["rootname"])
@@ -581,8 +637,19 @@ if __name__ == "__main__":
             command = 'mv {} {}'.format(tar["rootname"], dire_tar)
             os.system(command)
 
-        if is_file_in_directory(ref["rootname"], directory): 
-            print("Files di reference già presenti nella directory")
+        if is_file_in_directory(ref["rootname"], directory) != False: 
+            ## fix the case in which the file is *not* in a directory made with the label (i.e file is in ../pre5/.. but i want label 13_3_0_pre5 for comparison)
+            ## it was in that directory because for older comparison that was enought. Let's re-download, easiest and silliest thing to do but works :)
+            if dire_ref != os.path.join(is_file_in_directory(ref["rootname"], directory),ref["rootname"]):
+                print("File was already here but in a different folder. Let's re-download that.. TO BE FIXED")
+                command = 'wget -q -e robots=off --wait 1 -r -l1 -nd -np "https://cmsweb.cern.ch/dqm/relval/data/browse/ROOT/RelValData/CMSSW_{}_{}_x/" -A "{}" --no-check-certificate --certificate ~/.globus/html_cert/myCert.pem --private-key ~/.globus/html_cert/myCert.key'.format(Rel["reference"].split("_")[0], Rel["reference"].split("_")[1], ref["rootname"])
+                os.system(command)
+                command = 'mkdir -p {}'.format(dire_ref)
+                os.system(command)
+                command = 'mv {} {}'.format(ref["rootname"], dire_ref)
+                os.system(command)
+            else:
+                print("Files di reference già presenti nella directory")
         else:
             print("Il file reference non è presente nella directory, scarico")
             command = 'wget -q -e robots=off --wait 1 -r -l1 -nd -np "https://cmsweb.cern.ch/dqm/relval/data/browse/ROOT/RelValData/CMSSW_{}_{}_x/" -A "{}" --no-check-certificate --certificate ~/.globus/html_cert/myCert.pem --private-key ~/.globus/html_cert/myCert.key'.format(Rel["reference"].split("_")[0], Rel["reference"].split("_")[1], ref["rootname"])

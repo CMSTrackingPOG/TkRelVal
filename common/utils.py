@@ -21,10 +21,18 @@ def findRelease(filename):
 
 def findEra(filename, year="2022"):
     try:
-        return filename.split(year)[1][0]
+        split = filename.split(year)[1][0]
+        splits = filename.split(year)
+        if len(splits) > 2:
+            for i in range(1,len(splits)):
+                chance = splits[i][0]
+                if chance.isupper():
+                    return chance
+        else:
+            return split
     except IndexError:
         try:
-            return filename.split("2023")[1][0]
+            return findEra(filename, "2023")
         except IndexError:
             return None
 
@@ -44,7 +52,8 @@ def findLabel(oldRelease, newRelease, oldRun, referenceLabel=None, targetLabel=N
     if output is None:
         print("WARNING:: NO DIFFERENCES *AT ALL* FOUND IN RELEASES VERSION")
 
-    filtered_output = filter_list(output)
+    ##also removing duplicates
+    filtered_output = list(set(filter_list(output)))
     del output
 
     try:

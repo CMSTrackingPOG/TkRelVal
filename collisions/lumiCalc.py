@@ -29,7 +29,8 @@ def findRun(filename):
 
 def mkJson(filename, temp_file):
     file = ROOT.TFile(filename, "read")
-    print("debuggg: ", filename)
+    print("AO")
+    # print("debuggg: ", filename)
     runNum = int(findRun(filename.split("/")[-1]))
     path1 = "DQMData/Run "+str(runNum)+"/Tracking/Run summary/V0Monitoring/Lambda/n_vs_LS"
     path2 = "DQMData/Run "+str(runNum)+"/Tracking/Run summary/V0Monitoring/HIP_OOTpu_INpu/Lambda/n_vs_LS"
@@ -38,7 +39,7 @@ def mkJson(filename, temp_file):
     non_null_entries = []
     hist = file.Get(path1)
     if hist and not hist.IsZombie():
-        print("debuggg: lumi isto found @ ", path1)
+        print(("debuggg: lumi isto found @ ", path1))
         for i in range(0, hist.GetNbinsX() + 1):
             if hist.GetBinContent(i) != 0:
                 non_null_entries.append(i)
@@ -48,7 +49,7 @@ def mkJson(filename, temp_file):
         ## provo con un altro path, perche' gli ultimi file hanno un path diverso per questo histo!!
         hist = file.Get(path2)
         if hist and not hist.IsZombie():
-            print("debuggg: lumi isto found @ ", path2)
+            print(("debuggg: lumi isto found @ ", path2))
             for i in range(0, hist.GetNbinsX() + 1):
                 if hist.GetBinContent(i) != 0:
                     non_null_entries.append(i)
@@ -81,7 +82,7 @@ def read_recorded_value(file_name):
                 try:
                     return float(data_line[6].strip())
                 except ValueError or IndexError:
-                    print "ERROR:: the luminosity value is not a number, something went wrong with lumicalc! Setting it to 0."
+                    print("ERROR:: the luminosity value is not a number, something went wrong with lumicalc! Setting it to 0.")
                     return float(0.)
             counter = counter+1
     
@@ -102,9 +103,9 @@ def LumiCalc(filename):
     os.system("rm {}".format(temp_json_path))
     print("computing the luminosity with lumicalc, this could take a while...")
     command = "brilcalc lumi -i "+"\""+jsondata+"\""+" -u /pb >> " + temp_txt_path
-    print command
+    # print command
     os.system(command)
     lumiValue = read_recorded_value(temp_txt_path)
-    print("Luminosity [/pb] is: ", lumiValue)
+    print(("Luminosity [/pb] is: ", lumiValue))
     os.system("rm {}".format(temp_txt_path))
     return lumiValue
