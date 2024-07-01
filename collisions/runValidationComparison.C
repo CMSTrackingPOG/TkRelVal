@@ -1,4 +1,4 @@
-#include "ReleaseComparison.cpp+"
+#include "ReleaseComparison.cpp"
 
 void runValidationComparison(const char * refFile, const char * refLabel, const char * newFile, const char * newLabel,
 			     const TString directory, const TString era, const Double_t lumi, const TString full) 

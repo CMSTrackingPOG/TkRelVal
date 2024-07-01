@@ -12,6 +12,13 @@ def findSample(filename):
     except IndexError:
         return None
 
+def findSampleDAS(filename):
+    rawsample = filename.split("/")
+    try:
+        return rawsample[1]
+    except IndexError:
+        return None
+
 def findRelease(filename):
     rawrelease = filename.split("__")
     try:
@@ -19,15 +26,22 @@ def findRelease(filename):
     except IndexError:
         return None
 
+def findReleaseDAS(filename):
+    rawrelease = filename.split("CMSSW_")[-1]
+    try:
+        return rawrelease.split("_")[0]+"_"+rawrelease.split("_")[1]+"_"+rawrelease.split("_")[2]
+    except IndexError:
+        return None
+
 def findEra(filename, year="2022"):
     try:
-        split = filename.split(year)[1][0]
+        split = year+filename.split(year)[1][0]
         splits = filename.split(year)
         if len(splits) > 2:
             for i in range(1,len(splits)):
                 chance = splits[i][0]
                 if chance.isupper():
-                    return chance
+                    return year+chance
         else:
             return split
     except IndexError:
@@ -74,13 +88,13 @@ def findLabel(oldRelease, newRelease, oldRun, referenceLabel=None, targetLabel=N
 
     if referenceLabel is None:
         print("ref Label for {} is: {}".format(oldRelease,oldLabelName))
-        change_name = raw_input("Do you want to change it? if yes type it, otherwise no: ").lower()
+        change_name = input("Do you want to change it? if yes type it, otherwise no: ").lower()
         # if change_name.lower() != "no" or change_name.lower() != "n" or change_name.lower() != "":
         if len(change_name)>3:
             oldLabelName = change_name
     if targetLabel is None:
         print("target Label for {} is: {}".format(newRelease,newLabelName))
-        change_name = raw_input("Do you want to change it? if yes type it, otherwise type no: ").lower()
+        change_name = input("Do you want to change it? if yes type it, otherwise type no: ").lower()
         # if change_name.lower() != "no" or change_name.lower() != "n" or change_name.lower() != "":
         if len(change_name)>3:
             newLabelName = change_name

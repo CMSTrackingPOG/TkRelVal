@@ -7,10 +7,11 @@ rel=${3}  # old release to check against (e.g. pre1)
 sample=${4}
 add_key=${5:-*}
 optional_arg=${6:-*}
+export X509_USER_PROXY=`voms-proxy-info -path`
 
 echo "Getting sample: $sample"
 
-wget -e robots=off --wait 1 -r -l1 -nd -np "https://cmsweb.cern.ch/dqm/relval/data/browse/ROOT/RelValData/$web_dir/" -A "*$run*$sample*$rel*$add_key*$optional_arg*root" --no-check-certificate --certificate ~/.globus/html_cert/myCert.pem --private-key ~/.globus/html_cert/myCert.key
+wget -e robots=off --wait 1 -r -l1 -nd -np "https://cmsweb.cern.ch/dqm/relval/data/browse/ROOT/RelValData/$web_dir/" -A "*$run*$sample*$rel*$add_key*$optional_arg*root" --no-check-certificate  --certificate $X509_USER_PROXY --private-key $X509_USER_PROXY
 
 
 if [ ${sample} == "Cosmics" ] ; then

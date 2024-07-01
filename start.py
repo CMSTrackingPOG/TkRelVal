@@ -1,6 +1,5 @@
 # coding=utf-8
 
-import ROOT
 import sys
 import os
 from configparser import ConfigParser
@@ -105,9 +104,9 @@ if __name__ == "__main__":
 
 
     ## find the era
-    oldEra = findEra(oldFile, "2022")
-    newEra = findEra(newFile, "2022")
-    if oldEra not in ["A", "B", "C", "D", "E", "F"] or newEra not in ["A", "B", "C", "D", "E", "F"]:
+    oldEra = findEra(oldFile)
+    newEra = findEra(newFile)
+    if oldEra not in ["2022A", "2022B", "2022C", "2022D", "2022E", "2022F", "2023A", "2023B", "2023C", "2023D", "2023E", "2023F"] or newEra not in ["2022A", "2022B", "2022C", "2022D", "2022E", "2022F", "2023A", "2023B", "2023C", "2023D", "2023E", "2023F"]:
         print("WARNING:: ERA NOT FOUNDED!")
         newEra = "X"
         oldEra = "X"
@@ -218,7 +217,7 @@ if __name__ == "__main__":
 # for now, i just use the sh
     import subprocess
     # os.chdir('/afs/cern.ch/user/a/abulla/CMSSW_9_4_8/src/TkRelVal/collisions')
-    os.chdir('/afs/cern.ch/user/a/abulla/CMSSW_11_1_4/src/TkRelVal/collisions')
+    os.chdir('/afs/cern.ch/user/a/abulla/CMSSW_14_0_0/src/TkRelVal/collisions')
     if args.FullPlots == True:
         rc = subprocess.call(["./makeValidationPlots.sh", oldRun,oldFileName,oldLabelName,newFileName,newLabelName,folderName,oldEra,oldLumi,newLumi,"true"])
     else:
