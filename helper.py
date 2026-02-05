@@ -1,4 +1,15 @@
 # -*- coding: utf-8 -*-
+"""
+RelVal DQM comparator helper.
+
+What this script does (high level):
+- Given a CMSWeb URL (RelVal report / page), it authenticates via Kerberos/SSO and downloads the HTML.
+- Parses target/reference CMSSW releases (and GlobalTags if present).
+- Queries the DQM RelVal browser to find candidate DQM ROOT files (e.g. ZeroBias) for target/reference.
+- Matches target/reference by common runs, ensures labels are consistent, downloads missing ROOT files to EOS.
+- Launches comparisons via start.py (optionally in multiprocessing).
+"""
+
 import os
 import subprocess
 import sys
@@ -6,12 +17,17 @@ import re
 import Levenshtein
 import difflib
 import itertools
+import getpass
 from collections import OrderedDict
-from multiprocessing import Pool,cpu_count
-import threading
+from multiprocessing import Pool, cpu_count
+import requests
+import tsgauth
 from common.utils import *
 
-sys.path.insert(0,'/afs/cern.ch/user/a/abulla/CMSSW_14_0_0/src/TkRelVal/collisions')
+user = getpass.getuser()
+# NOTE: user home on AFS is /afs/cern.ch/user/<first_letter>/<username>/
+sys.path.insert(0, f'/afs/cern.ch/user/{user[0]}/{user}/CMSSW_14_0_0/src/TkRelVal/collisions')
+
 
 class bcolors:
     HEADER = '\033[95m'
@@ -27,34 +43,34 @@ class bcolors:
 def ask_to_continue():
     print("Do you want to continue? [y/n]")
     answer = input().lower()
-    if answer == "n" or answer == "no":
+    if answer in ("n", "no"):
         print("Exiting...")
         exit()
-    elif answer == "y" or answer == "yes":
+    elif answer in ("y", "yes"):
         print("Continuing...")
 
-# 1. Crea un ticket Kerberos (kinit) e verifica che sia valido
+
+# 1. Verify a valid Kerberos ticket (klist)
 def verify_kerberos_ticket():
     try:
-        # Esegue il comando klist per verificare i ticket Kerberos
         subprocess.check_output(['klist'])
         return True
     except subprocess.CalledProcessError:
         return False
 
-# 2. Esegue il comando 'auth-get-sso-cookie' per ottenere il cookie SSO
+
+# 2. (Legacy) obtain SSO cookie using auth-get-sso-cookie (not used below)
 def get_sso_cookie(url):
     try:
-        # Esegue il comando 'auth-get-sso-cookie' e salva il risultato nel file 'ssocookie_temp.txt'
         subprocess.check_output(['auth-get-sso-cookie', '-o', 'ssocookie_temp.txt', '-u', url])
         return True
     except subprocess.CalledProcessError:
         return False
 
-# 3. Legge l'HTML usando cURL e il cookie SSO e lo memorizza in un file
+
+# 3. (Legacy) read HTML using curl + cookie (not used below)
 def read_html_with_cookie(url, output_file):
     try:
-        # Legge l'HTML utilizzando cURL e il cookie salvato nel file 'ssocookie_temp.txt'
         subprocess.check_output(['curl', '-L', '--cookie', 'ssocookie_temp.txt', url, '-o', output_file])
         return True
     except subprocess.CalledProcessError:
@@ -63,7 +79,6 @@ def read_html_with_cookie(url, output_file):
 
 def filter_substring_list(iList):
     filtered_list = []
-
     for item in iList:
         is_substring = False
         for other_item in iList:
@@ -72,78 +87,60 @@ def filter_substring_list(iList):
                 break
         if not is_substring:
             filtered_list.append(item)
-
-    # iList = filtered_list
     return filtered_list
 
 
-def search_keywords_in_html(results, html_content, keyword, pattern=None, new_pattern_used = False):
-    # Create a regular expression pattern for the keyword
-    # (?i) makes the pattern case-insensitive
-    # (?<!data-) excludes matches that start with "data-"
-    # \s* matches any number of whitespace characters
-    # [^<\n\s.|]+ matches any number of characters that are not "<", "\n", whitespace, "|" or "." (i.e. the value of the attribute)
-    ## i'm looking for the words in keywords basically 
+def search_keywords_in_html(results, html_content, keyword, pattern=None, new_pattern_used=False):
+    """
+    Try to extract values like CMSSW releases from lines that look like:
+      keyword: 13_0_8abc-123 ...
+    """
     if pattern is None:
-        pattern = re.compile(r'(?i)(?<!data-){}:\s*([^<\n\s.|]+)'.format(re.escape(keyword)))
+        pattern = re.compile(r'(?i)(?<!data-){}:\s*([^<\s.|]+)'.format(re.escape(keyword)))
 
     matches = re.findall(pattern, html_content)
-    cleaned_matches = []
+    matches = set(matches)
 
-    # Iterate through each match and clean it
+    cleaned_matches = []
     for match in matches:
-        # Use regular expressions to extract specific patterns from the match
-        # First, try to find patterns like "13_0_8abc-123"
-        cleaned_match = re.search(r'\b\d+_\d+_\d+[a-zA-Z0-9_-]+\b', match)
+        cleaned_match = re.search(r'\d+_\d+_\d+(?:_[a-zA-Z0-9]+)?', match)
         if cleaned_match:
-            if cleaned_match.group() not in cleaned_matches and cleaned_match.group() != "": cleaned_matches.append(cleaned_match.group())
+            if cleaned_match.group() not in cleaned_matches and cleaned_match.group() != "":
+                cleaned_matches.append(cleaned_match.group())
         else:
-            # If the above pattern is not found, try to find patterns like "13_0_8" with boundaries
-            # boundaries of words are marked as \b
             cleaned_match = re.search(r'\b\d+_\d+_\d+\b', match)
             if cleaned_match:
-                if cleaned_match.group() not in cleaned_matches and cleaned_match.group() != "": cleaned_matches.append(cleaned_match.group())
+                if cleaned_match.group() not in cleaned_matches and cleaned_match.group() != "":
+                    cleaned_matches.append(cleaned_match.group())
             else:
-                # If still not found, try to find patterns like "13_0_8" without boundaries
                 cleaned_match = re.search(r'\d+_\d+_\d', match)
                 if cleaned_match:
-                    if cleaned_match.group() not in cleaned_matches and cleaned_match.group() != "": cleaned_matches.append(cleaned_match.group())
+                    if cleaned_match.group() not in cleaned_matches and cleaned_match.group() != "":
+                        cleaned_matches.append(cleaned_match.group())
 
-    # Store the cleaned matches in the results dictionary with the keyword as the key
     if cleaned_matches == []:
         new_pattern = re.compile(r'(?i)(?<!data-){}:\s*(.*?)(?=\n)'.format(re.escape(keyword)))
         if new_pattern != pattern:
-            print("TRYING MY BEST....")
-            ## hardcoded search with another pattern
-            search_keywords_in_html(results,html_content,keyword,new_pattern)
+            print("Trying alternative pattern...")
+            search_keywords_in_html(results, html_content, keyword, new_pattern)
         else:
-            print(("No clean matches found for keyword: {}".format(keyword)))
+            print(f"No clean matches found for keyword: {keyword}")
 
     if keyword not in results.keys():
         results[keyword] = cleaned_matches
 
-
     return results
 
-def findGTs(html_content, doTarget = False, doReference = False):
+
+def findGTs(html_content, doTarget=False, doReference=False):
     """
-    way more difficult to find the GT names in the html page, wrt to the release!!
-    So i do this step by step. Looking for Description, then for GT, then for data, then for the pattern of target and reference!
-    Find target and reference elements in the given HTML content.
-
-    Args:
-        html_content (str): HTML content to search.
-
-    Returns:
-        dict or None: A dictionary containing the target and reference elements, or None if not found.
+    Attempt to find GlobalTag names (target/reference) in the HTML content.
     """
     target = []
     reference = []
 
-    ## i'm excluding everything that is not a word, a space or - or _
     excluded_chars = r'(<.*?>)|([^\w\s-])'
 
-    # Narrow down the search to the "description" section
     div_start = "</div><p><strong>"
     div_end = "</p>"
     div_pattern = re.escape(div_start) + "(.*?)" + re.escape(div_end)
@@ -152,167 +149,132 @@ def findGTs(html_content, doTarget = False, doReference = False):
     if div_match:
         div_text = div_match.group(1)
     else:
-        print("</div><p><strong> not found, looking for description....")
+        print("Could not find '</div><p><strong>'. Trying to locate 'description' section...")
         div_start = 'description'
         div_end = '</html>'
         div_pattern = re.escape(div_start) + "(.*?)" + re.escape(div_end)
         div_match = re.search(div_pattern, html_content, re.IGNORECASE | re.DOTALL)
-
         if div_match:
-            print("Description found!!")
+            print("Description found.")
             div_text = div_match.group(1)
         else:
-            print("Description not found")
+            print("Description not found.")
 
     if div_match:
-        # Find the line that contains "GT" within the lines starting with "</div><p><strong>" or "Description" and ending with "</p>" or "</html>"
         gt_pattern = r"(?i)^.*GT.*$"
         gt_match = re.search(gt_pattern, div_text, re.MULTILINE)
 
         if gt_match:
-            # print("GT found!!")
             gt_line = gt_match.group(0)
-            gt_line_index = div_text.index(gt_line)
 
-            # Find the lines that contain "data" or "Data" after the "GT" line
             data_pattern = r"(?i)^.*data\S*$"
             lines = div_text.split("\n")
-            data_lines = []
-
-            for line in lines:
-                if re.search(data_pattern, line):
-                    data_lines.append(line.strip())
+            data_lines = [line.strip() for line in lines if re.search(data_pattern, line)]
 
             if len(data_lines) > 0:
-                # Search for patterns like 123X_abc within the lines after "data"
                 target_reference_pattern = r"(\d{3}X_[a-zA-Z]+\S*)"
                 for line in data_lines:
-                    if doTarget:
-                        if re.search(r"\btarget\b", line, re.IGNORECASE):
-                            target_match = re.search(target_reference_pattern, line)
-                            if target_match:
-                                target_value = re.sub(excluded_chars, '', target_match.group(1))
-                                target.append(target_value)
-                    if doReference:
-                        if re.search(r"\breference\b", line, re.IGNORECASE):
-                            reference_match = re.search(target_reference_pattern, line)
-                            if reference_match:
-                                reference_value = re.sub(excluded_chars, '', reference_match.group(1))
-                                reference.append(reference_value)
-            ## still need to work on this part due to special char (see excluded_chars), spaces or whatever
-            ## eventually i'm not really sure i'm appending the corret values to the lists
-            ## target match here is not defined
+                    if doTarget and re.search(r"\btarget\b", line, re.IGNORECASE):
+                        target_match = re.search(target_reference_pattern, line)
+                        if target_match:
+                            target_value = re.sub(excluded_chars, '', target_match.group(1))
+                            target.append(target_value)
+                    if doReference and re.search(r"\breference\b", line, re.IGNORECASE):
+                        reference_match = re.search(target_reference_pattern, line)
+                        if reference_match:
+                            reference_value = re.sub(excluded_chars, '', reference_match.group(1))
+                            reference.append(reference_value)
             else:
-                print("Data line not found, trying without it...")
-                # If "data" is not found, directly search for the pattern
+                print("No explicit 'data' line found. Trying a broader match...")
                 target_pattern = r"(?:target)[\s:-]*\d{3}X_[a-zA-Z]+\S*"
                 reference_pattern = r"(?:reference)[\s:-]*\d{3}X_[a-zA-Z]+\S*"
-                for line in data_lines:
-                    if doTarget:
-                        if re.findall(target_pattern, line):
-                            target.append(list(target_match))
-                    if doReference:
-                        if re.search(reference_pattern, line):
-                            reference.append(list(reference_match))
+
+                if doTarget:
+                    target_matches = re.findall(target_pattern, div_text, flags=re.IGNORECASE)
+                    for match in target_matches:
+                        target.extend(re.split(r"\s+", match))
+
+                if doReference:
+                    reference_matches = re.findall(reference_pattern, div_text, flags=re.IGNORECASE)
+                    for match in reference_matches:
+                        reference.extend(re.split(r"\s+", match))
         else:
-            print("GT line not found, trying without it...")
-            # If "GT" is not found, directly search for the pattern
+            print("No line containing 'GT' found. Trying a broad target/reference pattern...")
             target_pattern = r"(?i)(?:target)[\s:-]*\d{3}X_[a-zA-Z]+[\S]*"
             reference_pattern = r"(?i)(?:reference)[\s:-]*\d{3}X_[a-zA-Z]+[\S]*"
             if doTarget:
                 target_matches = re.findall(target_pattern, div_text)
-                if target_matches:
-                    for match in target_matches:
-                        separated_targets = re.split(" ", match)
-                        target.extend(separated_targets)
+                for match in target_matches:
+                    target.extend(re.split(" ", match))
             if doReference:
                 reference_matches = re.findall(reference_pattern, div_text)
-                if reference_matches:
-                    for match in reference_matches:
-                        separated_reference = re.split(" ", match)
-                        reference.extend(separated_reference)
+                for match in reference_matches:
+                    reference.extend(re.split(" ", match))
     else:
-        print("Description not found, trying my best without it...")
+        print("Description not found. Trying a broad match on the full HTML...")
         target_pattern = r"(?i)(?:target)[\s:-]*\d{3}X_[a-zA-Z]+[\S]*"
         reference_pattern = r"(?i)(?:reference)[\s:-]*\d{3}X_[a-zA-Z]+[\S]*"
         if doTarget:
             target_matches = re.findall(target_pattern, html_content)
-            if target_matches:
-                for match in target_matches:
-                    separated_targets = re.split(" ", match)
-                    target.extend(separated_targets)
-
-        reference_matches = re.findall(reference_pattern, html_content)
+            for match in target_matches:
+                target.extend(re.split(" ", match))
         if doReference:
-            if reference_matches:
-                for match in reference_matches:
-                    separated_reference = re.split(" ", match)
-                    reference.extend(separated_reference)
+            reference_matches = re.findall(reference_pattern, html_content)
+            for match in reference_matches:
+                reference.extend(re.split(" ", match))
 
-    # Filter out elements with "/" and with no "data" in them (dataRun3 for example)
     if doTarget:
         target_filtered = [elem for elem in target if "/" not in elem and "data" in elem]
-    if doReference:
-        reference_filtered = [elem for elem in reference if "/" not in elem and "data" in elem]
-
-    # Remove HTML tags from the elements
-    if doTarget:
         cleaned_target = [re.sub(r"<.*?>", "", elem) for elem in target_filtered]
     if doReference:
+        reference_filtered = [elem for elem in reference if "/" not in elem and "data" in elem]
         cleaned_reference = [re.sub(r"<.*?>", "", elem) for elem in reference_filtered]
 
-    ##easy case, everything was good
     if doTarget and doReference:
         if len(cleaned_reference) == 1 and len(cleaned_target) == 1:
             return {"target": cleaned_target[0], "reference": cleaned_reference[0]}
 
-    ##1st bad case, multiple GTs
     if doReference:
-        if len(cleaned_reference) > 1 or len(cleaned_reference) > 1:
-            print ("Never tested. Multiple GTs found!")
+        if len(cleaned_reference) > 1 or (doTarget and len(cleaned_target) > 1):
+            print("Multiple GTs found (this path was never fully tested).")
             if len(cleaned_reference) > 1:
-                print("Please, choose one GT for reference: ")
-                for i in cleaned_reference:
-                    print(("GT {}-th: ".format(i,cleaned_reference[i])))
-                answer = int(input().lower())
-            cleaned_reference_prov = [cleaned_reference[answer]]
-            cleaned_reference = cleaned_reference_prov
+                print("Please choose one reference GT:")
+                for idx, gt in enumerate(cleaned_reference):
+                    print(f"  [{idx}] {gt}")
+                answer = int(input().strip())
+                cleaned_reference = [cleaned_reference[answer]]
 
-        if doTarget:
-            if len(cleaned_target) > 1:
-                print("Please, choose one GT for target: ")
-                for i in cleaned_target:
-                    print(("GT {}-th: ".format(i,cleaned_target[i])))
-                answer = int(input().lower())
-                cleaned_target_prov = [cleaned_target[answer]]
-                cleaned_target = cleaned_target_prov
-            return {"target": cleaned_target[0], "reference": cleaned_reference[0]}
+            if doTarget and len(cleaned_target) > 1:
+                print("Please choose one target GT:")
+                for idx, gt in enumerate(cleaned_target):
+                    print(f"  [{idx}] {gt}")
+                answer = int(input().strip())
+                cleaned_target = [cleaned_target[answer]]
 
-        return {"reference": cleaned_reference[0]}
+            if doTarget:
+                return {"target": cleaned_target[0], "reference": cleaned_reference[0]}
+            return {"reference": cleaned_reference[0]}
 
-    ##2st bad case, not ref GT
-    if doReference:
         if len(cleaned_reference) == 0:
-            print("Do you want to manually insert reference GT? [y/n]")
+            print("No reference GT found. Do you want to insert it manually? [y/n]")
             answer = input().lower()
-            if answer == "n" or answer == "no":
+            if answer in ("n", "no"):
                 cleaned_reference = [""]
                 print("Continuing without reference GT...")
-            elif answer == "y" or answer == "yes":
-                print("Please, insert reference GTs...")
-                cleaned_reference = [input()]
+            else:
+                print("Please insert reference GT:")
+                cleaned_reference = [input().strip()]
 
-    ##2nd bad case, no target GT:
     if doTarget:
         if len(cleaned_target) == 0:
-            print("Do you want to manually insert target GT? [y/n]")
+            print("No target GT found. Do you want to insert it manually? [y/n]")
             answer = input().lower()
-            if answer == "n" or answer == "no":
+            if answer in ("n", "no"):
                 print("Continuing without target GT...")
                 cleaned_target = [""]
-            elif answer == "y" or answer == "yes":
-                print("Please, insert target GTs...")
-                cleaned_target = [input()]
+            else:
+                print("Please insert target GT:")
+                cleaned_target = [input().strip()]
 
     if doTarget and doReference:
         return {"target": cleaned_target[0], "reference": cleaned_reference[0]}
@@ -322,135 +284,151 @@ def findGTs(html_content, doTarget = False, doReference = False):
         return {"reference": cleaned_reference[0]}
 
 
-## scarico html con i risultati della pagina e li salvo in output_files.html
-## seleziono le righe che mi interessano e salvo il nome del file in una lista, selezionando tra DQM e .root
-## tra questi faccio una classifica, cercando quelli che sono più simili alle mie parole chiave
-## favoreggio quelli che hanno v2 dentro e penalizzo quelli che hanno v1 dentro
-## favoreggio quelli che hanno i soliti run number (355769, 356381,357735) + quelli del 2023
-## se ci sono tre elementi con lo stesso identico punteggio e un nome file molto simile
-## tipo DQM_V0001_R000356635__ZeroBias__CMSSW_13_1_0_pre4-130X_dataRun3_v1_RelVal_2022C-v1__DQMIO.root e DQM_V0001_R000357735__ZeroBias__CMSSW_13_1_0_pre4-130X_dataRun3_v1_RelVal_2022D-v1__DQMIO.root (cambia la era e il runnumber)
-## favorisco la tripletta --> non sempre le campagne hanno tre file, ma ultimamente si.. 
-## ritorno la lista totale con i punteggi! 
-
 def similarity_score(file_name, keys):
     score = sum(-200 for keyword in keys if keyword in file_name)
     score = score + sum(Levenshtein.distance(key, file_name) for key in keys)
-    hs_keys = ["v2", "v3", "355769", "356381", "357735", "367131", "369978", "2022C", "2022D", "2022B", "2023C", "2023D", "STD"]
-    ls_keys = ["v1","HLT","CNAFARM"]
+    hhs_keys = ["v3"]
+    hs_keys = ["v2", "355769", "356381", "357735", "367131", "369978", "2022C", "2022D", "2022B", "2023C", "2023D", "STD", "RelVal"]
+    ls_keys = ["v1", "HLT", "CNAFARM", "Lumi", "ARM", "KIT"]
+    for item in hhs_keys:
+        if item in file_name:
+            score = score - 75
     for item in hs_keys:
         if item in file_name:
             score = score - 50
     for item in ls_keys:
         if item in file_name:
-            score = score + 25
+            score = score + 30
     return score
+
+
+def _parse_timeleft_to_hours(timeleft_str):
+    # Expected formats: "168:00:00", "23:59:59", etc.
+    parts = timeleft_str.strip().split(":")
+    try:
+        if len(parts) == 3:
+            h = int(parts[0])
+            return h
+        if len(parts) == 2:
+            h = int(parts[0])
+            return h
+    except ValueError:
+        pass
+    return 0
+
 
 def checkProxy():
     cmd = 'voms-proxy-info'
     proc = subprocess.Popen(cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE, shell=True)
     out, err = proc.communicate()
 
-    # Decodifica gli output byte in stringhe
-    out_str = out.decode('utf-8')
-    err_str = err.decode('utf-8')
+    out_str = out.decode('utf-8', errors='ignore')
+    err_str = err.decode('utf-8', errors='ignore')
 
-    # No Proxy at all ?
     if 'Proxy not found' in err_str:
-        print('WARNING: No GRID proxy -> Get one first with:')
-        print('voms-proxy-init -voms cms -rfc --valid 168:0')
+        print('WARNING: No GRID proxy found. Get one first with:')
+        print('  voms-proxy-init -voms cms -rfc --valid 168:0')
         exit()
 
-    # More than 24h ?
-    timeLeft = 0
+    timeLeftHours = 0
     for line in out_str.split("\n"):
         if 'timeleft' in line:
-            timeLeft = int(line.split(':')[1])
+            # line example: "timeleft  : 167:59:59"
+            tl = line.split()[-1]
+            timeLeftHours = _parse_timeleft_to_hours(tl)
 
-    if timeLeft < 24:
-        print('WARNING: Your proxy is only valid for ', str(timeLeft), ' hours -> Renew it with:')
-        print('voms-proxy-init -voms cms -rfc --valid 168:0')
+    if timeLeftHours < 24:
+        print(f'WARNING: Your proxy is only valid for ~{timeLeftHours} hours. Renew it with:')
+        print('  voms-proxy-init -voms cms -rfc --valid 168:0')
         exit()
 
 
-def getFileNames(Rel, GTs, sample): 
-    ## questo il comando per prendere l'html della webpage con i files
-    print(bcolors.OKBLUE + "Downloading the list of all the DQM files..." + bcolors.ENDC)
+def drop_different_versions(files):
+    filtered_data = {}
+    for file in files:
+        match = re.match(r"(.*)(-v)(\d+)(__DQMIO\.root)", file)
+        if match:
+            base_name = match.group(1)
+            version = int(match.group(3))
+            if base_name not in filtered_data or version > filtered_data[base_name][1]:
+                filtered_data[base_name] = (file, version)
+    return [file for file, version in filtered_data.values()]
+
+
+def getFileNames(Rel, GTs, sample):
+    print(bcolors.OKBLUE + "Downloading the list of all DQM files..." + bcolors.ENDC)
     checkProxy()
     x509_user_proxy_path = os.popen("voms-proxy-info -path").read().strip()
     os.environ["X509_USER_PROXY"] = x509_user_proxy_path
-    os.system("wget -q --no-check-certificate --certificate $X509_USER_PROXY --private-key $X509_USER_PROXY -O output_files.html \"https://cmsweb.cern.ch/dqm/relval/data/browse/ROOT/RelValData/CMSSW_{}_{}_x/\"".format(Rel.split("_")[0], Rel.split("_")[1]))
 
-    # che è simile a quello per scaricare i files, ma scarica l'html in un file output_files.html 
-    
-    with open("/afs/cern.ch/user/a/abulla/CMSSW_14_0_0/src/TkRelVal/output_files.html", "r") as file:
+    os.system(
+        "wget -q --no-check-certificate --certificate $X509_USER_PROXY --private-key $X509_USER_PROXY "
+        "-O output_files.html "
+        "\"https://cmsweb.cern.ch/dqm/relval/data/browse/ROOT/RelValData/CMSSW_{}_{}_x/\"".format(
+            Rel.split("_")[0], Rel.split("_")[1]
+        )
+    )
+
+    html_path = f"/afs/cern.ch/user/{user[0]}/{user}/CMSSW_14_0_0/src/TkRelVal/output_files.html"
+    with open(html_path, "r") as file:
         DQMfiles_html = file.read()
 
-    # print(DQMfiles_html)
-
     if GTs != "":
-        Rel = Rel+"_"+GTs+"-"
+        Rel = Rel + "_" + GTs + "-"
     else:
-        Rel = Rel+"-"
+        Rel = Rel + "-"
 
-    keywords = [Rel, "ZeroBias", "dataRun3"]
+    keywords = ["ZeroBias", Rel, "dataRun3"]
     pattern = r".*{}.*".format(r".*".join(map(re.escape, keywords)))
 
     files = []
-
     for line in DQMfiles_html.splitlines():
-        # print line
         if re.search(pattern, line):
-            # print("La riga contiene tutte le parole chiave:", line)
             match = re.search(r'DQM.*?\.root', line)
             if match:
-                file_name = match.group(0)
-                files.append(file_name)
+                print(f"Match found: {match.group(0)}")
+                files.append(match.group(0))
         else:
             gts_parts = GTs.split('_')
             if Rel in line and "ZeroBias" in line:
                 if any(gts_part in line for gts_part in gts_parts):
                     match = re.search(r'DQM.*?\.root', line)
                     if match:
-                        file_name = match.group(0)
-                        files.append(file_name)
+                        files.append(match.group(0))
 
-    os.system("rm output_files.html")
+    files = drop_different_versions(files)
 
-    # Calcola il punteggio di similarità per ogni file
     scores = {name: similarity_score(name, keywords) for name in files}
     print(scores)
 
-    # Se ci sono tre (o due, per il 2023) files con un nome molto simile e lo stesso punteggio, abbassa il loro punteggio:
-    # è molto verosimile che siano i file che cerco!
-    # if len(scores) >1 :
-    #     for name1, name2 in itertools.combinations(scores, 2):
-    #         if scores[name1] == scores[name2]:
-    #             if difflib.SequenceMatcher(None, name1, name2).ratio() > 0.9:
-    #                 scores[name1] -= 100
-    #                 scores[name2] -= 100
-    if len(scores) > 2 :
+    if len(scores) > 2:
+        # Prefer triples with similar names and same score
         for name1, name2, name3 in itertools.combinations(scores, 3):
-            if "2022" in name1 and "2022" in name2 and "2022" in name3:
+            if "2022B" in name1 and "2022C" in name2 and "2022D" in name3:
                 if scores[name1] == scores[name2] == scores[name3]:
-                    if difflib.SequenceMatcher(None, name1, name2, name3).ratio() > 0.9:
+                    r12 = difflib.SequenceMatcher(None, name1, name2).ratio()
+                    r23 = difflib.SequenceMatcher(None, name2, name3).ratio()
+                    r13 = difflib.SequenceMatcher(None, name1, name3).ratio()
+                    if min(r12, r23, r13) > 0.9:
                         scores[name1] -= 100
                         scores[name2] -= 100
                         scores[name3] -= 100
+
         for name1, name2 in itertools.combinations(scores, 2):
-            if "2023" in name1 and "2023" in name2:
+            if "2023C" in name1 and "2023D" in name2:
                 if scores[name1] == scores[name2]:
-                        if difflib.SequenceMatcher(None, name1, name2 ).ratio() > 0.9:
-                                scores[name1] -= 100
-                                scores[name2] -= 100
-            
-    # Ordina i file in base al punteggio di similarità (dal più simile al meno simile), e prendo i primi tre
+                    if difflib.SequenceMatcher(None, name1, name2).ratio() > 0.9:
+                        scores[name1] -= 100
+                        scores[name2] -= 100
+
     sorted_files = sorted(list(scores.items()), key=lambda x: x[1])[:5]
-    # print( "DEBUGGGG: ", sorted_files)
+
+    # Keep only desired run numbers
+    runnumberlist = ["355769", "356381", "357735", "367131", "369978"]
+    sorted_files = [it for it in sorted_files if findRun(it[0]) in runnumberlist]
 
     dic = {}
-    for item in sorted_files:
-        filename = item[0]
-        value = item[1]
+    for filename, value in sorted_files:
         run = findRun(filename)
         era = findEra(filename)
         release = findRelease(filename)
@@ -466,125 +444,78 @@ def getFileNames(Rel, GTs, sample):
         }
 
     sorted_dic = sorted(list(dic.items()), key=lambda x: int(x[1]['run']))
-
     return OrderedDict(sorted_dic)
+
 
 def doRazor(dic1, dic2):
     _runs1 = [dic1[entry]["run"] for entry in dic1.keys()]
     _runs2 = [dic2[entry]["run"] for entry in dic2.keys()]
-
     common_runs = [i for i in _runs2 if i in _runs1]
 
     for key1 in list(dic1.keys()):
         if dic1[key1]["run"] not in common_runs:
             del dic1[key1]
-            
+
     for key2 in list(dic2.keys()):
         if dic2[key2]["run"] not in common_runs:
             del dic2[key2]
 
-            
 
 def compare(args):
     ref, tar, directory = args
 
-    dire_tar = os.path.join(directory, findImportantRelease(tar["rootname"])[:-1]+"x", tar["label"], tar["run"], tar["sample"])
-    dire_ref = os.path.join(directory, findImportantRelease(ref["rootname"])[:-1]+"x", ref["label"], ref["run"], ref["sample"])
+    dire_tar = os.path.join(directory, findImportantRelease(tar["rootname"])[:-1] + "x", tar["label"], tar["run"], tar["sample"])
+    dire_ref = os.path.join(directory, findImportantRelease(ref["rootname"])[:-1] + "x", ref["label"], ref["run"], ref["sample"])
 
-    # if is_file_in_directory(tar["rootname"], directory): 
-    #     print("Files di target già presenti nella directory")
-    # else:
-    #     print("Il file target non è presente nella directory, scarico?")
-    #     ask_to_continue()
-    #     command = 'wget -e robots=off --wait 1 -r -l1 -nd -np "https://cmsweb.cern.ch/dqm/relval/data/browse/ROOT/RelValData/CMSSW_{}_{}_x/" -A "{}" --no-check-certificate --certificate ~/.globus/html_cert/myCert.pem --private-key ~/.globus/html_cert/myCert.key'.format(Rel["target"].split("_")[0], Rel["target"].split("_")[1], tar["rootname"])
-    #     os.system(command)
-    #     command = 'mkdir -p {}'.format(dire_tar)
-    #     os.system(command)
-    #     command = 'mv {} {}'.format(tar["rootname"], dire_tar)
-    #     os.system(command)
+    print(bcolors.OKGREEN + "Running the comparison..." + bcolors.ENDC)
+    cmd = f"python3 start.py --refFile {os.path.join(dire_ref, ref['rootname'])} --targetFile {os.path.join(dire_tar, tar['rootname'])} --refLabel {ref['label']} --targetLabel {tar['label']} --FullPlots"
+    print(cmd)
+    os.system(cmd)
 
-    # if is_file_in_directory(ref["rootname"], directory): 
-    #     print("Files di reference già presenti nella directory")
-    # else:
-    #     print("Il file reference non è presente nella directory, scarico?")
-    #     ask_to_continue()
-    #     command = 'wget -e robots=off --wait 1 -r -l1 -nd -np "https://cmsweb.cern.ch/dqm/relval/data/browse/ROOT/RelValData/CMSSW_{}_{}_x/" -A "{}" --no-check-certificate --certificate ~/.globus/html_cert/myCert.pem --private-key ~/.globus/html_cert/myCert.key'.format(Rel["reference"].split("_")[0], Rel["reference"].split("_")[1], ref["rootname"])
-    #     os.system(command)
-    #     command = 'mkdir -p {}'.format(dire_ref)
-    #     os.system(command)
-    #     command = 'mv {} {}'.format(ref["rootname"], dire_ref)
-    #     os.system(command)
-
-    print(bcolors.OKGREEN + "Finally doing the comparison" + bcolors.ENDC)
-    print(("python3 start.py --refFile {} --targetFile {} --refLabel {} --targetLabel {} --FullPlots".format(os.path.join(dire_ref,ref["rootname"]), os.path.join(dire_tar,tar["rootname"]), ref["label"], tar["label"])))
-    # ask_to_continue()
-    os.system("python3 start.py --refFile {} --targetFile {} --refLabel {} --targetLabel {} --FullPlots".format(os.path.join(dire_ref,ref["rootname"]), os.path.join(dire_tar,tar["rootname"]), ref["label"], tar["label"]))
-
-
-
-#######################################################################
-###                                                                 ###
-###                          +++ MAIN +++                           ###
-###                                                                 ###
-#######################################################################
 
 if __name__ == "__main__":
-        
-    # # URL to be passed as an argument to the program
     url = sys.argv[1]
     output_file = "output.html"
 
     try:
-        # Verify the Kerberos ticket
         if not verify_kerberos_ticket():
-            raise ValueError("Invalid Kerberos ticket. Perform authentication.")
+            raise ValueError("Invalid Kerberos ticket. Please authenticate (kinit).")
 
-        # Create the Kerberos ticket (kinit) if necessary
-            os.system('kinit')
-
-        # Delete the output file if it already exists
         if os.path.isfile(output_file):
             os.remove(output_file)
 
-        # Delete the ssocookie_temp.txt file if it already exists
-        if os.path.isfile("ssocookie_temp.txt"):
-            os.remove("ssocookie_temp.txt")
+        auth = tsgauth.oidcauth.KerbSessionAuth()
+        response = requests.get(url, **auth.authparams())
+        print(response)
+        print(response.status_code)
 
-        # Get the SSO cookie if not already present
-        if not os.path.isfile("ssocookie_temp.txt"):
-            get_sso_cookie(url)
-        if get_sso_cookie(url):
-            print("SSO cookie obtained successfully.")
-
-        # Read the HTML using the SSO cookie and save it to a file
-        if read_html_with_cookie(url, output_file):
-            print(("HTML read successfully using the SSO cookie and saved to", output_file))
+        if response.status_code == 200:
+            print("Successfully loaded credentials, reading the URL content...")
+            html_lines = response.text.splitlines()
+            with open(output_file, "w", encoding="utf-8") as file:
+                for line in html_lines:
+                    if "Report’s status has been changed" in line:
+                        print("Encountered termination string, stopping HTML write.")
+                        break
+                    file.write(line + "\n")
         else:
-            raise IOError("Failed to read HTML using the SSO cookie.")
+            raise ValueError(f"Error during GET request: {response.status_code}")
 
-        # Delete the ssocookie_temp.txt file
-        # if os.path.isfile("ssocookie_temp.txt"):
-        #     os.remove("ssocookie_temp.txt")
-        
     except ValueError as e:
-        print(("Error:", str(e)))
+        print(f"Error: {str(e)}")
         exit()
     except Exception as e:
-        print(("An unexpected error occurred:", str(e)))
+        print(f"An unexpected error occurred: {str(e)}")
         exit()
-
 
     with open(output_file, "r") as file:
         html_content = file.read()
-
-    ## remove html file, i saved it in a variable
-    # os.remove(output_file)
 
     keywords_to_search = ["target", "reference", "target release", "reference release"]
 
     results = {}
     for keyword in keywords_to_search:
-       search_keywords_in_html(results, html_content, keyword)
+        search_keywords_in_html(results, html_content, keyword)
 
     target_values = results["target"] + results["target release"]
     reference_values = results["reference"] + results["reference release"]
@@ -595,189 +526,167 @@ if __name__ == "__main__":
     if len(set(target_values)) == 1:
         target_value = target_values[0]
     else:
-        print("Le voci 'target' e 'target release' non sono tutte uguali.")
+        print("The entries 'target' and 'target release' are not consistent:")
         print(target_values)
         exit()
 
     if len(reference_values) > 1:
         reference_values = filter_substring_list(reference_values)
+
     if len(set(reference_values)) == 1:
         reference_value = reference_values[0]
     else:
-        print("Le voci 'reference' e 'reference release' non sono tutte uguali.")
+        print("The entries 'reference' and 'reference release' are not consistent:")
         print(reference_values)
         exit()
 
-
     Rel = {"target": target_value, "reference": reference_value}
-    ## fin qui ho preso le relase, ora cerchiamo i GT!!!
-    ## se ho trovato anche il GT nella relase, lo inserisco nel GT
+    print("Releases:", Rel)
+
+    # Extract GT if already embedded in release string; otherwise parse from HTML
     if len(Rel["target"].split("_")) > 3:
         GTs = {}
-        GTs["target"] = Rel["target"].replace(Rel["target"].split("_")[0] + "_" + Rel["target"].split("_")[1] + "_" + Rel["target"].split("_")[2]+"_","")
-        Rel["target"] = Rel["target"].split("_")[0] + "_" + Rel["target"].split("_")[1] + "_" + Rel["target"].split("_")[2]
+        GTs["target"] = Rel["target"].replace(
+            Rel["target"].split("_")[0] + "_" + Rel["target"].split("_")[1] + "_" + Rel["target"].split("_")[2] + "_", ""
+        )
+        Rel["target"] = "_".join(Rel["target"].split("_")[:3])
     else:
         GTs = findGTs(html_content, doTarget=True)
-    
+
     if len(Rel["reference"].split("_")) > 3:
-        GTs["reference"] = Rel["reference"].replace(Rel["reference"].split("_")[0] + "_" + Rel["reference"].split("_")[1] + "_" + Rel["reference"].split("_")[2]+"_","")
-        Rel["reference"] = Rel["reference"].split("_")[0] + "_" + Rel["reference"].split("_")[1] + "_" + Rel["reference"].split("_")[2]
+        GTs["reference"] = Rel["reference"].replace(
+            Rel["reference"].split("_")[0] + "_" + Rel["reference"].split("_")[1] + "_" + Rel["reference"].split("_")[2] + "_", ""
+        )
+        Rel["reference"] = "_".join(Rel["reference"].split("_")[:3])
     else:
         if "reference" not in GTs:
-            GTs = findGTs(html_content, doReference = True)
+            GTs = findGTs(html_content, doReference=True)
 
-    # GTs = findGTs(html_content)
-    print("Releases: ", Rel)
-    print("Global Tags: ", GTs)
+    print("Releases:", Rel)
+    print("Global Tags:", GTs)
 
-
-    ## CHECK POINT
     ask_to_continue()
-    import pprint
 
-
-    ## A questo punto, devo cercare i samples online ed eventualmente scaricarli, poi ho quasi finito!
-    ## prima magari verifichiamo se li ho già...
-    ## ma prima ancora, cerchiamo **veramente** quelli che voglio!
     target_files = getFileNames(Rel["target"], GTs["target"], "ZeroBias")
     reference_files = getFileNames(Rel["reference"], GTs["reference"], "ZeroBias")
 
-    ## cut out the files with not matching runs!
-    ## if i have to compare different eras this obv will be a problem
-    ## but the framework does not support that for the time being :)
+    # Keep only matching runs between reference and target
     doRazor(target_files, reference_files)
 
-    # print "Target files: ", target_files.keys()
-    # print "Target files runs: "
-    # print "Reference files: ", reference_files.keys()
-    # print "Reference files runs: ", reference_files.values()
+    print(bcolors.HEADER + "Target files:" + bcolors.ENDC)
+    for entry_name, entry_data in target_files.items():
+        print(f"{entry_name}:")
+        print(f"  rootfile: {entry_data['rootname']}")
+        print(f"  run: {entry_data['run']}")
+        print(f"  era: {entry_data['era']}")
+        print(f"  release: {entry_data['release']}")
+        print(f"  sample: {entry_data['sample']}")
+        print(f"  value: {entry_data['value']}\n")
 
-    print(bcolors.HEADER + "Target files: " + bcolors.ENDC)
-    for entry_name, entry_data in list(target_files.items()):
-        print(("{}:".format(entry_name)))
-        print(("  rootfile: {}".format(entry_data['rootname'])))
-        print(("  run: {}".format(entry_data['run'])))
-        print(("  era: {}".format(entry_data['era'])))
-        print(("  release: {}".format(entry_data['release'])))
-        print(("  sample: {}".format(entry_data['sample'])))
-        print(("  value: {}\n".format(entry_data['value'])))
-        
+    print(bcolors.HEADER + "Reference files:" + bcolors.ENDC)
+    for entry_name, entry_data in reference_files.items():
+        print(f"{entry_name}:")
+        print(f"  rootfile: {entry_data['rootname']}")
+        print(f"  run: {entry_data['run']}")
+        print(f"  era: {entry_data['era']}")
+        print(f"  release: {entry_data['release']}")
+        print(f"  sample: {entry_data['sample']}")
+        print(f"  value: {entry_data['value']}\n")
 
-    print(bcolors.HEADER + "Reference files: " + bcolors.ENDC)
-    for entry_name, entry_data in list(reference_files.items()):
-        print(("{}:".format(entry_name)))
-        print(("  rootfile: {}".format(entry_data['rootname'])))
-        print(("  run: {}".format(entry_data['run'])))
-        print(("  era: {}".format(entry_data['era'])))
-        print(("  release: {}".format(entry_data['release'])))
-        print(("  sample: {}".format(entry_data['sample'])))
-        print(("  value: {}\n".format(entry_data['value'])))
-
-    ## CHECK POINT
     ask_to_continue()
 
-    ## here i want to have the exactly same dimension of the dictionaries, so i have to cut, eventually :)
-
-
-    # a questo punto ho le informazioni che mi servono, verifico di avere la coppia reference-target, se non li ho li scarico e poi li confronto
-    # se li ho già, li confronto direttamente
-    # # Directory principale da controllare
     directory = "/eos/project/c/cmsweb/www/tracking/validation/DATA/DQM/"
 
-    # Funzione per controllare se un file è presente nella directory e/o nelle sottodirectory
     def is_file_in_directory(file, directory):
         for root, dirs, files in os.walk(directory):
             if file in files:
                 return root
         return False
 
-
-    ## take the key for the first entry in each dictionary
     key1 = next(iter(target_files))
     key2 = next(iter(reference_files))
-    dic_ref = reference_files[key2] 
+    dic_ref = reference_files[key2]
     dic_tar = target_files[key1]
 
-    ## prima di controllare se ci sono o non ci sono i file, aggiungo il label (visto che mi servono entrambi i file per calcolarli)
-    ## sta cosa non è **totalmente** vera ma per ora lasciamo così..
     if dic_ref["run"] == dic_tar["run"] and dic_ref["era"] == dic_tar["era"]:
         dic_ref["label"], dic_tar["label"] = findLabel(dic_ref["release"], dic_tar["release"], dic_ref["run"])
-        # print "DEBUGGG::  Labels: ", ref["label"], tar["label"]
     else:
-        print("Run e/o era diversi tra i due file. Orindamento Fallito!")
-        print(("ref_run: ", ref["run"], "tar_run: ", tar["run"]))
+        print("Run and/or era differ between the two files. Label assignment failed!")
+        print(f"ref_run: {dic_ref['run']}  tar_run: {dic_tar['run']}")
         exit()
 
-    print("Labels: ", dic_ref["label"], dic_tar["label"])
+    print("Labels:", dic_ref["label"], dic_tar["label"])
 
-    # mettere a tutti lo stesso label, chiesto una sola volta, per ref[0] e tar[0]
-    for ref_key, ref in list(reference_files.items()):
+    for ref in reference_files.values():
         ref["label"] = dic_ref["label"]
-
-    for tar_key, tar in list(target_files.items()):
+    for tar in target_files.values():
         tar["label"] = dic_tar["label"]
 
     ask_to_continue()
 
-    ## A questo punto aggiorno il path di destinazione dei file, seguento la sintassi:
-    ## DQM/release/label/run/sample/file.root
-    ## Controlla se i file sono presenti nella directory e nelle sottodirectory
-    ## se non ci sono, li scarica e li sposta nella directory giusta
-    ## se ci sono, li confronta e basta
+    for ref, tar in zip(reference_files.values(), target_files.values()):
+        dire_tar = os.path.join(directory, findImportantRelease(tar["rootname"])[:-1] + "x", tar["label"], tar["run"], tar["sample"])
+        dire_ref = os.path.join(directory, findImportantRelease(ref["rootname"])[:-1] + "x", ref["label"], ref["run"], ref["sample"])
 
-    for ref,tar in zip(list(reference_files.values()), list(target_files.values())):
-        dire_tar = os.path.join(directory, findImportantRelease(tar["rootname"])[:-1]+"x", tar["label"], tar["run"], tar["sample"])
-        dire_ref = os.path.join(directory, findImportantRelease(ref["rootname"])[:-1]+"x", ref["label"], ref["run"], ref["sample"])
-
-        if is_file_in_directory(tar["rootname"], directory) != False: 
-            ##FIXME the case in which the file is *not* in a directory made with the label (i.e file is in ../pre5/.. but i want label 13_3_0_pre5 for comparison)
-            ## it was in that directory because for older comparison that was enought. Let's re-download, easiest and silliest thing to do but works :)
-            if dire_tar != os.path.join(is_file_in_directory(tar["rootname"], directory),tar["rootname"]):
-                print ("File was alredy here, but under different folder. Lets re-downald that.. i will fix in future...")
-                command = 'wget -q -e robots=off --wait 1 -r -l1 -nd -np "https://cmsweb.cern.ch/dqm/relval/data/browse/ROOT/RelValData/CMSSW_{}_{}_x/" -A "{}" --no-check-certificate --certificate $X509_USER_PROXY --private-key $X509_USER_PROXY'.format(Rel["target"].split("_")[0], Rel["target"].split("_")[1], tar["rootname"])
+        tar_found_root = is_file_in_directory(tar["rootname"], directory)
+        if tar_found_root:
+            current_tar_path = os.path.join(tar_found_root, tar["rootname"])
+            desired_tar_path = os.path.join(dire_tar, tar["rootname"])
+            if desired_tar_path != current_tar_path:
+                print("Target file exists but under a different folder. Re-downloading (TODO: improve).")
+                command = (
+                    'wget -q -e robots=off --wait 1 -r -l1 -nd -np '
+                    '"https://cmsweb.cern.ch/dqm/relval/data/browse/ROOT/RelValData/CMSSW_{}_{}_x/" '
+                    '-A "{}" --no-check-certificate --certificate $X509_USER_PROXY --private-key $X509_USER_PROXY'
+                ).format(Rel["target"].split("_")[0], Rel["target"].split("_")[1], tar["rootname"])
                 os.system(command)
-                command = 'mkdir -p {}'.format(dire_tar)
-                os.system(command)
-                command = 'mv {} {}'.format(tar["rootname"], dire_tar)
-                os.system(command)
+                os.system(f'mkdir -p {dire_tar}')
+                os.system(f'mv {tar["rootname"]} {dire_tar}')
             else:
-                print("Files di target già presenti nella directory")
+                print("Target file already present.")
         else:
-            print("Il file target non è presente nella directory, scarico")
-            command = 'wget -q -e robots=off --wait 1 -r -l1 -nd -np "https://cmsweb.cern.ch/dqm/relval/data/browse/ROOT/RelValData/CMSSW_{}_{}_x/" -A "{}" --no-check-certificate --certificate $X509_USER_PROXY --private-key $X509_USER_PROXY'.format(Rel["target"].split("_")[0], Rel["target"].split("_")[1], tar["rootname"])
+            print("Target file not found in EOS, downloading...")
+            command = (
+                'wget -q -e robots=off --wait 1 -r -l1 -nd -np '
+                '"https://cmsweb.cern.ch/dqm/relval/data/browse/ROOT/RelValData/CMSSW_{}_{}_x/" '
+                '-A "{}" --no-check-certificate --certificate $X509_USER_PROXY --private-key $X509_USER_PROXY'
+            ).format(Rel["target"].split("_")[0], Rel["target"].split("_")[1], tar["rootname"])
             os.system(command)
-            command = 'mkdir -p {}'.format(dire_tar)
-            os.system(command)
-            command = 'mv {} {}'.format(tar["rootname"], dire_tar)
-            os.system(command)
+            os.system(f'mkdir -p {dire_tar}')
+            os.system(f'mv {tar["rootname"]} {dire_tar}')
 
-        if is_file_in_directory(ref["rootname"], directory) != False: 
-            ## FIXME the case in which the file is *not* in a directory made with the label (i.e file is in ../pre5/.. but i want label 13_3_0_pre5 for comparison)
-            ## it was in that directory because for older comparison that was enought. Let's re-download, easiest and silliest thing to do but works :)
-            if dire_ref != os.path.join(is_file_in_directory(ref["rootname"], directory),ref["rootname"]):
-                print("File was already here but in a different folder. Let's re-download that.. TO BE FIXED")
-                command = 'wget -q -e robots=off --wait 1 -r -l1 -nd -np "https://cmsweb.cern.ch/dqm/relval/data/browse/ROOT/RelValData/CMSSW_{}_{}_x/" -A "{}" --no-check-certificate --certificate $X509_USER_PROXY --private-key $X509_USER_PROXY'.format(Rel["reference"].split("_")[0], Rel["reference"].split("_")[1], ref["rootname"])
+        ref_found_root = is_file_in_directory(ref["rootname"], directory)
+        if ref_found_root:
+            current_ref_path = os.path.join(ref_found_root, ref["rootname"])
+            desired_ref_path = os.path.join(dire_ref, ref["rootname"])
+            if desired_ref_path != current_ref_path:
+                print("Reference file exists but under a different folder. Re-downloading (TODO: improve).")
+                command = (
+                    'wget -q -e robots=off --wait 1 -r -l1 -nd -np '
+                    '"https://cmsweb.cern.ch/dqm/relval/data/browse/ROOT/RelValData/CMSSW_{}_{}_x/" '
+                    '-A "{}" --no-check-certificate --certificate $X509_USER_PROXY --private-key $X509_USER_PROXY'
+                ).format(Rel["reference"].split("_")[0], Rel["reference"].split("_")[1], ref["rootname"])
                 os.system(command)
-                command = 'mkdir -p {}'.format(dire_ref)
-                os.system(command)
-                command = 'mv {} {}'.format(ref["rootname"], dire_ref)
-                os.system(command)
+                os.system(f'mkdir -p {dire_ref}')
+                os.system(f'mv {ref["rootname"]} {dire_ref}')
             else:
-                print("Files di reference già presenti nella directory")
+                print("Reference file already present.")
         else:
-            print("Il file reference non è presente nella directory, scarico")
-            command = 'wget -q -e robots=off --wait 1 -r -l1 -nd -np "https://cmsweb.cern.ch/dqm/relval/data/browse/ROOT/RelValData/CMSSW_{}_{}_x/" -A "{}" --no-check-certificate --certificate $X509_USER_PROXY --private-key $X509_USER_PROXY'.format(Rel["reference"].split("_")[0], Rel["reference"].split("_")[1], ref["rootname"])
+            print("Reference file not found in EOS, downloading...")
+            command = (
+                'wget -q -e robots=off --wait 1 -r -l1 -nd -np '
+                '"https://cmsweb.cern.ch/dqm/relval/data/browse/ROOT/RelValData/CMSSW_{}_{}_x/" '
+                '-A "{}" --no-check-certificate --certificate $X509_USER_PROXY --private-key $X509_USER_PROXY'
+            ).format(Rel["reference"].split("_")[0], Rel["reference"].split("_")[1], ref["rootname"])
             os.system(command)
-            command = 'mkdir -p {}'.format(dire_ref)
-            os.system(command)
-            command = 'mv {} {}'.format(ref["rootname"], dire_ref)
-            os.system(command)
+            os.system(f'mkdir -p {dire_ref}')
+            os.system(f'mv {ref["rootname"]} {dire_ref}')
 
-    arguments = [(ref, tar, directory) for ref, tar in zip(list(reference_files.values()), list(target_files.values()))]
+    arguments = [(ref, tar, directory) for ref, tar in zip(reference_files.values(), target_files.values())]
+    print("Arguments:", arguments)
 
-    print("Arguments: ", arguments)
-    num_cores = min(len(arguments),cpu_count())
-    pool = Pool(processes=num_cores)  # Numero di core da utilizzare
-    print(("Running the processes in multiprocessing mode: {} cores used".format(num_cores)))
+    num_cores = min(len(arguments), cpu_count())
+    pool = Pool(processes=num_cores)
+    print(f"Running comparisons in multiprocessing mode: using {num_cores} cores")
     ask_to_continue()
     pool.map(compare, arguments)

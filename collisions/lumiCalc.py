@@ -102,10 +102,18 @@ def LumiCalc(filename):
 
     os.system("rm {}".format(temp_json_path))
     print("computing the luminosity with lumicalc, this could take a while...")
-    command = "brilcalc lumi -i "+"\""+jsondata+"\""+" -u /pb >> " + temp_txt_path
-    # print command
-    os.system(command)
-    lumiValue = read_recorded_value(temp_txt_path)
+    command = "brilcalc lumi -i "+"\""+jsondata+"\""+" -u /pb -c web >> " + temp_txt_path
+    print("Executing command:", command)
+
+    try:
+        result = subprocess.run(command, shell=True, check=True, capture_output=True, text=True)
+        lumiValue = read_recorded_value(temp_txt_path)
+    except subprocess.CalledProcessError as e:
+        print(f"Errore durante l'esecuzione di brilcalc: {e.stderr}")
+        lumiValue = 0
+    except Exception as e:
+        print(f"Errore generico: {e}")
+        lumiValue = 0
     print(("Luminosity [/pb] is: ", lumiValue))
     os.system("rm {}".format(temp_txt_path))
     return lumiValue

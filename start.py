@@ -5,6 +5,8 @@ import os
 from configparser import ConfigParser
 import argparse
 import numpy as np
+import getpass
+
 from collisions.lumiCalc import *
 from common.utils import *
 
@@ -88,6 +90,7 @@ if __name__ == "__main__":
     # parser.add_argument('--v',     dest='verbose',     help='Optional prints with retrieved infos', default = True, action = 'store_false', required = False)
 
     args = parser.parse_args()
+    user = getpass.getuser()
 
     oldFileName = args.referenceFile
     newFileName = args.targetFile
@@ -106,13 +109,17 @@ if __name__ == "__main__":
     ## find the era
     oldEra = findEra(oldFile)
     newEra = findEra(newFile)
-    if oldEra not in ["2022A", "2022B", "2022C", "2022D", "2022E", "2022F", "2023A", "2023B", "2023C", "2023D", "2023E", "2023F"] or newEra not in ["2022A", "2022B", "2022C", "2022D", "2022E", "2022F", "2023A", "2023B", "2023C", "2023D", "2023E", "2023F"]:
-        print("WARNING:: ERA NOT FOUNDED!")
+
+    def is_valid_era(era):
+        return bool(re.fullmatch(r"20(22|23|24)[B-F]", era))
+
+    if not (is_valid_era(oldEra) and is_valid_era(newEra)):
+        print("WARNING:: ERA NOT FOUND!")
         newEra = "X"
         oldEra = "X"
-    if newEra != oldEra :
-        print("WARNING:: FOUND ERROR IN ERA. THERY ARE NOT EQUAL!")
 
+    if newEra != oldEra:
+        print("WARNING:: FOUND ERROR IN ERA. THEY ARE NOT EQUAL!")  
 
     ## find the sample name
     oldSample = findSample(oldFile)
@@ -121,7 +128,6 @@ if __name__ == "__main__":
         print("ERROR:: FOUND ERROR IN SAMPLE NAME. THERY ARE NOT THE SAME!")
         # exit()
     
-
     ## find the "release" name
     oldRelease = findRelease(oldFile)
     newRelease = findRelease(newFile)
@@ -135,69 +141,19 @@ if __name__ == "__main__":
     folderName = make_folder_name(oldRun, oldSample, oldRelease, oldLabelName, newRelease, newLabelName)
     
 
-    # ## need to make this as a function, so that i can use it somewhere else
-    # output = difference(oldRelease,newRelease)
-    # old_important_parameters = [oldRelease.split("_")[0], oldRelease.split("_")[1], oldRelease.split("_")[2], oldRelease.split("_")[3].split("-")[0]]
-    # new_important_parameters = [newRelease.split("_")[0], newRelease.split("_")[1], newRelease.split("_")[2], newRelease.split("_")[3].split("-")[0]]
-    # if output == None: 
-    #     print("WARNING:: NO DIFFERENCES FOUND IN RELEASES VERSION")
-    
-    # for param in old_important_parameters:
-    #     if param not in output:
-    #         ## in questo caso non cambiano parametri importanti (CMSSW, 12,3,X), quindi il cambiamento è un rereco vs prompt o pre4 vs pre5
-    #         check = False
-    #     else:
-    #         ## in questo caso c'è cambiamento di release
-    #         check = True
-
-    # ## here i want to store all the label "accepted". Dont know if it will be a feature i will use.. 
-    # ## i just put it there for the moment.. 
-
-    # filtered_output = filter_list(output)
-    # del output
-
-    # try:
-    #     oldLabelName = filtered_output[0]
-    #     newLabelName = filtered_output[1]
-    # except IndexError:
-    #     oldLabelName = "old"
-    #     newLabelName = "new"
-
-    # if args.referenceLabel is not None:
-    #     oldLabelName = args.referenceLabel
-    # if args.targetLabel is not None:
-    #     newLabelName = args.targetLabel
-
-    # if check == False:
-    #     if args.referenceLabel is None:
-    #         print "ref Label is: ", oldLabelName
-    #         change_name = raw_input("Do you want to change it? (yes/no): ")
-    #         if change_name.lower() == "yes" or change_name.lower() == "y":
-    #             oldLabelName = raw_input("Please insert a label name: ")
-    #     if args.targetLabel is None:
-    #         print "target Label is: ", newLabelName
-    #         change_name = raw_input("Do you want to change it? (yes/no): ")
-    #         if change_name.lower() == "yes" or change_name.lower() == "y":
-    #             newLabelName = raw_input("Please insert a label name: ")
-
-    #     folderName = oldRun+"_"+oldSample+"_"+oldRelease.split("_")[0]+"_"+oldRelease.split("_")[1]+"_"+oldRelease.split("_")[2]+"_"+oldRelease.split("_")[3]+"_"+oldLabelName+"_vs_"+newRelease.split("_")[1]+"_"+newRelease.split("_")[2]+"_"+newRelease.split("_")[3]+"_"+newLabelName
-    #     print(folderName)
-    # else :
-    #     folderName = oldRun+"_"+oldSample+"_"+oldRelease.split("_")[0]+"_"+oldRelease.split("_")[1]+"_"+oldRelease.split("_")[2]+"_"+oldRelease.split("_")[3]+"_vs_"+newRelease.split("_")[1]+"_"+newRelease.split("_")[2]+"_"+newRelease.split("_")[3]
-    #     print(folderName)
-
-# Before executing the macro, which takes quite much time, I update the index.html so that i can view the plots!
-# Now I search for the first "</UL>" word and insert an HREF to see the new folder in the webpage! search by line number and then insert a line
-# Not the smartest way, need to work on this one day
+    # Before executing the macro, which takes quite much time, I update the index.html so that i can view the plots!
+    # Now I search for the first "</UL>" word and insert an HREF to see the new folder in the webpage! search by line number and then insert a line
+    # Not the smartest way, need to work on this one day
 
     htmlFile="/eos/project/c/cmsweb/www/tracking/validation/DATA/index.html"
     chap = oldRelease.split("_")[0] + " " + oldRelease.split("_")[1]+"_"+oldRelease.split("_")[2]+"_X"
     newstring = "<LI><A HREF=\""+folderName+"/index.html\">"+folderName+","+oldEra+"</A></LI>"
 
-    ## check if afs is abulla or magdy
+    ## check if afs is abulla (user) or magdy
     ## in the first case, pass "Release" as a parameter, in the second case, pass "AlCa"
+    ## this is used to tore validtions on the left or right side of the page
     current_path = os.getcwd()
-    if "abulla" not in current_path:
+    if "abulla" not in current_path or user not in current_path :
         new_html_line(htmlFile, chap, newstring, "AlCa")
     else:
         new_html_line(htmlFile, chap, newstring, "Release")
@@ -212,12 +168,11 @@ if __name__ == "__main__":
         print(("WARNING:: FOUND DIFFERENT LUMINOSITY VALUES: "+oldLumi+" vs "+newLumi))
         print(("WARNING:: USING THE OLD LUMINOSITY VALUE: "+oldLumi))
 
-# FROM THIS POINT I SHOULD TRANSLATE THE .SH FILE.. 
-# I do not have time at this moment, but i will one day.
-# for now, i just use the sh
+    # FROM THIS POINT I SHOULD TRANSLATE THE .SH FILE.. 
+    # I do not have time at this moment, but i will one day.
+    # for now, i just use the sh
     import subprocess
-    # os.chdir('/afs/cern.ch/user/a/abulla/CMSSW_9_4_8/src/TkRelVal/collisions')
-    os.chdir('/afs/cern.ch/user/a/abulla/CMSSW_14_0_0/src/TkRelVal/collisions')
+    os.chdir(f'/afs/cern.ch/user/a/{user}/CMSSW_14_0_0/src/TkRelVal/collisions')
     if args.FullPlots == True:
         rc = subprocess.call(["./makeValidationPlots.sh", oldRun,oldFileName,oldLabelName,newFileName,newLabelName,folderName,oldEra,oldLumi,newLumi,"true"])
     else:

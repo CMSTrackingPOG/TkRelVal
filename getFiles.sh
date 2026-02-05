@@ -22,7 +22,7 @@ if [ ${sample} == "Cosmics" ] ; then
     fi
 else
     if ls *${run}*${sample}*.root 1> /dev/null 2>&1; then
-        cd collisions/DQM
+        cd DQM
         if [ ! -d ${web_dir} ] ; then    
             mkdir ${web_dir}
         fi 
@@ -41,7 +41,7 @@ else
         fi
         cd ../../../../../
 
-        mv *${run}*${sample}*.root collisions/DQM/${web_dir}/${rel}/${run}/${sample}/
+        mv *${run}*${sample}*.root DQM/${web_dir}/${rel}/${run}/${sample}/
     else
         echo "File not found for sample: $sample"
     fi

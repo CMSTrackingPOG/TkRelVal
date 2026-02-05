@@ -1,3 +1,5 @@
+import re
+
 def findRun(filename):
     rawrun = filename.split("_")[2]
     try: 
@@ -33,22 +35,12 @@ def findReleaseDAS(filename):
     except IndexError:
         return None
 
-def findEra(filename, year="2022"):
-    try:
-        split = year+filename.split(year)[1][0]
-        splits = filename.split(year)
-        if len(splits) > 2:
-            for i in range(1,len(splits)):
-                chance = splits[i][0]
-                if chance.isupper():
-                    return year+chance
-        else:
-            return split
-    except IndexError:
-        try:
-            return findEra(filename, "2023")
-        except IndexError:
-            return None
+def findEra(filename):
+    for year in ["2022", "2023", "2024"]:
+        match = re.search(fr"{year}([A-Z])", filename)
+        if match:
+            return match.group(0)  # Restituisce "2022B", "2023C", ecc.
+    return "X"  # Se nessun match è trovato
 
 def findImportantRelease(filename):
     rawrelease = filename.split("__")
