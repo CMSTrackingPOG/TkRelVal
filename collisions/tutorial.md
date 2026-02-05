@@ -89,11 +89,16 @@ scram b -j 8
 To simplify file handling and ensure results are written directly to EOS, create a symbolic link:
 
 ```bash
-cd $CMSSW_BASE/src/TkRelVal/collisions
+cd $CMSSW_BASE/src/TkRelVal
 ln -s /eos/project/c/cmsweb/www/tracking/validation/DATA/DQM DQM
 ls -l DQM
 ```
 
+```bash
+cd $CMSSW_BASE/src/TkRelVal/collisions
+ln -s /eos/project/c/cmsweb/www/tracking/validation/DATA/DQM DQM
+ls -l DQM
+```
 Expected output:
 
 ```text
