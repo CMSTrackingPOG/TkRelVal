@@ -36,11 +36,11 @@ def findReleaseDAS(filename):
         return None
 
 def findEra(filename):
-    for year in ["2022", "2023", "2024"]:
+    for year in ["2022", "2023", "2024", "2025", "2026"]:
         match = re.search(fr"{year}([A-Z])", filename)
         if match:
-            return match.group(0)  # Restituisce "2022B", "2023C", ecc.
-    return "X"  # Se nessun match è trovato
+            return match.group(0)  # returns the full match, e.g., "2022C"
+    return "X"  # If no match is found, return "X" or any default value you prefer
 
 def findImportantRelease(filename):
     rawrelease = filename.split("__")
